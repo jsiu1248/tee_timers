@@ -42,3 +42,8 @@ def create_app(config_name='default'):
     login_manager.init_app(app)
     mail.init_app(app)
     csrf.init_app(app)
+
+    from .main import main as main_blueprint  # curly braces mean package in vscode
+    app.register_blueprint(main_blueprint)
+
+    return app
