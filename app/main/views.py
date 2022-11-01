@@ -7,4 +7,4 @@ from flask_sqlalchemy import SQLAlchemy
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
-    return "hello"
+    return render_template('index.html')
