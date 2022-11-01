@@ -6,65 +6,15 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 {% endblock %}
 
+{# helps with tracking time and dates#}
 {% block scripts %}
 {{ super() }}
 {{ moment.include_moment() }}
 {% endblock %}
 
-{% block navbar %}
-<div class="navbar navbar-default" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Ragtime</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="/">Home</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-            {% if current_user.is_authenticated %}
-            <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
-            {% else %}
-            <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
-            {% endif %}
-            </ul>
-            {# adding link to nav bar #}
-            <ul class="nav navbar-nav navbar-right">
-            {% if current_user.is_authenticated %}
-            <li>
-            <a href="{{ url_for('main.user', username=current_user.username) }}">
-            Profile
-            </a>
-            </li>
-            {% endif %}
-            </ul>
-            <ul class='nav navbar-nav navbar right'>
-                {% if current_user.is_authenticated %}
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{ current_user.unicornify(size=32) }}">
-                        Account <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ url_for('auth.change_password') }}">Change Password</a></li>
-                        <li><a href="{{ url_for('auth.change_email_request') }}">Change Email</a></li>
-                        <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
-                    </ul>
-                </li>
-                {% else %}
-                <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
-                {% endif %}
-        </div>
-    </div>
-</div>
-{% endblock %}
+{# have to add navbar again#}
 
+{# goes through all of the queued messages and flashes them #}
 {% block content %}
 <div class="container">
     {% for msg in get_flashed_messages()%}
@@ -77,4 +27,3 @@
     {% block page_content %}{% endblock  %}
 </div>
 {% endblock content %}
-
