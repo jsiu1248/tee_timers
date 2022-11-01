@@ -11,6 +11,98 @@ import re
 from itsdangerous import Serializer
 # from app.exceptions import ValidationError
 
+class Permission:
+    FOLLOW = 1
+    MODERATE = 2
+    ADMIN = 4
+
+class Role(db.Model):
+    __tablename__='roles'
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(64), unique = True)
+    # linking the role model and the user model
+    users = db.relationship('User', backref='role', lazy = 'dynamic')
+    default = db.Column(db.Boolean, default = False, index = True)
+    permissions = db.Column(db.Integer)
+
+    # overriding constructor of the Role class
+    # so, we can set Permissions to 0, if the permissions were not initially set
+    def __init__ (self, **kwargs):
+        super().__init__(**kwargs)
+        if self.permissions is None:
+            self.permissions = 0
+
+   
+    def __repr__(self):
+        """
+         returning a string with the name
+        """
+        return f"<Role {self.name}>"
+
+    @staticmethod
+    def insert_roles():
+        """
+        mapping of role names with their permissions
+        """
+        roles = {
+            'User':             [Permission.FOLLOW],
+            'Moderator':        [Permission.FOLLOW,
+                                 Permission.MODERATE],
+            'Administrator':    [Permission.FOLLOW,
+                                 Permission.MODERATE,
+                                 Permission.ADMIN],
+        }
+        default_role = 'User'
+        for r in roles:
+            # see if role is already in table
+            role = Role.query.filter_by(name = r).first()
+            if role is None:
+                # it's not so make a new one
+                role = Role(name = r)
+            role.reset_permission()
+            # add whichever permissions the role needs
+            for perm in roles[r]:
+                role.add_permission(perm)
+            # if role is the default one, default is True
+            role.default = (role.name == default_role)
+            db.session.add(role)
+        db.session.commit()
+
+
+
+    def add_permission(self, perm):
+        """
+        checking if there is a permission and then adding it if there is NOT
+        Args: self and perm/permission
+        """
+        if not self.has_permission(perm):
+            self.permissions = self.permissions + perm
+
+    def remove_permission(self, perm):
+        """
+        checking if there is a permission then substracting if there IS 
+        Args: self and perm/permission
+        """
+        if self.has_permission(perm):
+            self.permissions = self.permissions - perm
+
+    def reset_permission(self):
+        """
+        reset permission by setting to 0
+        """
+        self.permissions = 0
+
+
+    def has_permission(self, perm):
+        """
+            check if role has a particular permission
+            if the permission is greater than 0 then it has a particular permission
+            Args: self and perm/permission
+            Return: the value and if it is true
+        """
+        return self.permissions & perm == perm
+
+
 class User(#UserMixin,
  db.Model):
     __tablename__='users'
