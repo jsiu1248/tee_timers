@@ -4,7 +4,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from flask import current_app, url_for
 # from flask_login import UserMixin, AnonymousUserMixin
 from datetime import datetime, timedelta
-# import jwt
+import jwt
 import hashlib
 # import bleach
 import re
@@ -162,3 +162,84 @@ class User(#UserMixin,
         self.last_seen = datetime.utcnow()
         db.session.add(self)
         db.session.commit()
+
+    @property
+    def password(self):
+        """
+        errors out when someone tries to read it
+        Args: self
+        Return: attribute error
+        """
+        raise AttributeError('password is not a readable attribute')
+    
+    @password.setter
+    def password(self, password):
+        """
+        allow the user to still write a password
+        flask already has a function that helps with hashing and adding salt
+        Args: self, password
+        """
+        self.password_hash = generate_password_hash(password)
+
+
+    def verify_password(self, password):
+        """
+        it takes the password and hash together and returns true if correct
+        Args: self and password
+        Return True or False
+        """
+        return check_password_hash(self.password_hash, password)
+
+    def can(self, perm):
+        """
+        check if user can do something
+        Args: self and perm/permission
+        Return: Boolean
+        """
+        return self.role is not None and self.role.has_permission(perm)
+
+
+    def is_administrator(self):
+        """
+        check if the user is an admin
+        Return: Boolean
+        """
+        return self.can(Permission.ADMIN)
+
+    def generate_confirmation_token(self, expiration_sec=3600):
+        """
+        generates a token
+        Args: self and expiration time 
+        Return: token
+        """
+        # For jwt.encode(), expiration is provided as a time in UTC
+        # It is set through the "exp" key in the data to be tokenized
+        expiration_time = datetime.utcnow() + timedelta(seconds=expiration_sec)
+        data = {"exp": expiration_time, "confirm_id": self.id}
+        # Use SHA-512 (known as HS512) for the hash algorithm
+        token = jwt.encode(data, current_app.secret_key, algorithm="HS512")
+        return token
+
+    def confirm(self, token):
+        """
+        checks whether token is valid or not for user and have to make sure that they are logged in
+        Args: self and token
+        Return: Boolean
+        """
+        try:
+            # Ensure token valid and hasn't expired
+            data = jwt.decode(token, current_app.secret_key, algorithms=["HS512"])
+        except jwt.ExpiredSignatureError as e:
+            # token expired
+            return False
+        except jwt.InvalidSignatureError as e:
+            # key does not match
+            return False
+        # The token's data must match the user's ID
+        if data.get("confirm_id") != self.id:
+            return False
+        # All checks pass, confirm the user
+        self.confirmed = True
+        db.session.add(self)
+        # the data isn't committed yet as you want to make sure the user is currently logged in.
+        return True
