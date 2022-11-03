@@ -5,7 +5,14 @@ from flask_login import login_required, current_user
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from ..models import User, Role
+from ..decorators import permission_required, admin_required
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
+
+@main.route('/admin')
+@login_required
+@admin_required
+def for_admins_only():
+    return f"Welcome, Administrator! {Permission.ADMIN}"
