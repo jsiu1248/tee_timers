@@ -20,9 +20,9 @@ mail = Mail()
 moment = Moment()
 # protects against cross-site request forgery outside of forms
 csrf = CSRFProtect()
-# login_manager = LoginManager()
+login_manager = LoginManager()
 
-# login_manager.login_view = 'auth.login'
+login_manager.login_view = 'auth.login'
 
 
 def create_app(config_name='default'):
@@ -42,7 +42,7 @@ def create_app(config_name='default'):
     db.init_app(app)
     migrate.init_app(app, db)
     bootstrap.init_app(app)
-    # login_manager.init_app(app)
+    login_manager.init_app(app)
     mail.init_app(app)
     csrf.init_app(app)
 

@@ -1,8 +1,8 @@
 from email.policy import default
-from . import db # , login_manager
+from . import db , login_manager
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask import current_app, url_for
-# from flask_login import UserMixin, AnonymousUserMixin
+from flask_login import UserMixin, AnonymousUserMixin
 from datetime import datetime, timedelta
 import jwt
 import hashlib
@@ -103,8 +103,7 @@ class Role(db.Model):
         return self.permissions & perm == perm
 
 
-class User(#UserMixin,
- db.Model):
+class User(UserMixin, db.Model):
     __tablename__='users'
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(64), unique = True, index = True)
@@ -243,3 +242,24 @@ class User(#UserMixin,
         db.session.add(self)
         # the data isn't committed yet as you want to make sure the user is currently logged in.
         return True
+
+class AnonymousUser(AnonymousUserMixin):
+    # checking that a user has a given permission and can perform a task
+    def can(self, perm):
+        return False
+    def is_administrator(self):
+        return False
+
+# have to let login_manager know about the new class through the anonymous_user attribute
+# why does this need to be done again? Since in the definition is already named AnonymousUser
+login_manager.anonymous_user = AnonymousUser
+
+# login manager needs help with getting users
+# LoginManager will call load_user() to find out info about users
+# takes an id and returns the user
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+def __repr__(self):
+    return f"<User {self.username}>"
