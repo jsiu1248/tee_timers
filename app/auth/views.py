@@ -1,7 +1,7 @@
 import email
 from flask import render_template, session, g, redirect, url_for, flash, current_app, request
 
-# from app.email import send_email
+from app.email import send_email
 from .forms import LoginForm, RegistrationForm, ChangePasswordForm # need a period because trying to import within package
 from .. import db
 from ..models import User, Role

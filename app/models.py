@@ -257,6 +257,7 @@ login_manager.anonymous_user = AnonymousUser
 # login manager needs help with getting users
 # LoginManager will call load_user() to find out info about users
 # takes an id and returns the user
+# https://stackoverflow.com/questions/26606391/flask-login-attributeerror-user-object-has-no-attribute-is-active
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
