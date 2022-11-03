@@ -12,7 +12,60 @@
 {{ moment.include_moment() }}
 {% endblock %}
 
-{# have to add navbar again#}
+{% block navbar %}
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">App</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            {#{% if current_user.is_authenticated %}#}
+            <li><a href="#">Log Out</a></li>
+            {#{% else %}#}
+            <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
+            {#{% endif %}#}
+            </ul>
+            {# adding link to nav bar #}
+            <ul class="nav navbar-nav navbar-right">
+            {#{% if current_user.is_authenticated %}#}
+            <li>
+            <a href="#">
+            Profile
+            </a>
+            </li>
+            {#{% endif %}#}
+            </ul>
+            <ul class='nav navbar-nav navbar right'>
+                {#{% if current_user.is_authenticated %}#}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="#">
+                        Account <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Change Password</a></li>
+                        <li><a href="#">Change Email</a></li>
+                        <li><a href="#">Log Out</a></li>
+                    </ul>
+                </li>
+                {#{% else %}#}
+                <li><a href="#">Log In</a></li>
+                {#{% endif %}#}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
 
 {# goes through all of the queued messages and flashes them #}
 {% block content %}
@@ -24,6 +77,5 @@
         {{msg}}
     </div>
     {% endfor %}
-    {% block page_content %}{% endblock  %}
 </div>
 {% endblock content %}

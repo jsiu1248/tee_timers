@@ -4,6 +4,7 @@ from .. import db
 from flask_login import login_required, current_user
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
+from ..models import User, Role
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
