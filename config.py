@@ -24,7 +24,7 @@ class Config:
     MAIL_SUBJECT_PREFIX = 'App — '
 
     # when an email is sent to a user, it is set to this value
-    APP_MAIL_SENDER = f'App Admin <{APP_ADMIN}>'
+    MAIL_SENDER = f'App Admin <{APP_ADMIN}>'
     HTTPS_REDIRECT = False
 
     # export MAIL_USERNAME=<your Gmail username>

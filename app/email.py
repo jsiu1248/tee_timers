@@ -13,9 +13,9 @@ def send_email(to, subject, template, **kwargs):
     # actual application instead of just the proxy
     app = current_app._get_current_object()
     msg = Message(
-        subject=current_app.config['RAGTIME_MAIL_SUBJECT_PREFIX'] + subject,
+        subject=current_app.config['MAIL_SUBJECT_PREFIX'] + subject,
         recipients=[to],
-        sender=current_app.config['RAGTIME_MAIL_SENDER'])
+        sender=current_app.config['MAIL_SENDER'])
     msg.body = render_template(template + '.txt', **kwargs)
     msg.html = render_template(template + '.html', **kwargs)
     thread = Thread(target=send_async_email, args=[app, msg])
