@@ -243,6 +243,8 @@ class User(UserMixin, db.Model):
         # the data isn't committed yet as you want to make sure the user is currently logged in.
         return True
 
+
+
 class AnonymousUser(AnonymousUserMixin):
     # checking that a user has a given permission and can perform a task
     def can(self, perm):

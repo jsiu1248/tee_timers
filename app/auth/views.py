@@ -92,3 +92,79 @@ def change_password():
         flash('Old password does not match. Try again.')
 
     return render_template('auth/change_password.html', form = form)
+
+
+@auth.route('/confirm/<token>')
+@login_required
+def confirm(token):
+    """"
+    Confirm the user's email by taking a token and attempting to confirm the user. We want to confirm the current_user
+    because we don't want an old user.
+
+    Args: token(str): Generated after registering email. Token is in confirmation link sent to user's email.
+    Returns: Redirect to index page.
+
+    """
+    if current_user.confirmed:
+        flash("You're already confirmed, silly!")
+        return redirect(url_for('main.index'))
+    
+    # if the token is confirmed then the user is commited 
+    if current_user.confirm(token):
+        db.session.commit()
+        flash('You have confirmed your account! Thank you.')
+    else:
+        flash("Whoops! That confirmation link either expired, or it isn't valid.")
+    return redirect(url_for('main.index'))
+
+
+@auth.before_app_request
+def before_request():
+    """
+    This happens before app request and any other view function. 
+    You can rescrict a user's access to the app for users that are not confirmed.
+    Returns: unconfirmed page if user is unconfirmed
+    """
+    # back slash means line continuation
+    # they must be signed in and not confirmed and the endpoint is in the auth blueprint
+    if current_user.is_authenticated:
+        # ping is called everytime a request is made
+        current_user.ping()
+        if not current_user.confirmed \
+                and request.endpoint \
+                and request.blueprint != 'auth' \
+                and request.endpoint != 'static':
+            return redirect(url_for('auth.unconfirmed'))
+
+
+@auth.route('/unconfirmed')
+def unconfirmed():
+    """
+    Landing page for the unconfirmed. Telling them that they still need to confirm.
+
+    Returns: auth/unconfirmed.html
+    """
+    if current_user.is_anonymous or current_user.confirmed:
+        return redirect(url_for('main.index'))
+    # returning unconfirmed template
+    return render_template('auth/unconfirmed.html', user = current_user)
+
+@auth.route('/resend_confirmation')
+def resend_confirmation():
+    """
+    Function that resends confirmation link to the user's email
+
+    Returns: Redirects to the auth/unconfirmed page
+    """
+
+    # u is the user before, but now Flask tracks it with current_user
+    user = current_user
+
+    token = user.generate_confirmation_token()
+
+    # url_for helps create dynamic links
+    # _external = True in Flask Mail tells it to generate an absolute link
+    confirmation_link = url_for('auth.confirm', token = token, _external = True)
+    send_email(user.email, "Confirmation Email!", 'auth/confirm', user=user, confirmation_link = confirmation_link)
+    flash("Check your email for the reconfirmation email.")
+    return redirect(url_for('auth.unconfirmed'))
