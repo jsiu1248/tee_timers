@@ -1,2 +1,2 @@
-Welcome to Golf_App!
+Welcome to Tee Timers!
 Please confirm your account with this link: {{ confirmation_link }}
