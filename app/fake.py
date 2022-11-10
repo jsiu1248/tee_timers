@@ -18,9 +18,24 @@ def users(count=20):
                  password='password',
                  confirmed=True,
                  name=fake.name(),
-                 location=fake.city(),
+                 city=fake.city(),
+                 state=fake.state(),
                  bio=fake.text(),
-                 last_seen=fake.past_date())
+                 last_seen=fake.past_date()
+                #  gender =fake.,
+                #  age =, 
+                #  bio =, 
+                #  status_id = , 
+                #  frequency_id =,
+                #  time_of_day_id = , 
+                #  ride_or_walk_id = , 
+                #  handicap_id, 
+                #  smoking_id, 
+                #  alcohol_id , 
+                #  playing_type = 
+                #  , 
+
+                 )
         db.session.add(u)
 
         # trying to commit data, but if it is a duplicate then it rollbacks
