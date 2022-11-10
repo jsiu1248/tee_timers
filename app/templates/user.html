@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+{% block title %}{{super()}} User {{user_name}}{% endblock title %}
+
+{% block navbar %}
+{{ super() }}
+{% endblock navbar %}
+
+
+{% block page_content %}
+{{ super() }}
+<div class="page-header">
+    <h1>{{ user.username }}</h1>
+
+    {% if current_user.can(Permission.FOLLOW) %}
+    {% if not current_user.is_following(user) %}
+    <a class="btn btn-default" href="{{ url_for('.follow', username=user.username) }}">
+        Follow
+    </a>
+    {% else %}
+        <a class="btn btn-default" href="{{ url_for('.unfollow', username=user.username) }}">
+        Unfollow
+    </a>
+    {% endif %}
+    {% endif %}
+    <button type="button" class="btn btn-light">
+        <a href="{{ url_for('.following', username=user.username) }}">Following</a> <span
+            class="badge badge-light">{{user.following.count() - 1}}</span>
+    </button>
+
+    <button type="button" class="btn btn-light">
+        <a href="{{ url_for('.followers', username=user.username) }}">Followers</a> <span
+            class="badge badge-light">{{user.followers.count() - 1}}</span>
+    </button>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row">Name</th>
+                <td>{% if user.name %}{{ user.name }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th scope="row">Location</th>
+                <td>{% if user.location %}{{ user.location }}{% endif %}</td>
+            </tr>
+            {% if current_user.is_administrator() %}
+            <tr>
+                <th scope="row">Email</th>
+                <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th scope="row">Bio</th>
+                <td>{% if user.bio %}{{ user.bio }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th scope="row">Last seen</th>
+                <td>{{ moment(user.last_seen).fromNow() }}</td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{ # add user profile or avatar #}
+
+{# add edit profile #}
+
+
+{# add admin edit profile #}
+
+{# add pagination here later#}
+
+
+{% endblock %}

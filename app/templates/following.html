@@ -1,0 +1,46 @@
+{% extends 'base.html'%}
+{% import "_macros.html" as macros %}
+
+{% block page_content %}
+<h1>Following: {{current_user.username}}</h1>
+<table class="table table-light">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">User</th>
+        <th scope="col">Since</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    {% for f in user.following.all()%}
+
+    {% if f.user != user %}
+    <li class="following">
+        {# Single composition #}
+        <tr height=75px>
+            <td>
+        <img class="profile-thumbnail">
+            <a href="{{ url_for('.user', username=f.following.username) }}">
+            
+                <img class="img-rounded profile-thumbnail" src="#">
+            </td>
+            <td><a href="{{ url_for('main.user', username=f.following.username) }}">{{f.following.username}}</a></td>
+
+            <td>    {{ moment(f.timestamp).format('L') }}</td>>
+            </a>
+        </div>
+    </li>
+
+
+    </a>
+
+
+    {% endif %}
+        {% endfor %}
+
+    </tbody>
+</table>
+
+
+{% endblock %}

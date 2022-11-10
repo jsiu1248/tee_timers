@@ -9,7 +9,7 @@ import hashlib
 # import bleach
 import re
 from itsdangerous import Serializer
-# from app.exceptions import ValidationError
+from app.exceptions import ValidationError
 
 class Permission:
     FOLLOW = 1

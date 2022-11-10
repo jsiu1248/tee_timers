@@ -1,0 +1,46 @@
+{% extends 'base.html'%}
+{% import "_macros.html" as macros %}
+
+{% block page_content %}
+<h1>Follower: {{current_user.username}}</h1>
+<table class="table table-light">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">User</th>
+        <th scope="col">Since</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    {% for f in user.followers.all()%}
+
+    {% if f.user != user %}
+    <li class="follower">
+        {# Single composition #}
+        <tr height=75px>
+            <td>
+        <img class="profile-thumbnail">
+            <a href="{{ url_for('.user', username=f.follower.username) }}">
+            
+                <img class="img-rounded profile-thumbnail" src="#">
+            </td>
+            {# follower is from the backref of the following db relationship from models #}
+            <td><a href="{{ url_for('main.user', username=f.follower.username) }}">{{f.follower.username}}</a></td>
+
+            <td>    {{ moment(f.timestamp).format('L') }}</td>>
+            </a>
+        </div>
+    </li>
+
+</a>
+
+
+{% endif %}
+    {% endfor %}
+
+</tbody>
+</table>
+
+
+{% endblock %}
