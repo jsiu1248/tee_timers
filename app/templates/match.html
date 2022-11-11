@@ -1,0 +1,26 @@
+<ul class="users">
+
+    {% for user in users%}
+    <li class="user">
+        {# Single user #}
+        <div class="user-content">
+            <div class="user-username">
+                <a href="{{ url_for('main.user', username=user.username) }}">
+                    {{ user.username }}
+                </a>
+            </div>
+        </div>
+    </li>
+
+    {% endfor %}
+</ul>
+{# username, #}
+
+{# show all filters with checkboxes #}
+{# get all of users # }
+{# for each user you can follow, or message, link #}
+{#filter for different golf courses# }
+{# as each filter is done then it starts filtering list #}
+
+
+{# paging and ordering #}
