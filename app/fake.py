@@ -13,26 +13,24 @@ def users(count=20):
     fake = Faker()
     i = 0
     while i < count:
-        u = User(email=fake.email(),
-                 username=fake.user_name(),
-                 password='password',
-                 confirmed=True,
-                 name=fake.name(),
-                 city=fake.city(),
-                 state=fake.state(),
-                 bio=fake.text(),
-                 last_seen=fake.past_date()
-                #  gender =fake.,
-                #  age =, 
-                #  bio =, 
-                #  status_id = , 
-                #  frequency_id = randtime(1,7),
-                #  time_of_day_id = , 
-                #  ride_or_walk_id = , 
-                #  handicap_id, 
-                #  smoking_id, 
-                #  alcohol_id , 
-                #  playing_type = 
+        u = User(email = fake.email(),
+                 username = fake.user_name(),
+                 password = 'password',
+                 confirmed = True,
+                 name = fake.name(),
+                 city = fake.city(),
+                 state = fake.state(),
+                 bio = fake.text(),
+                 last_seen=fake.past_date(),
+                 gender =randint(0,2),
+                 age = randint(10,120),
+                 day_id = randint(0,6),
+                 time_of_day_id = randint(0,1), 
+                 ride_or_walk_id = randint(0,1), 
+                 handicap_id = randint(0,4), 
+                 smoking_id = randint(0,1), 
+                 alcohol_id = randint(0,1), 
+                 playing_type = randint(0,3) 
                 #  , 
 
 
