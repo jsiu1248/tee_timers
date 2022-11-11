@@ -18,6 +18,14 @@ def for_admins_only():
     """route will require login and user to have admin permission"""
     return f"Welcome, Administrator! {Permission.ADMIN}"
 
+# route will pass user_name variable
+@main.route('/user/<username>')
+def user(username):
+    # query user or return error
+    user = User.query.filter_by(username = username).first_or_404()
+    # have to add back pagination later
+    return render_template('user.html', user=user)
+
 
 @main.route('/moderate')
 @login_required
