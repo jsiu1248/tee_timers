@@ -26,7 +26,7 @@ def users(count=20):
                 #  age =, 
                 #  bio =, 
                 #  status_id = , 
-                #  frequency_id =,
+                #  frequency_id = randtime(1,7),
                 #  time_of_day_id = , 
                 #  ride_or_walk_id = , 
                 #  handicap_id, 
@@ -34,6 +34,7 @@ def users(count=20):
                 #  alcohol_id , 
                 #  playing_type = 
                 #  , 
+
 
                  )
         db.session.add(u)
