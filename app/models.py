@@ -345,44 +345,11 @@ class Comment(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    def to_json(self):
-        # dictionary gives client info about composition without sensitive
-        json_user = {
-            'url': url_for('api.get_composition', id=self.id),
-            'release_type': self.release_type,
-            'title': self.title,
-            'description': self.description,
-            'description_html': self.description_html,
-            'timestamp': self.timestamp, 
-            'artist_url': url_for('api.get_user', id=self.id)
-        }
-        return json_user
-
-    @staticmethod
-    def from_json(json_composition):
-        """checking the json data is valid
-        Args: JSON dictionary
-        Returns: Composition
-        """
-        release_type = json_composition.get('release_type')
-        title = json_composition.get('title')
-        description = json_composition.get('description')
-        # if the data is invalid then a validation error is used
-        if release_type is None:
-            raise ValidationError("Composition must have a release type")
-        if title is None:
-            raise ValidationError("Composition must have a title")
-        if description is None:
-            raise ValidationError("Composition must have a description")
-        return Composition(release_type=release_type,
-                           title=title,
-                           description=description)
 
 
-
-db.event.listen(Composition.description,
+db.event.listen(Comment.description,
                 'set',
-                Composition.on_changed_description)
+                Comment.on_changed_description)
 
 # have to let login_manager know about the new class through the anonymous_user attribute
 # why does this need to be done again? Since in the definition is already named AnonymousUser
