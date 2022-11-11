@@ -145,16 +145,16 @@ class User(UserMixin, db.Model):
     # it will be assigned upon the created of the new User
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     # compositions = db.relationship('Composition', backref='artist', lazy='dynamic')
-    # following = db.relationship('Follow',
-    #                            foreign_keys=[Follow.follower_id],
-    #                            backref=db.backref('follower', lazy='joined'),
-    #                            lazy='dynamic',
-    #                            cascade='all, delete-orphan')
-    # followers = db.relationship('Follow',
-    #                             foreign_keys=[Follow.following_id],
-    #                             backref=db.backref('following', lazy='joined'),
-    #                             lazy='dynamic',
-    #                             cascade='all, delete-orphan')
+    following = db.relationship('Follow',
+                               foreign_keys=[Follow.follower_id],
+                               backref=db.backref('follower', lazy='joined'),
+                               lazy='dynamic',
+                               cascade='all, delete-orphan')
+    followers = db.relationship('Follow',
+                                foreign_keys=[Follow.following_id],
+                                backref=db.backref('following', lazy='joined'),
+                                lazy='dynamic',
+                                cascade='all, delete-orphan')
 
     # we want to assign the users their roles right away
     # user constructor
