@@ -6,7 +6,7 @@ from flask_login import UserMixin, AnonymousUserMixin
 from datetime import datetime, timedelta
 import jwt
 import hashlib
-# import bleach
+import bleach
 import re
 from itsdangerous import Serializer
 from app.exceptions import ValidationError
@@ -310,6 +310,79 @@ class AnonymousUser(AnonymousUserMixin):
         return False
     def is_administrator(self):
         return False
+
+class Comment(db.Model):
+    __tablename__ = 'compositions'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(64))
+    description = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    description_html = db.Column(db.Text)
+    slug = db.Column(db.String(128), unique=True)
+
+    @staticmethod
+    def on_changed_description(target, value, oldvalue, initiator):
+        """
+        "listener" of SQLAlchemy's "set" event for description. the function will be called whenever the
+        description changes.
+        """
+        allowed_tags = ['a']
+        # clean is called, takes a list of allowed tags
+        # linkify will make hyperlinks out of urls in text. <a> tags are created automatically 
+        html = bleach.linkify(bleach.clean(value,
+        # allowed tags is a whitelist
+                                           tags=allowed_tags,
+        # strip away any extra characters
+                                           strip=True))
+        target.description_html = html
+
+    def generate_slug(self):
+        """
+        The slug is long enough for any title. REGEX is used to make it more readable and lowered.
+        The id is added to make sure that it is unique. 
+        """
+        self.slug = f"{self.id}-" + re.sub(r'[^\w]+', '-', self.title.lower())
+        db.session.add(self)
+        db.session.commit()
+
+    def to_json(self):
+        # dictionary gives client info about composition without sensitive
+        json_user = {
+            'url': url_for('api.get_composition', id=self.id),
+            'release_type': self.release_type,
+            'title': self.title,
+            'description': self.description,
+            'description_html': self.description_html,
+            'timestamp': self.timestamp, 
+            'artist_url': url_for('api.get_user', id=self.id)
+        }
+        return json_user
+
+    @staticmethod
+    def from_json(json_composition):
+        """checking the json data is valid
+        Args: JSON dictionary
+        Returns: Composition
+        """
+        release_type = json_composition.get('release_type')
+        title = json_composition.get('title')
+        description = json_composition.get('description')
+        # if the data is invalid then a validation error is used
+        if release_type is None:
+            raise ValidationError("Composition must have a release type")
+        if title is None:
+            raise ValidationError("Composition must have a title")
+        if description is None:
+            raise ValidationError("Composition must have a description")
+        return Composition(release_type=release_type,
+                           title=title,
+                           description=description)
+
+
+
+db.event.listen(Composition.description,
+                'set',
+                Composition.on_changed_description)
 
 # have to let login_manager know about the new class through the anonymous_user attribute
 # why does this need to be done again? Since in the definition is already named AnonymousUser
