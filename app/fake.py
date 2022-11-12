@@ -45,8 +45,8 @@ def users(count=20):
             db.session.rollback()
 
 def comment(count=100):
-    """Function that creates fake composition
-        args: create a certain amount of compositions"""
+    """Function that creates fake comments
+        args: create a certain amount of comments"""
     fake = Faker()
 
     # checking how many users are in the table
@@ -55,13 +55,14 @@ def comment(count=100):
         # offset dicards a certain number of results, n is a random number between 0 and then user_count -1
         # so it is picking a random user and don't care about duplicated users because users can have multiple compositions
         u = User.query.offset(randint(0, user_count - 1)).first()
-        c = Comment(release_type=randint(0,2),
+        c = Comment(
 
         # bs generates cool sounding titles
                         title=string.capwords(fake.bs()),
                         comment=fake.text(),
-                        timestamp=fake.past_date(),
-                        artist=u)
+                        timestamp=fake.past_date() ,
+                        user_id=randint(1, user_count)
+                        )
         db.session.add(c)
     db.session.commit()
     for c in Comment.query.all():
