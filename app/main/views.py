@@ -6,6 +6,8 @@ from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from ..models import User, Role, Permission
 from ..decorators import permission_required, admin_required
+from .forms import TechSupportForm
+from ..email import send_email
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -177,3 +179,14 @@ def match():
     users = User.query.all()
     return render_template('match.html',
                            users=users)
+
+
+# @main.route('/tech_support', methods=["GET","POST"])
+# @login_required
+# def tech_support():
+#     form = TechSupportForm()
+#     if form.validate_on_submit():
+#         title_entered = form.title.data
+#         tech_message_entered = form.tech_message.data
+#         send_email('flaskwebdev.js@gmail.com', title_entered, tech_message_entered)
+#     return render_template('tech_support.html', form = form)

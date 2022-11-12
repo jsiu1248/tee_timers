@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 {% import "_macros.html" as macros %}
 {% block title %}{{super()}} User {{user_name}}{% endblock title %}
@@ -11,37 +10,49 @@
 {# get all users #}
 {% block page_content %}
 {{ super() }}
-<ul class="users">
 
-    
-    {% for user in users %}
-    <li class="user">
-        {# Single user #}
-        <div class="user-content">
-            <div class="user-username">
-                <a href="{{ url_for('main.user', username=user.username) }}">
-                    {{ user.username }}
-                </a>
+<div class="col-md-5">
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="male" id="flexCheckDefault"
+            name="property_checkbox">
+        <label class="form-check-label" for="flexCheckDefault">Male</label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="female" id="flexCheckDefault" name="property_checkbox">
+        <label class="form-check-label" for="flexCheckDefault">Female</label>
+    </div>
+
+    <ul class="users">
+
+
+        {% for user in users %}
+        <li class="user">
+            {# Single user #}
+            <div class="user-content">
+                <div class="user-username">
+                    <a href="{{ url_for('main.user', username=user.username) }}">
+                        {{ user.username }}
+                    </a>
+                </div>
             </div>
-        </div>
-    </li>
+        </li>
 
-    {% endfor %}
-</ul>
-{# username, #}
+        {% endfor %}
+    </ul>
+    {# username, #}
 
-{# create gender with choices for a filter#}
-{#  if gender is clicked then filter #}
-{# checkbox on or off #}
-{# 3 check boxes #}
-
-
-{# show all filters with checkboxes #}
-{# for each user you can follow, or message, link #}
-{#filter for different golf courses# }
-{# as each filter is done then it starts filtering list #}
+    {# create gender with choices for a filter#}
+    {# if gender is clicked then filter #}
+    {# checkbox on or off #}
+    {# 3 check boxes #}
 
 
-{# paging and ordering #}
+    {# show all filters with checkboxes #}
+    {# for each user you can follow, or message, link #}
+    {#filter for different golf courses# }
+    {# as each filter is done then it starts filtering list #}
 
-{% endblock %}
+
+    {# paging and ordering #}
+
+    {% endblock %}
