@@ -1,6 +1,20 @@
+
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+{% block title %}{{super()}} User {{user_name}}{% endblock title %}
+
+{% block navbar %}
+{{ super() }}
+{% endblock navbar %}
+
+
+{# get all users #}
+{% block page_content %}
+{{ super() }}
 <ul class="users">
 
-    {% for user in users%}
+    
+    {% for user in users %}
     <li class="user">
         {# Single user #}
         <div class="user-content">
@@ -16,11 +30,18 @@
 </ul>
 {# username, #}
 
+{# create gender with choices for a filter#}
+{#  if gender is clicked then filter #}
+{# checkbox on or off #}
+{# 3 check boxes #}
+
+
 {# show all filters with checkboxes #}
-{# get all of users # }
 {# for each user you can follow, or message, link #}
 {#filter for different golf courses# }
 {# as each filter is done then it starts filtering list #}
 
 
 {# paging and ordering #}
+
+{% endblock %}

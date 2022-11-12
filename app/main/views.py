@@ -161,3 +161,19 @@ def show_followed():
     resp = make_response(redirect(url_for('.index')))
     resp.set_cookie('show_followed', '1', max_age=30*24*60*60) # 30 days
     return resp
+
+# @main.route('/match/<slug>')
+# @login_required
+# def match(slug):
+#     # passes user contained in a list to template
+#     user = User.query.filter_by(username = username).first_or_404()
+#     return render_template('match.html',
+#                            user=[user])
+
+@main.route('/match')
+@login_required
+def match():
+    # passes users contained in a list to template
+    users = User.query.all()
+    return render_template('match.html',
+                           users=users)
