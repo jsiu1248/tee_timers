@@ -11,7 +11,7 @@
 {% block page_content %}
 {{ super() }}
 
-<div class="col-md-5">
+{# <div class="col-md-5">
     <div class="form-check">
         <input class="form-check-input" type="checkbox" value="male" id="flexCheckDefault"
             name="property_checkbox">
@@ -20,7 +20,20 @@
     <div class="form-check">
         <input class="form-check-input" type="checkbox" value="female" id="flexCheckDefault" name="property_checkbox">
         <label class="form-check-label" for="flexCheckDefault">Female</label>
-    </div>
+        
+    </div>#}
+
+<div class="col-md-5"></div>
+    <form method="POST" action="/"> 
+        Male<input type="checkbox" value="1" name="mycheckbox">
+        Female<input type="checkbox" value="2" name="mycheckbox">
+        Other<input type="checkbox" value="3" name="mycheckbox">
+        <input type="submit">
+    </form>
+</div>
+
+
+
 
     <ul class="users">
 

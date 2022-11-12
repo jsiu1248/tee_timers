@@ -172,11 +172,15 @@ def show_followed():
 #     return render_template('match.html',
 #                            user=[user])
 
-@main.route('/match')
+@main.route('/match', methods=["GET","POST"])
 @login_required
 def match():
     # passes users contained in a list to template
     users = User.query.all()
+    if request.method == 'POST': 
+        print(request.form.getlist('mycheckbox'))
+        return 'Done'
+
     return render_template('match.html',
                            users=users)
 
