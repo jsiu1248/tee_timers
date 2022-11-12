@@ -9,3 +9,9 @@ class TechSupportForm(FlaskForm):
     title = StringField("Title")
     tech_message = TextAreaField("What would you like help with?") 
     submit = SubmitField("Submit")
+
+
+class CommentForm(FlaskForm):
+    title = StringField("Title")
+    comment_message = TextAreaField("What are you up to?") 
+    submit = SubmitField("Submit")

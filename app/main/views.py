@@ -6,7 +6,7 @@ from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from ..models import User, Role, Permission
 from ..decorators import permission_required, admin_required
-from .forms import TechSupportForm
+from .forms import CommentForm, TechSupportForm
 from ..email import send_email
 
 @main.route('/', methods=['GET', 'POST'])
@@ -184,6 +184,13 @@ def match():
     return render_template('match.html',
                            users=users)
 
+
+@main.route('/forum', methods=["GET","POST"])
+@login_required
+def forum():
+    form = CommentForm()
+    return render_template('forum.html',
+                           form = form)
 
 # @main.route('/tech_support', methods=["GET","POST"])
 # @login_required

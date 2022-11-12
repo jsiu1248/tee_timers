@@ -1,3 +1,17 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block content %}
+{{super()}}
+</div class="form-header">
+{{ wtf.quick_form(form) }}
+</div>
+{% endblock content %}
+
+{# after submimission show the comments below #}
+{# show the most recent comments #}
+{# loop through comments#}
+{# show user name and then comment #}
 {# one write something
     another button below that can reply #}
 
@@ -7,7 +21,6 @@
 
 {#filter for different golf courses# }
 
-{# What are you up to? #}
 
 {# how do you grab the right comment for the page #}
 

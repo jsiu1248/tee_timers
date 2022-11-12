@@ -312,7 +312,7 @@ class AnonymousUser(AnonymousUserMixin):
         return False
 
 class Comment(db.Model):
-    __tablename__ = 'compositions'
+    __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(64))
     description = db.Column(db.Text)
