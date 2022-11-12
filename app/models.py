@@ -317,6 +317,7 @@ class Comment(db.Model):
     title = db.Column(db.String(64))
     comment = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     comment_html = db.Column(db.Text)
     slug = db.Column(db.String(128), unique=True)
     
