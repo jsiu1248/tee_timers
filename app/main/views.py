@@ -1,5 +1,5 @@
 from . import main
-from flask import render_template, session, redirect, url_for, flash, current_app, request, abort, make_response
+from flask import render_template, session, redirect, url_for, flash, current_app, request, abort, make_response, g
 from .. import db
 from flask_login import login_required, current_user
 from flask_bootstrap import Bootstrap
@@ -8,6 +8,13 @@ from ..models import User, Role, Permission
 from ..decorators import permission_required, admin_required
 from .forms import CommentForm, TechSupportForm
 from ..email import send_email
+
+""" was trying to fix CSRF error"""
+# @main.before_app_request
+# def fix_missing_csrf_token():
+#     if current_app.config['WTF_CSRF_FIELD_NAME'] not in session:
+#         if current_app.config['WTF_CSRF_FIELD_NAME'] in g:
+#             g.pop(current_app.config['WTF_CSRF_FIELD_NAME'])
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -185,6 +192,14 @@ def match():
                            users=users)
 
 
+@main.route('/comment/<slug>',  methods=["GET", "POST"])
+@login_required
+def comment(slug):
+    # passes comment contained in a list respresented as comment to template
+    comment = Comment.query.filter_by(slug=slug).first_or_404()
+    return render_template('comment.html', comment=[comment])
+
+
 @main.route('/forum', methods=["GET","POST"])
 @login_required
 def forum():
@@ -201,3 +216,23 @@ def forum():
 #         tech_message_entered = form.tech_message.data
 #         send_email('flaskwebdev.js@gmail.com', title_entered, tech_message_entered)
 #     return render_template('tech_support.html', form = form)
+
+
+@main.route('/test', methods=['POST', 'GET'])
+def test():
+    categories = ['Gender', 'Day', 'Time of Day', 'Ride or Walk', 'Handicap', 'Smoking', 'Drinking', 'Playing Type']
+    cells = [['Male','Female','Other'],['Monday','Tuesday','Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday'],
+    ['Morning','Afternoon'], ['Cart','Walk'], ['20+','15-20','10-15','5-10','0-5'],['Yes','No'],['Yes','No'],
+    ['Leisure','Betting','Competitive','Driving Range']
+    ]
+
+    if request.method == "POST":
+        data = dict((key, request.form.getlist(key) if len(
+            request.form.getlist(key)) > 1 else request.form.getlist(key)[0])
+            for key in request.form.keys())
+        print (data) 
+
+    return render_template('match.html',
+       categories = categories,
+    cells = cells,
+       )
