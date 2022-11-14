@@ -21,7 +21,7 @@ class Config:
     APP_ADMIN = os.environ.get('APP_ADMIN')
 
     # this will be the prefix everytime an emails is sent
-    MAIL_SUBJECT_PREFIX = 'App — '
+    MAIL_SUBJECT_PREFIX = 'Tee Timers — '
 
     # when an email is sent to a user, it is set to this value
     MAIL_SENDER = f'App Admin <{APP_ADMIN}>'
