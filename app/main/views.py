@@ -6,7 +6,7 @@ from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from ..models import User, Role, Permission, Comment
 from ..decorators import permission_required, admin_required
-from .forms import CommentForm, TechSupportForm, SimpleForm, ExampleForm
+from .forms import CommentForm, TechSupportForm, SimpleForm, MatchForm
 from ..email import send_email
 
 """ was trying to fix CSRF error"""
@@ -182,14 +182,21 @@ def show_followed():
 @main.route('/match', methods=["GET","POST"])
 @login_required
 def match():
+    form = MatchForm()
     # passes users contained in a list to template
     users = User.query.all()
-    if request.method == 'POST': 
-        print(request.form.getlist('mycheckbox'))
-        return 'Done'
+    # if request.method == 'POST': 
+    #     print(request.form.getlist('mycheckbox'))
+    #     return 'Done'
+    if request.method == 'POST':
+        data = dict((key, request.form.getlist(key) if len(
+            request.form.getlist(key)) > 1 else request.form.getlist(key)[0])
+            for key in request.form.keys())
+        print (data) 
+
 
     return render_template('match.html',
-                           users=users)
+                           users = users, form = form)
 
 
 @main.route('/comment/<slug>',  methods=["GET", "POST"])
@@ -218,40 +225,21 @@ def forum():
 #     return render_template('tech_support.html', form = form)
 
 
-@main.route('/test', methods=['POST', 'GET'])
-def test():
-    categories = ['Gender', 'Day', 'Time of Day', 'Ride or Walk', 'Handicap', 'Smoking', 'Drinking', 'Playing Type']
-    cells = [['Male','Female','Other'],['Monday','Tuesday','Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday'],
-    ['Morning','Afternoon'], ['Cart','Walk'], ['20+','15-20','10-15','5-10','0-5'],['Yes','No'],['Yes','No'],
-    ['Leisure','Betting','Competitive','Driving Range']
-    ]
+# @main.route('/test', methods=['POST', 'GET'])
+# def test():
+#     categories = ['Gender', 'Day', 'Time of Day', 'Ride or Walk', 'Handicap', 'Smoking', 'Drinking', 'Playing Type']
+#     cells = [['Male','Female','Other'],['Monday','Tuesday','Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday'],
+#     ['Morning','Afternoon'], ['Cart','Walk'], ['20+','15-20','10-15','5-10','0-5'],['Yes','No'],['Yes','No'],
+#     ['Leisure','Betting','Competitive','Driving Range']
+#     ]
 
-    if request.method == "POST":
-        data = dict((key, request.form.getlist(key) if len(
-            request.form.getlist(key)) > 1 else request.form.getlist(key)[0])
-            for key in request.form.keys())
-        print (data) 
+#     if request.method == "POST":
+#         data = dict((key, request.form.getlist(key) if len(
+#             request.form.getlist(key)) > 1 else request.form.getlist(key)[0])
+#             for key in request.form.keys())
+#         print (data) 
 
-    return render_template('match.html',
-       categories = categories,
-    cells = cells,
-       )
-
-@main.route('/hello_world',methods=['post','get'])
-def hello_world():
-    form = SimpleForm()
-    if form.validate_on_submit():
-        print(form.example.data)
-        return render_template("success.html", data=form.example.data)
-    else:
-        print("Validation Failed")
-        print(form.errors)
-    return render_template('example.html',form=form)
-
-@main.route('/example', methods=['GET', 'POST'])
-def example():
-    form = ExampleForm()
-    if request.method == 'POST':
-        # do something
-        pass
-    return render_template('example.html', form=form)
+#     return render_template('match.html',
+#        categories = categories,
+#     cells = cells,
+#        )

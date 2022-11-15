@@ -29,13 +29,39 @@ class SimpleForm(FlaskForm):
     files = [(x, x) for x in list_of_files]
     example = MultiCheckboxField('Label', choices=files)
 
-class ExampleForm(FlaskForm):
-    nums = MultiCheckboxField('label',
-                               coerce=int,
-                               choices=[(1, 'one'), (2, 'two'), (3, 'three')],
-                               validators=[])
-    gender = MultiCheckboxField('gender',
+class MatchForm(FlaskForm):
+    gender = SelectMultipleField('Gender',
                                coerce=int,
                                choices=[(1, 'Male'), (2, 'Female'), (3, 'Other')],
                                validators=[])
-    submit = SubmitField('submit')
+    day = SelectMultipleField('Day',
+                               coerce=int,
+                               choices=[(1, 'Monday'), (2, 'Tuesday'), (3, 'Wednesday'), (4, 'Thursday'), (5, 'Friday'), 
+                               (6, 'Saturday'), (7,'Sunday')],
+                               validators=[])
+    time_of_day = SelectMultipleField('Time of Day',
+                               coerce=int,
+                               choices=[(1, 'Morning'), (2, 'Afternoon')],
+                               validators=[])
+
+    ride_or_walk = SelectMultipleField('Ride or Walk',
+                               coerce=int,
+                               choices=[(1, 'Ride'), (2, 'Walk')],
+                               validators=[])
+    handicap = SelectMultipleField('Handicap',
+                               coerce=int,
+                               choices=[(1, '20+'), (2, '15-20'), (3, '10-15'), (4, '5-10'), (5, '0-5')],
+                               validators=[])
+    smoking = SelectMultipleField('Smoking',
+                               coerce=int,
+                               choices=[(1, 'No'), (2, 'Yes')],
+                               validators=[])
+    drinking = SelectMultipleField('Drinking',
+                               coerce=int,
+                               choices=[(1, 'No'), (2, 'Yes')],
+                               validators=[])            
+    playing_type = SelectMultipleField('Playing Type',
+                               coerce=int,
+                               choices=[(1, 'Leisure'), (2, 'Betting'), (3, 'Competitive'), (4, 'Driving Range')],
+                               validators=[])            
+    submit = SubmitField('Submit')

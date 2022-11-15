@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% import "_macros.html" as macros %}
+{% import "bootstrap/wtf.html" as wtf %}
 {% block title %}{{super()}} User {{user_name}}{% endblock title %}
 
 {% block navbar %}
@@ -31,7 +32,7 @@
     </form>
 </div>#}
 
-<form method="post" action="">
+{#<form method="post" action="">
     <table class="table table-bordered">
         <thead>
             {% for i in range(categories|length) %}
@@ -49,7 +50,8 @@
     <div class="form-group col-md-1">
         <input type="submit" value="Submit" class="btn btn-info" />
     </div>
-</form>
+</form>#}
+    {{ wtf.quick_form(form) }}
 
 
 <ul class="users">
