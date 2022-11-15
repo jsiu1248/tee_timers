@@ -137,6 +137,7 @@ def before_request():
             return redirect(url_for('auth.unconfirmed'))
 
 
+
 @auth.route('/unconfirmed')
 def unconfirmed():
     """

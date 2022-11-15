@@ -4,9 +4,9 @@ from .. import db
 from flask_login import login_required, current_user
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
-from ..models import User, Role, Permission
+from ..models import User, Role, Permission, Comment
 from ..decorators import permission_required, admin_required
-from .forms import CommentForm, TechSupportForm
+from .forms import CommentForm, TechSupportForm, SimpleForm, ExampleForm
 from ..email import send_email
 
 """ was trying to fix CSRF error"""
@@ -236,3 +236,22 @@ def test():
        categories = categories,
     cells = cells,
        )
+
+@main.route('/hello_world',methods=['post','get'])
+def hello_world():
+    form = SimpleForm()
+    if form.validate_on_submit():
+        print(form.example.data)
+        return render_template("success.html", data=form.example.data)
+    else:
+        print("Validation Failed")
+        print(form.errors)
+    return render_template('example.html',form=form)
+
+@main.route('/example', methods=['GET', 'POST'])
+def example():
+    form = ExampleForm()
+    if request.method == 'POST':
+        # do something
+        pass
+    return render_template('example.html', form=form)

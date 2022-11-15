@@ -37,7 +37,6 @@
             {% for i in range(categories|length) %}
             <tr>
                 <th> {{ categories[i] }} </th>
-                    {# {{timeslots[i]}} #}
 
             {% for cell in cells[i] %}
                 <td><input id="{{ categories[i]+ cell }}" type="checkbox" name="{{ categories[i]+cell }}">{{ cell }}
