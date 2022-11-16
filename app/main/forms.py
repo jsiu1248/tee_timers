@@ -1,7 +1,7 @@
 from ast import Str
 from xmlrpc.client import Boolean
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, DateField, TextAreaField, SelectField, BooleanField, SelectMultipleField
+from wtforms import StringField, SubmitField, DateField, TextAreaField, SelectField, BooleanField, SelectMultipleField, IntegerField
 from wtforms.validators import DataRequired, Length, Regexp
 from wtforms import widgets, SelectMultipleField
 
@@ -65,3 +65,48 @@ class MatchForm(FlaskForm):
                                choices=[(1, 'Leisure'), (2, 'Betting'), (3, 'Competitive'), (4, 'Driving Range')],
                                validators=[])            
     submit = SubmitField('Submit')
+
+
+class EditProfileForm(FlaskForm):
+    # these two details have length validating limits
+    name = StringField("Name", validators=[Length(0, 64)])
+    age = IntegerField("Age", validators=[Length(0, 3)])
+    city = StringField("City", validators=[Length(0,64)])
+    state = StringField("State", validators=[Length(0,64)])
+    # users can write bios as long as they want
+    bio = TextAreaField("Bio")
+    gender = SelectMultipleField('Gender',
+                               coerce=int,
+                               choices=[(1, 'Male'), (2, 'Female'), (3, 'Other')],
+                               validators=[])
+    day = SelectMultipleField('Day',
+                               coerce=int,
+                               choices=[(1, 'Monday'), (2, 'Tuesday'), (3, 'Wednesday'), (4, 'Thursday'), (5, 'Friday'), 
+                               (6, 'Saturday'), (7,'Sunday')],
+                               validators=[])
+    time_of_day = SelectMultipleField('Time of Day',
+                               coerce=int,
+                               choices=[(1, 'Morning'), (2, 'Afternoon')],
+                               validators=[])
+
+    ride_or_walk = SelectMultipleField('Ride or Walk',
+                               coerce=int,
+                               choices=[(1, 'Ride'), (2, 'Walk')],
+                               validators=[])
+    handicap = SelectMultipleField('Handicap',
+                               coerce=int,
+                               choices=[(1, '20+'), (2, '15-20'), (3, '10-15'), (4, '5-10'), (5, '0-5')],
+                               validators=[])
+    smoking = SelectMultipleField('Smoking',
+                               coerce=int,
+                               choices=[(1, 'No'), (2, 'Yes')],
+                               validators=[])
+    drinking = SelectMultipleField('Drinking',
+                               coerce=int,
+                               choices=[(1, 'No'), (2, 'Yes')],
+                               validators=[])            
+    playing_type = SelectMultipleField('Playing Type',
+                               coerce=int,
+                               choices=[(1, 'Leisure'), (2, 'Betting'), (3, 'Competitive'), (4, 'Driving Range')],
+                               validators=[])           
+    submit = SubmitField("Submit")

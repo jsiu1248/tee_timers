@@ -6,7 +6,7 @@ from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from ..models import User, Role, Permission, Comment
 from ..decorators import permission_required, admin_required
-from .forms import CommentForm, TechSupportForm, SimpleForm, MatchForm
+from .forms import CommentForm, TechSupportForm, SimpleForm, MatchForm, EditProfileForm
 from ..email import send_email
 
 """ was trying to fix CSRF error"""
@@ -249,3 +249,26 @@ def forum():
 #        categories = categories,
 #     cells = cells,
 #        )
+
+@main.route('/edit-profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    form = EditProfileForm()
+    if form.validate_on_submit():
+        current_user.name = form.name.data
+        current_user.age = form.age.data
+        current_user.city = form.city.data
+        current_user.state = form.state.data
+        current_user.bio = form.bio.data
+        current_user.gender = form.gender.data
+        current_user.day = form.day.data
+        current_user.time_of_day = form.time_of_day.data
+        current_user.ride_or_walk = form.ride_or_walk.data
+        current_user.handicap = form.handicap.data
+        current_user.smoking = form.smoking.data
+        current_user.drinking = form.drinking.data
+        current_user.playing_type = form.playing_type.data
+        db.session.add(current_user._get_current_object())
+        db.session.commit()
+        flash('You successfully updated your profile! Looks great.')
+        return redirect(url_for('.user', username=current_user.username))
