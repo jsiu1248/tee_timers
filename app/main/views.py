@@ -190,15 +190,14 @@ def match():
     #     return 'Done'
     if request.method == 'POST':
         data = dict((key, request.form.getlist(key) if len(
-            request.form.getlist(key)) > 1 else request.form.getlist(key)[0])
+            request.form.getlist(key)) > 0 else request.form.getlist(key)[0])
             for key in request.form.keys())
-            # users = User.query.filter_by
         users = User.query.filter(User.gender.in_( data['gender']) | 
-        User.day.in_(data['day']) | User.time_of_day.in_(data['time_of_day']) | 
-        User.ride_or_walk.in_(data['ride_or_walk']) | User.handicap.in_(data['handicap']) | 
-        User.smoking.in_(data['smoking']) | User.drinking.in_(data['drinking']) | 
-        User.playing_type.in_(data['playing_type'])
-                )        
+        User.day_id.in_(data['day']) |  User.time_of_day_id.in_(data['time_of_day']) | 
+        User.ride_or_walk_id.in_(data['ride_or_walk']) | User.handicap_id.in_(data['handicap']) |
+        User.smoking_id.in_(data['smoking']) | User.alcohol_id.in_(data['drinking']) | 
+        User.playing_type.in_(data['playing_type']))
+          
         print (data) 
 
 
