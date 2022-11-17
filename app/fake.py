@@ -22,15 +22,15 @@ def users(count=20):
                  state = fake.state(),
                  bio = fake.text(),
                  last_seen=fake.past_date(),
-                 gender =randint(0,2),
+                 gender =randint(1,3),
                  age = randint(10,120),
-                 day_id = randint(0,6),
-                 time_of_day_id = randint(0,1), 
-                 ride_or_walk_id = randint(0,1), 
-                 handicap_id = randint(0,4), 
-                 smoking_id = randint(0,1), 
-                 alcohol_id = randint(0,1), 
-                 playing_type = randint(0,3) 
+                 day_id = randint(1,7),
+                 time_of_day_id = randint(1,2), 
+                 ride_or_walk_id = randint(1,2), 
+                 handicap_id = randint(1,5), 
+                 smoking_id = randint(1,2), 
+                 alcohol_id = randint(1,2), 
+                 playing_type = randint(1,5) 
                 #  , 
 
 
