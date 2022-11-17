@@ -62,7 +62,7 @@ class MatchForm(FlaskForm):
                                validators=[])            
     playing_type = SelectMultipleField('Playing Type',
                                coerce=int,
-                               choices=[(1, 'Leisure'), (2, 'Betting'), (3, 'Competitive'), (4, 'Driving Range')],
+                               choices=[(1, 'Leisure'), (2, 'Betting'), (3, 'Competitive'), (4, 'Driving Range'), (5, 'Learning')],
                                validators=[])            
     submit = SubmitField('Submit')
 
@@ -107,6 +107,6 @@ class EditProfileForm(FlaskForm):
                                validators=[])            
     playing_type = SelectMultipleField('Playing Type',
                                coerce=int,
-                               choices=[(1, 'Leisure'), (2, 'Betting'), (3, 'Competitive'), (4, 'Driving Range')],
+                               choices=[(1, 'Leisure'), (2, 'Betting'), (3, 'Competitive'), (4, 'Driving Range'), (5, 'Learning')],
                                validators=[])           
     submit = SubmitField("Submit")
