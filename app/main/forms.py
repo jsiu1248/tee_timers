@@ -2,7 +2,7 @@ from ast import Str
 from xmlrpc.client import Boolean
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, DateField, TextAreaField, SelectField, BooleanField, SelectMultipleField, IntegerField
-from wtforms.validators import DataRequired, Length, Regexp
+from wtforms.validators import DataRequired, Length, Regexp, NumberRange
 from wtforms import widgets, SelectMultipleField
 
 
@@ -70,7 +70,7 @@ class MatchForm(FlaskForm):
 class EditProfileForm(FlaskForm):
     # these two details have length validating limits
     name = StringField("Name", validators=[Length(0, 64)])
-    age = IntegerField("Age", validators=[Length(0, 3)])
+    age = IntegerField("Age", validators=[NumberRange(10, 120)])
     city = StringField("City", validators=[Length(0,64)])
     state = StringField("State", validators=[Length(0,64)])
     # users can write bios as long as they want

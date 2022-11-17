@@ -68,8 +68,11 @@
 
 { # add user profile or avatar #}
 
-{# add edit profile #}
-
+{% if user.username == current_user.username %}
+<a class="btn btn-default" href="{{ url_for('.edit_profile') }}">
+    Edit Profile
+</a>
+{% endif %}
 
 {# add admin edit profile #}
 
