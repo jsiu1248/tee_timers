@@ -143,7 +143,7 @@ class User(UserMixin, db.Model):
     playing_type = db.Column(db.Integer)
     # it will be assigned upon the created of the new User
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
-    # compositions = db.relationship('Composition', backref='artist', lazy='dynamic')
+    compositions = db.relationship('Comment', backref='users', lazy='dynamic')
     following = db.relationship('Follow',
                                foreign_keys=[Follow.follower_id],
                                backref=db.backref('follower', lazy='joined'),

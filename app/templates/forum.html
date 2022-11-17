@@ -7,26 +7,9 @@
 {{ wtf.quick_form(form) }}
 </div>
 
-<div>
-    <ul class="comments">
+{% include '_comment.html' %}
 
-    {% for comment in comments %}
-    <li class="comment">
-        {# Single composition #}
-        <div class="comment-content">
-            <div class="comment-date">{{ moment(comment.timestamp).fromNow() }}</div>
-            <div class="comment-title">
-                <a href="{{ url_for('.comment', slug=comment.slug) }}">
-                    {{ comment.title }}
-                </a>
 
-                <div class="comment-user">
-                    <a href="{{ url_for('main.user', username=comment.user.username) }}">
-                        {{ comment.user.username }}
-                    </a>
-                </div>
-</div>
-    {% endfor %}
 {% endblock content %}
 
 {# after submimission show the comments below #}

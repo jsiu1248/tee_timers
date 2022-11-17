@@ -61,7 +61,9 @@ def comment(count=100):
                         title=string.capwords(fake.bs()),
                         comment=fake.text(),
                         timestamp=fake.past_date() ,
-                        user_id=randint(1, user_count)
+                        user_id = randint(1, user_count),
+                        reply = fake.text(),
+                        reply_id = randint(1, user_count)
                         )
         db.session.add(c)
     db.session.commit()

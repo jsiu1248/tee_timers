@@ -210,15 +210,25 @@ def match():
 def comment(slug):
     # passes comment contained in a list respresented as comment to template
     comment = Comment.query.filter_by(slug=slug).first_or_404()
-    return render_template('comment.html', comment=[comment])
+    return render_template('comment.html', comments=[comment])
 
 
 @main.route('/forum', methods=["GET","POST"])
 @login_required
 def forum():
     form = CommentForm()
+    page = request.args.get('page', 1, type = int)
+    # Pagination of the comments for all users
+    pagination = \
+        Comment.query.order_by(Comment.timestamp.desc()).paginate(
+            page = page,
+            per_page = current_app.config['COMMENTS_PER_PAGE'],
+            error_out = False)
+    # Convert to list
+    comments = pagination.items
+
     return render_template('forum.html',
-                           form = form)
+                           form = form, comments = comments, pagination = pagination)
 
 # @main.route('/tech_support', methods=["GET","POST"])
 # @login_required
