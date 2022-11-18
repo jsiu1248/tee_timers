@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block navbar %}
-<div class="navbar navbar-default" role="navigation">
+<div class="navbar navbar-default" role="navigation" style="background-color:#A5A5AF; color:black">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -25,41 +25,22 @@
             <a class="navbar-brand" href="/">Tee Timers</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="/">Home</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-            {#{% if current_user.is_authenticated %}#}
-            <li><a href="{{url_for('auth.logout')}}">Log Out</a></li>
-            {#{% else %}#}
-            <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
-            {#{% endif %}#}
-            </ul>
-            {# adding link to nav bar #}
-            <ul class="nav navbar-nav navbar-right">
-            {#{% if current_user.is_authenticated %}#}
-            <li>
-            <a href="{{ url_for('main.user', username=current_user.username) }}">
-            Profile
-            </a>
-            </li>
-            {#{% endif %}#}
-            </ul>
             <ul class='nav navbar-nav navbar right'>
-                {#{% if current_user.is_authenticated %}#}
+                {% if current_user.is_authenticated %}
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="#">
                         Account <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('main.user', username=current_user.username) }}">Profile</a></li>
                         <li><a href="{{url_for('auth.change_password')}}">Change Password</a></li>
                         <li><a href="{{url_for('auth.logout')}}">Log Out</a></li>
                     </ul>
                 </li>
-                {#{% else %}#}
+                {% else %}
                 <li><a href="{{url_for('auth.login')}}">Log In</a></li>
-                {#{% endif %}#}
+                {% endif %}
         </div>
     </div>
 </div>
@@ -68,6 +49,7 @@
 
 {# goes through all of the queued messages and flashes them #}
 {% block content %}
+
 <div class="container">
     {% for msg in get_flashed_messages()%}
     <div class="alert warning">
@@ -76,6 +58,7 @@
         {{msg}}
     </div>
     {% endfor %}
-{% block page_content %}{% endblock %}
+{% block page_content %}<body style="background-color:#57BC90; color:black">
+    </body> {% endblock %}
 </div>
 {% endblock content %}

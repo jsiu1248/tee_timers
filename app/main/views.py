@@ -4,6 +4,7 @@ from .. import db
 from flask_login import login_required, current_user
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import and_, or_
 from ..models import User, Role, Permission, Comment
 from ..decorators import permission_required, admin_required
 from .forms import CommentForm, TechSupportForm, MatchForm, EditProfileForm
@@ -198,14 +199,16 @@ def match():
             for key in request.form.keys())
         gender_filter = User.gender.in_( data['gender'] if ('gender') in data else [] )
         day_filter = User.day_id.in_(data['day'] if ('day') in data else [])
+        print(gender_filter)
+        print(day_filter)
         time_of_day_filter = User.time_of_day_id.in_(data['time_of_day'] if ('time_of_day') in data else [])
         ride_or_walk_filter = User.ride_or_walk_id.in_(data['ride_or_walk'] if ('ride or walk') in data else [])
         handicap_filter = User.handicap_id.in_(data['handicap'] if ('handicap') in data else [])
         smoking_filter = User.smoking_id.in_(data['smoking'] if 'smoking' in data else [])
         drinking_filter = User.alcohol_id.in_(data['drinking'] if 'drinking' in data else [])
         playing_type_filter = User.playing_type.in_(data['playing_type'] if ('playing_type') in data else [])
-        users = User.query.filter(gender_filter | day_filter | time_of_day_filter| 
-        ride_or_walk_filter | handicap_filter |  smoking_filter | drinking_filter | drinking_filter |
+        users = User.query.filter(gender_filter & day_filter & time_of_day_filter & 
+        ride_or_walk_filter & handicap_filter &  smoking_filter & drinking_filter & drinking_filter &
         playing_type_filter
         )
     
@@ -300,9 +303,9 @@ def edit_profile():
     return render_template('edit_profile.html', form=form)
 
 
-@main.route('/edit_comment', methods=['GET', 'POST'])
+@main.route('/create_comment', methods=['GET', 'POST'])
 @login_required
-def edit_comment():
+def create_comment():
     """
     Editting the comments or creating them, or replyies. 
     NOTE: Maybe the functionality needs to be changed. 
@@ -310,11 +313,41 @@ def edit_comment():
     """
     form = CommentForm()
     if form.validate_on_submit():
-        current_user.title = form.title.data
-        current_user.comment = form.comment_message.data
-        db.session.add(current_user._get_current_object())
+        comments = Comment(title = form.title.data, 
+        comment = form.comment_message.data)
+        db.session.add(comments)
         db.session.commit()
-        return redirect(url_for('.user', username = current_user.username))
-    form.title.data = current_user.title
-    form.comment_message.data = current_user.comment
-    return render_template('edit_comment.html', form = form)
+        comments.generate_slug()
+        return render_template('create_comment.html', form = form)
+    return render_template('forum.html', form = form)
+
+
+# @main.route('/edit/<slug>',  methods=["GET", "POST"])
+# @login_required
+# def edit_comment(slug):
+#     """
+#     Edit each comment. Login is required. 
+#     Args: slug
+#     Returns: edit_comment.html to render the form and then edit
+#     """
+#     form = CommentForm()
+#     # searches for comment by slug or 404
+#     comment = Comment.query.filter_by(slug=slug).first_or_404()
+#     # if not the user nor admin abort
+#     if current_user.username != comment.user.username and not current_user.can(Permission.ADMIN):
+#         abort(403)  
+#     if form.validate_on_submit():
+#         comment.title = form.title.data
+#         comment.comment_message = form.comment.data
+#         composition.generate_slug()
+#         db.session.add(comment)
+#         db.session.commit()
+#         flash("Comment updated")
+
+#         # which slug is it directing to?
+#         return redirect(url_for('.comment', slug = comment.slug))
+        
+#     # why is the data equaled back and forth - seems like it is doing the same thing twice
+#     form.title.data = composition.title
+#     form.comment.data = comment.comment_message
+#     return render_template('comment.html', form=form)

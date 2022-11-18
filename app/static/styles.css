@@ -1,5 +1,7 @@
 \\ using templates css for now
-
+.body {
+    background-color: #66B9BF;
+    }
 .profile-thumbnail {
     position: absolute;
 }
