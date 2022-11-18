@@ -199,12 +199,16 @@ def match():
         gender_filter = User.gender.in_( data['gender'] if ('gender') in data else [] )
         day_filter = User.day_id.in_(data['day'] if ('day') in data else [])
         time_of_day_filter = User.time_of_day_id.in_(data['time_of_day'] if ('time_of_day') in data else [])
-        users = User.query.filter(gender_filter | day_filter | time_of_day_filter)
-        # |
-        #  |   | 
-        # User.ride_or_walk_id.in_(data['ride_or_walk'] if ('ride or walk') in data else []) | User.handicap_id.in_(data['handicap'] if ('handicap') in data else []) |
-        # User.smoking_id.in_(data['smoking'] if 'smoking' in data else []) | User.alcohol_id.in_(data['drinking'] if 'drinking' in data else []) | 
-        # User.playing_type.in_(data['playing_type'] if ('playing_type') in data else []))
+        ride_or_walk_filter = User.ride_or_walk_id.in_(data['ride_or_walk'] if ('ride or walk') in data else [])
+        handicap_filter = User.handicap_id.in_(data['handicap'] if ('handicap') in data else [])
+        smoking_filter = User.smoking_id.in_(data['smoking'] if 'smoking' in data else [])
+        drinking_filter = User.alcohol_id.in_(data['drinking'] if 'drinking' in data else [])
+        playing_type_filter = User.playing_type.in_(data['playing_type'] if ('playing_type') in data else [])
+        users = User.query.filter(gender_filter | day_filter | time_of_day_filter| 
+        ride_or_walk_filter | handicap_filter |  smoking_filter | drinking_filter | drinking_filter |
+        playing_type_filter
+        )
+    
           
         print (data) 
 
