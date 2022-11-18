@@ -7,7 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, or_
 from ..models import User, Role, Permission, Comment
 from ..decorators import permission_required, admin_required
-from .forms import CommentForm, TechSupportForm, MatchForm, EditProfileForm
+from .forms import CommentForm, TechSupportForm, MatchForm, EditProfileForm, AdminLevelEditProfileForm
 from ..email import send_email
 
 """ was trying to fix CSRF error"""
@@ -110,7 +110,7 @@ def followers(username):
     page = request.args.get('page', 1, type=int)
     pagination = user.followers.paginate(
         page,
-        per_page=current_app.config['RAGTIME_FOLLOWERS_PER_PAGE'],
+        per_page=current_app.config['FOLLOWERS_PER_PAGE'],
         error_out=False)
     # convert to only follower and timestamp
     follows = [{'user': item.follower, 'timestamp': item.timestamp}
@@ -142,7 +142,7 @@ def following(username):
     # display page with list of users who user is following
     pagination = user.following.paginate(
         page,
-        per_page=current_app.config['RAGTIME_FOLLOWERS_PER_PAGE'],
+        per_page=current_app.config['FOLLOWERS_PER_PAGE'],
         error_out=False)
     # convert to only follower and timestamp
     follows = [{'user': item.following, 'timestamp': item.timestamp}
@@ -351,3 +351,59 @@ def create_comment():
 #     form.title.data = composition.title
 #     form.comment.data = comment.comment_message
 #     return render_template('comment.html', form=form)
+
+@main.route('/editprofile/<int:id>', methods = ['GET', 'POST'])
+@login_required
+@admin_required
+def admin_edit_profile(id):
+    """
+    Admin access to editting other's profiles. Admin access and login is required. 
+    Args: id of user
+    """
+    form = AdminLevelEditProfileForm()
+
+    # Search for user based on ID and return 404 if None
+    user = User.query.filter_by(id = id).first_or_404()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.confirmed = form.confirmed.data
+        current_user.name = form.name.data
+        current_user.age = form.age.data
+        current_user.city = form.city.data
+        current_user.state = form.state.data
+        current_user.bio = form.bio.data
+        current_user.gender = form.gender.data
+        current_user.day_id = form.day.data
+        current_user.time_of_day_id = form.time_of_day.data
+        current_user.ride_or_walk_id = form.ride_or_walk.data
+        current_user.handicap_id = form.handicap.data
+        current_user.smoking_id = form.smoking.data
+        current_user.alcohol_id = form.drinking.data
+        current_user.playing_type = form.playing_type.data
+        # filtering for the first role name by form.role.data
+        current_user.role = Role.query.filter_by(id = form.role.data).first()
+
+
+        db.session.add(current_user._get_current_object())
+        db.session.commit()
+        flash('You successfully updated {user.username}\'s profile.')
+        return redirect(url_for('.user', username=current_user.username))
+
+    # why is the data equaled back and forth - seems like it is doing the same thing twice
+    form.username.data = current_user.username
+    form.confirmed.data = current_user.confirmed
+    form.role.data = current_user.role_id
+    form.name.data = current_user.name
+    form.age.data = current_user.age
+    form.city.data = current_user.city
+    form.state.data = current_user.state
+    form.bio.data = current_user.bio
+    form.gender.data = current_user.gender
+    form.day.data = current_user.day_id
+    form.time_of_day.data = current_user.time_of_day_id
+    form.ride_or_walk.data = current_user.ride_or_walk_id
+    form.handicap.data = current_user.handicap_id
+    form.smoking.data = current_user.smoking_id
+    form.drinking.data = current_user.alcohol_id
+    form.playing_type.data = current_user.playing_type
+    return render_template('edit_profile.html', form=form)
