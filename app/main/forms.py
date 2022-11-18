@@ -7,29 +7,27 @@ from wtforms import widgets, SelectMultipleField
 
 
 class TechSupportForm(FlaskForm):
+    """
+    Form for asking any questions. 
+    """
     title = StringField("Title")
     tech_message = TextAreaField("What would you like help with?") 
     submit = SubmitField("Submit")
 
 
 class CommentForm(FlaskForm):
+    """
+    Form for creating a comment or reply. 
+    """
     title = StringField("Title")
     comment_message = TextAreaField("What are you up to?") 
     submit = SubmitField("Submit")
 
-class MultiCheckboxField(SelectMultipleField):
-    widget = widgets.ListWidget(prefix_label=False)
-    option_widget = widgets.CheckboxInput()
-
-
-class SimpleForm(FlaskForm):
-    string_of_files = ['one\r\ntwo\r\nthree\r\n']
-    list_of_files = string_of_files[0].split()
-    # create a list of value/description tuples
-    files = [(x, x) for x in list_of_files]
-    example = MultiCheckboxField('Label', choices=files)
 
 class MatchForm(FlaskForm):
+    """
+    Form for user to select criteria of playing partner. 
+    """
     gender = SelectMultipleField('Gender',
                                coerce=int,
                                choices=[(1, 'Male'), (2, 'Female'), (3, 'Other')],
@@ -68,6 +66,9 @@ class MatchForm(FlaskForm):
 
 
 class EditProfileForm(FlaskForm):
+    """
+    Entering or editting profile information.
+    """
     # these two details have length validating limits
     name = StringField("Name", validators=[Length(0, 64)])
     age = IntegerField("Age", validators=[NumberRange(10, 120)])

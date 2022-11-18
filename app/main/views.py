@@ -6,7 +6,7 @@ from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from ..models import User, Role, Permission, Comment
 from ..decorators import permission_required, admin_required
-from .forms import CommentForm, TechSupportForm, SimpleForm, MatchForm, EditProfileForm
+from .forms import CommentForm, TechSupportForm, MatchForm, EditProfileForm
 from ..email import send_email
 
 """ was trying to fix CSRF error"""
@@ -182,6 +182,10 @@ def show_followed():
 @main.route('/match', methods=["GET","POST"])
 @login_required
 def match():
+    """
+    Filters users for user to message. 
+    Return: redirects to match page
+    """
     form = MatchForm()
     # passes users contained in a list to template
     users = User.query.all()
@@ -192,11 +196,15 @@ def match():
         data = dict((key, request.form.getlist(key) if len(
             request.form.getlist(key)) > 0 else request.form.getlist(key)[0])
             for key in request.form.keys())
-        users = User.query.filter(User.gender.in_( data['gender'] if ('gender') in data else [] ) |
-        User.day_id.in_(data['day'] if ('day') in data else []) |  User.time_of_day_id.in_(data['time_of_day'] if ('time_of_day') in data else []) | 
-        User.ride_or_walk_id.in_(data['ride_or_walk'] if ('ride or walk') in data else []) | User.handicap_id.in_(data['handicap'] if ('handicap') in data else []) |
-        User.smoking_id.in_(data['smoking'] if 'smoking' in data else []) | User.alcohol_id.in_(data['drinking'] if 'drinking' in data else []) | 
-        User.playing_type.in_(data['playing_type'] if ('playing_type') in data else []))
+        gender_filter = User.gender.in_( data['gender'] if ('gender') in data else [] )
+        day_filter = User.day_id.in_(data['day'] if ('day') in data else [])
+        time_of_day_filter = User.time_of_day_id.in_(data['time_of_day'] if ('time_of_day') in data else [])
+        users = User.query.filter(gender_filter | day_filter | time_of_day_filter)
+        # |
+        #  |   | 
+        # User.ride_or_walk_id.in_(data['ride_or_walk'] if ('ride or walk') in data else []) | User.handicap_id.in_(data['handicap'] if ('handicap') in data else []) |
+        # User.smoking_id.in_(data['smoking'] if 'smoking' in data else []) | User.alcohol_id.in_(data['drinking'] if 'drinking' in data else []) | 
+        # User.playing_type.in_(data['playing_type'] if ('playing_type') in data else []))
           
         print (data) 
 
@@ -216,6 +224,10 @@ def comment(slug):
 @main.route('/forum', methods=["GET","POST"])
 @login_required
 def forum():
+    """
+    showing all of the comments and paging it. 
+    Return: redirects to forum page
+    """
     form = CommentForm()
     page = request.args.get('page', 1, type = int)
     # Pagination of the comments for all users
@@ -241,28 +253,14 @@ def forum():
 #     return render_template('tech_support.html', form = form)
 
 
-# @main.route('/test', methods=['POST', 'GET'])
-# def test():
-#     categories = ['Gender', 'Day', 'Time of Day', 'Ride or Walk', 'Handicap', 'Smoking', 'Drinking', 'Playing Type']
-#     cells = [['Male','Female','Other'],['Monday','Tuesday','Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday'],
-#     ['Morning','Afternoon'], ['Cart','Walk'], ['20+','15-20','10-15','5-10','0-5'],['Yes','No'],['Yes','No'],
-#     ['Leisure','Betting','Competitive','Driving Range']
-#     ]
-
-#     if request.method == "POST":
-#         data = dict((key, request.form.getlist(key) if len(
-#             request.form.getlist(key)) > 1 else request.form.getlist(key)[0])
-#             for key in request.form.keys())
-#         print (data) 
-
-#     return render_template('match.html',
-#        categories = categories,
-#     cells = cells,
-#        )
 
 @main.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
+    """
+    editing the profile. The user's profile is blank initially. 
+    Return: redirects to edit_profile link
+    """
     form = EditProfileForm()
     if form.validate_on_submit():
         current_user.name = form.name.data
@@ -298,3 +296,21 @@ def edit_profile():
     return render_template('edit_profile.html', form=form)
 
 
+@main.route('/edit_comment', methods=['GET', 'POST'])
+@login_required
+def edit_comment():
+    """
+    Editting the comments or creating them, or replyies. 
+    NOTE: Maybe the functionality needs to be changed. 
+    Return: Returns the edit_comment page
+    """
+    form = CommentForm()
+    if form.validate_on_submit():
+        current_user.title = form.title.data
+        current_user.comment = form.comment_message.data
+        db.session.add(current_user._get_current_object())
+        db.session.commit()
+        return redirect(url_for('.user', username = current_user.username))
+    form.title.data = current_user.title
+    form.comment_message.data = current_user.comment
+    return render_template('edit_comment.html', form = form)
