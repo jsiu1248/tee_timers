@@ -369,3 +369,17 @@ def load_user(user_id):
 
 def __repr__(self):
     return f"<User {self.username}>"
+
+class Location(db.Model):
+    __tablename__ = 'location'
+    id = db.Column(db.Integer, primary_key=True)
+    city = db.Column(db.String(64))
+    state = db.Column(db.String(64))
+
+class GolfCourse(db.Model):
+    __tablename__ = 'golfcourse'
+    id = db.Column(db.Integer, primary_key=True)
+    city = db.Column(db.String(64))
+    state = db.Column(db.String(64))
+    course = db.Column(db.String(64))
+

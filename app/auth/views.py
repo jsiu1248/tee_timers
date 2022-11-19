@@ -80,16 +80,16 @@ def change_password():
         password = form.password.data
         new_password = form.new_password.data
     # Checks if old password matches then we can use the new password
-    if current_user.verify_password(password) == True:
-        current_user.password = new_password
-        # add it to the current user and commit
-        db.session.add(current_user)
-        db.session.commit()
-        flash('Password has been changed.')
-        # the password change was a success, so user is directed to login
-        return redirect(url_for('auth.login'))
-    else:
-        flash('Old password does not match. Try again.')
+        if current_user.verify_password(password) == True:
+            current_user.password = new_password
+            # add it to the current user and commit
+            db.session.add(current_user)
+            db.session.commit()
+            flash('Password has been changed.')
+            # the password change was a success, so user is directed to login
+            return redirect(url_for('auth.login'))
+        else:
+            flash('Old password does not match. Try again.')
 
     return render_template('auth/change_password.html', form = form)
 
