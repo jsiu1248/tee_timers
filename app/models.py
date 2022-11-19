@@ -10,6 +10,7 @@ import bleach
 import re
 from itsdangerous import Serializer
 from app.exceptions import ValidationError
+import json
 
 class Permission:
     FOLLOW = 1
@@ -375,6 +376,25 @@ class Location(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     city = db.Column(db.String(64))
     state = db.Column(db.String(64))
+
+    @staticmethod
+    def insert_location():
+        "adding city and state data from json file."
+        # load data in json
+        with open('static/us-cities-demographics.json', 'r') as loc:
+            data = json.load(loc)
+        for dicts in data:
+            location = dicts['recordid']
+            if not Location.query.filter_by(id = location).first():
+                id = dicts['recordid']
+                city = dicts['city']
+                state = dicts['state']
+                location = Location(id = id, city = city, state = state)
+                db.session.add(location)
+            else:
+                pass
+        db.session.commit()
+
 
 class GolfCourse(db.Model):
     __tablename__ = 'golfcourse'
