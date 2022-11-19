@@ -403,3 +403,19 @@ class GolfCourse(db.Model):
     state = db.Column(db.String(64))
     course = db.Column(db.String(64))
 
+    def insert_golf_course():
+        "adding city and state data from json file."
+        # load data in json
+        with open('static/us-cities-demographics.json', 'r') as loc:
+            data = json.load(loc)
+        for dicts in data:
+                city = dicts['City']
+                state = dicts['State']
+                course = dicts['Course']
+                golf_course = GolfCourse(id = id, city = city, state = state, 
+                course = course)
+                db.session.add(golf_course)
+        db.session.commit()
+
+
+
