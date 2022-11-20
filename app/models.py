@@ -396,11 +396,11 @@ class Location(db.Model):
             data = json.load(loc)
         for dicts in data:
             location = dicts['recordid']
-            if not Location.query.filter_by(id = location).first():
-                id = dicts['recordid']
+            if not Location.query.filter_by(location_id = location).first():
+                location_id = dicts['recordid']
                 city = dicts['fields']['city']
                 state = dicts['fields']['state']
-                location = Location(id = id, city = city, state = state)
+                location = Location(location_id = location_id, city = city, state = state)
                 db.session.add(location)
             else:
                 pass
