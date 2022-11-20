@@ -44,20 +44,61 @@
                 <td>{% if user.name %}{{ user.name }}{% endif %}</td>
             </tr>
             <tr>
-                <th scope="row">Location</th>
-                <td>{% if user.location %}{{ user.location }}{% endif %}</td>
+                <th scope="row">Age</th>
+                <td>{% if user.age %}{{ user.age }}{% endif %}</td>
             </tr>
-            {% if current_user.is_administrator() %}
             <tr>
-                <th scope="row">Email</th>
-                <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+                <th scope="row">City</th>
+                <td>{% if user.city %}{{ user.city }}{% endif %}</td>
             </tr>
-            {% endif %}
+            <tr>
+                <th scope="row">State</th>
+                <td>{% if user.state %}{{ user.state }}{% endif %}</td>
+            </tr>
             <tr>
                 <th scope="row">Bio</th>
                 <td>{% if user.bio %}{{ user.bio }}{% endif %}</td>
             </tr>
             <tr>
+            <tr>
+                <th scope="row">Gender</th>
+                <td>{% if user.gender %}{{ user.gender }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th scope="row">Day</th>
+                <td>{% if user.day %}{{ user.day }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th scope="row">Time of Day</th>
+                <td>{% if user.time_of_day %}{{ user.time_of_day }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th scope="row">Ride or Walk</th>
+                <td>{% if user.location %}{{ user.location }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th scope="row">Handicap</th>
+                <td>{% if user.handicap %}{{ user.handicap }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th scope="row">Smoking</th>
+                <td>{% if user.smoking %}{{ user.smoking }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th scope="row">Drinking</th>
+                <td>{% if user.drinking %}{{ user.drinking }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th scope="row">Playing Type</th>
+                <td>{% if user.playing_type %}{{ user.playing_type }}{% endif %}</td>
+            </tr>
+            {% if current_user.is_administrator() %}
+            <tr>
+                <th scope="row">Playing Type</th>
+                <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+            </tr>
+            {% endif %}
+
                 <th scope="row">Last seen</th>
                 <td>{{ moment(user.last_seen).fromNow() }}</td>
 

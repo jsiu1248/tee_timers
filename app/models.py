@@ -381,7 +381,7 @@ class Location(db.Model):
     def insert_location():
         "adding city and state data from json file."
         # load data in json
-        with open('/static/us-cities-demographics.json', 'r') as loc:
+        with open('../static/us-cities-demographics.json', 'r') as loc:
             data = json.load(loc)
         for dicts in data:
             location = dicts['recordid']
@@ -406,7 +406,7 @@ class GolfCourse(db.Model):
     def insert_golf_course():
         "adding city and state data from json file."
         # load data in json
-        with open('/static/California_Golf_Courses.json', 'r') as loc:
+        with open('../static/California_Golf_Courses.json', 'r') as loc:
             data = json.load(loc)
         for dicts in data:
                 city = dicts['City']

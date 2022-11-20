@@ -275,14 +275,14 @@ def edit_profile():
         current_user.city = form.city.data
         current_user.state = form.state.data
         current_user.bio = form.bio.data
-        current_user.gender = form.gender.data
-        current_user.day_id = form.day.data
-        current_user.time_of_day_id = form.time_of_day.data
-        current_user.ride_or_walk_id = form.ride_or_walk.data
-        current_user.handicap_id = form.handicap.data
-        current_user.smoking_id = form.smoking.data
-        current_user.alcohol_id = form.drinking.data
-        current_user.playing_type = form.playing_type.data
+        # current_user.gender = form.gender.data
+    #     current_user.day_id = form.day.data
+    #     current_user.time_of_day_id = form.time_of_day.data
+    #     current_user.ride_or_walk_id = form.ride_or_walk.data
+    #     current_user.handicap_id = form.handicap.data
+    #     current_user.smoking_id = form.smoking.data
+    #     current_user.alcohol_id = form.drinking.data
+    #     current_user.playing_type = form.playing_type.data
         db.session.add(current_user._get_current_object())
         db.session.commit()
         flash('You successfully updated your profile! Looks great.')
@@ -292,14 +292,14 @@ def edit_profile():
     form.city.data = current_user.city
     form.state.data = current_user.state
     form.bio.data = current_user.bio
-    form.gender.data = current_user.gender
-    form.day.data = current_user.day_id
-    form.time_of_day.data = current_user.time_of_day_id
-    form.ride_or_walk.data = current_user.ride_or_walk_id
-    form.handicap.data = current_user.handicap_id
-    form.smoking.data = current_user.smoking_id
-    form.drinking.data = current_user.alcohol_id
-    form.playing_type.data = current_user.playing_type
+    # form.gender.data = current_user.gender
+    # form.day.data = current_user.day_id
+    # form.time_of_day.data = current_user.time_of_day_id
+    # form.ride_or_walk.data = current_user.ride_or_walk_id
+    # form.handicap.data = current_user.handicap_id
+    # form.smoking.data = current_user.smoking_id
+    # form.drinking.data = current_user.alcohol_id
+    # form.playing_type.data = current_user.playing_type
     return render_template('edit_profile.html', form=form)
 
 
