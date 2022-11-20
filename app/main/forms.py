@@ -15,12 +15,12 @@ class TechSupportForm(FlaskForm):
     submit = SubmitField("Submit")
 
 
-class CommentForm(FlaskForm):
+class PostForm(FlaskForm):
     """
     Form for creating a comment or reply. 
     """
     title = StringField("Title")
-    comment_message = TextAreaField("What are you up to?") 
+    description = TextAreaField("What are you up to?") 
     submit = SubmitField("Submit")
 
 

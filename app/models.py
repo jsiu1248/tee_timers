@@ -145,6 +145,8 @@ class User(UserMixin, db.Model):
     # it will be assigned upon the created of the new User
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     comment = db.relationship('Comment', backref='users', lazy='dynamic')
+    post = db.relationship('Post', backref='users', lazy='dynamic')
+
     following = db.relationship('Follow',
                                foreign_keys=[Follow.follower_id],
                                backref=db.backref('follower', lazy='joined'),
@@ -312,21 +314,19 @@ class AnonymousUser(AnonymousUserMixin):
     def is_administrator(self):
         return False
 
-class Comment(db.Model):
-    __tablename__ = 'comments'
+class Post(db.Model):
+    __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(64))
-    comment = db.Column(db.Text)
+    description = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    reply_id = db.Column(db.Integer)
-    reply = db.Column(db.Text)
-    comment_html = db.Column(db.Text)
+    description_html = db.Column(db.Text)
     slug = db.Column(db.String(128), unique=True)
     
 
     @staticmethod
-    def on_changed_comment(target, value, oldvalue, initiator):
+    def on_changed_description(target, value, oldvalue, initiator):
         """
         "listener" of SQLAlchemy's "set" event for description. the function will be called whenever the
         description changes.
@@ -339,7 +339,7 @@ class Comment(db.Model):
                                            tags=allowed_tags,
         # strip away any extra characters
                                            strip=True))
-        target.comment_html = html
+        target.description_html = html
 
     def generate_slug(self):
         """
@@ -352,9 +352,9 @@ class Comment(db.Model):
 
 
 
-db.event.listen(Comment.comment,
+db.event.listen(Post.description,
                 'set',
-                Comment.on_changed_comment)
+                Post.on_changed_description)
 
 # have to let login_manager know about the new class through the anonymous_user attribute
 # why does this need to be done again? Since in the definition is already named AnonymousUser
@@ -371,9 +371,20 @@ def load_user(user_id):
 def __repr__(self):
     return f"<User {self.username}>"
 
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    description = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    post_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    description_html = db.Column(db.Text)
+    slug = db.Column(db.String(128), unique=True)
+    
+
 class Location(db.Model):
     __tablename__ = 'location'
-    id = db.Column(db.String(64), primary_key=True)
+    location_id = db.Column(db.String(64), primary_key=True)
     city = db.Column(db.String(64))
     state = db.Column(db.String(64))
 

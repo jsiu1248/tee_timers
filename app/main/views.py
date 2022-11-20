@@ -5,9 +5,9 @@ from flask_login import login_required, current_user
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, or_
-from ..models import User, Role, Permission, Comment
+from ..models import User, Role, Permission, Comment, Post
 from ..decorators import permission_required, admin_required
-from .forms import CommentForm, TechSupportForm, MatchForm, EditProfileForm, AdminLevelEditProfileForm
+from .forms import PostForm, TechSupportForm, MatchForm, EditProfileForm, AdminLevelEditProfileForm
 from ..email import send_email
 
 """ was trying to fix CSRF error"""
@@ -220,34 +220,34 @@ def match():
                            users = users, form = form)
 
 
-@main.route('/comment/<slug>',  methods=["GET", "POST"])
+@main.route('/post/<slug>',  methods=["GET", "POST"])
 @login_required
 def comment(slug):
-    # passes comment contained in a list respresented as comment to template
-    comment = Comment.query.filter_by(slug=slug).first_or_404()
-    return render_template('comment.html', comments=[comment])
+    # passes post contained in a list respresented as post to template
+    post = Post.query.filter_by(slug=slug).first_or_404()
+    return render_template('post.html', posts=[post])
 
 
 @main.route('/forum', methods=["GET","POST"])
 @login_required
 def forum():
     """
-    showing all of the comments and paging it. 
+    showing all of the posts and paging it. 
     Return: redirects to forum page
     """
-    form = CommentForm()
+    form = PostForm()
     page = request.args.get('page', 1, type = int)
-    # Pagination of the comments for all users
+    # Pagination of the posts for all users
     pagination = \
-        Comment.query.order_by(Comment.timestamp.desc()).paginate(
+        Post.query.order_by(Post.timestamp.desc()).paginate(
             page = page,
-            per_page = current_app.config['COMMENTS_PER_PAGE'],
+            per_page = current_app.config['POSTS_PER_PAGE'],
             error_out = False)
     # Convert to list
-    comments = pagination.items
+    posts = pagination.items
 
     return render_template('forum.html',
-                           form = form, comments = comments, pagination = pagination)
+                           form = form, posts = posts, pagination = pagination)
 
 # @main.route('/tech_support', methods=["GET","POST"])
 # @login_required
@@ -303,54 +303,54 @@ def edit_profile():
     return render_template('edit_profile.html', form=form)
 
 
-@main.route('/create_comment', methods=['GET', 'POST'])
+@main.route('/create_post', methods=['GET', 'POST'])
 @login_required
-def create_comment():
+def create_post():
     """
-    Editting the comments or creating them, or replyies. 
+    Editting the posts or creating them, or replyies. 
     NOTE: Maybe the functionality needs to be changed. 
-    Return: Returns the edit_comment page
+    Return: Returns the edit_posts page
     """
-    form = CommentForm()
+    form = PostForm()
     if form.validate_on_submit():
-        comments = Comment(title = form.title.data, 
-        comment = form.comment_message.data)
-        db.session.add(comments)
+        posts = Post(title = form.title.data, 
+        post = form.description.data)
+        db.session.add(posts)
         db.session.commit()
-        comments.generate_slug()
-        return render_template('create_comment.html', form = form)
+        posts.generate_slug()
+        return render_template('create_post.html', form = form)
     return render_template('forum.html', form = form)
 
 
 # @main.route('/edit/<slug>',  methods=["GET", "POST"])
 # @login_required
-# def edit_comment(slug):
+# def edit_post(slug):
 #     """
-#     Edit each comment. Login is required. 
+#     Edit each post. Login is required. 
 #     Args: slug
-#     Returns: edit_comment.html to render the form and then edit
+#     Returns: edit_post.html to render the form and then edit
 #     """
-#     form = CommentForm()
-#     # searches for comment by slug or 404
-#     comment = Comment.query.filter_by(slug=slug).first_or_404()
+#     form = PostForm()
+#     # searches for post by slug or 404
+#     post = Post.query.filter_by(slug=slug).first_or_404()
 #     # if not the user nor admin abort
-#     if current_user.username != comment.user.username and not current_user.can(Permission.ADMIN):
+#     if current_user.username != post.user.username and not current_user.can(Permission.ADMIN):
 #         abort(403)  
 #     if form.validate_on_submit():
-#         comment.title = form.title.data
-#         comment.comment_message = form.comment.data
+#         post.title = form.title.data
+#         post.description = form.post.data
 #         composition.generate_slug()
-#         db.session.add(comment)
+#         db.session.add(post)
 #         db.session.commit()
-#         flash("Comment updated")
+#         flash("Post updated")
 
 #         # which slug is it directing to?
-#         return redirect(url_for('.comment', slug = comment.slug))
+#         return redirect(url_for('.post', slug = post.slug))
         
 #     # why is the data equaled back and forth - seems like it is doing the same thing twice
 #     form.title.data = composition.title
-#     form.comment.data = comment.comment_message
-#     return render_template('comment.html', form=form)
+#     form.post.data = post.description
+#     return render_template('post.html', form=form)
 
 @main.route('/editprofile/<int:id>', methods = ['GET', 'POST'])
 @login_required
