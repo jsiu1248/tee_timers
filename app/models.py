@@ -373,7 +373,7 @@ def __repr__(self):
 
 class Location(db.Model):
     __tablename__ = 'location'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(64), primary_key=True)
     city = db.Column(db.String(64))
     state = db.Column(db.String(64))
 
@@ -381,14 +381,14 @@ class Location(db.Model):
     def insert_location():
         "adding city and state data from json file."
         # load data in json
-        with open('../static/us-cities-demographics.json', 'r') as loc:
+        with open('app/static/us-cities-demographics.json', 'r') as loc:
             data = json.load(loc)
         for dicts in data:
             location = dicts['recordid']
             if not Location.query.filter_by(id = location).first():
                 id = dicts['recordid']
-                city = dicts['city']
-                state = dicts['state']
+                city = dicts['fields']['city']
+                state = dicts['fields']['state']
                 location = Location(id = id, city = city, state = state)
                 db.session.add(location)
             else:
@@ -406,13 +406,13 @@ class GolfCourse(db.Model):
     def insert_golf_course():
         "adding city and state data from json file."
         # load data in json
-        with open('../static/California_Golf_Courses.json', 'r') as loc:
+        with open('app/static/California_Golf_Courses.json', 'r') as loc:
             data = json.load(loc)
         for dicts in data:
                 city = dicts['City']
                 state = dicts['State']
-                course = dicts['Course']
-                golf_course = GolfCourse(id = id, city = city, state = state, 
+                course = dicts['Club']
+                golf_course = GolfCourse(city = city, state = state, 
                 course = course)
                 db.session.add(golf_course)
         db.session.commit()
