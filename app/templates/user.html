@@ -66,8 +66,13 @@
             </tr>
             <tr>
                 <th scope="row">Day</th>
-                <td>{% if user.day %}{{ user.day }}{% endif %}</td>
+                <td>{% if user.day_id == Day.THURSDAY %} Thursday {% endif %}</td>
             </tr>
+
+            {# {% if composition.post_type == PostType.THOUGHT %}
+            thought{% elif composition.post_type == PostType.IDEA %}
+            idea{% elif composition.post_type == PostType.RANT %}rant{% endif %} #}
+
             <tr>
                 <th scope="row">Time of Day</th>
                 <td>{% if user.time_of_day %}{{ user.time_of_day }}{% endif %}</td>

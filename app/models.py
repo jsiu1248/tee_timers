@@ -132,18 +132,6 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(64), unique = True, index = True)
     confirmed = db.Column(db.Boolean, default = False)
     name = db.Column(db.String(64))
-    city = db.Column(db.String(64))
-    state = db.Column(db.String(64))
-    bio = db.Column(db.Text())
-    day_id = db.Column(db.Integer)
-    time_of_day_id = db.Column(db.Integer)
-    ride_or_walk_id = db.Column(db.Integer)
-    handicap_id = db.Column(db.Integer)
-    smoking_id = db.Column(db.Integer)
-    alcohol_id = db.Column(db.Integer)
-    playing_type = db.Column(db.Integer)
-    # it will be assigned upon the created of the new User
-    last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     comment = db.relationship('Comment', backref='users', lazy='dynamic')
     post = db.relationship('Post', backref='users', lazy='dynamic')
 
@@ -441,6 +429,24 @@ class PlayingType:
     COMPETITIVE = 3
     DRIVINGRANGE = 4
     LEARNING = 5
+
+class UserProfile(db.Model):
+    """
+    User Profile information. 
+    """
+    city_id = db.Column(db.Integer)
+    state_id = db.Column(db.Integer)
+    bio = db.Column(db.Text())
+    day_id = db.Column(db.Integer)
+    time_of_day_id = db.Column(db.Integer)
+    ride_or_walk_id = db.Column(db.Integer)
+    handicap_id = db.Column(db.Integer)
+    smoking_id = db.Column(db.Integer)
+    drinking_id = db.Column(db.Integer)
+    playing_type_id = db.Column(db.Integer)
+    # it will be assigned upon the created of the new User
+    last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
+
 
 
 

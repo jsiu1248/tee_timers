@@ -37,37 +37,28 @@ class MatchForm(FlaskForm):
     """
     gender = SelectMultipleField('Gender',
                                coerce=int,
-                               choices=[(1, 'Male'), (2, 'Female'), (3, 'Other')],
                                validators=[])
     day = SelectMultipleField('Day',
                                coerce=int,
-                               choices=[(1, 'Monday'), (2, 'Tuesday'), (3, 'Wednesday'), (4, 'Thursday'), (5, 'Friday'), 
-                               (6, 'Saturday'), (7,'Sunday')],
                                validators=[])
     time_of_day = SelectMultipleField('Time of Day',
                                coerce=int,
-                               choices=[(1, 'Morning'), (2, 'Afternoon')],
                                validators=[])
 
     ride_or_walk = SelectMultipleField('Ride or Walk',
                                coerce=int,
-                               choices=[(1, 'Ride'), (2, 'Walk')],
                                validators=[])
     handicap = SelectMultipleField('Handicap',
                                coerce=int,
-                               choices=[(1, '20+'), (2, '15-20'), (3, '10-15'), (4, '5-10'), (5, '0-5')],
                                validators=[])
     smoking = SelectMultipleField('Smoking',
                                coerce=int,
-                               choices=[(1, 'No'), (2, 'Yes')],
                                validators=[])
     drinking = SelectMultipleField('Drinking',
                                coerce=int,
-                               choices=[(1, 'No'), (2, 'Yes')],
                                validators=[])            
     playing_type = SelectMultipleField('Playing Type',
                                coerce=int,
-                               choices=[(1, 'Leisure'), (2, 'Betting'), (3, 'Competitive'), (4, 'Driving Range'), (5, 'Learning')],
                                validators=[])            
     # golf_course = SelectField('Golf Course', coerce=int, choices=[('')], validators=[])
     # city = SelectField('City', coerce=int, choices=[('')], validators=[])
@@ -119,39 +110,59 @@ class EditProfileForm(FlaskForm):
     bio = TextAreaField("Bio")
     gender = SelectMultipleField('Gender',
                                coerce=int,
-                               choices=[(1, 'Male'), (2, 'Female'), (3, 'Other')],
                                validators=[])
     day = SelectMultipleField('Day',
                                coerce=int,
-                               choices=[(1, 'Monday'), (2, 'Tuesday'), (3, 'Wednesday'), (4, 'Thursday'), (5, 'Friday'), 
-                               (6, 'Saturday'), (7,'Sunday')],
                                validators=[])
     time_of_day = SelectMultipleField('Time of Day',
                                coerce=int,
-                               choices=[(1, 'Morning'), (2, 'Afternoon')],
                                validators=[])
 
     ride_or_walk = SelectMultipleField('Ride or Walk',
                                coerce=int,
-                               choices=[(1, 'Ride'), (2, 'Walk')],
                                validators=[])
     handicap = SelectMultipleField('Handicap',
                                coerce=int,
-                               choices=[(1, '20+'), (2, '15-20'), (3, '10-15'), (4, '5-10'), (5, '0-5')],
                                validators=[])
     smoking = SelectMultipleField('Smoking',
                                coerce=int,
-                               choices=[(1, 'No'), (2, 'Yes')],
                                validators=[])
     drinking = SelectMultipleField('Drinking',
                                coerce=int,
-                               choices=[(1, 'No'), (2, 'Yes')],
                                validators=[])            
     playing_type = SelectMultipleField('Playing Type',
                                coerce=int,
-                               choices=[(1, 'Leisure'), (2, 'Betting'), (3, 'Competitive'), (4, 'Driving Range'), (5, 'Learning')],
                                validators=[])           
     submit = SubmitField("Submit")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.gender.choices = [(Gender.MALE, 'Male'),
+                                    (Gender.FEMALE, 'Female'),
+                                    (Gender.OTHER, 'Other')]
+        self.day.choices = [(Day.MONDAY, 'Monday'),
+                                    (Day.TUESDAY, 'Tuesday'),
+                                    (Day.WEDNESDAY, 'Wednesday'), 
+                                    (Day.THURSDAY, 'Thursday'), 
+                                    (Day.FRIDAY, 'Friday'), 
+                                    (Day.SATURDAY, 'Saturday'),
+                                    (Day.SUNDAY, 'Sunday')]
+        self.time_of_day.choices = [(TimeOfDay.MORNING, 'Morning'),
+                                    (TimeOfDay.AFTERNOON, 'After')]
+        self.ride_or_walk.choices = [(RideOrWalk.RIDE, 'Ride'), 
+                            (RideOrWalk.WALK, 'Walk')]
+        self.handicap.choices = [(Handicap.TWENTY, '20+'),
+                                    (Handicap.FIFTEEN, '10-15'),
+                                    (Handicap.TEN, '5-10'), 
+                                    (Handicap.FIVE, '0-5')]
+        self.smoking.choices = [(Smoking.NO, 'No'), (Smoking.YES, 'Yes')]
+        self.drinking.choices = [(Drinking.NO, 'No'), (Drinking.YES, 'Yes')]
+        self.playing_type.choices = [(PlayingType.LEISURE, 'Leisure'),
+                                    (PlayingType.BETTING, 'Betting'),
+                                    (PlayingType.COMPETITIVE, 'Competitive'), 
+                                    (PlayingType.DRIVINGRANGE, 'Driving Range'),
+                                    (PlayingType.LEARNING, 'Learning')]
+
 
 class AdminLevelEditProfileForm(FlaskForm):
     # the admin can change the username
@@ -174,37 +185,56 @@ class AdminLevelEditProfileForm(FlaskForm):
     bio = TextAreaField("Bio")
     gender = SelectMultipleField('Gender',
                                coerce=int,
-                               choices=[(1, 'Male'), (2, 'Female'), (3, 'Other')],
                                validators=[])
     day = SelectMultipleField('Day',
                                coerce=int,
-                               choices=[(1, 'Monday'), (2, 'Tuesday'), (3, 'Wednesday'), (4, 'Thursday'), (5, 'Friday'), 
-                               (6, 'Saturday'), (7,'Sunday')],
                                validators=[])
     time_of_day = SelectMultipleField('Time of Day',
                                coerce=int,
-                               choices=[(1, 'Morning'), (2, 'Afternoon')],
                                validators=[])
 
     ride_or_walk = SelectMultipleField('Ride or Walk',
                                coerce=int,
-                               choices=[(1, 'Ride'), (2, 'Walk')],
                                validators=[])
     handicap = SelectMultipleField('Handicap',
                                coerce=int,
-                               choices=[(1, '20+'), (2, '15-20'), (3, '10-15'), (4, '5-10'), (5, '0-5')],
                                validators=[])
     smoking = SelectMultipleField('Smoking',
                                coerce=int,
-                               choices=[(1, 'No'), (2, 'Yes')],
                                validators=[])
     drinking = SelectMultipleField('Drinking',
                                coerce=int,
-                               choices=[(1, 'No'), (2, 'Yes')],
                                validators=[])            
     playing_type = SelectMultipleField('Playing Type',
                                coerce=int,
-                               choices=[(1, 'Leisure'), (2, 'Betting'), (3, 'Competitive'), (4, 'Driving Range'), (5, 'Learning')],
                                validators=[])           
 
     submit = SubmitField("Submit")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.gender.choices = [(Gender.MALE, 'Male'),
+                                     (Gender.FEMALE, 'Female'),
+                                     (Gender.OTHER, 'Other')]
+        self.day.choices = [(Day.MONDAY, 'Monday'),
+                                     (Day.TUESDAY, 'Tuesday'),
+                                     (Day.WEDNESDAY, 'Wednesday'), 
+                                     (Day.THURSDAY, 'Thursday'), 
+                                     (Day.FRIDAY, 'Friday'), 
+                                     (Day.SATURDAY, 'Saturday'),
+                                     (Day.SUNDAY, 'Sunday')]
+        self.time_of_day.choices = [(TimeOfDay.MORNING, 'Morning'),
+                                     (TimeOfDay.AFTERNOON, 'After')]
+        self.ride_or_walk.choices = [(RideOrWalk.RIDE, 'Ride'), 
+                             (RideOrWalk.WALK, 'Walk')]
+        self.handicap.choices = [(Handicap.TWENTY, '20+'),
+                                     (Handicap.FIFTEEN, '10-15'),
+                                     (Handicap.TEN, '5-10'), 
+                                     (Handicap.FIVE, '0-5')]
+        self.smoking.choices = [(Smoking.NO, 'No'), (Smoking.Yes, 'yes')]
+        self.drinking.choices = [(Drinking.NO, 'No'), (Drinking.YES, 'Yes')]
+        self.playing_type.choices = [(PlayingType.LEISURE, 'Leisure'),
+                                     (PlayingType.BETTING, 'Betting'),
+                                     (PlayingType.COMPETITIVE, 'Competitive'), 
+                                     (PlayingType.DRIVINGRANGE, 'Driving Range'),
+                                     (PlayingType.LEARNING, 'Learning')]
