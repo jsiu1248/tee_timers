@@ -7,7 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, or_
 from ..models import User, Role, Permission, Comment, Post
 from ..decorators import permission_required, admin_required
-from .forms import PostForm, TechSupportForm, MatchForm, EditProfileForm, AdminLevelEditProfileForm
+from .forms import PostForm, TechSupportForm, MatchForm, EditProfileForm, AdminLevelEditProfileForm, CommentForm
 from ..email import send_email
 
 """ was trying to fix CSRF error"""
@@ -110,8 +110,10 @@ def followers(username):
     page = request.args.get('page', 1, type=int)
     pagination = user.followers.paginate(
         page,
-        per_page=current_app.config['FOLLOWERS_PER_PAGE'],
-        error_out=False)
+        per_page=current_app.config['FOLLOWERS_PER_PAGE']
+        ,
+        error_out=False
+        )
     # convert to only follower and timestamp
     follows = [{'user': item.follower, 'timestamp': item.timestamp}
                for item in pagination.items]
@@ -121,6 +123,32 @@ def followers(username):
                            endpoint='.followers',
                            pagination=pagination,
                            follows=follows)
+
+@main.route('/edit_profile_admin/<int:id>', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def edit_profile_admin(id):
+    user = User.query.get_or_404(id)
+    form = AdminLevelEditProfileForm(user=user)
+    if form.validate_on_submit():
+        user.username = form.username.data
+        user.confirmed = form.confirmed.data
+        user.role = Role.query.get(form.role.data)
+        user.name = form.name.data
+        user.bio = form.bio.data
+        ### need to add more info here
+        db.session.add(current_user._get_current_object())
+        db.session.commit()
+        flash('The profile was updated.')
+        return redirect(url_for('.user', username=user.username))
+    form.username.data = user.username
+    form.confirmed.data = user.confirmed
+    # We must ensure role field gets int data
+    form.role.data = user.role_id
+    form.name.data = user.name
+    form.bio.data = user.bio
+    return render_template('edit_profile.html', form=form, user=user)
+
 
 
 
@@ -141,9 +169,12 @@ def following(username):
     page = request.args.get('page', 1, type=int)
     # display page with list of users who user is following
     pagination = user.following.paginate(
-        page,
-        per_page=current_app.config['FOLLOWERS_PER_PAGE'],
-        error_out=False)
+        page
+        # ,
+        # # per_page=current_app.config['FOLLOWERS_PER_PAGE']
+        # ,
+        # error_out=False
+        )
     # convert to only follower and timestamp
     follows = [{'user': item.following, 'timestamp': item.timestamp}
                for item in pagination.items]

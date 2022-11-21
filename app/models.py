@@ -380,7 +380,26 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     description_html = db.Column(db.Text)
     slug = db.Column(db.String(128), unique=True)
-    
+
+class Gender:
+    """
+    Gender Lookup
+    """
+    MALE = 1
+    FEMALE = 2
+    OTHER = 3
+
+class Day:
+    """
+    Day Lookup
+    """
+    MONDAY = 1
+    TUESDAY = 2
+    WEDNESDAY = 3
+    THURSDAY = 4
+    FRIDAY = 5
+
+
 
 class Location(db.Model):
     __tablename__ = 'location'

@@ -94,7 +94,7 @@
             </tr>
             {% if current_user.is_administrator() %}
             <tr>
-                <th scope="row">Playing Type</th>
+                <th scope="row">Email</th>
                 <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
             </tr>
             {% endif %}
@@ -116,6 +116,10 @@
 {% endif %}
 
 {# add admin edit profile #}
+{% if current_user.is_administrator() %}
+<a class="btn btn-danger" href="{{ url_for('.edit_profile_admin', id=user.id) }}">Edit as Admin</a>
+{% endif %}
+
 
 {# add pagination here later#}
 

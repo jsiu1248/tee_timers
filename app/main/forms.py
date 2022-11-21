@@ -4,7 +4,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, DateField, TextAreaField, SelectField, BooleanField, SelectMultipleField, IntegerField
 from wtforms.validators import DataRequired, Length, Regexp, NumberRange
 from wtforms import widgets, SelectMultipleField
-
+from app.models import db
+from wtforms_sqlalchemy.fields import QuerySelectField
 
 class TechSupportForm(FlaskForm):
     """
@@ -17,10 +18,17 @@ class TechSupportForm(FlaskForm):
 
 class PostForm(FlaskForm):
     """
-    Form for creating a comment or reply. 
+    Form for creating a post or reply. 
     """
     title = StringField("Title")
     description = TextAreaField("What are you up to?") 
+    submit = SubmitField("Submit")
+
+class CommentForm(FlaskForm):
+    """
+    Form for creating a post or reply. 
+    """
+    description = TextAreaField("What's your response??") 
     submit = SubmitField("Submit")
 
 
@@ -62,6 +70,8 @@ class MatchForm(FlaskForm):
                                coerce=int,
                                choices=[(1, 'Leisure'), (2, 'Betting'), (3, 'Competitive'), (4, 'Driving Range'), (5, 'Learning')],
                                validators=[])            
+    # golf_course = SelectField('Golf Course', coerce=int, choices=[('')], validators=[])
+    # city = SelectField('City', coerce=int, choices=[('')], validators=[])
     submit = SubmitField('Submit')
 
 
