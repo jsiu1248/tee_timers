@@ -4,7 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, DateField, TextAreaField, SelectField, BooleanField, SelectMultipleField, IntegerField
 from wtforms.validators import DataRequired, Length, Regexp, NumberRange
 from wtforms import widgets, SelectMultipleField
-from app.models import db, Gender, Day, RideOrWalk, Handicap, Smoking, Drinking, PlayingType
+from app.models import db, Gender, Day, TimeOfDay, RideOrWalk, Handicap, Smoking, Drinking, PlayingType
 from wtforms_sqlalchemy.fields import QuerySelectField
 
 class TechSupportForm(FlaskForm):
@@ -75,9 +75,35 @@ class MatchForm(FlaskForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.gender.choices = [(Gender.MALE, 'Single'),
-                                     (Gender.EXTENDED_PLAY, 'EP'),
-                                     (Gender.ALBUM, 'Album')]
+        self.gender.choices = [(Gender.MALE, 'Male'),
+                                     (Gender.FEMALE, 'Female'),
+                                     (Gender.OTHER, 'Other')]
+        self.day.choices = [(Day.MONDAY, 'Monday'),
+                                     (Day.TUESDAY, 'Tuesday'),
+                                     (Day.WEDNESDAY, 'Wednesday'), 
+                                     (Day.THURSDAY, 'Thursday'), 
+                                     (Day.FRIDAY, 'Friday'), 
+                                     (Day.SATURDAY, 'Saturday'),
+                                     (Day.SUNDAY, 'Sunday')]
+        self.time_of_day.choices = [(TimeOfDay.MORNING, 'Morning'),
+                                     (TimeOfDay.AFTERNOON, 'After')]
+        self.ride_or_walk.choices = [(RideOrWalk.RIDE, 'Ride'), 
+                             (RideOrWalk.WALK, 'Walk')]
+        self.handicap.choices = [(Handicap.TWENTY, '20+'),
+                                     (Handicap.FIFTEEN, '10-15'),
+                                     (Handicap.TEN, '5-10'), 
+                                     (Handicap.FIVE, '0-5')]
+        self.smoking.choices = [(Smoking.NO, 'No'), (Smoking.YES, 'YES')]
+        self.drinking.choices = [(Drinking.NO, 'No'), (Drinking.YES, 'YES')]
+        self.playing_type.choices = [(PlayingType.LEISURE, 'Leisure'),
+                                     (PlayingType.BETTING, 'Betting'),
+                                     (PlayingType.COMPETITIVE, 'Competitive'), 
+                                     (PlayingType.DRIVINGRANGE, 'Driving Range'),
+                                     (PlayingType.LEARNING, 'Learning')]
+
+
+
+
 
 
 class EditProfileForm(FlaskForm):
@@ -139,7 +165,7 @@ class AdminLevelEditProfileForm(FlaskForm):
     confirmed = BooleanField("Confirmed")
 
     # field values are coerced into ints instead of str
-    role = SelectField(u"Role", choices=[(1,"User"), (2, "Moderator"), (3, "Administrator")], coerce = int)
+    role = SelectField("Role", choices=[(1,"User"), (2, "Moderator"), (3, "Administrator")], coerce = int)
     name = StringField("Name", validators=[Length(0, 64)])
     age = IntegerField("Age", validators=[NumberRange(10, 120)])
     city = StringField("City", validators=[Length(0,64)])

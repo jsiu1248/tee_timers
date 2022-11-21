@@ -401,6 +401,13 @@ class Day:
     SATURDAY = 6
     SUNDAY = 7
 
+class TimeOfDay:
+    """
+    Time of Day Lookup
+    """
+    MORNING = 1
+    AFTERNOON = 2
+
 class RideOrWalk:
     """
     Ride or Walk Lookup
@@ -434,7 +441,7 @@ class PlayingType:
     COMPETITIVE = 3
     DRIVINGRANGE = 4
     LEARNING = 5
-    
+
 
 
 
