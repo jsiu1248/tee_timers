@@ -124,7 +124,6 @@ class User(UserMixin, db.Model):
     __tablename__='users'
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(64), unique = True, index = True)
-    age = db.Column(db.Integer)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     # age = db.Column(db.Integer)
     password_hash = db.Column(db.String(128))
@@ -437,6 +436,7 @@ class UserProfile(db.Model):
     """
     id = db.Column(db.Integer, primary_key = True)
     gender_id = db.Column(db.Integer)
+    age = db.Column(db.Integer)
     city_id = db.Column(db.Integer)
     state_id = db.Column(db.Integer)
     bio = db.Column(db.Text())
