@@ -124,7 +124,6 @@ class User(UserMixin, db.Model):
     __tablename__='users'
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(64), unique = True, index = True)
-    gender = db.Column(db.String(64))
     age = db.Column(db.Integer)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     # age = db.Column(db.Integer)
@@ -133,6 +132,8 @@ class User(UserMixin, db.Model):
     confirmed = db.Column(db.Boolean, default = False)
     name = db.Column(db.String(64))
     comment = db.relationship('Comment', backref='users', lazy='dynamic')
+    user_profile = db.relationship('UserProfile', backref='users', lazy='dynamic')
+
     post = db.relationship('Post', backref='users', lazy='dynamic')
 
     following = db.relationship('Follow',
@@ -369,71 +370,73 @@ class Comment(db.Model):
     description_html = db.Column(db.Text)
     slug = db.Column(db.String(128), unique=True)
 
-class Gender:
-    """
-    Gender Lookup
-    """
-    MALE = 1
-    FEMALE = 2
-    OTHER = 3
+# class GenderLookup:
+#     """
+#     Gender Lookup
+#     """
+#     # MALE = 1
+#     # FEMALE = 2
+#     # OTHER = 3
 
-class Day:
-    """
-    Day Lookup
-    """
-    MONDAY = 1
-    TUESDAY = 2
-    WEDNESDAY = 3
-    THURSDAY = 4
-    FRIDAY = 5
-    SATURDAY = 6
-    SUNDAY = 7
+# class Day:
+#     """
+#     Day Lookup
+#     """
+#     MONDAY = 1
+#     TUESDAY = 2
+#     WEDNESDAY = 3
+#     THURSDAY = 4
+#     FRIDAY = 5
+#     SATURDAY = 6
+#     SUNDAY = 7
 
-class TimeOfDay:
-    """
-    Time of Day Lookup
-    """
-    MORNING = 1
-    AFTERNOON = 2
+# class TimeOfDay:
+#     """
+#     Time of Day Lookup
+#     """
+#     MORNING = 1
+#     AFTERNOON = 2
 
-class RideOrWalk:
-    """
-    Ride or Walk Lookup
-    """
-    RIDE = 1
-    WALK = 2
+# class RideOrWalk:
+#     """
+#     Ride or Walk Lookup
+#     """
+#     RIDE = 1
+#     WALK = 2
 
-class Handicap:
-    """
-    Handicap Lookup
-    """
-    TWENTY = 1
-    FIFTEEN = 2
-    TEN = 3
-    FIVE = 4
+# class Handicap:
+#     """
+#     Handicap Lookup
+#     """
+#     TWENTY = 1
+#     FIFTEEN = 2
+#     TEN = 3
+#     FIVE = 4
 
-class Smoking:
-    """Smoking Lookup"""
-    NO = 1
-    YES = 2
+# class Smoking:
+#     """Smoking Lookup"""
+#     NO = 1
+#     YES = 2
 
-class Drinking:
-    """Drinking Lookup"""
-    NO = 1
-    YES = 2
+# class Drinking:
+#     """Drinking Lookup"""
+#     NO = 1
+#     YES = 2
 
-class PlayingType:
-    """Playing Type Lookup"""
-    LEISURE = 1
-    BETTING = 2
-    COMPETITIVE = 3
-    DRIVINGRANGE = 4
-    LEARNING = 5
+# class PlayingType:
+#     """Playing Type Lookup"""
+#     LEISURE = 1
+#     BETTING = 2
+#     COMPETITIVE = 3
+#     DRIVINGRANGE = 4
+#     LEARNING = 5
 
 class UserProfile(db.Model):
     """
     User Profile information. 
     """
+    id = db.Column(db.Integer, primary_key = True)
+    gender_id = db.Column(db.Integer)
     city_id = db.Column(db.Integer)
     state_id = db.Column(db.Integer)
     bio = db.Column(db.Text())
@@ -447,32 +450,106 @@ class UserProfile(db.Model):
     # it will be assigned upon the created of the new User
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
 
+class Gender(db.Model):
+    __tablename__ = 'gender'
+    id = db.Column(db.Integer, primary_key = True)
+    gender = db.Column(db.String(64))
 
-
-
-
-
-
-class Location(db.Model):
-    __tablename__ = 'location'
-    location_id = db.Column(db.String(64), primary_key=True)
-    city = db.Column(db.String(64))
-    state = db.Column(db.String(64))
+class Day(db.Model):
+    __tablename__ = 'day'
+    id = db.Column(db.Integer , primary_key = True)
+    day = db.Column(db.String(64))
 
     @staticmethod
-    def insert_location():
+    def insert_day():
+        "adding day lookup to database"
+        # load data in json
+        data = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+        "Saturday", "Sunday"]
+        for day in data:
+                day = Day(day = day)
+                db.session.add(day)
+        db.session.commit()
+
+
+class TimeOfDay(db.Model):
+    __tablename__ = 'time_of_day'
+    id = db.Column(db.Integer, primary_key = True)
+    time_of_day = db.Column(db.String(64))
+
+class RideOrWalk(db.Model):
+    __tablename__ = 'ride_or_walk'
+    id = db.Column(db.Integer, primary_key = True)
+    ride_or_walk = db.Column(db.String(64))
+
+class Handicap(db.Model):
+    __tablename__ = 'handicap'
+    id = db.Column(db.Integer, primary_key = True)
+    handicap = db.Column(db.String(64))
+
+class Smoking(db.Model):
+    __tablename__ = 'smoking'
+    id = db.Column(db.Integer, primary_key = True)
+    smoking = db.Column(db.String(64))
+
+class Drinking(db.Model):
+    __tablename__ = 'drinking'
+    id = db.Column(db.Integer, primary_key = True)
+    drinking = db.Column(db.String(64))
+
+class PlayingType(db.Model):
+    __tablename__ = 'playing_type'
+    id = db.Column(db.Integer, primary_key = True)
+    playing_type = db.Column(db.String(64))
+
+
+
+
+
+
+
+class City(db.Model):
+    __tablename__ = 'city'
+    id = db.Column(db.Integer)
+    city_id = db.Column(db.String(64), primary_key=True)
+    city = db.Column(db.String(64))
+
+    @staticmethod
+    def insert_city():
         "adding city and state data from json file."
         # load data in json
         with open('app/static/us-cities-demographics.json', 'r') as loc:
             data = json.load(loc)
         for dicts in data:
-            location = dicts['recordid']
-            if not Location.query.filter_by(location_id = location).first():
-                location_id = dicts['recordid']
+            city = dicts['recordid']
+            if not City.query.filter_by(city_id = city).first():
+                city_id = dicts['recordid']
                 city = dicts['fields']['city']
+                city = City(city_id = city_id, city = city)
+                db.session.add(city)
+            else:
+                pass
+        db.session.commit()
+
+class State(db.Model):
+    __tablename__ = 'state'
+    id = db.Column(db.Integer)
+    state_id = db.Column(db.String(64), primary_key=True)
+    state = db.Column(db.String(64))
+
+    @staticmethod
+    def insert_state():
+        "adding city and state data from json file."
+        # load data in json
+        with open('app/static/us-cities-demographics.json', 'r') as loc:
+            data = json.load(loc)
+        for dicts in data:
+            state = dicts['recordid']
+            if not State.query.filter_by(state_id = state).first():
+                state_id = dicts['recordid']
                 state = dicts['fields']['state']
-                location = Location(location_id = location_id, city = city, state = state)
-                db.session.add(location)
+                state = State(state_id = state_id, state = state)
+                db.session.add(state)
             else:
                 pass
         db.session.commit()
@@ -500,5 +577,6 @@ class GolfCourse(db.Model):
         db.session.commit()
 
         # figure out how to auto insert data later
-        # Location.insert_location()
+        # State.insert_state()
+        # City.insert_city()
         # GolfCourse.insert_golf_course()
