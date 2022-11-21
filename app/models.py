@@ -398,6 +398,45 @@ class Day:
     WEDNESDAY = 3
     THURSDAY = 4
     FRIDAY = 5
+    SATURDAY = 6
+    SUNDAY = 7
+
+class RideOrWalk:
+    """
+    Ride or Walk Lookup
+    """
+    RIDE = 1
+    WALK = 2
+
+class Handicap:
+    """
+    Handicap Lookup
+    """
+    TWENTY = 1
+    FIFTEEN = 2
+    TEN = 3
+    FIVE = 4
+
+class Smoking:
+    """Smoking Lookup"""
+    NO = 1
+    YES = 2
+
+class Drinking:
+    """Drinking Lookup"""
+    NO = 1
+    YES = 2
+
+class PlayingType:
+    """Playing Type Lookup"""
+    LEISURE = 1
+    BETTING = 2
+    COMPETITIVE = 3
+    DRIVINGRANGE = 4
+    LEARNING = 5
+    
+
+
 
 
 

@@ -4,7 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, DateField, TextAreaField, SelectField, BooleanField, SelectMultipleField, IntegerField
 from wtforms.validators import DataRequired, Length, Regexp, NumberRange
 from wtforms import widgets, SelectMultipleField
-from app.models import db
+from app.models import db, Gender, Day, RideOrWalk, Handicap, Smoking, Drinking, PlayingType
 from wtforms_sqlalchemy.fields import QuerySelectField
 
 class TechSupportForm(FlaskForm):
@@ -30,7 +30,6 @@ class CommentForm(FlaskForm):
     """
     description = TextAreaField("What's your response??") 
     submit = SubmitField("Submit")
-
 
 class MatchForm(FlaskForm):
     """
@@ -73,6 +72,12 @@ class MatchForm(FlaskForm):
     # golf_course = SelectField('Golf Course', coerce=int, choices=[('')], validators=[])
     # city = SelectField('City', coerce=int, choices=[('')], validators=[])
     submit = SubmitField('Submit')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.gender.choices = [(Gender.MALE, 'Single'),
+                                     (Gender.EXTENDED_PLAY, 'EP'),
+                                     (Gender.ALBUM, 'Album')]
 
 
 class EditProfileForm(FlaskForm):
