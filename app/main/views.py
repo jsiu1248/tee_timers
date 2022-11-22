@@ -40,9 +40,27 @@ def user(username):
     test = User.query.join(UserProfile, UserProfile.id == User.id, 
     isouter = True).filter_by(id = 9).first_or_404()
 
+    test_2 = db.session.query(User, UserProfile, Day).join(UserProfile, 
+    UserProfile.id == User.id, 
+    isouter = True).join(Day, UserProfile.day_id == Day.id, 
+    isouter = True).filter_by(id = 3).first_or_404()
+
+    # test_3 = db.session.query(User, UserProfile).join(UserProfile, 
+    # UserProfile.id == User.id, 
+    # isouter = True).filter_by(id = 9).first_or_404()
+
+    # test_4 = db.session.query(UserProfile, Day).join(Day, 
+    # UserProfile.day_id == Day.id, 
+    # isouter = True).filter_by(id = 3).first_or_404()
+
+    # test_4 = UserProfile.query.join(Day, UserProfile.day_id == Day.id, 
+    # isouter = True).filter_by(id = 9).first()
+
     # # print(UserProfile.query(UserProfile).all())
     print(str(user.email))
     print(str(test.id))
+    print(test_2.Day.day)
+    # print(test_4)
     #.outerjoin(Day, UserProfile.day_id == Day.id)
     # have to add back pagination later
     return render_template('user.html', user=user, userprofile = userprofile
