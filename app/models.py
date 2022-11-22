@@ -386,7 +386,7 @@ def __repr__(self):
 
 class Comment(db.Model):
     __tablename__ = 'comments'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     description = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     post_id = db.Column(db.Integer, primary_key=True)
@@ -528,8 +528,8 @@ class PlayingType(db.Model):
 
 class City(db.Model):
     __tablename__ = 'cities'
-    id = db.Column(db.Integer , primary_key=True)
-    city = db.Column(db.String(64))
+    id = db.Column(db.Integer , primary_key=True, autoincrement=True)
+    city = db.Column(db.String(64), unique = True)
     profile = db.relationship('UserProfile', backref='city', lazy='dynamic')
 
 
@@ -548,8 +548,8 @@ class City(db.Model):
 
 class State(db.Model):
     __tablename__ = 'states'
-    id = db.Column(db.Integer , primary_key=True)
-    state = db.Column(db.String(64))
+    id = db.Column(db.Integer , primary_key=True, autoincrement=True)
+    state = db.Column(db.String(64), unique = True)
     profile = db.relationship('UserProfile', backref='state', lazy='dynamic')
 
 

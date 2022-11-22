@@ -1,7 +1,7 @@
 from sqlalchemy.exc import IntegrityError
 from faker import Faker
 from . import db
-from .models import User, Comment, Post
+from .models import User, Comment, Post, UserProfile
 from random import randint
 import string
 
@@ -17,9 +17,35 @@ def users(count=20):
                  username = fake.user_name(),
                  password = 'password',
                  confirmed = True,
-                 name = fake.name(),
-                 city = fake.city(), # make this city_id
-                 state = fake.state(), # make this state_id
+                 name = fake.name()
+
+
+                 )
+        db.session.add(u)
+
+        # trying to commit data, but if it is a duplicate then it rollbacks
+        try:
+            db.session.commit()
+            i += 1
+        except IntegrityError:
+            db.session.rollback()
+
+
+def userprofile(count=20):
+    """Creating fake profile data
+    args: count of how many users needed"""
+
+    # an instance of Faker is called and below are many of their functions with different types of fake data
+    fake = Faker()
+    user_count = User.query.count()
+    u = User.query.offset(randint(0, user_count - 1)).first()
+
+    i = 0
+    while i < count:
+        u = UserProfile(
+                id  = randint(1, user_count),
+                 city_id = randint(1,100), 
+                 state_id = randint(1,20),
                  bio = fake.text(),
                  last_seen=fake.past_date(),
                  gender_id =randint(1,3),
@@ -44,6 +70,7 @@ def users(count=20):
         except IntegrityError:
             db.session.rollback()
 
+
 def post(count=100):
     """Function that creates fake posts
         args: create a certain amount of posts"""
@@ -63,7 +90,7 @@ def post(count=100):
                         timestamp=fake.past_date() ,
                         user_id = randint(1, user_count),
                         )
-        db.session.add(c)
+        db.session.add(p)
     db.session.commit()
     for p in Post.query.all():
         p.generate_slug()
