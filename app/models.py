@@ -127,19 +127,19 @@ class UserProfile(db.Model):
     __tablename__ = 'userprofile'
 
     id = db.Column(db.Integer,  db.ForeignKey('users.id'), primary_key = True)
-    gender_id = db.Column(db.Integer, db.ForeignKey('gender.id'))
+    gender_id = db.Column(db.Integer, db.ForeignKey('genders.id'))
     age = db.Column(db.Integer)
-    city_id = db.Column(db.Integer, db.ForeignKey('city.id'))
-    state_id = db.Column(db.Integer, db.ForeignKey('state.id'))
+    city_id = db.Column(db.Integer, db.ForeignKey('cities.id'))
+    state_id = db.Column(db.Integer, db.ForeignKey('states.id'))
     bio = db.Column(db.Text())
-    day_id = db.Column(db.Integer, db.ForeignKey('day.id'))
-    time_of_day_id = db.Column(db.Integer, db.ForeignKey('time_of_day.id'))
-    ride_or_walk_id = db.Column(db.Integer, db.ForeignKey('ride_or_walk.id'))
-    handicap_id = db.Column(db.Integer, db.ForeignKey('handicap.id'))
-    smoking_id = db.Column(db.Integer, db.ForeignKey('smoking.id'))
-    drinking_id = db.Column(db.Integer, db.ForeignKey('drinking.id'))
-    playing_type_id = db.Column(db.Integer, db.ForeignKey('playing_type.id'))
-    golf_course_id = db.Column(db.Integer, db.ForeignKey('golf_course.id'))
+    day_id = db.Column(db.Integer, db.ForeignKey('days.id'))
+    time_of_day_id = db.Column(db.Integer, db.ForeignKey('time_of_days.id'))
+    ride_or_walk_id = db.Column(db.Integer, db.ForeignKey('ride_or_walks.id'))
+    handicap_id = db.Column(db.Integer, db.ForeignKey('handicaps.id'))
+    smoking_id = db.Column(db.Integer, db.ForeignKey('smokings.id'))
+    drinking_id = db.Column(db.Integer, db.ForeignKey('drinkings.id'))
+    playing_type_id = db.Column(db.Integer, db.ForeignKey('playing_types.id'))
+    golf_course_id = db.Column(db.Integer, db.ForeignKey('golf_courses.id'))
     # it will be assigned upon the created of the new User
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     # users = db.relationship('User', backref='userprofile', lazy='dynamic')
@@ -459,14 +459,14 @@ class Comment(db.Model):
 
 
 class Gender(db.Model):
-    __tablename__ = 'gender'
+    __tablename__ = 'genders'
     id = db.Column(db.Integer, primary_key = True)
     gender = db.Column(db.String(64))
     profile = db.relationship('UserProfile', backref='gender', lazy='dynamic')
 
 
 class Day(db.Model):
-    __tablename__ = 'day'
+    __tablename__ = 'days'
     id = db.Column(db.Integer , primary_key = True)
     day = db.Column(db.String(64))
     profile = db.relationship('UserProfile', backref='day', lazy='dynamic')
@@ -485,44 +485,44 @@ class Day(db.Model):
 
 
 class TimeOfDay(db.Model):
-    __tablename__ = 'time_of_day'
+    __tablename__ = 'time_of_days'
     id = db.Column(db.Integer, primary_key = True)
     time_of_day = db.Column(db.String(64))
-    profile = db.relationship('UserProfile', backref='timeofday', lazy='dynamic')
+    profile = db.relationship('UserProfile', backref='time_of_day', lazy='dynamic')
 
 
 class RideOrWalk(db.Model):
-    __tablename__ = 'ride_or_walk'
+    __tablename__ = 'ride_or_walks'
     id = db.Column(db.Integer, primary_key = True)
     ride_or_walk = db.Column(db.String(64))
     ride_or_walk_id = db.Column(db.Integer, db.ForeignKey('userprofile.ride_or_walk_id'))
 
-    # profile = db.relationship('UserProfile', backref='ride_or_walk', lazy='dynamic')
+    profile = db.relationship('UserProfile', backref='ride_or_walk', lazy='dynamic')
 
 
 class Handicap(db.Model):
-    __tablename__ = 'handicap'
+    __tablename__ = 'handicaps'
     id = db.Column(db.Integer, primary_key = True)
     handicap = db.Column(db.String(64))
     profile = db.relationship('UserProfile', backref='handicap', lazy='dynamic')
 
 
 class Smoking(db.Model):
-    __tablename__ = 'smoking'
+    __tablename__ = 'smokings'
     id = db.Column(db.Integer, primary_key = True)
     smoking = db.Column(db.String(64))
     profile = db.relationship('UserProfile', backref='smoking', lazy='dynamic')
 
 
 class Drinking(db.Model):
-    __tablename__ = 'drinking'
+    __tablename__ = 'drinkings'
     id = db.Column(db.Integer, primary_key = True)
     drinking = db.Column(db.String(64))
     profile = db.relationship('UserProfile', backref='drinking', lazy='dynamic')
 
 
 class PlayingType(db.Model):
-    __tablename__ = 'playing_type'
+    __tablename__ = 'playing_types'
     id = db.Column(db.Integer, primary_key = True)
     playing_type = db.Column(db.String(64))
     profile = db.relationship('UserProfile', backref='playingtype', lazy='dynamic')
@@ -530,7 +530,7 @@ class PlayingType(db.Model):
 
 
 class City(db.Model):
-    __tablename__ = 'city'
+    __tablename__ = 'cities'
     id = db.Column(db.Integer , primary_key=True)
     city = db.Column(db.String(64))
     profile = db.relationship('UserProfile', backref='city', lazy='dynamic')
@@ -550,7 +550,7 @@ class City(db.Model):
         db.session.commit()
 
 class State(db.Model):
-    __tablename__ = 'state'
+    __tablename__ = 'states'
     id = db.Column(db.Integer , primary_key=True)
     state = db.Column(db.String(64))
     profile = db.relationship('UserProfile', backref='state', lazy='dynamic')
@@ -571,11 +571,14 @@ class State(db.Model):
 
 
 class GolfCourse(db.Model):
-    __tablename__ = 'golf_course'
+    __tablename__ = 'golf_courses'
     id = db.Column(db.Integer, primary_key=True)
     city = db.Column(db.String(64))
     state = db.Column(db.String(64))
     course = db.Column(db.String(64))
+    profile = db.relationship('UserProfile', backref='golf_course', lazy='dynamic')
+
+    
 
     def insert_golf_course():
         "adding city and state data from json file."
