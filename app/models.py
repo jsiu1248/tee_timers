@@ -532,9 +532,8 @@ class PlayingType(db.Model):
 class City(db.Model):
     __tablename__ = 'city'
     id = db.Column(db.Integer , primary_key=True)
-    city_id = db.Column(db.String(64))
     city = db.Column(db.String(64))
-    # profile = db.relationship('UserProfile', backref='city', lazy='dynamic')
+    profile = db.relationship('UserProfile', backref='city', lazy='dynamic')
 
 
     @staticmethod
@@ -545,19 +544,14 @@ class City(db.Model):
             data = json.load(loc)
         for dicts in data:
             city = dicts['recordid']
-            if not City.query.filter_by(city_id = city).first():
-                city_id = dicts['recordid']
-                city = dicts['fields']['city']
-                city = City(city_id = city_id, city = city)
-                db.session.add(city)
-            else:
-                pass
+            city = dicts['fields']['city']
+            city = City(city = city)
+            db.session.add(city)
         db.session.commit()
 
 class State(db.Model):
     __tablename__ = 'state'
     id = db.Column(db.Integer , primary_key=True)
-    state_id = db.Column(db.String(64))
     state = db.Column(db.String(64))
     profile = db.relationship('UserProfile', backref='state', lazy='dynamic')
 
@@ -570,13 +564,9 @@ class State(db.Model):
             data = json.load(loc)
         for dicts in data:
             state = dicts['recordid']
-            if not State.query.filter_by(state_id = state).first():
-                state_id = dicts['recordid']
-                state = dicts['fields']['state']
-                state = State(state_id = state_id, state = state)
-                db.session.add(state)
-            else:
-                pass
+            state = dicts['fields']['state']
+            state = State( state = state)
+            db.session.add(state)
         db.session.commit()
 
 
