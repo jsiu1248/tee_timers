@@ -120,6 +120,31 @@ class Follow(db.Model):
     # time the user started following
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
+class UserProfile(db.Model):
+    """
+    User Profile information. 
+    """
+    __tablename__ = 'userprofile'
+
+    id = db.Column(db.Integer,  db.ForeignKey('users.id'), primary_key = True)
+    gender_id = db.Column(db.Integer, db.ForeignKey('gender.id'))
+    age = db.Column(db.Integer)
+    city_id = db.Column(db.Integer, db.ForeignKey('city.id'))
+    state_id = db.Column(db.Integer, db.ForeignKey('state.id'))
+    bio = db.Column(db.Text())
+    day_id = db.Column(db.Integer, db.ForeignKey('day.id'))
+    time_of_day_id = db.Column(db.Integer, db.ForeignKey('time_of_day.id'))
+    ride_or_walk_id = db.Column(db.Integer, db.ForeignKey('ride_or_walk.id'))
+    handicap_id = db.Column(db.Integer, db.ForeignKey('handicap.id'))
+    smoking_id = db.Column(db.Integer, db.ForeignKey('smoking.id'))
+    drinking_id = db.Column(db.Integer, db.ForeignKey('drinking.id'))
+    playing_type_id = db.Column(db.Integer, db.ForeignKey('playing_type.id'))
+    golf_course_id = db.Column(db.Integer, db.ForeignKey('golf_course.id'))
+    # it will be assigned upon the created of the new User
+    last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
+    # users = db.relationship('User', backref='userprofile', lazy='dynamic')
+
+
 class User(UserMixin, db.Model):
     __tablename__='users'
     id = db.Column(db.Integer, primary_key = True)
@@ -131,7 +156,8 @@ class User(UserMixin, db.Model):
     confirmed = db.Column(db.Boolean, default = False)
     name = db.Column(db.String(64))
     comment = db.relationship('Comment', backref='users', lazy='dynamic')
-    user_profile = db.relationship('UserProfile', backref='users', lazy='dynamic')
+    user_profile = db.relationship('UserProfile', foreign_keys=[UserProfile.id],
+    backref='users', lazy='dynamic')
 
     post = db.relationship('Post', backref='users', lazy='dynamic')
 
@@ -430,35 +456,21 @@ class Comment(db.Model):
 #     DRIVINGRANGE = 4
 #     LEARNING = 5
 
-class UserProfile(db.Model):
-    """
-    User Profile information. 
-    """
-    id = db.Column(db.Integer, primary_key = True)
-    gender_id = db.Column(db.Integer)
-    age = db.Column(db.Integer)
-    city_id = db.Column(db.Integer)
-    state_id = db.Column(db.Integer)
-    bio = db.Column(db.Text())
-    day_id = db.Column(db.Integer)
-    time_of_day_id = db.Column(db.Integer)
-    ride_or_walk_id = db.Column(db.Integer)
-    handicap_id = db.Column(db.Integer)
-    smoking_id = db.Column(db.Integer)
-    drinking_id = db.Column(db.Integer)
-    playing_type_id = db.Column(db.Integer)
-    # it will be assigned upon the created of the new User
-    last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
+
 
 class Gender(db.Model):
     __tablename__ = 'gender'
     id = db.Column(db.Integer, primary_key = True)
     gender = db.Column(db.String(64))
+    profile = db.relationship('UserProfile', backref='gender', lazy='dynamic')
+
 
 class Day(db.Model):
     __tablename__ = 'day'
     id = db.Column(db.Integer , primary_key = True)
     day = db.Column(db.String(64))
+    profile = db.relationship('UserProfile', backref='day', lazy='dynamic')
+
 
     @staticmethod
     def insert_day():
@@ -476,43 +488,54 @@ class TimeOfDay(db.Model):
     __tablename__ = 'time_of_day'
     id = db.Column(db.Integer, primary_key = True)
     time_of_day = db.Column(db.String(64))
+    profile = db.relationship('UserProfile', backref='timeofday', lazy='dynamic')
+
 
 class RideOrWalk(db.Model):
     __tablename__ = 'ride_or_walk'
     id = db.Column(db.Integer, primary_key = True)
     ride_or_walk = db.Column(db.String(64))
+    ride_or_walk_id = db.Column(db.Integer, db.ForeignKey('userprofile.ride_or_walk_id'))
+
+    # profile = db.relationship('UserProfile', backref='ride_or_walk', lazy='dynamic')
+
 
 class Handicap(db.Model):
     __tablename__ = 'handicap'
     id = db.Column(db.Integer, primary_key = True)
     handicap = db.Column(db.String(64))
+    profile = db.relationship('UserProfile', backref='handicap', lazy='dynamic')
+
 
 class Smoking(db.Model):
     __tablename__ = 'smoking'
     id = db.Column(db.Integer, primary_key = True)
     smoking = db.Column(db.String(64))
+    profile = db.relationship('UserProfile', backref='smoking', lazy='dynamic')
+
 
 class Drinking(db.Model):
     __tablename__ = 'drinking'
     id = db.Column(db.Integer, primary_key = True)
     drinking = db.Column(db.String(64))
+    profile = db.relationship('UserProfile', backref='drinking', lazy='dynamic')
+
 
 class PlayingType(db.Model):
     __tablename__ = 'playing_type'
     id = db.Column(db.Integer, primary_key = True)
     playing_type = db.Column(db.String(64))
-
-
-
-
+    profile = db.relationship('UserProfile', backref='playingtype', lazy='dynamic')
 
 
 
 class City(db.Model):
     __tablename__ = 'city'
-    id = db.Column(db.Integer)
-    city_id = db.Column(db.String(64), primary_key=True)
+    id = db.Column(db.Integer , primary_key=True)
+    city_id = db.Column(db.String(64))
     city = db.Column(db.String(64))
+    # profile = db.relationship('UserProfile', backref='city', lazy='dynamic')
+
 
     @staticmethod
     def insert_city():
@@ -533,9 +556,11 @@ class City(db.Model):
 
 class State(db.Model):
     __tablename__ = 'state'
-    id = db.Column(db.Integer)
-    state_id = db.Column(db.String(64), primary_key=True)
+    id = db.Column(db.Integer , primary_key=True)
+    state_id = db.Column(db.String(64))
     state = db.Column(db.String(64))
+    profile = db.relationship('UserProfile', backref='state', lazy='dynamic')
+
 
     @staticmethod
     def insert_state():
@@ -556,7 +581,7 @@ class State(db.Model):
 
 
 class GolfCourse(db.Model):
-    __tablename__ = 'golfcourse'
+    __tablename__ = 'golf_course'
     id = db.Column(db.Integer, primary_key=True)
     city = db.Column(db.String(64))
     state = db.Column(db.String(64))
@@ -580,3 +605,4 @@ class GolfCourse(db.Model):
         # State.insert_state()
         # City.insert_city()
         # GolfCourse.insert_golf_course()
+        # Day.insert_day()
