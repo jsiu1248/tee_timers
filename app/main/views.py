@@ -228,7 +228,7 @@ def match():
         data = dict((key, request.form.getlist(key) if len(
             request.form.getlist(key)) > 0 else request.form.getlist(key)[0])
             for key in request.form.keys())
-        gender_filter = User.gender.in_( data['gender'] if ('gender') in data else [] )
+        gender_filter = User.gender_id.in_( data['gender'] if ('gender') in data else [] )
         day_filter = User.day_id.in_(data['day'] if ('day') in data else [])
         print(gender_filter)
         print(day_filter)
@@ -236,8 +236,8 @@ def match():
         ride_or_walk_filter = User.ride_or_walk_id.in_(data['ride_or_walk'] if ('ride or walk') in data else [])
         handicap_filter = User.handicap_id.in_(data['handicap'] if ('handicap') in data else [])
         smoking_filter = User.smoking_id.in_(data['smoking'] if 'smoking' in data else [])
-        drinking_filter = User.alcohol_id.in_(data['drinking'] if 'drinking' in data else [])
-        playing_type_filter = User.playing_type.in_(data['playing_type'] if ('playing_type') in data else [])
+        drinking_filter = User.drinking_id.in_(data['drinking'] if 'drinking' in data else [])
+        playing_type_filter = User.playing_type_id.in_(data['playing_type'] if ('playing_type') in data else [])
         users = User.query.filter(gender_filter & day_filter & time_of_day_filter & 
         ride_or_walk_filter & handicap_filter &  smoking_filter & drinking_filter & drinking_filter &
         playing_type_filter
@@ -303,34 +303,34 @@ def edit_profile():
     if form.validate_on_submit():
         current_user.name = form.name.data
         current_user.age = form.age.data
-        current_user.city = form.city.data
-        current_user.state = form.state.data
+        current_user.city_id = form.city_id.data
+        current_user.state_id = form.state_id.data
         current_user.bio = form.bio.data
-        current_user.gender = form.gender.data
+        current_user.gender_id = form.gender_id.data
         current_user.day_id = form.day.data
     #     current_user.time_of_day_id = form.time_of_day.data
     #     current_user.ride_or_walk_id = form.ride_or_walk.data
     #     current_user.handicap_id = form.handicap.data
     #     current_user.smoking_id = form.smoking.data
-    #     current_user.alcohol_id = form.drinking.data
-    #     current_user.playing_type = form.playing_type.data
+    #     current_user.drinking_id = form.drinking.data
+    #     current_user.playing_type_id = form.playing_type_id.data
         db.session.add(current_user._get_current_object())
         db.session.commit()
         flash('You successfully updated your profile! Looks great.')
         return redirect(url_for('.user', username = current_user.username, Day = Day))
     form.name.data = current_user.name
     form.age.data = current_user.age
-    form.city.data = current_user.city
-    form.state.data = current_user.state
+    form.city.data = current_user.city_id
+    form.state.data = current_user.state_id
     form.bio.data = current_user.bio
-    form.gender.data = current_user.gender
-    form.Day.data = User.day_id
+    form.gender.data = current_user.gender_id
+    form.day.data = current_user.day_id
     # form.time_of_day.data = current_user.time_of_day_id
     # form.ride_or_walk.data = current_user.ride_or_walk_id
     # form.handicap.data = current_user.handicap_id
     # form.smoking.data = current_user.smoking_id
-    # form.drinking.data = current_user.alcohol_id
-    # form.playing_type.data = current_user.playing_type
+    # form.drinking.data = current_user.drinking_id
+    # form.playing_type.data = current_user.playing_type_id
     return render_template('edit_profile.html', form=form)
 
 
@@ -400,16 +400,16 @@ def admin_edit_profile(id):
         current_user.confirmed = form.confirmed.data
         current_user.name = form.name.data
         current_user.age = form.age.data
-        current_user.city = form.city.data
-        current_user.state = form.state.data
+        current_user.city_id = form.city.data
+        current_user.state_id = form.state.data
         current_user.bio = form.bio.data
-        current_user.gender = form.gender.data
+        current_user.gender_id = form.gender.data
         current_user.day_id = form.day.data
         current_user.time_of_day_id = form.time_of_day.data
         current_user.ride_or_walk_id = form.ride_or_walk.data
         current_user.handicap_id = form.handicap.data
         current_user.smoking_id = form.smoking.data
-        current_user.alcohol_id = form.drinking.data
+        current_user.drinking_id = form.drinking.data
         current_user.playing_type = form.playing_type.data
         # filtering for the first role name by form.role.data
         current_user.role = Role.query.filter_by(id = form.role.data).first()
@@ -426,15 +426,15 @@ def admin_edit_profile(id):
     form.role.data = current_user.role_id
     form.name.data = current_user.name
     form.age.data = current_user.age
-    form.city.data = current_user.city
-    form.state.data = current_user.state
+    form.city.data = current_user.city_id
+    form.state.data = current_user.state_id
     form.bio.data = current_user.bio
-    form.gender.data = current_user.gender
+    form.gender.data = current_user.gender_id
     form.day.data = current_user.day_id
     form.time_of_day.data = current_user.time_of_day_id
     form.ride_or_walk.data = current_user.ride_or_walk_id
     form.handicap.data = current_user.handicap_id
     form.smoking.data = current_user.smoking_id
-    form.drinking.data = current_user.alcohol_id
-    form.playing_type.data = current_user.playing_type
+    form.drinking.data = current_user.drinking_id
+    form.playing_type.data = current_user.playing_type_id
     return render_template('edit_profile.html', form=form)

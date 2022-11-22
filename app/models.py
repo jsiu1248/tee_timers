@@ -495,8 +495,6 @@ class RideOrWalk(db.Model):
     __tablename__ = 'ride_or_walks'
     id = db.Column(db.Integer, primary_key = True)
     ride_or_walk = db.Column(db.String(64))
-    ride_or_walk_id = db.Column(db.Integer, db.ForeignKey('userprofile.ride_or_walk_id'))
-
     profile = db.relationship('UserProfile', backref='ride_or_walk', lazy='dynamic')
 
 

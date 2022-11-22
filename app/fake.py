@@ -18,19 +18,19 @@ def users(count=20):
                  password = 'password',
                  confirmed = True,
                  name = fake.name(),
-                 city = fake.city(),
-                 state = fake.state(),
+                 city = fake.city(), # make this city_id
+                 state = fake.state(), # make this state_id
                  bio = fake.text(),
                  last_seen=fake.past_date(),
-                 gender =randint(1,3),
+                 gender_id =randint(1,3),
                  age = randint(10,120),
                  day_id = randint(1,7),
                  time_of_day_id = randint(1,2), 
                  ride_or_walk_id = randint(1,2), 
                  handicap_id = randint(1,5), 
                  smoking_id = randint(1,2), 
-                 alcohol_id = randint(1,2), 
-                 playing_type = randint(1,5) 
+                 drinking_id = randint(1,2), 
+                 playing_type_id = randint(1,5) 
                 #  , 
 
 
