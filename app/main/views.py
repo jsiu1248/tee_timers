@@ -5,7 +5,7 @@ from flask_login import login_required, current_user
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, or_
-from ..models import User, Role, Permission, Comment, Post, Day
+from ..models import User, Role, Permission, Comment, Post, Day, UserProfile
 from ..decorators import permission_required, admin_required
 from .forms import PostForm, TechSupportForm, MatchForm, EditProfileForm, AdminLevelEditProfileForm, CommentForm
 from ..email import send_email
@@ -33,8 +33,11 @@ def for_admins_only():
 def user(username):
     # query user or return error
     user = User.query.filter_by(username = username).first_or_404()
+    userprofile = UserProfile.query.join(User).filter_by(username=username).first_or_404()
+    print(userprofile)
     # have to add back pagination later
-    return render_template('user.html', user=user, Day = Day)
+    return render_template('user.html', user=user, Day = Day, userprofile = userprofile
+    )
 
 
 @main.route('/moderate')

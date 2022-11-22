@@ -45,28 +45,28 @@
             </tr>
             <tr>
                 <th scope="row">Age</th>
-                <td>{% if user.age %}{{ user.age }}{% endif %}</td>
+                <td>{% if userprofile.age %}{{ userprofile.age }}{% endif %}</td>
             </tr>
             <tr>
                 <th scope="row">City</th>
-                <td>{% if user.city %}{{ user.city }}{% endif %}</td>
+                <td>{% if userprofile.city %}{{ userprofile.city }}{% endif %}</td>
             </tr>
             <tr>
                 <th scope="row">State</th>
-                <td>{% if user.state %}{{ user.state }}{% endif %}</td>
+                <td>{% if userprofile.state %}{{ userprofile.state }}{% endif %}</td>
             </tr>
             <tr>
                 <th scope="row">Bio</th>
-                <td>{% if user.bio %}{{ user.bio }}{% endif %}</td>
+                <td>{% if userprofile.bio %}{{ userprofile.bio }}{% endif %}</td>
             </tr>
             <tr>
             <tr>
                 <th scope="row">Gender</th>
-                <td>{% if user.gender_id %}{{ user.gender }}{% endif %}</td>
+                <td>{% if userprofile.gender_id %}{{ userprofile.gender }}{% endif %}</td>
             </tr>
             <tr>
                 <th scope="row">Day</th>
-                <td>{% if user.day_id %} userprofile.day {% endif %}</td>
+                <td>{% if userprofile.day_id %} {{userprofile.day_id}} {% endif %}</td>
             </tr>
 
             {# {% if composition.post_type == PostType.THOUGHT %}
@@ -75,27 +75,27 @@
 
             <tr>
                 <th scope="row">Time of Day</th>
-                <td>{% if user.time_of_day %}{{ user.time_of_day }}{% endif %}</td>
+                <td>{% if userprofile.time_of_day_id %}{{ userprofile.time_of_day_id }}{% endif %}</td>
             </tr>
             <tr>
                 <th scope="row">Ride or Walk</th>
-                <td>{% if user.location %}{{ user.location }}{% endif %}</td>
+                <td>{% if userprofile.ride_or_walk_id %}{{ userprofile.ride_or_walk }}{% endif %}</td>
             </tr>
             <tr>
                 <th scope="row">Handicap</th>
-                <td>{% if user.handicap %}{{ user.handicap }}{% endif %}</td>
+                <td>{% if userprofile.handicap %}{{ userprofile.handicap }}{% endif %}</td>
             </tr>
             <tr>
                 <th scope="row">Smoking</th>
-                <td>{% if user.smoking %}{{ user.smoking }}{% endif %}</td>
+                <td>{% if userprofile.smoking %}{{ userprofile.smoking }}{% endif %}</td>
             </tr>
             <tr>
                 <th scope="row">Drinking</th>
-                <td>{% if user.drinking %}{{ user.drinking }}{% endif %}</td>
+                <td>{% if userprofile.drinking %}{{ userprofile.drinking }}{% endif %}</td>
             </tr>
             <tr>
                 <th scope="row">Playing Type</th>
-                <td>{% if user.playing_type %}{{ user.playing_type }}{% endif %}</td>
+                <td>{% if userprofile.playing_type %}{{ userprofile.playing_type }}{% endif %}</td>
             </tr>
             {% if current_user.is_administrator() %}
             <tr>
