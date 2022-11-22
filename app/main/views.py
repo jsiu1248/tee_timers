@@ -33,10 +33,19 @@ def for_admins_only():
 def user(username):
     # query user or return error
     user = User.query.filter_by(username = username).first_or_404()
-    userprofile = UserProfile.query.join(User).filter_by(username=username).first_or_404()
-    print(userprofile)
+    userprofile = UserProfile.query.join(Day, UserProfile.day_id == Day.id, 
+    isouter = True).join(User, UserProfile.id == User.id, 
+    isouter = True).filter_by(username=username).first_or_404()
+
+    test = User.query.join(UserProfile, UserProfile.id == User.id, 
+    isouter = True).filter_by(id = 9).first_or_404()
+
+    # # print(UserProfile.query(UserProfile).all())
+    print(str(user.email))
+    print(str(test.id))
+    #.outerjoin(Day, UserProfile.day_id == Day.id)
     # have to add back pagination later
-    return render_template('user.html', user=user, Day = Day, userprofile = userprofile
+    return render_template('user.html', user=user, userprofile = userprofile
     )
 
 

@@ -214,10 +214,10 @@ class AdminLevelEditProfileForm(FlaskForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.gender.choices = [(Gender.MALE, 'Male'),
-                                     (Gender.FEMALE, 'Female'),
-                                     (Gender.OTHER, 'Other')]
-        self.day.choices = [(Day.MONDAY, 'Monday'),
-                                     (Day.TUESDAY, 'Tuesday'),
+                                     (GenderDict.FEMALE, 'Female'),
+                                     (GenderDict.OTHER, 'Other')]
+        self.day.choices = [(DayDict.MONDAY, 'Monday'),
+                                     (DayDict.TUESDAY, 'Tuesday'),
                                      (Day.WEDNESDAY, 'Wednesday'), 
                                      (Day.THURSDAY, 'Thursday'), 
                                      (Day.FRIDAY, 'Friday'), 
