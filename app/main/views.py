@@ -5,7 +5,7 @@ from flask_login import login_required, current_user
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, or_
-from ..models import User, Role, Permission, Comment, Post, Day, UserProfile
+from ..models import User, Role, Permission, Comment, Post, Day, UserProfile, State, City, GolfCourse, Gender, TimeOfDay, RideOrWalk, Handicap, Smoking, Drinking, PlayingType
 from ..decorators import permission_required, admin_required
 from .forms import PostForm, TechSupportForm, MatchForm, EditProfileForm, AdminLevelEditProfileForm, CommentForm
 from ..email import send_email
@@ -33,9 +33,19 @@ def for_admins_only():
 def user(username):
     # query user or return error
     user = User.query.filter_by(username = username).first_or_404()
-    userprofile = db.session.query(UserProfile, Day).filter_by(id=9).join(Day, 
+    userprofile = db.session.query(UserProfile, Day, State, City, 
+    Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
+    Drinking, PlayingType ).filter_by(id=9).join(Day, 
     UserProfile.day_id == Day.id, 
-    isouter = True).first_or_404()
+    isouter = True).join(State, UserProfile.state_id == State.id).join(City,
+        UserProfile.city_id == City.id).join(Gender,
+        UserProfile.gender_id == Gender.id).join(TimeOfDay, 
+        UserProfile.time_of_day_id == TimeOfDay.id).join(RideOrWalk, 
+        UserProfile.ride_or_walk_id == RideOrWalk.id).join(Handicap,
+        UserProfile.handicap_id == Handicap.id).join(Smoking,
+        UserProfile.smoking_id == Smoking.id).join(Drinking, 
+        UserProfile.drinking_id == Drinking.id).join(PlayingType, 
+        UserProfile.playing_type_id == PlayingType.id).first_or_404()
 
     # userprofile = UserProfile.query.join(Day, UserProfile.day_id == Day.id, 
     # isouter = True).join(User, UserProfile.id == User.id, 

@@ -578,7 +578,7 @@ class PlayingType(db.Model):
         data = ["Leisure", "Betting", "Competitive",
         "Driving Range", "Learning"]
         for playingtype in data:
-                playingtype = PlayingType(playingtype = playingtype)
+                playingtype = PlayingType(playing_type = playingtype)
                 db.session.add(playingtype)
         db.session.commit()
 
