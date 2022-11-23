@@ -158,9 +158,9 @@ def edit_profile_admin(id):
         user.name = form.name.data
         userprofile.bio = form.bio.data
         userprofile.age = form.age.data
-        userprofile.city_id = form.city.data
+        # userprofile.city_id = form.city.data
         # current_user.state_id = form.state.data
-        # current_user.gender_id = form.gender.data
+        userprofile.gender_id = request.form['gender']
         # current_user.day_id = form.day.data
         # current_user.time_of_day_id = form.time_of_day.data
         # current_user.ride_or_walk_id = form.ride_or_walk.data
@@ -182,10 +182,9 @@ def edit_profile_admin(id):
     form.name.data = user.name
     form.bio.data = userprofile.bio
     form.age.data = userprofile.age
-    form.city.data = userprofile.city_id
+    # form.city.data = userprofile.city_id
     # form.state.data = current_user.state_id
-    # form.bio.data = current_user.bio
-    # form.gender.data = current_user.gender_id
+    # form.gender.data = userprofile.gender_id
     # form.day.data = current_user.day_id
     # form.time_of_day.data = current_user.time_of_day_id
     # form.ride_or_walk.data = current_user.ride_or_walk_id
