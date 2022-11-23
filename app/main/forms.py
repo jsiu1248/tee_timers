@@ -66,31 +66,31 @@ class MatchForm(FlaskForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.gender.choices = [(Gender.MALE, 'Male'),
-                                     (Gender.FEMALE, 'Female'),
-                                     (Gender.OTHER, 'Other')]
-        self.day.choices = [(Day.MONDAY, 'Monday'),
-                                     (Day.TUESDAY, 'Tuesday'),
-                                     (Day.WEDNESDAY, 'Wednesday'), 
-                                     (Day.THURSDAY, 'Thursday'), 
-                                     (Day.FRIDAY, 'Friday'), 
-                                     (Day.SATURDAY, 'Saturday'),
-                                     (Day.SUNDAY, 'Sunday')]
-        self.time_of_day.choices = [(TimeOfDay.MORNING, 'Morning'),
-                                     (TimeOfDay.AFTERNOON, 'Afternoon')]
-        self.ride_or_walk.choices = [(RideOrWalk.RIDE, 'Ride'), 
-                             (RideOrWalk.WALK, 'Walk')]
-        self.handicap.choices = [(Handicap.TWENTY, '20+'),
-                                     (Handicap.FIFTEEN, '10-15'),
-                                     (Handicap.TEN, '5-10'), 
-                                     (Handicap.FIVE, '0-5')]
-        self.smoking.choices = [(Smoking.NO, 'No'), (Smoking.YES, 'YES')]
-        self.drinking.choices = [(Drinking.NO, 'No'), (Drinking.YES, 'YES')]
-        self.playing_type.choices = [(PlayingType.LEISURE, 'Leisure'),
-                                     (PlayingType.BETTING, 'Betting'),
-                                     (PlayingType.COMPETITIVE, 'Competitive'), 
-                                     (PlayingType.DRIVINGRANGE, 'Driving Range'),
-                                     (PlayingType.LEARNING, 'Learning')]
+        self.gender.choices = [(GenderDict.MALE, 'Male'),
+                                     (GenderDict.FEMALE, 'Female'),
+                                     (GenderDict.OTHER, 'Other')]
+        self.day.choices = [(DayDict.MONDAY, 'Monday'),
+                                     (DayDict.TUESDAY, 'Tuesday'),
+                                     (DayDict.WEDNESDAY, 'Wednesday'), 
+                                     (DayDict.THURSDAY, 'Thursday'), 
+                                     (DayDict.FRIDAY, 'Friday'), 
+                                     (DayDict.SATURDAY, 'Saturday'),
+                                     (DayDict.SUNDAY, 'Sunday')]
+        self.time_of_day.choices = [(TimeOfDayDict.MORNING, 'Morning'),
+                                     (TimeOfDayDict.AFTERNOON, 'Afternoon')]
+        self.ride_or_walk.choices = [(RideOrWalkDict.RIDE, 'Ride'), 
+                             (RideOrWalkDict.WALK, 'Walk')]
+        self.handicap.choices = [(HandicapDict.TWENTY, '20+'),
+                                     (HandicapDict.FIFTEEN, '10-15'),
+                                     (HandicapDict.TEN, '5-10'), 
+                                     (HandicapDict.FIVE, '0-5')]
+        self.smoking.choices = [(SmokingDict.NO, 'No'), (SmokingDict.YES, 'YES')]
+        self.drinking.choices = [(DrinkingDict.NO, 'No'), (DrinkingDict.YES, 'YES')]
+        self.playing_type.choices = [(PlayingTypeDict.LEISURE, 'Leisure'),
+                                     (PlayingTypeDict.BETTING, 'Betting'),
+                                     (PlayingTypeDict.COMPETITIVE, 'Competitive'), 
+                                     (PlayingTypeDict.DRIVINGRANGE, 'Driving Range'),
+                                     (PlayingTypeDict.LEARNING, 'Learning')]
 
 
 
@@ -137,31 +137,31 @@ class EditProfileForm(FlaskForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.gender.choices = [(Gender.MALE, 'Male'),
-                                    (Gender.FEMALE, 'Female'),
-                                    (Gender.OTHER, 'Other')]
-        self.day.choices = [(Day.MONDAY, 'Monday'),
-                                    (Day.TUESDAY, 'Tuesday'),
-                                    (Day.WEDNESDAY, 'Wednesday'), 
-                                    (Day.THURSDAY, 'Thursday'), 
-                                    (Day.FRIDAY, 'Friday'), 
-                                    (Day.SATURDAY, 'Saturday'),
-                                    (Day.SUNDAY, 'Sunday')]
-        self.time_of_day.choices = [(TimeOfDay.MORNING, 'Morning'),
-                                    (TimeOfDay.AFTERNOON, 'Afternoon')]
-        self.ride_or_walk.choices = [(RideOrWalk.RIDE, 'Ride'), 
-                            (RideOrWalk.WALK, 'Walk')]
-        self.handicap.choices = [(Handicap.TWENTY, '20+'),
-                                    (Handicap.FIFTEEN, '10-15'),
-                                    (Handicap.TEN, '5-10'), 
-                                    (Handicap.FIVE, '0-5')]
-        self.smoking.choices = [(Smoking.NO, 'No'), (Smoking.YES, 'Yes')]
-        self.drinking.choices = [(Drinking.NO, 'No'), (Drinking.YES, 'Yes')]
-        self.playing_type.choices = [(PlayingType.LEISURE, 'Leisure'),
-                                    (PlayingType.BETTING, 'Betting'),
-                                    (PlayingType.COMPETITIVE, 'Competitive'), 
-                                    (PlayingType.DRIVINGRANGE, 'Driving Range'),
-                                    (PlayingType.LEARNING, 'Learning')]
+        self.gender.choices = [(GenderDict.MALE, 'Male'),
+                                     (GenderDict.FEMALE, 'Female'),
+                                     (GenderDict.OTHER, 'Other')]
+        self.day.choices = [(DayDict.MONDAY, 'Monday'),
+                                     (DayDict.TUESDAY, 'Tuesday'),
+                                     (DayDict.WEDNESDAY, 'Wednesday'), 
+                                     (DayDict.THURSDAY, 'Thursday'), 
+                                     (DayDict.FRIDAY, 'Friday'), 
+                                     (DayDict.SATURDAY, 'Saturday'),
+                                     (DayDict.SUNDAY, 'Sunday')]
+        self.time_of_day.choices = [(TimeOfDayDict.MORNING, 'Morning'),
+                                     (TimeOfDayDict.AFTERNOON, 'Afternoon')]
+        self.ride_or_walk.choices = [(RideOrWalkDict.RIDE, 'Ride'), 
+                             (RideOrWalkDict.WALK, 'Walk')]
+        self.handicap.choices = [(HandicapDict.TWENTY, '20+'),
+                                     (HandicapDict.FIFTEEN, '10-15'),
+                                     (HandicapDict.TEN, '5-10'), 
+                                     (HandicapDict.FIVE, '0-5')]
+        self.smoking.choices = [(SmokingDict.NO, 'No'), (SmokingDict.YES, 'YES')]
+        self.drinking.choices = [(DrinkingDict.NO, 'No'), (DrinkingDict.YES, 'YES')]
+        self.playing_type.choices = [(PlayingTypeDict.LEISURE, 'Leisure'),
+                                     (PlayingTypeDict.BETTING, 'Betting'),
+                                     (PlayingTypeDict.COMPETITIVE, 'Competitive'), 
+                                     (PlayingTypeDict.DRIVINGRANGE, 'Driving Range'),
+                                     (PlayingTypeDict.LEARNING, 'Learning')]
 
 
 class AdminLevelEditProfileForm(FlaskForm):
@@ -213,28 +213,28 @@ class AdminLevelEditProfileForm(FlaskForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.gender.choices = [(Gender.MALE, 'Male'),
-                                     (Gender.FEMALE, 'Female'),
-                                     (Gender.OTHER, 'Other')]
+        self.gender.choices = [(GenderDict.MALE, 'Male'),
+                                     (GenderDict.FEMALE, 'Female'),
+                                     (GenderDict.OTHER, 'Other')]
         self.day.choices = [(DayDict.MONDAY, 'Monday'),
                                      (DayDict.TUESDAY, 'Tuesday'),
-                                     (Day.WEDNESDAY, 'Wednesday'), 
-                                     (Day.THURSDAY, 'Thursday'), 
-                                     (Day.FRIDAY, 'Friday'), 
-                                     (Day.SATURDAY, 'Saturday'),
-                                     (Day.SUNDAY, 'Sunday')]
-        self.time_of_day.choices = [(TimeOfDay.MORNING, 'Morning'),
-                                     (TimeOfDay.AFTERNOON, 'Afternoon')]
-        self.ride_or_walk.choices = [(RideOrWalk.RIDE, 'Ride'), 
-                             (RideOrWalk.WALK, 'Walk')]
-        self.handicap.choices = [(Handicap.TWENTY, '20+'),
-                                     (Handicap.FIFTEEN, '10-15'),
-                                     (Handicap.TEN, '5-10'), 
-                                     (Handicap.FIVE, '0-5')]
-        self.smoking.choices = [(Smoking.NO, 'No'), (Smoking.Yes, 'yes')]
-        self.drinking.choices = [(Drinking.NO, 'No'), (Drinking.YES, 'Yes')]
-        self.playing_type.choices = [(PlayingType.LEISURE, 'Leisure'),
-                                     (PlayingType.BETTING, 'Betting'),
-                                     (PlayingType.COMPETITIVE, 'Competitive'), 
-                                     (PlayingType.DRIVINGRANGE, 'Driving Range'),
-                                     (PlayingType.LEARNING, 'Learning')]
+                                     (DayDict.WEDNESDAY, 'Wednesday'), 
+                                     (DayDict.THURSDAY, 'Thursday'), 
+                                     (DayDict.FRIDAY, 'Friday'), 
+                                     (DayDict.SATURDAY, 'Saturday'),
+                                     (DayDict.SUNDAY, 'Sunday')]
+        self.time_of_day.choices = [(TimeOfDayDict.MORNING, 'Morning'),
+                                     (TimeOfDayDict.AFTERNOON, 'Afternoon')]
+        self.ride_or_walk.choices = [(RideOrWalkDict.RIDE, 'Ride'), 
+                             (RideOrWalkDict.WALK, 'Walk')]
+        self.handicap.choices = [(HandicapDict.TWENTY, '20+'),
+                                     (HandicapDict.FIFTEEN, '10-15'),
+                                     (HandicapDict.TEN, '5-10'), 
+                                     (HandicapDict.FIVE, '0-5')]
+        self.smoking.choices = [(SmokingDict.NO, 'No'), (SmokingDict.YES, 'YES')]
+        self.drinking.choices = [(DrinkingDict.NO, 'No'), (DrinkingDict.YES, 'YES')]
+        self.playing_type.choices = [(PlayingTypeDict.LEISURE, 'Leisure'),
+                                     (PlayingTypeDict.BETTING, 'Betting'),
+                                     (PlayingTypeDict.COMPETITIVE, 'Competitive'), 
+                                     (PlayingTypeDict.DRIVINGRANGE, 'Driving Range'),
+                                     (PlayingTypeDict.LEARNING, 'Learning')]
