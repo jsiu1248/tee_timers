@@ -45,7 +45,7 @@ def user(username):
         UserProfile.handicap_id == Handicap.id).join(Smoking,
         UserProfile.smoking_id == Smoking.id).join(Drinking, 
         UserProfile.drinking_id == Drinking.id).join(PlayingType, 
-        UserProfile.playing_type_id == PlayingType.id).first_or_404()
+        UserProfile.playing_type_id == PlayingType.id).first()
 
     posts = user.post.order_by(Post.timestamp.desc()).all()
 
@@ -148,13 +148,28 @@ def followers(username):
 @admin_required
 def edit_profile_admin(id):
     user = User.query.get_or_404(id)
-    form = AdminLevelEditProfileForm(user=user)
+    userprofile = UserProfile.query.get_or_404(id)
+
+    form = AdminLevelEditProfileForm(user=user, userprofile = userprofile)
     if form.validate_on_submit():
         user.username = form.username.data
         user.confirmed = form.confirmed.data
         user.role = Role.query.get(form.role.data)
         user.name = form.name.data
-        user.bio = form.bio.data
+        userprofile.bio = form.bio.data
+        userprofile.age = form.age.data
+        userprofile.city_id = form.city.data
+        # current_user.state_id = form.state.data
+        # current_user.gender_id = form.gender.data
+        # current_user.day_id = form.day.data
+        # current_user.time_of_day_id = form.time_of_day.data
+        # current_user.ride_or_walk_id = form.ride_or_walk.data
+        # current_user.handicap_id = form.handicap.data
+        # current_user.smoking_id = form.smoking.data
+        # current_user.drinking_id = form.drinking.data
+        # current_user.playing_type = form.playing_type.data
+
+        # user.bio = form.bio.data
         ### need to add more info here
         db.session.add(current_user._get_current_object())
         db.session.commit()
@@ -165,7 +180,20 @@ def edit_profile_admin(id):
     # We must ensure role field gets int data
     form.role.data = user.role_id
     form.name.data = user.name
-    form.bio.data = user.bio
+    form.bio.data = userprofile.bio
+    form.age.data = userprofile.age
+    form.city.data = userprofile.city_id
+    # form.state.data = current_user.state_id
+    # form.bio.data = current_user.bio
+    # form.gender.data = current_user.gender_id
+    # form.day.data = current_user.day_id
+    # form.time_of_day.data = current_user.time_of_day_id
+    # form.ride_or_walk.data = current_user.ride_or_walk_id
+    # form.handicap.data = current_user.handicap_id
+    # form.smoking.data = current_user.smoking_id
+    # form.drinking.data = current_user.drinking_id
+    # form.playing_type.data = current_user.playing_type_id
+
     return render_template('edit_profile.html', form=form, user=user)
 
 
@@ -433,58 +461,59 @@ def create_post():
 #     form.post.data = post.description
 #     return render_template('post.html', form=form)
 
-@main.route('/editprofile/<int:id>', methods = ['GET', 'POST'])
-@login_required
-@admin_required
-def admin_edit_profile(id):
-    """
-    Admin access to editting other's profiles. Admin access and login is required. 
-    Args: id of user
-    """
-    form = AdminLevelEditProfileForm()
+# duplicated 
+# @main.route('/editprofile/<int:id>', methods = ['GET', 'POST'])
+# @login_required
+# @admin_required
+# def admin_edit_profile(id):
+#     """
+#     Admin access to editting other's profiles. Admin access and login is required. 
+#     Args: id of user
+#     """
+#     form = AdminLevelEditProfileForm()
 
-    # Search for user based on ID and return 404 if None
-    user = User.query.filter_by(id = id).first_or_404()
-    if form.validate_on_submit():
-        current_user.username = form.username.data
-        current_user.confirmed = form.confirmed.data
-        current_user.name = form.name.data
-        current_user.age = form.age.data
-        current_user.city_id = form.city.data
-        current_user.state_id = form.state.data
-        current_user.bio = form.bio.data
-        current_user.gender_id = form.gender.data
-        current_user.day_id = form.day.data
-        current_user.time_of_day_id = form.time_of_day.data
-        current_user.ride_or_walk_id = form.ride_or_walk.data
-        current_user.handicap_id = form.handicap.data
-        current_user.smoking_id = form.smoking.data
-        current_user.drinking_id = form.drinking.data
-        current_user.playing_type = form.playing_type.data
-        # filtering for the first role name by form.role.data
-        current_user.role = Role.query.filter_by(id = form.role.data).first()
+#     # Search for user based on ID and return 404 if None
+#     user = User.query.filter_by(id = id).first_or_404()
+#     if form.validate_on_submit():
+#         current_user.username = form.username.data
+#         current_user.confirmed = form.confirmed.data
+#         current_user.name = form.name.data
+#         current_user.age = form.age.data
+#         current_user.city_id = form.city.data
+#         current_user.state_id = form.state.data
+#         current_user.bio = form.bio.data
+#         current_user.gender_id = form.gender.data
+#         current_user.day_id = form.day.data
+#         current_user.time_of_day_id = form.time_of_day.data
+#         current_user.ride_or_walk_id = form.ride_or_walk.data
+#         current_user.handicap_id = form.handicap.data
+#         current_user.smoking_id = form.smoking.data
+#         current_user.drinking_id = form.drinking.data
+#         current_user.playing_type = form.playing_type.data
+#         # filtering for the first role name by form.role.data
+#         current_user.role = Role.query.filter_by(id = form.role.data).first()
 
 
-        db.session.add(current_user._get_current_object())
-        db.session.commit()
-        flash('You successfully updated {user.username}\'s profile.')
-        return redirect(url_for('.user', username=current_user.username))
+#         db.session.add(current_user._get_current_object())
+#         db.session.commit()
+#         flash('You successfully updated {user.username}\'s profile.')
+#         return redirect(url_for('.user', username=current_user.username))
 
-    # why is the data equaled back and forth - seems like it is doing the same thing twice
-    form.username.data = current_user.username
-    form.confirmed.data = current_user.confirmed
-    form.role.data = current_user.role_id
-    form.name.data = current_user.name
-    form.age.data = current_user.age
-    form.city.data = current_user.city_id
-    form.state.data = current_user.state_id
-    form.bio.data = current_user.bio
-    form.gender.data = current_user.gender_id
-    form.day.data = current_user.day_id
-    form.time_of_day.data = current_user.time_of_day_id
-    form.ride_or_walk.data = current_user.ride_or_walk_id
-    form.handicap.data = current_user.handicap_id
-    form.smoking.data = current_user.smoking_id
-    form.drinking.data = current_user.drinking_id
-    form.playing_type.data = current_user.playing_type_id
-    return render_template('edit_profile.html', form=form)
+#     # why is the data equaled back and forth - seems like it is doing the same thing twice
+#     form.username.data = current_user.username
+#     form.confirmed.data = current_user.confirmed
+#     form.role.data = current_user.role_id
+#     form.name.data = current_user.name
+#     form.age.data = current_user.age
+#     form.city.data = current_user.city_id
+#     form.state.data = current_user.state_id
+#     form.bio.data = current_user.bio
+#     form.gender.data = current_user.gender_id
+#     form.day.data = current_user.day_id
+#     form.time_of_day.data = current_user.time_of_day_id
+#     form.ride_or_walk.data = current_user.ride_or_walk_id
+#     form.handicap.data = current_user.handicap_id
+#     form.smoking.data = current_user.smoking_id
+#     form.drinking.data = current_user.drinking_id
+#     form.playing_type.data = current_user.playing_type_id
+#     return render_template('edit_profile.html', form=form)
