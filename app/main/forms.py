@@ -77,7 +77,7 @@ class MatchForm(FlaskForm):
                                      (Day.SATURDAY, 'Saturday'),
                                      (Day.SUNDAY, 'Sunday')]
         self.time_of_day.choices = [(TimeOfDay.MORNING, 'Morning'),
-                                     (TimeOfDay.AFTERNOON, 'After')]
+                                     (TimeOfDay.AFTERNOON, 'Afternoon')]
         self.ride_or_walk.choices = [(RideOrWalk.RIDE, 'Ride'), 
                              (RideOrWalk.WALK, 'Walk')]
         self.handicap.choices = [(Handicap.TWENTY, '20+'),
@@ -148,7 +148,7 @@ class EditProfileForm(FlaskForm):
                                     (Day.SATURDAY, 'Saturday'),
                                     (Day.SUNDAY, 'Sunday')]
         self.time_of_day.choices = [(TimeOfDay.MORNING, 'Morning'),
-                                    (TimeOfDay.AFTERNOON, 'After')]
+                                    (TimeOfDay.AFTERNOON, 'Afternoon')]
         self.ride_or_walk.choices = [(RideOrWalk.RIDE, 'Ride'), 
                             (RideOrWalk.WALK, 'Walk')]
         self.handicap.choices = [(Handicap.TWENTY, '20+'),
@@ -214,8 +214,8 @@ class AdminLevelEditProfileForm(FlaskForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.gender.choices = [(Gender.MALE, 'Male'),
-                                     (GenderDict.FEMALE, 'Female'),
-                                     (GenderDict.OTHER, 'Other')]
+                                     (Gender.FEMALE, 'Female'),
+                                     (Gender.OTHER, 'Other')]
         self.day.choices = [(DayDict.MONDAY, 'Monday'),
                                      (DayDict.TUESDAY, 'Tuesday'),
                                      (Day.WEDNESDAY, 'Wednesday'), 
@@ -224,7 +224,7 @@ class AdminLevelEditProfileForm(FlaskForm):
                                      (Day.SATURDAY, 'Saturday'),
                                      (Day.SUNDAY, 'Sunday')]
         self.time_of_day.choices = [(TimeOfDay.MORNING, 'Morning'),
-                                     (TimeOfDay.AFTERNOON, 'After')]
+                                     (TimeOfDay.AFTERNOON, 'Afternoon')]
         self.ride_or_walk.choices = [(RideOrWalk.RIDE, 'Ride'), 
                              (RideOrWalk.WALK, 'Walk')]
         self.handicap.choices = [(Handicap.TWENTY, '20+'),

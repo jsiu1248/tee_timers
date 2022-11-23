@@ -33,17 +33,21 @@ def for_admins_only():
 def user(username):
     # query user or return error
     user = User.query.filter_by(username = username).first_or_404()
-    userprofile = UserProfile.query.join(Day, UserProfile.day_id == Day.id, 
-    isouter = True).join(User, UserProfile.id == User.id, 
-    isouter = True).filter_by(username=username).first_or_404()
+    userprofile = db.session.query(UserProfile, Day).filter_by(id=9).join(Day, 
+    UserProfile.day_id == Day.id, 
+    isouter = True).first_or_404()
+
+    # userprofile = UserProfile.query.join(Day, UserProfile.day_id == Day.id, 
+    # isouter = True).join(User, UserProfile.id == User.id, 
+    # isouter = True).filter_by(username=username).first_or_404()
 
     test = User.query.join(UserProfile, UserProfile.id == User.id, 
     isouter = True).filter_by(id = 9).first_or_404()
 
-    test_2 = db.session.query(User, UserProfile, Day).join(UserProfile, 
-    UserProfile.id == User.id, 
-    isouter = True).join(Day, UserProfile.day_id == Day.id, 
-    isouter = True).filter_by(id = 3).first_or_404()
+    # test_2 = db.session.query(User, UserProfile, Day).join(UserProfile, 
+    # UserProfile.id == User.id, 
+    # isouter = True).filter_by(id=9).join(Day, UserProfile.day_id == Day.id, 
+    # isouter = True).first_or_404()
 
     # test_3 = db.session.query(User, UserProfile).join(UserProfile, 
     # UserProfile.id == User.id, 
@@ -57,9 +61,11 @@ def user(username):
     # isouter = True).filter_by(id = 9).first()
 
     # # print(UserProfile.query(UserProfile).all())
-    print(str(user.email))
-    print(str(test.id))
-    print(test_2.Day.day)
+    # print(str(test.id))
+    print(userprofile.UserProfile.age)
+    print(userprofile.Day.day)
+
+    # print(test_2.Day.day)
     # print(test_4)
     #.outerjoin(Day, UserProfile.day_id == Day.id)
     # have to add back pagination later

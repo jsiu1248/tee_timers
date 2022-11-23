@@ -462,6 +462,15 @@ class Gender(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     gender = db.Column(db.String(64))
     profile = db.relationship('UserProfile', backref='gender', lazy='dynamic')
+    @staticmethod
+    def insert_gender():
+        "adding gender lookup to database"
+        # load data in json
+        data = ["Male", "Female","Other"]
+        for gender in data:
+                gender = Gender(gender = gender)
+                db.session.add(gender)
+        db.session.commit()
 
 
 class Day(db.Model):
@@ -488,6 +497,14 @@ class TimeOfDay(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     time_of_day = db.Column(db.String(64))
     profile = db.relationship('UserProfile', backref='time_of_day', lazy='dynamic')
+    def insert_timeofday():
+        "adding time of day lookup to database"
+        # load data in json
+        data = ["Morning", "Afternoon"]
+        for time in data:
+                time = TimeOfDay(time_of_day = time)
+                db.session.add(time)
+        db.session.commit()
 
 
 class RideOrWalk(db.Model):
@@ -495,6 +512,14 @@ class RideOrWalk(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     ride_or_walk = db.Column(db.String(64))
     profile = db.relationship('UserProfile', backref='ride_or_walk', lazy='dynamic')
+    def insert_rideorwalk():
+        "adding Ride or Walk lookup to database"
+        # load data in json
+        data = ["Ride", "Walk"]
+        for ridewalk in data:
+                ridewalk = RideOrWalk(ride_or_walk = ridewalk)
+                db.session.add(ridewalk)
+        db.session.commit()
 
 
 class Handicap(db.Model):
@@ -502,6 +527,14 @@ class Handicap(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     handicap = db.Column(db.String(64))
     profile = db.relationship('UserProfile', backref='handicap', lazy='dynamic')
+    def insert_handicap():
+        "adding handicap lookup to database"
+        # load data in json
+        data = ["20+", "10-15","5-10", "0-5"]
+        for handicap in data:
+                handicap = Handicap(handicap = handicap)
+                db.session.add(handicap)
+        db.session.commit()
 
 
 class Smoking(db.Model):
@@ -509,6 +542,14 @@ class Smoking(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     smoking = db.Column(db.String(64))
     profile = db.relationship('UserProfile', backref='smoking', lazy='dynamic')
+    def insert_smoking():
+        "adding smoking lookup to database"
+        # load data in json
+        data = ["No", "Yes"]
+        for smoking in data:
+                smoking = Smoking(smoking = smoking)
+                db.session.add(smoking)
+        db.session.commit()
 
 
 class Drinking(db.Model):
@@ -516,6 +557,14 @@ class Drinking(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     drinking = db.Column(db.String(64))
     profile = db.relationship('UserProfile', backref='drinking', lazy='dynamic')
+    def insert_drinking():
+        "adding drinking lookup to database"
+        # load data in json
+        data = ["No","Yes"]
+        for drinking in data:
+                drinking = Drinking(drinking = drinking)
+                db.session.add(drinking)
+        db.session.commit()
 
 
 class PlayingType(db.Model):
@@ -523,6 +572,15 @@ class PlayingType(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     playing_type = db.Column(db.String(64))
     profile = db.relationship('UserProfile', backref='playingtype', lazy='dynamic')
+    def insert_playingtype():
+        "adding playing type lookup to database"
+        # load data in json
+        data = ["Leisure", "Betting", "Competitive",
+        "Driving Range", "Learning"]
+        for playingtype in data:
+                playingtype = PlayingType(playingtype = playingtype)
+                db.session.add(playingtype)
+        db.session.commit()
 
 
 
@@ -596,3 +654,10 @@ class GolfCourse(db.Model):
         # City.insert_city()
         # GolfCourse.insert_golf_course()
         # Day.insert_day()
+        # Gender.insert_gender()
+        # TimeOfDay.insert_timeofday()
+        # RideOrWalk.insert_rideorwalk()
+        # Handicap.insert_handicap()
+        # Smoking.insert_smoking()
+        # Drinking.insert_drinking()
+        # PlayingType.insert_playingtype()
