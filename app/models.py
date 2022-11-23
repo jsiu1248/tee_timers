@@ -142,6 +142,7 @@ class UserProfile(db.Model):
     golf_course_id = db.Column(db.Integer, db.ForeignKey('golf_courses.id'))
     # it will be assigned upon the created of the new User
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
+    avaliable_days = db.Column(db.String(64))
     # users = db.relationship('User', backref='userprofile', lazy='dynamic')
 
 

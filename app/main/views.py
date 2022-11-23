@@ -170,7 +170,8 @@ def edit_profile_admin(id):
             days_list[int(i)-1] = "1"
             days_changed = ''.join(days_list)
             days = days_changed
-        print(days_changed)
+            userprofile.avaliable_days = days_changed
+        # print(days_changed) # 1100110
             
         # current_user.time_of_day_id = form.time_of_day.data
         # current_user.ride_or_walk_id = form.ride_or_walk.data
