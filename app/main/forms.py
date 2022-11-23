@@ -4,7 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, DateField, TextAreaField, SelectField, BooleanField, SelectMultipleField, IntegerField
 from wtforms.validators import DataRequired, Length, Regexp, NumberRange
 from wtforms import widgets, SelectMultipleField
-from app.models import db, Gender, Day, TimeOfDay, RideOrWalk, Handicap, Smoking, Drinking, PlayingType
+from app.models import db, GenderDict, DayDict, TimeOfDayDict, RideOrWalkDict, HandicapDict, SmokingDict, DrinkingDict, PlayingTypeDict
 from wtforms_sqlalchemy.fields import QuerySelectField
 
 class TechSupportForm(FlaskForm):
@@ -84,8 +84,8 @@ class MatchForm(FlaskForm):
                                      (HandicapDict.FIFTEEN, '10-15'),
                                      (HandicapDict.TEN, '5-10'), 
                                      (HandicapDict.FIVE, '0-5')]
-        self.smoking.choices = [(SmokingDict.NO, 'No'), (SmokingDict.YES, 'YES')]
-        self.drinking.choices = [(DrinkingDict.NO, 'No'), (DrinkingDict.YES, 'YES')]
+        self.smoking.choices = [(SmokingDict.NO, 'No'), (SmokingDict.YES, 'Yes')]
+        self.drinking.choices = [(DrinkingDict.NO, 'No'), (DrinkingDict.YES, 'Yes')]
         self.playing_type.choices = [(PlayingTypeDict.LEISURE, 'Leisure'),
                                      (PlayingTypeDict.BETTING, 'Betting'),
                                      (PlayingTypeDict.COMPETITIVE, 'Competitive'), 
@@ -155,8 +155,8 @@ class EditProfileForm(FlaskForm):
                                      (HandicapDict.FIFTEEN, '10-15'),
                                      (HandicapDict.TEN, '5-10'), 
                                      (HandicapDict.FIVE, '0-5')]
-        self.smoking.choices = [(SmokingDict.NO, 'No'), (SmokingDict.YES, 'YES')]
-        self.drinking.choices = [(DrinkingDict.NO, 'No'), (DrinkingDict.YES, 'YES')]
+        self.smoking.choices = [(SmokingDict.NO, 'No'), (SmokingDict.YES, 'Yes')]
+        self.drinking.choices = [(DrinkingDict.NO, 'No'), (DrinkingDict.YES, 'Yes')]
         self.playing_type.choices = [(PlayingTypeDict.LEISURE, 'Leisure'),
                                      (PlayingTypeDict.BETTING, 'Betting'),
                                      (PlayingTypeDict.COMPETITIVE, 'Competitive'), 
@@ -231,8 +231,8 @@ class AdminLevelEditProfileForm(FlaskForm):
                                      (HandicapDict.FIFTEEN, '10-15'),
                                      (HandicapDict.TEN, '5-10'), 
                                      (HandicapDict.FIVE, '0-5')]
-        self.smoking.choices = [(SmokingDict.NO, 'No'), (SmokingDict.YES, 'YES')]
-        self.drinking.choices = [(DrinkingDict.NO, 'No'), (DrinkingDict.YES, 'YES')]
+        self.smoking.choices = [(SmokingDict.NO, 'No'), (SmokingDict.YES, 'Yes')]
+        self.drinking.choices = [(DrinkingDict.NO, 'No'), (DrinkingDict.YES, 'Yes')]
         self.playing_type.choices = [(PlayingTypeDict.LEISURE, 'Leisure'),
                                      (PlayingTypeDict.BETTING, 'Betting'),
                                      (PlayingTypeDict.COMPETITIVE, 'Competitive'), 

@@ -35,7 +35,7 @@ def user(username):
     user = User.query.filter_by(username = username).first_or_404()
     userprofile = db.session.query(UserProfile, Day, State, City, 
     Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
-    Drinking, PlayingType ).filter_by(id=9).join(Day, 
+    Drinking, PlayingType ).filter_by(id=user.id).join(Day, 
     UserProfile.day_id == Day.id, 
     isouter = True).join(State, UserProfile.state_id == State.id).join(City,
         UserProfile.city_id == City.id).join(Gender,
@@ -47,8 +47,12 @@ def user(username):
         UserProfile.drinking_id == Drinking.id).join(PlayingType, 
         UserProfile.playing_type_id == PlayingType.id).first_or_404()
 
+    posts = user.post.order_by(Post.timestamp.desc()).all()
+
+
     # have to add back pagination later
-    return render_template('user.html', user=user, userprofile = userprofile
+    return render_template('user.html', user=user, userprofile = userprofile, 
+    posts = posts
     )
 
 
@@ -74,11 +78,11 @@ def follow(username):
         return redirect(url_for('.index'))
     if current_user.is_following(user):
         flash("Looks like you are already following that user.")
-        return redirect(url_for('.user', username=username))
+        return redirect(url_for('.user', username = username))
     current_user.follow(user)
     db.session.commit()
     flash(f"You are now following {username}")
-    return redirect(url_for('.user', username=username))
+    return redirect(url_for('.user', username = username))
 
 
 @main.route('/unfollow/<username>')
@@ -268,11 +272,42 @@ def match():
 
 @main.route('/post/<slug>',  methods=["GET", "POST"])
 @login_required
-def comment(slug):
+def post(slug):
     # passes post contained in a list respresented as post to template
     post = Post.query.filter_by(slug=slug).first_or_404()
-    return render_template('post.html', posts=[post])
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment = Comment(body=form.body.data,
+                          comment = post,
+                          users = current_user._get_current_object())
+        db.session.add(comment)
+        db.session.commit()
+        flash('Comment submission successful.')
+        return redirect(url_for('.composition', slug=post.slug, page=-1))
+    page = request.args.get('page', 1, type=int)
+    if page == -1:
+        # Calculate last page number
+        page = (post.comments.count() - 1) // \
+               current_app.config['COMMENTS_PER_PAGE'] + 1
+    pagination = post.comments.order_by(Comment.timestamp.asc()).paginate(
+        page,
+        per_page=current_app.config['COMMENTS_PER_PAGE'],
+        error_out=False)
+    comments = pagination.items
+    # Use list so we can pass to _compositions template
+    return render_template('post.html',
+                           post=[post],
+                           form=form,
+                           comments = comments,
+                           pagination=pagination)
 
+
+# @main.route('/comment/<slug>',  methods=["GET", "POST"])
+# @login_required
+# def comment(slug):
+#     # passes post contained in a list respresented as post to template
+#     comment = Comment.query.filter_by(slug=slug).first_or_404()
+#     return render_template('comment.html', comment=[comment])
 
 @main.route('/forum', methods=["GET","POST"])
 @login_required
@@ -317,12 +352,12 @@ def edit_profile():
     form = EditProfileForm()
     if form.validate_on_submit():
         current_user.name = form.name.data
-        current_user.age = form.age.data
-        current_user.city_id = form.city_id.data
-        current_user.state_id = form.state_id.data
-        current_user.bio = form.bio.data
-        current_user.gender_id = form.gender_id.data
-        current_user.day_id = form.day.data
+        # current_user.age = form.age.data
+        # current_user.city_id = form.city.data
+        # current_user.state_id = form.state.data
+        # current_user.bio = form.bio.data
+        # current_user.gender_id = form.gender.data
+        # current_user.day_id = form.day.data
     #     current_user.time_of_day_id = form.time_of_day.data
     #     current_user.ride_or_walk_id = form.ride_or_walk.data
     #     current_user.handicap_id = form.handicap.data
@@ -334,12 +369,12 @@ def edit_profile():
         flash('You successfully updated your profile! Looks great.')
         return redirect(url_for('.user', username = current_user.username, Day = Day))
     form.name.data = current_user.name
-    form.age.data = current_user.age
-    form.city.data = current_user.city_id
-    form.state.data = current_user.state_id
-    form.bio.data = current_user.bio
-    form.gender.data = current_user.gender_id
-    form.day.data = current_user.day_id
+    # form.age.data = current_user.age
+    # form.city.data = current_user.city_id
+    # form.state.data = current_user.state_id
+    # form.bio.data = current_user.bio
+    # form.gender.data = current_user.gender_id
+    # form.day.data = current_user.day_id
     # form.time_of_day.data = current_user.time_of_day_id
     # form.ride_or_walk.data = current_user.ride_or_walk_id
     # form.handicap.data = current_user.handicap_id
