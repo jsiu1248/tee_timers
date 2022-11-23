@@ -160,8 +160,18 @@ def edit_profile_admin(id):
         userprofile.age = form.age.data
         # userprofile.city_id = form.city.data
         # current_user.state_id = form.state.data
-        userprofile.gender_id = request.form['gender']
-        # current_user.day_id = form.day.data
+        userprofile.gender_id = request.form.getlist('gender')
+        userprofile.day_id = request.form.getlist('day')
+        print(userprofile.gender_id)
+        print( userprofile.day_id)
+        days = "0000000"
+        for i in userprofile.day_id:
+            days_list = list(days)
+            days_list[int(i)-1] = "1"
+            days_changed = ''.join(days_list)
+            days = days_changed
+        print(days_changed)
+            
         # current_user.time_of_day_id = form.time_of_day.data
         # current_user.ride_or_walk_id = form.ride_or_walk.data
         # current_user.handicap_id = form.handicap.data
@@ -171,8 +181,8 @@ def edit_profile_admin(id):
 
         # user.bio = form.bio.data
         ### need to add more info here
-        db.session.add(current_user._get_current_object())
-        db.session.commit()
+        # db.session.add(current_user._get_current_object())
+        # db.session.commit()
         flash('The profile was updated.')
         return redirect(url_for('.user', username=user.username))
     form.username.data = user.username
