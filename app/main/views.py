@@ -32,7 +32,7 @@ def for_admins_only():
 @main.route('/user/<username>')
 def user(username):
     # query user or return error
-    user = User.query.filter_by(username = username).first_or_404()
+    user = User.query.filter_by(username = username).first()
     userprofile = db.session.query(UserProfile, Day, State, City, 
     Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
     Drinking, PlayingType ).filter_by(id=user.id).join(Day, 

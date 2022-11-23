@@ -12,45 +12,7 @@
 {% block page_content %}
 {{ super() }}
 
-{# <div class="col-md-5">
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="male" id="flexCheckDefault" name="property_checkbox">
-        <label class="form-check-label" for="flexCheckDefault">Male</label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="female" id="flexCheckDefault" name="property_checkbox">
-        <label class="form-check-label" for="flexCheckDefault">Female</label>
 
-    </div>#}
-
-    {#<div class="col-md-5"></div>
-    <form method="POST" action="/"> {{ form.csrf_token }}
-        Male<input type="checkbox" value="1" name="mycheckbox">
-        Female<input type="checkbox" value="2" name="mycheckbox">
-        Other<input type="checkbox" value="3" name="mycheckbox">
-        <input type="submit">
-    </form>
-</div>#}
-
-{#<form method="post" action="">
-    <table class="table table-bordered">
-        <thead>
-            {% for i in range(categories|length) %}
-            <tr>
-                <th> {{ categories[i] }} </th>
-
-            {% for cell in cells[i] %}
-                <td><input id="{{ categories[i]+ cell }}" type="checkbox" name="{{ categories[i]+cell }}">{{ cell }}
-                </td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </thead>
-    </table>
-    <div class="form-group col-md-1">
-        <input type="submit" value="Submit" class="btn btn-info" />
-    </div>
-</form>#}
     {{ wtf.quick_form(form) }}
 
 

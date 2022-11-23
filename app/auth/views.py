@@ -3,8 +3,9 @@ from flask import render_template, session, g, redirect, url_for, flash, current
 
 from app.email import send_email
 from .forms import LoginForm, RegistrationForm, ChangePasswordForm # need a period because trying to import within package
+# from app.main.forms import EditProfileForm
 from .. import db
-from ..models import User, Role
+from ..models import User, Role, UserProfile
 from flask_login import login_required, logout_user, login_user, current_user
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
@@ -46,6 +47,12 @@ def register():
 
         db.session.add(u)
         db.session.commit()
+        
+        p = User.query.filter_by(username = username_entered).first()
+        up = UserProfile(id = p.id )
+        db.session.add(up)
+        db.session.commit()
+
         flash("You can now login.")
     
     # generating token for user
@@ -57,7 +64,7 @@ def register():
     # send_email(u.email, "Confirmation email!", 'auth/confirm', user = u, confirmation_link = confirmation_link)
     # flash("A confirmation email was send to you.")
 
-        # return redirect(url_for('main.index'))
+        return redirect(url_for('main.index'))
     return render_template('auth/register.html', form = form)
 
 
