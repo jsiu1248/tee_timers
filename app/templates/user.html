@@ -98,6 +98,11 @@
                 <th scope="row">Playing Type</th>
                 <td>{% if userprofile.UserProfile.playing_type_id %}{{ userprofile.PlayingType.playing_type }}{% endif %}</td>
             </tr>
+            <tr>
+                <th scope="row">Golf Course</th>
+                <td>{% if userprofile.UserProfile.golf_course_id %}{{ userprofile.GolfCourse.course }}{% endif %}</td>
+            </tr>
+
             {% if current_user.is_administrator() %}
             <tr>
                 <th scope="row">Email</th>
