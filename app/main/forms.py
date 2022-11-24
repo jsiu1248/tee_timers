@@ -5,6 +5,7 @@ from wtforms import StringField, SubmitField, DateField, TextAreaField, SelectFi
 from wtforms.validators import DataRequired, Length, Regexp, NumberRange
 from wtforms import widgets, SelectMultipleField
 from app.models import db, GenderDict, DayDict, TimeOfDayDict, RideOrWalkDict, HandicapDict, SmokingDict, DrinkingDict, PlayingTypeDict
+from app.models import City, GolfCourse, State
 from wtforms_sqlalchemy.fields import QuerySelectField
 
 class TechSupportForm(FlaskForm):
@@ -179,8 +180,8 @@ class AdminLevelEditProfileForm(FlaskForm):
     role = SelectField("Role", choices=[(1,"User"), (2, "Moderator"), (3, "Administrator")], coerce = int)
     name = StringField("Name", validators=[Length(0, 64)])
     age = IntegerField("Age", validators=[NumberRange(10, 120)])
-    city = StringField("City", validators=[Length(0,64)])
-    state = StringField("State", validators=[Length(0,64)])
+    city = SelectField("City", validators = [])
+    state = SelectField("State", validators=[])
     # users can write bios as long as they want
     bio = TextAreaField("Bio")
     gender = SelectMultipleField('Gender',
@@ -207,7 +208,8 @@ class AdminLevelEditProfileForm(FlaskForm):
                                validators=[])            
     playing_type = SelectMultipleField('Playing Type',
                                coerce=int,
-                               validators=[])           
+                               validators=[])       
+    # golf_course = SelectField("Golf Course", coerce=int, validators=[])    
 
     submit = SubmitField("Submit")
 
@@ -238,3 +240,24 @@ class AdminLevelEditProfileForm(FlaskForm):
                                      (PlayingTypeDict.COMPETITIVE, 'Competitive'), 
                                      (PlayingTypeDict.DRIVINGRANGE, 'Driving Range'),
                                      (PlayingTypeDict.LEARNING, 'Learning')]
+        self.city.choices = [
+            (c.id, c.city) for c in City.query.all()
+        ]
+        self.state.choices = [
+            (s.id, s.state) for s in State.query.all()]
+
+        # self.golf_course.choices = [
+        #     (g.id, g.golf_course) for g in GolfCourse.query.all()]
+
+        
+
+    city_field = SelectField("City", coerce=int)
+
+    state_field = SelectField("State", coerce=int)
+
+    golf_course_field = SelectField("Golf Course", coerce = int)
+
+    # def city_list(self,request, id):
+    #     user = City.query.get(id)
+    #     form = City(request.POST, obj=user)
+    #     form.self.city.choices = [(g.id, g.city) for g in City.query]
