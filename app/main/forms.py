@@ -209,7 +209,7 @@ class AdminLevelEditProfileForm(FlaskForm):
     playing_type = SelectMultipleField('Playing Type',
                                coerce=int,
                                validators=[])       
-    # golf_course = SelectField("Golf Course", coerce=int, validators=[])    
+    golf_course = SelectField("Golf Course", coerce=int, validators=[])    
 
     submit = SubmitField("Submit")
 
@@ -246,8 +246,8 @@ class AdminLevelEditProfileForm(FlaskForm):
         self.state.choices = [
             (s.id, s.state) for s in State.query.all()]
 
-        # self.golf_course.choices = [
-        #     (g.id, g.golf_course) for g in GolfCourse.query.all()]
+        self.golf_course.choices = [
+            (g.id, g.course) for g in GolfCourse.query.all()]
 
         
 
@@ -257,7 +257,3 @@ class AdminLevelEditProfileForm(FlaskForm):
 
     golf_course_field = SelectField("Golf Course", coerce = int)
 
-    # def city_list(self,request, id):
-    #     user = City.query.get(id)
-    #     form = City(request.POST, obj=user)
-    #     form.self.city.choices = [(g.id, g.city) for g in City.query]
