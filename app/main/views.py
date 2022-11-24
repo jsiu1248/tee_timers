@@ -285,16 +285,32 @@ def match():
         data = dict((key, request.form.getlist(key) if len(
             request.form.getlist(key)) > 0 else request.form.getlist(key)[0])
             for key in request.form.keys())
-        gender_filter = User.gender_id.in_( data['gender'] if ('gender') in data else [] )
-        day_filter = User.day_id.in_(data['day'] if ('day') in data else [])
+        gender_filter = UserProfile.gender_id.in_( data['gender'] if ('gender') in data else [] )
+        day_filter = UserProfile.day_id.in_(data['day'] if ('day') in data else [])
         print(gender_filter)
         print(day_filter)
-        time_of_day_filter = User.time_of_day_id.in_(data['time_of_day'] if ('time_of_day') in data else [])
-        ride_or_walk_filter = User.ride_or_walk_id.in_(data['ride_or_walk'] if ('ride or walk') in data else [])
-        handicap_filter = User.handicap_id.in_(data['handicap'] if ('handicap') in data else [])
-        smoking_filter = User.smoking_id.in_(data['smoking'] if 'smoking' in data else [])
-        drinking_filter = User.drinking_id.in_(data['drinking'] if 'drinking' in data else [])
-        playing_type_filter = User.playing_type_id.in_(data['playing_type'] if ('playing_type') in data else [])
+        time_of_day_filter = UserProfile.time_of_day_id.in_(data['time_of_day'] if ('time_of_day') in data else [])
+        ride_or_walk_filter = UserProfile.ride_or_walk_id.in_(data['ride_or_walk'] if ('ride or walk') in data else [])
+        handicap_filter = UserProfile.handicap_id.in_(data['handicap'] if ('handicap') in data else [])
+        smoking_filter = UserProfile.smoking_id.in_(data['smoking'] if 'smoking' in data else [])
+        drinking_filter = UserProfile.drinking_id.in_(data['drinking'] if 'drinking' in data else [])
+        playing_type_filter = UserProfile.playing_type_id.in_(data['playing_type'] if ('playing_type') in data else [])
+        
+        filter_dict = {}
+        # filter_list = []
+        for i in (gender_filter, day_filter, time_of_day_filter, 
+        ride_or_walk_filter, handicap_filter, smoking_filter, 
+        
+        drinking_filter, playing_type_filter):
+            
+        #     print(User.query.filter(i))
+        #     if User.query.filter(i) is not []:
+        #         filter_list.append(i)
+        # print(filter_list)
+        #Can't you determine that by figuring 
+        # out if the key exists when you put the selections into a dictionary?
+        # users = User.query.filter(filter_dict.keys())
+        
         users = User.query.filter(gender_filter & day_filter & time_of_day_filter & 
         ride_or_walk_filter & handicap_filter &  smoking_filter & drinking_filter & drinking_filter &
         playing_type_filter
