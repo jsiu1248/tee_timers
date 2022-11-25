@@ -330,16 +330,16 @@ def match():
 @login_required
 def post(slug):
     # passes post contained in a list respresented as post to template
-    post = Post.query.filter_by(slug=slug).first_or_404()
+    post = Post.query.filter_by(slug = slug).first_or_404()
     form = CommentForm()
     if form.validate_on_submit():
-        comment = Comment(body=form.body.data,
+        comment = Comment(body = form.body.data,
                           comment = post,
                           users = current_user._get_current_object())
         db.session.add(comment)
         db.session.commit()
         flash('Comment submission successful.')
-        return redirect(url_for('.composition', slug=post.slug, page=-1))
+        return redirect(url_for('.composition', slug = post.slug, page=-1))
     page = request.args.get('page', 1, type=int)
     if page == -1:
         # Calculate last page number
@@ -352,10 +352,10 @@ def post(slug):
     comments = pagination.items
     # Use list so we can pass to _compositions template
     return render_template('post.html',
-                           post=[post],
-                           form=form,
+                           post = [post],
+                           form = form,
                            comments = comments,
-                           pagination=pagination)
+                           pagination = pagination)
 
 
 @main.route('/comment/<slug>',  methods=["GET", "POST"])
@@ -374,14 +374,15 @@ def comment(slug):
 @login_required
 def comment_form():
     form = CommentForm()
-    comment = Comment(description = form.description.data,
-                          users = current_user._get_current_object())
-    # db.session.add(comment)
-    # db.session.commit()
+    post = Post.query.filter_by(slug = slug).first_or_404()
 
-
-    # passes post contained in a list respresented as post to template
-    # comment = Comment.query.filter_by(slug = slug).first_or_404()
+    if form.validate_on_submit():
+        # how to query the id of the post that just clicked and also the userid
+        
+        comment = Comment(description = form.description.data,
+                            post_id = post.id , user_id = post.user_id)
+        db.session.add(comment)
+        db.session.commit()
     return render_template('comment_form.html',  form = form)
 
 @main.route('/forum', methods=["GET","POST"])

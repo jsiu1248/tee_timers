@@ -397,66 +397,6 @@ class Comment(db.Model):
     description_html = db.Column(db.Text)
     slug = db.Column(db.String(128), unique=True)
 
-class GenderDict:
-    """
-    Gender Lookup
-    """
-    MALE = 1
-    FEMALE = 2
-    OTHER = 3
-
-class DayDict:
-    """
-    Day Lookup
-    """
-    MONDAY = 1
-    TUESDAY = 2
-    WEDNESDAY = 3
-    THURSDAY = 4
-    FRIDAY = 5
-    SATURDAY = 6
-    SUNDAY = 7
-
-class TimeOfDayDict:
-    """
-    Time of Day Lookup
-    """
-    MORNING = 1
-    AFTERNOON = 2
-
-class RideOrWalkDict:
-    """
-    Ride or Walk Lookup
-    """
-    RIDE = 1
-    WALK = 2
-
-class HandicapDict:
-    """
-    Handicap Lookup
-    """
-    TWENTY = 1
-    FIFTEEN = 2
-    TEN = 3
-    FIVE = 4
-
-class SmokingDict:
-    """Smoking Lookup"""
-    NO = 1
-    YES = 2
-
-class DrinkingDict:
-    """Drinking Lookup"""
-    NO = 1
-    YES = 2
-
-class PlayingTypeDict:
-    """Playing Type Lookup"""
-    LEISURE = 1
-    BETTING = 2
-    COMPETITIVE = 3
-    DRIVINGRANGE = 4
-    LEARNING = 5
 
 
 

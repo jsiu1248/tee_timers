@@ -4,8 +4,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, DateField, TextAreaField, SelectField, BooleanField, SelectMultipleField, IntegerField
 from wtforms.validators import DataRequired, Length, Regexp, NumberRange
 from wtforms import widgets, SelectMultipleField
-from app.models import db, GenderDict, DayDict, TimeOfDayDict, RideOrWalkDict, HandicapDict, SmokingDict, DrinkingDict, PlayingTypeDict
-from app.models import City, GolfCourse, State
+from app.models import db, Gender
+from app.models import City, GolfCourse, State, PlayingType, TimeOfDay, Smoking, Day, Drinking, RideOrWalk, Handicap
 from wtforms_sqlalchemy.fields import QuerySelectField
 
 class TechSupportForm(FlaskForm):
@@ -29,7 +29,7 @@ class CommentForm(FlaskForm):
     """
     Form for creating a post or reply. 
     """
-    description = TextAreaField("What's your response??") 
+    description = TextAreaField("What's your response?") 
     submit = SubmitField("Submit")
 
 class MatchForm(FlaskForm):
@@ -61,37 +61,39 @@ class MatchForm(FlaskForm):
     playing_type = SelectMultipleField('Playing Type',
                                coerce=int,
                                validators=[])            
-    # golf_course = SelectField('Golf Course', coerce=int, choices=[('')], validators=[])
-    # city = SelectField('City', coerce=int, choices=[('')], validators=[])
+    golf_course = SelectField('Golf Course', coerce=int, choices=[('')], validators=[])
+    city = SelectField('City', coerce=int, choices=[('')], validators=[])
+    state = SelectField('State', coerce=int, choices=[('')], validators=[])
+
     submit = SubmitField('Submit')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.gender.choices = [(GenderDict.MALE, 'Male'),
-                                     (GenderDict.FEMALE, 'Female'),
-                                     (GenderDict.OTHER, 'Other')]
-        self.day.choices = [(DayDict.MONDAY, 'Monday'),
-                                     (DayDict.TUESDAY, 'Tuesday'),
-                                     (DayDict.WEDNESDAY, 'Wednesday'), 
-                                     (DayDict.THURSDAY, 'Thursday'), 
-                                     (DayDict.FRIDAY, 'Friday'), 
-                                     (DayDict.SATURDAY, 'Saturday'),
-                                     (DayDict.SUNDAY, 'Sunday')]
-        self.time_of_day.choices = [(TimeOfDayDict.MORNING, 'Morning'),
-                                     (TimeOfDayDict.AFTERNOON, 'Afternoon')]
-        self.ride_or_walk.choices = [(RideOrWalkDict.RIDE, 'Ride'), 
-                             (RideOrWalkDict.WALK, 'Walk')]
-        self.handicap.choices = [(HandicapDict.TWENTY, '20+'),
-                                     (HandicapDict.FIFTEEN, '10-15'),
-                                     (HandicapDict.TEN, '5-10'), 
-                                     (HandicapDict.FIVE, '0-5')]
-        self.smoking.choices = [(SmokingDict.NO, 'No'), (SmokingDict.YES, 'Yes')]
-        self.drinking.choices = [(DrinkingDict.NO, 'No'), (DrinkingDict.YES, 'Yes')]
-        self.playing_type.choices = [(PlayingTypeDict.LEISURE, 'Leisure'),
-                                     (PlayingTypeDict.BETTING, 'Betting'),
-                                     (PlayingTypeDict.COMPETITIVE, 'Competitive'), 
-                                     (PlayingTypeDict.DRIVINGRANGE, 'Driving Range'),
-                                     (PlayingTypeDict.LEARNING, 'Learning')]
+        self.gender.choices = [(g.id, g.gender) for g in Gender.query.all()]
+        self.day.choices = [(dy.id, dy.day) for dy in Day.query.all()]
+        self.time_of_day.choices = [(td.id, td.time_of_day) for td in TimeOfDay.query.all()]
+        self.ride_or_walk.choices = [(rw.id, rw.ride_or_walk) for rw in RideOrWalk.query.all()]
+        self.handicap.choices = [(h.id, h.handicap) for h in Handicap.query.all()]
+        self.smoking.choices = [(sm.id, sm.smoking) for sm in Smoking.query.all()]
+        self.drinking.choices = [(d.id, d.drinking) for d in Drinking.query.all()]
+
+        self.playing_type.choices = [(pt.id, pt.playing_type) for pt in PlayingType.query.all()]
+        self.city.choices = [
+            (c.id, c.city) for c in City.query.all()
+        ]
+        self.state.choices = [
+            (s.id, s.state) for s in State.query.all()]
+
+        self.golf_course.choices = [
+            (g.id, g.course) for g in GolfCourse.query.all()]
+
+        
+
+    city_field = SelectField("City", coerce=int)
+
+    state_field = SelectField("State", coerce=int)
+
+    golf_course_field = SelectField("Golf Course", coerce = int)
 
 
 
@@ -138,32 +140,31 @@ class EditProfileForm(FlaskForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.gender.choices = [(GenderDict.MALE, 'Male'),
-                                     (GenderDict.FEMALE, 'Female'),
-                                     (GenderDict.OTHER, 'Other')]
-        self.day.choices = [(DayDict.MONDAY, 'Monday'),
-                                     (DayDict.TUESDAY, 'Tuesday'),
-                                     (DayDict.WEDNESDAY, 'Wednesday'), 
-                                     (DayDict.THURSDAY, 'Thursday'), 
-                                     (DayDict.FRIDAY, 'Friday'), 
-                                     (DayDict.SATURDAY, 'Saturday'),
-                                     (DayDict.SUNDAY, 'Sunday')]
-        self.time_of_day.choices = [(TimeOfDayDict.MORNING, 'Morning'),
-                                     (TimeOfDayDict.AFTERNOON, 'Afternoon')]
-        self.ride_or_walk.choices = [(RideOrWalkDict.RIDE, 'Ride'), 
-                             (RideOrWalkDict.WALK, 'Walk')]
-        self.handicap.choices = [(HandicapDict.TWENTY, '20+'),
-                                     (HandicapDict.FIFTEEN, '10-15'),
-                                     (HandicapDict.TEN, '5-10'), 
-                                     (HandicapDict.FIVE, '0-5')]
-        self.smoking.choices = [(SmokingDict.NO, 'No'), (SmokingDict.YES, 'Yes')]
-        self.drinking.choices = [(DrinkingDict.NO, 'No'), (DrinkingDict.YES, 'Yes')]
-        self.playing_type.choices = [(PlayingTypeDict.LEISURE, 'Leisure'),
-                                     (PlayingTypeDict.BETTING, 'Betting'),
-                                     (PlayingTypeDict.COMPETITIVE, 'Competitive'), 
-                                     (PlayingTypeDict.DRIVINGRANGE, 'Driving Range'),
-                                     (PlayingTypeDict.LEARNING, 'Learning')]
+        self.gender.choices = [(g.id, g.gender) for g in Gender.query.all()]
+        self.day.choices = [(dy.id, dy.day) for dy in Day.query.all()]
+        self.time_of_day.choices = [(td.id, td.time_of_day) for td in TimeOfDay.query.all()]
+        self.ride_or_walk.choices = [(rw.id, rw.ride_or_walk) for rw in RideOrWalk.query.all()]
+        self.handicap.choices = [(h.id, h.handicap) for h in Handicap.query.all()]
+        self.smoking.choices = [(sm.id, sm.smoking) for sm in Smoking.query.all()]
+        self.drinking.choices = [(d.id, d.drinking) for d in Drinking.query.all()]
 
+        self.playing_type.choices = [(pt.id, pt.playing_type) for pt in PlayingType.query.all()]
+        self.city.choices = [
+            (c.id, c.city) for c in City.query.all()
+        ]
+        self.state.choices = [
+            (s.id, s.state) for s in State.query.all()]
+
+        self.golf_course.choices = [
+            (g.id, g.course) for g in GolfCourse.query.all()]
+
+        
+
+    city_field = SelectField("City", coerce=int)
+
+    state_field = SelectField("State", coerce=int)
+
+    golf_course_field = SelectField("Golf Course", coerce = int)
 
 class AdminLevelEditProfileForm(FlaskForm):
     # the admin can change the username
@@ -215,31 +216,15 @@ class AdminLevelEditProfileForm(FlaskForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.gender.choices = [(GenderDict.MALE, 'Male'),
-                                     (GenderDict.FEMALE, 'Female'),
-                                     (GenderDict.OTHER, 'Other')]
-        self.day.choices = [(DayDict.MONDAY, 'Monday'),
-                                     (DayDict.TUESDAY, 'Tuesday'),
-                                     (DayDict.WEDNESDAY, 'Wednesday'), 
-                                     (DayDict.THURSDAY, 'Thursday'), 
-                                     (DayDict.FRIDAY, 'Friday'), 
-                                     (DayDict.SATURDAY, 'Saturday'),
-                                     (DayDict.SUNDAY, 'Sunday')]
-        self.time_of_day.choices = [(TimeOfDayDict.MORNING, 'Morning'),
-                                     (TimeOfDayDict.AFTERNOON, 'Afternoon')]
-        self.ride_or_walk.choices = [(RideOrWalkDict.RIDE, 'Ride'), 
-                             (RideOrWalkDict.WALK, 'Walk')]
-        self.handicap.choices = [(HandicapDict.TWENTY, '20+'),
-                                     (HandicapDict.FIFTEEN, '10-15'),
-                                     (HandicapDict.TEN, '5-10'), 
-                                     (HandicapDict.FIVE, '0-5')]
-        self.smoking.choices = [(SmokingDict.NO, 'No'), (SmokingDict.YES, 'Yes')]
-        self.drinking.choices = [(DrinkingDict.NO, 'No'), (DrinkingDict.YES, 'Yes')]
-        self.playing_type.choices = [(PlayingTypeDict.LEISURE, 'Leisure'),
-                                     (PlayingTypeDict.BETTING, 'Betting'),
-                                     (PlayingTypeDict.COMPETITIVE, 'Competitive'), 
-                                     (PlayingTypeDict.DRIVINGRANGE, 'Driving Range'),
-                                     (PlayingTypeDict.LEARNING, 'Learning')]
+        self.gender.choices = [(g.id, g.gender) for g in Gender.query.all()]
+        self.day.choices = [(dy.id, dy.day) for dy in Day.query.all()]
+        self.time_of_day.choices = [(td.id, td.time_of_day) for td in TimeOfDay.query.all()]
+        self.ride_or_walk.choices = [(rw.id, rw.ride_or_walk) for rw in RideOrWalk.query.all()]
+        self.handicap.choices = [(h.id, h.handicap) for h in Handicap.query.all()]
+        self.smoking.choices = [(sm.id, sm.smoking) for sm in Smoking.query.all()]
+        self.drinking.choices = [(d.id, d.drinking) for d in Drinking.query.all()]
+
+        self.playing_type.choices = [(pt.id, pt.playing_type) for pt in PlayingType.query.all()]
         self.city.choices = [
             (c.id, c.city) for c in City.query.all()
         ]
