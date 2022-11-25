@@ -22,10 +22,14 @@
                 </a>
             </div>
             <br>
-            {# <a class="btn btn-default" href="{{ url_for('comment.html') }}">
+            <a class="btn btn-default" href="{{ url_for('comment.html') }}">
                 Reply
-            </a> #}
+            </a>
 
 
             {% endfor %}
         </div>
+
+{#            <a class="btn btn-default" href="{{ url_for('main.comment', slug = comment.slug) }}">
+logic for accessing individual comment links
+#}

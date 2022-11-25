@@ -128,7 +128,7 @@ def followers(username):
         return redirect(url_for('.index'))
     page = request.args.get('page', 1, type=int)
     pagination = user.followers.paginate(
-        page,
+        page = page,
         per_page=current_app.config['FOLLOWERS_PER_PAGE']
         ,
         error_out=False
@@ -226,21 +226,21 @@ def following(username):
     page = request.args.get('page', 1, type=int)
     # display page with list of users who user is following
     pagination = user.following.paginate(
-        page
-        # ,
-        # # per_page=current_app.config['FOLLOWERS_PER_PAGE']
-        # ,
-        # error_out=False
+        page = page
+        ,
+        per_page=current_app.config['FOLLOWERS_PER_PAGE']
+        ,
+        error_out=False
         )
     # convert to only follower and timestamp
     follows = [{'user': item.following, 'timestamp': item.timestamp}
                for item in pagination.items]
     return render_template('following.html',
-                           user=user,
-                           title_text="Following",
-                           endpoint='.following',
-                           pagination=pagination,
-                           follows=follows)
+                           user = user,
+                           title_text = "Following",
+                           endpoint = '.following',
+                           pagination = pagination,
+                           follows = follows)
 
 @main.route('/all')
 @login_required
@@ -358,12 +358,17 @@ def post(slug):
                            pagination=pagination)
 
 
-# @main.route('/comment/<slug>',  methods=["GET", "POST"])
-# @login_required
-# def comment(slug):
-#     # passes post contained in a list respresented as post to template
-#     comment = Comment.query.filter_by(slug=slug).first_or_404()
-#     return render_template('comment.html', comment=[comment])
+@main.route('/comment/<slug>',  methods=["GET", "POST"])
+@login_required
+def comment(slug):
+    form = CommentForm()
+    comment = Comment(body=form.body.data,
+                          comment = comment,
+                          users = current_user._get_current_object())
+
+    # passes post contained in a list respresented as post to template
+    comment = Comment.query.filter_by(slug=slug).first_or_404()
+    return render_template('_comment.html', comment=[comment], form = form)
 
 @main.route('/forum', methods=["GET","POST"])
 @login_required
