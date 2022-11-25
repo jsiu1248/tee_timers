@@ -346,9 +346,9 @@ def post(slug):
         page = (post.comments.count() - 1) // \
                current_app.config['COMMENTS_PER_PAGE'] + 1
     pagination = post.comments.order_by(Comment.timestamp.asc()).paginate(
-        page,
-        per_page=current_app.config['COMMENTS_PER_PAGE'],
-        error_out=False)
+        page = page,
+        per_page = current_app.config['COMMENTS_PER_PAGE'],
+        error_out = False)
     comments = pagination.items
     # Use list so we can pass to _compositions template
     return render_template('post.html',
