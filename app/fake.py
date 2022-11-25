@@ -43,7 +43,7 @@ def userprofile(count=20):
     i = 0
     while i < count:
         u = UserProfile(
-                id  = u,
+                id  = u.id,
                  city_id = randint(1,100), 
                  state_id = randint(1,20),
                  bio = fake.text(),
@@ -88,7 +88,7 @@ def post(count=100):
                         title=string.capwords(fake.bs()),
                         description=fake.text(),
                         timestamp=fake.past_date() ,
-                        user_id = u,
+                        user_id = u.id,
                         )
         db.session.add(p)
     db.session.commit()
