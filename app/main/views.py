@@ -287,8 +287,6 @@ def match():
             for key in request.form.keys())
         gender_filter = UserProfile.gender_id.in_( data['gender'] if ('gender') in data else [] )
         day_filter = UserProfile.day_id.in_(data['day'] if ('day') in data else [])
-        print(gender_filter)
-        print(day_filter)
         time_of_day_filter = UserProfile.time_of_day_id.in_(data['time_of_day'] if ('time_of_day') in data else [])
         ride_or_walk_filter = UserProfile.ride_or_walk_id.in_(data['ride_or_walk'] if ('ride or walk') in data else [])
         handicap_filter = UserProfile.handicap_id.in_(data['handicap'] if ('handicap') in data else [])
@@ -298,8 +296,10 @@ def match():
         
 
         filter_list = []
-        data_values = (data['gender'], data['day'])
-        data_filter = (gender_filter, day_filter)
+        data_values = (data['gender'], data['day'], data['time_of_day'],  data['ride_or_walk'], 
+        data['handicap'], data['smoking'], data['drinking'], data['playing_type'])
+        data_filter = (gender_filter, day_filter, time_of_day_filter, ride_or_walk_filter, 
+        handicap_filter, smoking_filter, drinking_filter, playing_type_filter)
 
         for i,j in zip(data_values, data_filter):
             print(i,j)
@@ -314,67 +314,6 @@ def match():
         users = db.session.query(User, UserProfile).join(UserProfile, 
                 UserProfile.id == User.id, 
                 isouter = True).filter(and_(k for k in filter_list))
-
-        # try:
-        #     if data['gender'] is not []:
-        #         users = db.session.query(User, UserProfile).join(UserProfile, 
-        #     UserProfile.id == User.id, 
-        #     isouter = True).filter(gender_filter)
-        # except:
-        #     pass
-
-        # try:
-        #     if data['day'] is not []:
-        #         users = db.session.query(User, UserProfile).join(UserProfile, 
-        #     UserProfile.id == User.id, 
-        #     isouter = True).filter(day_filter)
-        # except:
-        #     pass
-
-        # print( data['gender'])
-        # print(data['day'])
-        # try:
-        #     if data['time_of_day'] is not []:
-        #         users = db.session.query(User, UserProfile).join(UserProfile, 
-        #     UserProfile.id == User.id, 
-        #     isouter = True).filter(time_of_day_filter)
-        # except:
-        #     pass
-        # try:
-        #     if data['ride_or_walk'] is not []:
-        #         users = db.session.query(User, UserProfile).join(UserProfile, 
-        #     UserProfile.id == User.id, 
-        #     isouter = True).filter(ride_or_walk_filter)
-        # except:
-        #     pass
-        # if data['handicap'] is not []:
-        #     users = db.session.query(User, UserProfile).join(UserProfile, 
-        # UserProfile.id == User.id, 
-        # isouter = True).filter(handicap_filter)
-        # if data['smoking'] is not []:
-        #     users = db.session.query(User, UserProfile).join(UserProfile, 
-        # UserProfile.id == User.id, 
-        # isouter = True).filter(smoking_filter)
-        # if data['drinking'] is not []:
-        #     users = db.session.query(User, UserProfile).join(UserProfile, 
-        # UserProfile.id == User.id, 
-        # isouter = True).filter(drinking_filter)
-        # if data['playing_type'] is not []:
-        #     users = db.session.query(User, UserProfile).join(UserProfile, 
-        # UserProfile.id == User.id, 
-        # isouter = True).filter(playing_type_filter)
-        # print(users.count())
-        # print(users)
-
-
-
-
-        # users = User.query.filter(gender_filter & day_filter & time_of_day_filter & 
-        # ride_or_walk_filter & handicap_filter &  smoking_filter & drinking_filter & drinking_filter &
-        # playing_type_filter
-        # )
-    
-        print (data) 
 
 
     return render_template('match.html',
