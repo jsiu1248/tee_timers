@@ -370,6 +370,20 @@ def comment(slug):
     comment = Comment.query.filter_by(slug=slug).first_or_404()
     return render_template('_comment.html', comment=[comment], form = form)
 
+@main.route('/comment_form',  methods=["GET", "POST"])
+@login_required
+def comment_form():
+    form = CommentForm()
+    comment = Comment(description = form.description.data,
+                          users = current_user._get_current_object())
+    # db.session.add(comment)
+    # db.session.commit()
+
+
+    # passes post contained in a list respresented as post to template
+    # comment = Comment.query.filter_by(slug = slug).first_or_404()
+    return render_template('comment_form.html',  form = form)
+
 @main.route('/forum', methods=["GET","POST"])
 @login_required
 def forum():
