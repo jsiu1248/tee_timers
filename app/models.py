@@ -337,6 +337,8 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     description_html = db.Column(db.Text)
     slug = db.Column(db.String(128), unique=True)
+    comments = db.relationship('Comment', backref='post', lazy='dynamic')
+
     
 
     @staticmethod
@@ -390,7 +392,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     description = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    post_id = db.Column(db.Integer, primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     description_html = db.Column(db.Text)
     slug = db.Column(db.String(128), unique=True)

@@ -15,6 +15,7 @@ class Config:
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     POSTS_PER_PAGE = 25
+    COMMENTS_PER_PAGE = 25
     FOLLOWERS_PER_PAGE = 25
     # Other email settings
     # email for the administrator of the flask app
