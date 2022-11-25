@@ -1,7 +1,7 @@
 from sqlalchemy.exc import IntegrityError
 from faker import Faker
 from . import db
-from .models import User, Comment, Post, UserProfile
+from .models import User, Post, Comment, UserProfile
 from random import randint
 import string
 

@@ -296,41 +296,75 @@ def match():
         drinking_filter = UserProfile.drinking_id.in_(data['drinking'] if 'drinking' in data else [])
         playing_type_filter = UserProfile.playing_type_id.in_(data['playing_type'] if ('playing_type') in data else [])
         
-        users = User.query.all()
-        if UserProfile.gender_id:
-            users = db.session.query(User, UserProfile).join(UserProfile, 
-        UserProfile.id == User.id, 
-        isouter = True).filter(gender_filter)
-        if UserProfile.day_id:
-            users = db.session.query(User, UserProfile).join(UserProfile, 
-        UserProfile.id == User.id, 
-        isouter = True).filter(day_filter)
-        if UserProfile.time_of_day_id:
-            users = db.session.query(User, UserProfile).join(UserProfile, 
-        UserProfile.id == User.id, 
-        isouter = True).filter(time_of_day_filter)
-        if UserProfile.ride_or_walk_id:
-            users = db.session.query(User, UserProfile).join(UserProfile, 
-        UserProfile.id == User.id, 
-        isouter = True).filter(ride_or_walk_filter)
-        if UserProfile.handicap_id:
-            users = db.session.query(User, UserProfile).join(UserProfile, 
-        UserProfile.id == User.id, 
-        isouter = True).filter(handicap_filter)
-        if UserProfile.smoking_id:
-            users = db.session.query(User, UserProfile).join(UserProfile, 
-        UserProfile.id == User.id, 
-        isouter = True).filter(smoking_filter)
-        if UserProfile.drinking_id:
-            users = db.session.query(User, UserProfile).join(UserProfile, 
-        UserProfile.id == User.id, 
-        isouter = True).filter(drinking_filter)
-        if UserProfile.playing_type_id:
-            users = db.session.query(User, UserProfile).join(UserProfile, 
-        UserProfile.id == User.id, 
-        isouter = True).filter(playing_type_filter)
-        print(users.count())
-        print(users)
+
+        filter_list = []
+        data_values = (data['gender'], data['day'])
+        data_filter = (gender_filter, day_filter)
+
+        for i,j in zip(data_values, data_filter):
+            print(i,j)
+            print(len(i))
+            try:
+                if len(i) > 0:
+                    filter_list.append(j)
+            except:
+                pass
+        print(filter_list)
+
+        users = db.session.query(User, UserProfile).join(UserProfile, 
+                UserProfile.id == User.id, 
+                isouter = True).filter(and_(k for k in filter_list))
+
+        # try:
+        #     if data['gender'] is not []:
+        #         users = db.session.query(User, UserProfile).join(UserProfile, 
+        #     UserProfile.id == User.id, 
+        #     isouter = True).filter(gender_filter)
+        # except:
+        #     pass
+
+        # try:
+        #     if data['day'] is not []:
+        #         users = db.session.query(User, UserProfile).join(UserProfile, 
+        #     UserProfile.id == User.id, 
+        #     isouter = True).filter(day_filter)
+        # except:
+        #     pass
+
+        # print( data['gender'])
+        # print(data['day'])
+        # try:
+        #     if data['time_of_day'] is not []:
+        #         users = db.session.query(User, UserProfile).join(UserProfile, 
+        #     UserProfile.id == User.id, 
+        #     isouter = True).filter(time_of_day_filter)
+        # except:
+        #     pass
+        # try:
+        #     if data['ride_or_walk'] is not []:
+        #         users = db.session.query(User, UserProfile).join(UserProfile, 
+        #     UserProfile.id == User.id, 
+        #     isouter = True).filter(ride_or_walk_filter)
+        # except:
+        #     pass
+        # if data['handicap'] is not []:
+        #     users = db.session.query(User, UserProfile).join(UserProfile, 
+        # UserProfile.id == User.id, 
+        # isouter = True).filter(handicap_filter)
+        # if data['smoking'] is not []:
+        #     users = db.session.query(User, UserProfile).join(UserProfile, 
+        # UserProfile.id == User.id, 
+        # isouter = True).filter(smoking_filter)
+        # if data['drinking'] is not []:
+        #     users = db.session.query(User, UserProfile).join(UserProfile, 
+        # UserProfile.id == User.id, 
+        # isouter = True).filter(drinking_filter)
+        # if data['playing_type'] is not []:
+        #     users = db.session.query(User, UserProfile).join(UserProfile, 
+        # UserProfile.id == User.id, 
+        # isouter = True).filter(playing_type_filter)
+        # print(users.count())
+        # print(users)
 
 
 
