@@ -296,11 +296,17 @@ def match():
         
 
         filter_list = []
-        data_values = (data['gender'], data['day'], data['time_of_day'],  data['ride_or_walk'], 
-        data['handicap'], data['smoking'], data['drinking'], data['playing_type'])
+        data_values = []
+        data_columns = ['gender', 'day', 'time_of_day','ride_or_walk', 'handicap',
+        'smoking','drinking','playing_type']
+        try:
+            for k in data_columns:
+                if data[k]:
+                    data_values.append(data[k])
+        except:
+            pass
         data_filter = (gender_filter, day_filter, time_of_day_filter, ride_or_walk_filter, 
         handicap_filter, smoking_filter, drinking_filter, playing_type_filter)
-
         for i,j in zip(data_values, data_filter):
             print(i,j)
             print(len(i))
