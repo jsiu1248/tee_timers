@@ -35,7 +35,7 @@ def user(username):
     user = User.query.filter_by(username = username).first()
     userprofile = db.session.query(UserProfile, Day, State, City, 
     Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
-    Drinking, PlayingType ).filter_by(id=user.id).join(Day, 
+    Drinking, PlayingType, GolfCourse ).filter_by(id=user.id).join(Day, 
     UserProfile.day_id == Day.id, 
     isouter = True).join(State, UserProfile.state_id == State.id).join(City,
         UserProfile.city_id == City.id).join(Gender,
@@ -45,7 +45,8 @@ def user(username):
         UserProfile.handicap_id == Handicap.id).join(Smoking,
         UserProfile.smoking_id == Smoking.id).join(Drinking, 
         UserProfile.drinking_id == Drinking.id).join(PlayingType, 
-        UserProfile.playing_type_id == PlayingType.id).first()
+        UserProfile.playing_type_id == PlayingType.id).join(GolfCourse, 
+        UserProfile.golf_course_id == GolfCourse.id).first()
 
     posts = user.post.order_by(Post.timestamp.desc()).all()
 

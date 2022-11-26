@@ -37,11 +37,13 @@ def userprofile(count=20):
 
     # an instance of Faker is called and below are many of their functions with different types of fake data
     fake = Faker()
-    user_count = User.query.count()
-    u = User.query.offset(randint(0, user_count - 1)).first()
 
     i = 0
-    while i < count:
+    # while i < count:
+    for i in range(0, count):
+        user_count = User.query.count()
+        u = User.query.offset(randint(0, user_count - 1)).first()
+
         up = UserProfile(
                 id  = u.id,
                  city_id = randint(1,100), 
@@ -67,7 +69,7 @@ def userprofile(count=20):
         # trying to commit data, but if it is a duplicate then it rollbacks
         try:
             db.session.commit()
-            i += 1
+            # i += 1
         except IntegrityError:
             db.session.rollback()
 
