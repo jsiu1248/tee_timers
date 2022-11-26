@@ -540,12 +540,15 @@ class City(db.Model):
         # load data in json
         with open('app/static/us-cities-demographics.json', 'r') as loc:
             data = json.load(loc)
+        city_dict = {}
         for dicts in data:
-            city = dicts['recordid']
             city = dicts['fields']['city']
-            city = City(city = city)
-            db.session.add(city)
-        db.session.commit()
+
+            if city not in city_dict:
+                city_dict[city] = city
+                city = City(city = city)
+                db.session.add(city)
+            db.session.commit()
 
 class State(db.Model):
     __tablename__ = 'states'
@@ -560,12 +563,15 @@ class State(db.Model):
         # load data in json
         with open('app/static/us-cities-demographics.json', 'r') as loc:
             data = json.load(loc)
+        state_dict = {}
         for dicts in data:
-            state = dicts['recordid']
+            
             state = dicts['fields']['state']
-            state = State( state = state)
-            db.session.add(state)
-        db.session.commit()
+            if state not in state_dict:
+                state_dict[state] = state
+                state = State( state = state)
+                db.session.add(state)
+            db.session.commit()
 
 
 class GolfCourse(db.Model):
