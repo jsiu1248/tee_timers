@@ -87,14 +87,6 @@ class MatchForm(FlaskForm):
         self.golf_course.choices = [
             (g.id, g.course) for g in GolfCourse.query.all()]
 
-        
-
-    city_field = SelectField("City", coerce=int)
-
-    state_field = SelectField("State", coerce=int)
-
-    golf_course_field = SelectField("Golf Course", coerce = int)
-
 
 
 
@@ -107,8 +99,8 @@ class EditProfileForm(FlaskForm):
     # these two details have length validating limits
     name = StringField("Name", validators=[Length(0, 64)])
     age = IntegerField("Age", validators=[NumberRange(10, 120)])
-    city = StringField("City", validators=[Length(0,64)])
-    state = StringField("State", validators=[Length(0,64)])
+    city = SelectField("City", validators=[])
+    state = SelectField("State", validators=[])
     # users can write bios as long as they want
     bio = TextAreaField("Bio")
     gender = SelectMultipleField('Gender',
@@ -135,7 +127,9 @@ class EditProfileForm(FlaskForm):
                                validators=[])            
     playing_type = SelectMultipleField('Playing Type',
                                coerce=int,
-                               validators=[])           
+                               validators=[])  
+    golf_course = SelectField('Golf Course', coerce=int, choices=[('')], validators=[])
+         
     submit = SubmitField("Submit")
 
     def __init__(self, *args, **kwargs):
@@ -159,12 +153,6 @@ class EditProfileForm(FlaskForm):
             (g.id, g.course) for g in GolfCourse.query.all()]
 
         
-
-    city_field = SelectField("City", coerce=int)
-
-    state_field = SelectField("State", coerce=int)
-
-    golf_course_field = SelectField("Golf Course", coerce = int)
 
 class AdminLevelEditProfileForm(FlaskForm):
     # the admin can change the username
@@ -235,10 +223,3 @@ class AdminLevelEditProfileForm(FlaskForm):
             (g.id, g.course) for g in GolfCourse.query.all()]
 
         
-
-    city_field = SelectField("City", coerce=int)
-
-    state_field = SelectField("State", coerce=int)
-
-    golf_course_field = SelectField("Golf Course", coerce = int)
-
