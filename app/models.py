@@ -176,7 +176,16 @@ class User(UserMixin, db.Model):
     # user constructor
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        # assert self.email is not None
+        if self.role is None:
+        # if the User has email that matches admin email, automatically
+        # make that User an Administrator by giving them that role
+            if self.email == current_app.config['APP_ADMIN']:
+                self.role = Role.query.filter_by(name='Administrator').first()
+            # otherwise, it's just a plain old user
+            if self.role == None:
+                self.role = Role.query.filter_by(default=True).first()
+        self.follow(self)
+
 
 
     def email_hash(self):
