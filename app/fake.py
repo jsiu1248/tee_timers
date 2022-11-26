@@ -42,7 +42,7 @@ def userprofile(count=20):
 
     i = 0
     while i < count:
-        u = UserProfile(
+        up = UserProfile(
                 id  = u.id,
                  city_id = randint(1,100), 
                  state_id = randint(1,20),
@@ -56,12 +56,13 @@ def userprofile(count=20):
                  handicap_id = randint(1,5), 
                  smoking_id = randint(1,2), 
                  drinking_id = randint(1,2), 
-                 playing_type_id = randint(1,5) 
+                 playing_type_id = randint(1,5), 
+                 golf_course_id = randint(1, 50)
                 #  , 
 
 
                  )
-        db.session.add(u)
+        db.session.add(up)
 
         # trying to commit data, but if it is a duplicate then it rollbacks
         try:
