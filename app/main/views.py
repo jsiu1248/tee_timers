@@ -50,7 +50,6 @@ def user(username):
 
     posts = user.post.order_by(Post.timestamp.desc()).all()
 
-
     # have to add back pagination later
     return render_template('user.html', user=user, userprofile = userprofile, 
     posts = posts
@@ -300,29 +299,29 @@ def match():
         data_values = []
         data_columns = ['gender', 'day', 'time_of_day','ride_or_walk', 'handicap',
         'smoking','drinking','playing_type']
-        try:
-            for k in data_columns:
+  
+        for k in data_columns:
+            try:
                 if data[k]:
                     data_values.append(data[k])
-        except:
-            pass
+                    
+            except:
+                    data_values.append([])
         data_filter = (gender_filter, day_filter, time_of_day_filter, ride_or_walk_filter, 
         handicap_filter, smoking_filter, drinking_filter, playing_type_filter)
         for i,j in zip(data_values, data_filter):
-            print(i,j)
-            print(len(i))
             try:
                 if len(i) > 0:
                     filter_list.append(j)
             except:
                 pass
-        print(filter_list)
+
 
         users = db.session.query(User, UserProfile).join(UserProfile, 
                 UserProfile.id == User.id, 
                 isouter = True).filter(and_(k for k in filter_list))
 
-
+        print(users.count())
     return render_template('match.html',
                            users = users, form = form)
 
