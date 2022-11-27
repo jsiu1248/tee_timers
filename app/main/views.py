@@ -321,7 +321,6 @@ def match():
                 UserProfile.id == User.id, 
                 isouter = True).filter(and_(k for k in filter_list))
 
-        print(users.count())
     return render_template('match.html',
                            users = users, form = form)
 
@@ -374,7 +373,7 @@ def comment(slug):
 @login_required
 def comment_form():
     form = CommentForm()
-    post = Post.query.filter_by(slug = slug).first_or_404()
+    # post = Post.query.filter_by(slug = slug).first_or_404()
 
     if form.validate_on_submit():
         # how to query the id of the post that just clicked and also the userid
