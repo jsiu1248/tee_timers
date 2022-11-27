@@ -277,10 +277,11 @@ def match():
     """
     form = MatchForm()
     # passes users contained in a list to template
-    users = User.query.all()
-    # if request.method == 'POST': 
-    #     print(request.form.getlist('mycheckbox'))
-    #     return 'Done'
+    # users = User.query.all()
+    users = db.session.query(User, UserProfile).join(UserProfile, 
+                UserProfile.id == User.id, 
+                isouter = True).all()
+
     if request.method == 'POST':
         data = dict((key, request.form.getlist(key) if len(
             request.form.getlist(key)) > 0 else request.form.getlist(key)[0])
@@ -320,7 +321,6 @@ def match():
         users = db.session.query(User, UserProfile).join(UserProfile, 
                 UserProfile.id == User.id, 
                 isouter = True).filter(and_(k for k in filter_list))
-
     return render_template('match.html',
                            users = users, form = form)
 
