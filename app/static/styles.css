@@ -61,33 +61,8 @@ div.composition-tabs {
 
 
 /* Making user profile boxes*/
-.outerDiv {
-    display: inline-block;
-    border-radius: 10px;
-    border: 5px solid #c3c3c3;
-    height: 200px;
-    width: 200px;
-    margin: 10px;
-} 
-
-.innerDiv {
-    width: 50%;
-    height: 100%;
-    margin: 0 auto;    
-    text-align: center;
-
-}
-
-/*testing 3 boxes per row*/
 *, *::before, *::after {
     box-sizing: border-box;
-}
-
-.parent-flex {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 40px calc((100% - (255px * 3)) / 2);
 }
 
 .flex-item {
@@ -100,4 +75,8 @@ div.composition-tabs {
    width: 200px;
    margin: 10px;
 
+}
+
+.center {
+    text-align: center;
 }

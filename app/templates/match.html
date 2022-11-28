@@ -15,10 +15,11 @@
 
 {{ wtf.quick_form(form) }}
 
+<br>
+<br>
 
 <body class="users">
 
-    <div class="parent-flex">
 
         {% for user in users %}
 
@@ -29,7 +30,8 @@
                 <div class="flex-item">
                     {# getting the boxes div for each user#}
                     <a href="{{ url_for('main.user', username=user.username) }}">
-                        {{ user.User.username }}
+
+                        <p class = "center"> {{ user.User.username }} </p>
                         <a class="btn btn-default" href="#">
                             Message
 
@@ -43,7 +45,6 @@
                 {# have to link to the message between user1 and user2 or start a new message between between#}
 
         </body>
-    </div>
 
 
     {% endfor %}
