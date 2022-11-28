@@ -13,26 +13,43 @@
 {{ super() }}
 
 
-    {{ wtf.quick_form(form) }}
+{{ wtf.quick_form(form) }}
 
 
-<ul class="users">
+<body class="users">
+
+    <div class="parent-flex">
+
+        {% for user in users %}
+
+        <body class="user">
+            {# Single user #}
 
 
-    {% for user in users %}
-    <li class="user">
-        {# Single user #}
-        <div class="user-content">
-            <div class="user-username">
-                <a href="{{ url_for('main.user', username=user.username) }}">
-                    {{ user.User.username }}
-                </a>
-            </div>
-        </div>
-    </li>
+                <div class="flex-item">
+                    {# getting the boxes div for each user#}
+                    <a href="{{ url_for('main.user', username=user.username) }}">
+                        {{ user.User.username }}
+                        <a class="btn btn-default" href="#">
+                            Message
+
+                        </a>
+
+                    </a>
+                </div>
+
+
+                {# add image of user#}
+                {# have to link to the message between user1 and user2 or start a new message between between#}
+
+        </body>
+    </div>
+
 
     {% endfor %}
-</ul>
+
+
+</body>
 {# username, #}
 
 {# create gender with choices for a filter#}
