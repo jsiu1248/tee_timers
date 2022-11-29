@@ -142,7 +142,7 @@ class UserProfile(db.Model):
     golf_course_id = db.Column(db.Integer, db.ForeignKey('golf_courses.id'))
     # it will be assigned upon the created of the new User
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
-    profile_picture = db.Column(db.BLOB)
+    profile_picture_id = db.Column(db.Integer, db.ForeignKey('imgs.id'))
     # avaliable_days = db.Column(db.String(64))
     # users = db.relationship('User', backref='userprofile', lazy='dynamic')
 
@@ -608,15 +608,21 @@ class GolfCourse(db.Model):
                 db.session.add(golf_course)
         db.session.commit()
 
-        # figure out how to auto insert data later
-        # State.insert_state()
-        # City.insert_city()
-        # GolfCourse.insert_golf_course()
-        # Day.insert_day()
-        # Gender.insert_gender()
-        # TimeOfDay.insert_timeofday()
-        # RideOrWalk.insert_rideorwalk()
-        # Handicap.insert_handicap()
-        # Smoking.insert_smoking()
-        # Drinking.insert_drinking()
-        # PlayingType.insert_playingtype()
+class Img(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    img = db.Column(db.Text, unique = True, nullable = False)
+    name = db.Column(db.Text, nullable = False)
+    mimetype = db.Column(db.Text, nullable = False)
+
+# figure out how to auto insert data later
+# State.insert_state()
+# City.insert_city()
+# GolfCourse.insert_golf_course()
+# Day.insert_day()
+# Gender.insert_gender()
+# TimeOfDay.insert_timeofday()
+# RideOrWalk.insert_rideorwalk()
+# Handicap.insert_handicap()
+# Smoking.insert_smoking()
+# Drinking.insert_drinking()
+# PlayingType.insert_playingtype()

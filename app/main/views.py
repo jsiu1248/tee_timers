@@ -9,6 +9,11 @@ from ..models import User, Role, Permission, Comment, Post, Day, UserProfile, St
 from ..decorators import permission_required, admin_required
 from .forms import PostForm, TechSupportForm, MatchForm, EditProfileForm, AdminLevelEditProfileForm, CommentForm
 from ..email import send_email
+from PIL import Image
+import io
+import base64
+from auth.views import register.image_bytes
+
 
 """ was trying to fix CSRF error"""
 # @main.before_app_request
@@ -317,12 +322,16 @@ def match():
             except:
                 pass
 
+        # b = base64.b64decode(db.session.query(UserProfile.profile_picture).filter(UserProfile.id == "149"))
+        b = base64.b64decode(image_bytes)
+
+        picture = Image.open(io.BytesIO(b))
 
         users = db.session.query(User, UserProfile).join(UserProfile, 
                 UserProfile.id == User.id, 
                 isouter = True).filter(and_(k for k in filter_list))
     return render_template('match.html',
-                           users = users, form = form)
+                           users = users, form = form, profile_picture = picture)
 
 
 @main.route('/post/<slug>',  methods=["GET", "POST"])
@@ -564,3 +573,25 @@ def create_post():
 #     form.drinking.data = current_user.drinking_id
 #     form.playing_type.data = current_user.playing_type_id
 #     return render_template('edit_profile.html', form=form)
+
+@main.route('/upload', methods = ['POST'])
+def upload():
+    pic = request.files['pic']
+
+    if not pic:
+        return 'No picture was uploaded', 400
+    
+    filename = secure_filename(pic.filename)
+    mimetype = pic.mimetype
+
+    img = Img(img.pic.read(), mimetype = mimetype, name = filename)
+    db.session.add(img)
+    db.session.commit()
+
+@main.route('<int:id>')
+def get_img(id):
+    img = Img.query.filter_by(id = id).first()
+    if not img:
+        return 'No img with that id', 404
+    
+    return Response(img.img, minetype = img.mimetype)

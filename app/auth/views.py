@@ -10,7 +10,8 @@ from flask_login import login_required, logout_user, login_user, current_user
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from . import auth
-
+from PIL import Image
+from io import BytesIO
 
 @auth.route('/login' , methods=["GET", "POST"])
 def login():
@@ -49,10 +50,11 @@ def register():
         db.session.commit()
         
         p = User.query.filter_by(username = username_entered).first()
+
         up = UserProfile(id = p.id )
+
         db.session.add(up)
         db.session.commit()
-
         flash("You can now login.")
     
     # generating token for user
