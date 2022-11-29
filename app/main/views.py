@@ -12,7 +12,6 @@ from ..email import send_email
 from PIL import Image
 import io
 import base64
-from auth.views import register.image_bytes
 
 
 """ was trying to fix CSRF error"""
@@ -588,7 +587,7 @@ def upload():
     db.session.add(img)
     db.session.commit()
 
-@main.route('<int:id>')
+@main.route('/<int:id>')
 def get_img(id):
     img = Img.query.filter_by(id = id).first()
     if not img:
