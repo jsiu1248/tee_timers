@@ -609,6 +609,7 @@ class GolfCourse(db.Model):
         db.session.commit()
 
 class Img(db.Model):
+    __tablename__ = 'imgs'
     id = db.Column(db.Integer, primary_key = True)
     img = db.Column(db.Text, unique = True, nullable = False)
     name = db.Column(db.Text, nullable = False)
