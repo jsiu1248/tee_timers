@@ -52,9 +52,12 @@ def register():
         p = User.query.filter_by(username = username_entered).first()
 
         up = UserProfile(id = p.id, profile_picture_id = p.id )
-        img = Img(id = p.id, img = "placeholder")
 
-        db.session.add(up, img)
+        db.session.add(up)
+        db.session.commit()
+
+        picture = Img(id = p.id, img = "placeholder")
+        db.session.add(picture)
         db.session.commit()
         flash("You can now login.")
     

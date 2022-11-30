@@ -612,8 +612,6 @@ class Img(db.Model):
     __tablename__ = 'imgs'
     id = db.Column(db.Integer, primary_key = True)
     img = db.Column(db.Text, unique = True, nullable = False)
-    name = db.Column(db.Text, nullable = False)
-    mimetype = db.Column(db.Text, nullable = False)
 
 # figure out how to auto insert data later
 # State.insert_state()
