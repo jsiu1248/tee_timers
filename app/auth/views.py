@@ -56,7 +56,7 @@ def register():
         db.session.add(up)
         db.session.commit()
 
-        picture = Img(id = p.id, img = "placeholder")
+        picture = Img(id = p.id, img = "../static/istockphoto-515229864-612x612.jpeg")
         db.session.add(picture)
         db.session.commit()
         flash("You can now login.")

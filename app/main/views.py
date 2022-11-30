@@ -42,7 +42,7 @@ def user(username):
     user = User.query.filter_by(username = username).first()
     userprofile = db.session.query(UserProfile, Day, State, City, 
     Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
-    Drinking, PlayingType, GolfCourse ).filter_by(id=user.id).join(Day, 
+    Drinking, PlayingType, GolfCourse, Img).filter_by(id=user.id).join(Day, 
     UserProfile.day_id == Day.id, 
     isouter = True).join(State, UserProfile.state_id == State.id).join(City,
         UserProfile.city_id == City.id).join(Gender,
@@ -53,13 +53,14 @@ def user(username):
         UserProfile.smoking_id == Smoking.id).join(Drinking, 
         UserProfile.drinking_id == Drinking.id).join(PlayingType, 
         UserProfile.playing_type_id == PlayingType.id).join(GolfCourse, 
-        UserProfile.golf_course_id == GolfCourse.id).first()
+        UserProfile.golf_course_id == GolfCourse.id).join(Img, 
+        UserProfile.profile_picture_id == Img.id).first()
 
     posts = user.post.order_by(Post.timestamp.desc()).all()
-
+    image_file = url_for('static', filename = userprofile.Img.img)
     # have to add back pagination later
     return render_template('user.html', user=user, userprofile = userprofile, 
-    posts = posts
+    posts = posts, image_file = image_file
     )
 
 
@@ -171,7 +172,6 @@ def edit_profile_admin(id):
         UserProfile.drinking_id == Drinking.id).join(PlayingType, 
         UserProfile.playing_type_id == PlayingType.id).join(GolfCourse, 
         UserProfile.golf_course_id == GolfCourse.id).join(Img, UserProfile.profile_picture_id == Img.id).first()
-    print(userprofile)
 
 
     form = AdminLevelEditProfileForm(user=user, userprofile = userprofile)
@@ -209,7 +209,7 @@ def edit_profile_admin(id):
         # db.session.commit()
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
-            userprofile.img = picture_file
+            Img.img = picture_file
             db.session.commit()
         flash('The profile was updated.')
         return redirect(url_for('.user', username=user.username))
@@ -230,7 +230,7 @@ def edit_profile_admin(id):
     # form.smoking.data = current_user.smoking_id
     # form.drinking.data = current_user.drinking_id
     # form.playing_type.data = current_user.playing_type_id
-    image_file = url_for('static', filename='profile_pics/' + userprofile.img)
+    image_file = url_for('static', filename='profile_pics/' + Img.img)
     return render_template('edit_profile.html', form=form, user=user, image_file = image_file)
 
 

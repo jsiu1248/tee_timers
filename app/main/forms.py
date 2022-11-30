@@ -200,7 +200,7 @@ class AdminLevelEditProfileForm(FlaskForm):
                                coerce=int,
                                validators=[])       
     golf_course = SelectField("Golf Course", choices=[('')],coerce=int, validators=[]) 
-    picture =    FileField(label = "Update Profile Picture", validators=[FileAllowed('jpg','png')]) 
+    picture =    FileField(label = "Update Profile Picture", validators=[FileAllowed('png', 'jpeg')]) 
 
     submit = SubmitField("Submit")
 
