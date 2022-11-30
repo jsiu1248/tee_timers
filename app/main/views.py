@@ -151,6 +151,25 @@ def followers(username):
                            pagination=pagination,
                            follows=follows)
 
+def save_picture(form_picture):
+    # creating random generated hex so that there won't be a name conflict
+    random_hex = secrets.token_hex(8)
+
+    # splitting the filename and the extension
+    _, f_ext = os.path.splitext(form_picture.filename)
+
+    # adding hex and extenssion
+    picture_fn = random_hex + f_ext
+
+    picture_path = os.path.join(main.root_path, picture_fn)
+
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
+
 
 @main.route('/edit_profile_admin/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -175,24 +194,25 @@ def edit_profile_admin(id):
 
 
     form = AdminLevelEditProfileForm(user=user, userprofile = userprofile)
+
     if form.validate_on_submit():
         user.username = form.username.data
         user.confirmed = form.confirmed.data
         user.role = Role.query.get(form.role.data)
         user.name = form.name.data
-        userprofile.bio = form.bio.data
-        userprofile.age = form.age.data
+        userprofile.UserProfile.bio = form.bio.data
+        userprofile.UserProfile.age = form.age.data
         # userprofile.city_id = form.city.data
         # current_user.state_id = form.state.data
-        userprofile.gender_id = request.form.getlist('gender')
-        userprofile.day_id = request.form.getlist('day')
+        # userprofile.gender_id = request.form.getlist('gender')
+        # userprofile.day_id = request.form.getlist('day')
         # return redirect(url_for('edit_profile_admin'))
-        days = "0000000"
-        for i in userprofile.day_id:
-            days_list = list(days)
-            days_list[int(i)-1] = "1"
-            days_changed = ''.join(days_list)
-            days = days_changed
+        # days = "0000000"
+        # for i in userprofile.day_id:
+        #     days_list = list(days)
+        #     days_list[int(i)-1] = "1"
+        #     days_changed = ''.join(days_list)
+        #     days = days_changed
             # userprofile.avaliable_days = days_changed
         # print(days_changed) # 1100110
             
@@ -209,8 +229,9 @@ def edit_profile_admin(id):
         # db.session.commit()
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
-            Img.img = picture_file
-            db.session.commit()
+            userprofile.Img.img = picture_file
+            db.session.query(Img).filter(Img.id == user.id).update({'img': userprofile.Img.img})
+        db.session.commit()
         flash('The profile was updated.')
         return redirect(url_for('.user', username=user.username))
     form.username.data = user.username
@@ -218,12 +239,12 @@ def edit_profile_admin(id):
     # We must ensure role field gets int data
     form.role.data = user.role_id
     form.name.data = user.name
-    # form.bio.data = userprofile.bio
-    # form.age.data = userprofile.age
+    form.bio.data = userprofile.UserProfile.bio
+    form.age.data = userprofile.UserProfile.age
     # form.city.data = userprofile.city_id
     # form.state.data = current_user.state_id
-    # form.gender.data = userprofile.gender_id
-    # form.day.data = current_user.day_id
+    # form.gender.data = userprofile.UserProfile.gender_id
+    # form.day.data =  userprofile.UserProfile.day_id
     # form.time_of_day.data = current_user.time_of_day_id
     # form.ride_or_walk.data = current_user.ride_or_walk_id
     # form.handicap.data = current_user.handicap_id
@@ -508,18 +529,6 @@ def create_post():
         return render_template('create_post.html', form = form)
     return render_template('forum.html', form = form)
 
-def save_picture(form_picture):
-    random_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(form_picture.filename)
-    picture_fn = random_hex + f_ext
-    picture_path = os.path.join(main.root_path, 'static/profile_pics', picture_fn)
-
-    output_size = (125, 125)
-    i = Image.open(form_picture)
-    i.thumbnail(output_size)
-    i.save(picture_path)
-
-    return picture_fn
 
 
 
