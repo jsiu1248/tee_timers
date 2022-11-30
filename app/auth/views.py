@@ -5,7 +5,7 @@ from app.email import send_email
 from .forms import LoginForm, RegistrationForm, ChangePasswordForm # need a period because trying to import within package
 # from app.main.forms import EditProfileForm
 from .. import db
-from ..models import User, Role, UserProfile
+from ..models import User, Role, UserProfile, Img
 from flask_login import login_required, logout_user, login_user, current_user
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
@@ -51,9 +51,10 @@ def register():
         
         p = User.query.filter_by(username = username_entered).first()
 
-        up = UserProfile(id = p.id )
+        up = UserProfile(id = p.id, profile_picture_id = p.id )
+        img = Img(id = p.id, img = "placeholder")
 
-        db.session.add(up)
+        db.session.add(up, img)
         db.session.commit()
         flash("You can now login.")
     

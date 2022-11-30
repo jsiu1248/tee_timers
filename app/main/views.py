@@ -1,17 +1,20 @@
 from . import main
-from flask import render_template, session, redirect, url_for, flash, current_app, request, abort, make_response, g
+from flask import render_template, session, redirect, url_for, flash, current_app, request, abort, make_response, g, Response
 from .. import db
 from flask_login import login_required, current_user
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, or_
-from ..models import User, Role, Permission, Comment, Post, Day, UserProfile, State, City, GolfCourse, Gender, TimeOfDay, RideOrWalk, Handicap, Smoking, Drinking, PlayingType
+from ..models import User, Role, Permission, Comment, Post, Day, UserProfile, State, City, GolfCourse, Gender, TimeOfDay, RideOrWalk, Handicap, Smoking, Drinking, PlayingType, Img
 from ..decorators import permission_required, admin_required
 from .forms import PostForm, TechSupportForm, MatchForm, EditProfileForm, AdminLevelEditProfileForm, CommentForm
 from ..email import send_email
 from PIL import Image
 import io
 import base64
+from werkzeug.utils import secure_filename
+import os
+import secrets
 
 
 """ was trying to fix CSRF error"""
@@ -147,12 +150,29 @@ def followers(username):
                            pagination=pagination,
                            follows=follows)
 
+
 @main.route('/edit_profile_admin/<int:id>', methods=['GET', 'POST'])
 @login_required
 @admin_required
 def edit_profile_admin(id):
-    user = User.query.get_or_404(id)
-    userprofile = UserProfile.query.get_or_404(id)
+    # user = User.query.get_or_404(id)
+    user = User.query.filter_by(id = id).first()
+    userprofile = db.session.query(UserProfile, Day, State, City, 
+    Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
+    Drinking, PlayingType, GolfCourse, Img).filter_by(id=user.id).join(Day, 
+    UserProfile.day_id == Day.id, 
+    isouter = True).join(State, UserProfile.state_id == State.id).join(City,
+        UserProfile.city_id == City.id).join(Gender,
+        UserProfile.gender_id == Gender.id).join(TimeOfDay, 
+        UserProfile.time_of_day_id == TimeOfDay.id).join(RideOrWalk, 
+        UserProfile.ride_or_walk_id == RideOrWalk.id).join(Handicap,
+        UserProfile.handicap_id == Handicap.id).join(Smoking,
+        UserProfile.smoking_id == Smoking.id).join(Drinking, 
+        UserProfile.drinking_id == Drinking.id).join(PlayingType, 
+        UserProfile.playing_type_id == PlayingType.id).join(GolfCourse, 
+        UserProfile.golf_course_id == GolfCourse.id).join(Img, UserProfile.profile_picture_id == Img.id).first()
+    print(userprofile)
+
 
     form = AdminLevelEditProfileForm(user=user, userprofile = userprofile)
     if form.validate_on_submit():
@@ -166,8 +186,7 @@ def edit_profile_admin(id):
         # current_user.state_id = form.state.data
         userprofile.gender_id = request.form.getlist('gender')
         userprofile.day_id = request.form.getlist('day')
-        print(userprofile.gender_id)
-        print( userprofile.day_id)
+        # return redirect(url_for('edit_profile_admin'))
         days = "0000000"
         for i in userprofile.day_id:
             days_list = list(days)
@@ -188,6 +207,10 @@ def edit_profile_admin(id):
         ### need to add more info here
         # db.session.add(current_user._get_current_object())
         # db.session.commit()
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            userprofile.img = picture_file
+            db.session.commit()
         flash('The profile was updated.')
         return redirect(url_for('.user', username=user.username))
     form.username.data = user.username
@@ -195,8 +218,8 @@ def edit_profile_admin(id):
     # We must ensure role field gets int data
     form.role.data = user.role_id
     form.name.data = user.name
-    form.bio.data = userprofile.bio
-    form.age.data = userprofile.age
+    # form.bio.data = userprofile.bio
+    # form.age.data = userprofile.age
     # form.city.data = userprofile.city_id
     # form.state.data = current_user.state_id
     # form.gender.data = userprofile.gender_id
@@ -207,8 +230,8 @@ def edit_profile_admin(id):
     # form.smoking.data = current_user.smoking_id
     # form.drinking.data = current_user.drinking_id
     # form.playing_type.data = current_user.playing_type_id
-
-    return render_template('edit_profile.html', form=form, user=user)
+    image_file = url_for('static', filename='profile_pics/' + userprofile.img)
+    return render_template('edit_profile.html', form=form, user=user, image_file = image_file)
 
 
 
@@ -322,15 +345,15 @@ def match():
                 pass
 
         # b = base64.b64decode(db.session.query(UserProfile.profile_picture).filter(UserProfile.id == "149"))
-        b = base64.b64decode(image_bytes)
+        # b = base64.b64decode(image_bytes)
 
-        picture = Image.open(io.BytesIO(b))
+        # picture = Image.open(io.BytesIO(b))
 
         users = db.session.query(User, UserProfile).join(UserProfile, 
                 UserProfile.id == User.id, 
                 isouter = True).filter(and_(k for k in filter_list))
     return render_template('match.html',
-                           users = users, form = form, profile_picture = picture)
+                           users = users, form = form) #, profile_picture = picture)
 
 
 @main.route('/post/<slug>',  methods=["GET", "POST"])
@@ -485,6 +508,20 @@ def create_post():
         return render_template('create_post.html', form = form)
     return render_template('forum.html', form = form)
 
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(main.root_path, 'static/profile_pics', picture_fn)
+
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
+
+
 
 # @main.route('/edit/<slug>',  methods=["GET", "POST"])
 # @login_required
@@ -516,81 +553,3 @@ def create_post():
 #     form.post.data = post.description
 #     return render_template('post.html', form=form)
 
-# duplicated 
-# @main.route('/editprofile/<int:id>', methods = ['GET', 'POST'])
-# @login_required
-# @admin_required
-# def admin_edit_profile(id):
-#     """
-#     Admin access to editting other's profiles. Admin access and login is required. 
-#     Args: id of user
-#     """
-#     form = AdminLevelEditProfileForm()
-
-#     # Search for user based on ID and return 404 if None
-#     user = User.query.filter_by(id = id).first_or_404()
-#     if form.validate_on_submit():
-#         current_user.username = form.username.data
-#         current_user.confirmed = form.confirmed.data
-#         current_user.name = form.name.data
-#         current_user.age = form.age.data
-#         current_user.city_id = form.city.data
-#         current_user.state_id = form.state.data
-#         current_user.bio = form.bio.data
-#         current_user.gender_id = form.gender.data
-#         current_user.day_id = form.day.data
-#         current_user.time_of_day_id = form.time_of_day.data
-#         current_user.ride_or_walk_id = form.ride_or_walk.data
-#         current_user.handicap_id = form.handicap.data
-#         current_user.smoking_id = form.smoking.data
-#         current_user.drinking_id = form.drinking.data
-#         current_user.playing_type = form.playing_type.data
-#         # filtering for the first role name by form.role.data
-#         current_user.role = Role.query.filter_by(id = form.role.data).first()
-
-
-#         db.session.add(current_user._get_current_object())
-#         db.session.commit()
-#         flash('You successfully updated {user.username}\'s profile.')
-#         return redirect(url_for('.user', username=current_user.username))
-
-#     # why is the data equaled back and forth - seems like it is doing the same thing twice
-#     form.username.data = current_user.username
-#     form.confirmed.data = current_user.confirmed
-#     form.role.data = current_user.role_id
-#     form.name.data = current_user.name
-#     form.age.data = current_user.age
-#     form.city.data = current_user.city_id
-#     form.state.data = current_user.state_id
-#     form.bio.data = current_user.bio
-#     form.gender.data = current_user.gender_id
-#     form.day.data = current_user.day_id
-#     form.time_of_day.data = current_user.time_of_day_id
-#     form.ride_or_walk.data = current_user.ride_or_walk_id
-#     form.handicap.data = current_user.handicap_id
-#     form.smoking.data = current_user.smoking_id
-#     form.drinking.data = current_user.drinking_id
-#     form.playing_type.data = current_user.playing_type_id
-#     return render_template('edit_profile.html', form=form)
-
-@main.route('/upload', methods = ['POST'])
-def upload():
-    pic = request.files['pic']
-
-    if not pic:
-        return 'No picture was uploaded', 400
-    
-    filename = secure_filename(pic.filename)
-    mimetype = pic.mimetype
-
-    img = Img(img.pic.read(), mimetype = mimetype, name = filename)
-    db.session.add(img)
-    db.session.commit()
-
-@main.route('/<int:id>')
-def get_img(id):
-    img = Img.query.filter_by(id = id).first()
-    if not img:
-        return 'No img with that id', 404
-    
-    return Response(img.img, minetype = img.mimetype)

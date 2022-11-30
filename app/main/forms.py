@@ -7,6 +7,7 @@ from wtforms import widgets, SelectMultipleField
 from app.models import db, Gender
 from app.models import City, GolfCourse, State, PlayingType, TimeOfDay, Smoking, Day, Drinking, RideOrWalk, Handicap
 from wtforms_sqlalchemy.fields import QuerySelectField
+from flask_wtf.file import FileField, FileAllowed
 
 class TechSupportForm(FlaskForm):
     """
@@ -198,7 +199,8 @@ class AdminLevelEditProfileForm(FlaskForm):
     playing_type = SelectMultipleField('Playing Type',
                                coerce=int,
                                validators=[])       
-    golf_course = SelectField("Golf Course", coerce=int, validators=[])    
+    golf_course = SelectField("Golf Course", choices=[('')],coerce=int, validators=[]) 
+    picture =    FileField(label = "Update Profile Picture", validators=[FileAllowed('jpg','png')]) 
 
     submit = SubmitField("Submit")
 
