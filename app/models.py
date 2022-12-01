@@ -613,6 +613,16 @@ class Img(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     img = db.Column(db.Text, unique = True, nullable = False)
 
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    sender_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    recipient_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    description = db.Column(db.String(140))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+
+    def __repr__(self):
+        return '<Message {}>'.format(self.description)
+
 # figure out how to auto insert data later
 # State.insert_state()
 # City.insert_city()
