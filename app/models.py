@@ -180,6 +180,8 @@ class User(UserMixin, db.Model):
                                         backref='recipient', lazy='dynamic')
     last_message_read_time = db.Column(db.DateTime)
 
+    
+
     # we want to assign the users their roles right away
     # user constructor
     def __init__(self, **kwargs):
@@ -336,6 +338,10 @@ class User(UserMixin, db.Model):
                 db.session.add(user)
                 db.session.commit()
 
+    def new_messages(self):
+        last_read_time = self.last_message_read_time or datetime(1900, 1, 1)
+        return Message.query.filter_by(recipient=self).filter(
+            Message.timestamp > last_read_time).count()
 
 
 class AnonymousUser(AnonymousUserMixin):
