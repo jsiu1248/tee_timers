@@ -41,7 +41,17 @@
         <a href="{{ url_for('.match', username=user.username) }}">Match</a> <span
             class="badge badge-light"></span>
     </button>
+    {% if user != current_user %}
+    <button type="button" class="btn btn-light">
+        <a href="{{ url_for('main.send_message',
+                            recipient=user.username) }}">
+            {{ _('Send private message') }}
+        </a>
+        class="badge badge-light"></span>
+    </button>
+    {% endif %}
 
+    
 {# messages #}
 {# forum #}
 {# match #}

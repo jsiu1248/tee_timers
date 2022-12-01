@@ -225,7 +225,7 @@ class AdminLevelEditProfileForm(FlaskForm):
             (g.id, g.course) for g in GolfCourse.query.all()]
 
 class MessageForm(FlaskForm):
-    message = TextAreaField(_l('Message'), validators=[
+    message = TextAreaField(('Message'), validators=[
         DataRequired(), Length(min=0, max=140)])
-    submit = SubmitField(_l('Submit'))
+    submit = SubmitField(('Submit'))
         
