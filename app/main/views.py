@@ -57,12 +57,17 @@ def user(username):
         UserProfile.profile_picture_id == Img.id).first()
 
     posts = user.post.order_by(Post.timestamp.desc()).all()
-    image_file = url_for('static', filename = userprofile.Img.img)
+    # image_file = os.path.join('../main', userprofile.Img.img)
+    image_file = "../main/79c603e05a9d7987.jpeg"
+
+    # image_file = "../static/istockphoto-515229864-612x612.jpeg"
+
     # have to add back pagination later
     return render_template('user.html', user=user, userprofile = userprofile, 
     posts = posts, image_file = image_file
     )
-
+#/Users/JonathanSiu/Documents/golf_app_flask/app/main/79c603e05a9d7987.jpeg
+#/Users/JonathanSiu/Documents/golf_app_flask/app/static/istockphoto-486876112-612x612.jpeg
 
 @main.route('/moderate')
 @login_required

@@ -98,3 +98,29 @@ def post(count=100):
     for p in Post.query.all():
         p.generate_slug()
 
+def comment(count=100):
+    """Function that creates fake comments
+        args: create a certain amount of comments"""
+    fake = Faker()
+
+    # checking how many users are in the table
+    user_count = User.query.count()
+    post_count = Post.query.count()
+  
+    for i in range(count):
+        # offset dicards a certain number of results, n is a random number between 0 and then user_count -1
+        # so it is picking a random user and don't care about duplicated users because users can have multiple compositions
+        u = User.query.offset(randint(0, user_count - 1)).first()
+        p = Post.query.offset(randint(0, post_count - 1)).first()
+
+        c = Comment(
+
+        # bs generates cool sounding titles
+                        description=fake.text(),
+                        timestamp=fake.past_date(),
+                        post_id = p.id,
+                        user_id = u.id,
+                        )
+        db.session.add(c)
+    db.session.commit()
+
