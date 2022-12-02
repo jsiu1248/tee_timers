@@ -172,13 +172,13 @@ class User(UserMixin, db.Model):
                                 backref=db.backref('following', lazy='joined'),
                                 lazy='dynamic',
                                 cascade='all, delete-orphan')
-    messages_sent = db.relationship('Message',
-                                    foreign_keys='Message.sender_id',
-                                    backref='author', lazy='dynamic')
-    messages_received = db.relationship('Message',
-                                        foreign_keys='Message.recipient_id',
-                                        backref='recipient', lazy='dynamic')
-    last_message_read_time = db.Column(db.DateTime)
+    # messages_sent = db.relationship('Message',
+    #                                 foreign_keys='Message.sender_id',
+    #                                 backref='author', lazy='dynamic')
+    # messages_received = db.relationship('Message',
+    #                                     foreign_keys='Message.recipient_id',
+    #                                     backref='recipient', lazy='dynamic')
+    # last_message_read_time = db.Column(db.DateTime)
 
     
 

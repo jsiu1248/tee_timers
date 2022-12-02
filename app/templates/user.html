@@ -12,6 +12,7 @@
 <div class="page-header">
     <h1>{{ user.username }}</h1>
 
+    {# creating Follow and Unfollow Button #}
     {% if current_user.can(Permission.FOLLOW) %}
     {% if not current_user.is_following(user) %}
     <a class="btn btn-default" href="{{ url_for('.follow', username=user.username) }}">
@@ -23,6 +24,8 @@
     </a>
     {% endif %}
     {% endif %}
+
+    {# creating followers, following, forum, and match button #}
     <button type="button" class="btn btn-light">
         <a href="{{ url_for('.following', username=user.username) }}">Following</a> <span
             class="badge badge-light">{{user.following.count() - 1}}</span>
@@ -51,11 +54,8 @@
     </button>
     {% endif %}
 
-    
-{# messages #}
-{# forum #}
-{# match #}
 
+{# displaying table with user profile #}
     <table class="table">
         <tbody>
             <tr>
@@ -132,15 +132,14 @@
     </table>
 </div>
 
-{ # add user profile or avatar #}
-
+{# edit button#}
 {% if user.username == current_user.username %}
 <a class="btn btn-default" href="{{ url_for('.edit_profile') }}">
     Edit Profile
 </a>
 {% endif %}
 
-{# add admin edit profile #}
+{#edit the profile as admin button #}
 {% if current_user.is_administrator() %}
 <a class="btn btn-danger" href="{{ url_for('.edit_profile_admin', id=user.id) }}">Edit as Admin</a>
 {% endif %}
@@ -148,7 +147,6 @@
 
 <img class="rounded-circle account-img" src = "{{image_file}}">
 
-{# add pagination here later#}
 
 "{{image_file}}"
 {% endblock %}

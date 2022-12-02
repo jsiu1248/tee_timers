@@ -42,19 +42,19 @@ def user(username):
     user = User.query.filter_by(username = username).first()
     userprofile = db.session.query(UserProfile, Day, State, City, 
     Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
-    Drinking, PlayingType, GolfCourse, Img).filter_by(id=user.id).join(Day, 
-    UserProfile.day_id == Day.id, 
-    isouter = True).join(State, UserProfile.state_id == State.id).join(City,
-        UserProfile.city_id == City.id).join(Gender,
-        UserProfile.gender_id == Gender.id).join(TimeOfDay, 
-        UserProfile.time_of_day_id == TimeOfDay.id).join(RideOrWalk, 
-        UserProfile.ride_or_walk_id == RideOrWalk.id).join(Handicap,
-        UserProfile.handicap_id == Handicap.id).join(Smoking,
-        UserProfile.smoking_id == Smoking.id).join(Drinking, 
-        UserProfile.drinking_id == Drinking.id).join(PlayingType, 
-        UserProfile.playing_type_id == PlayingType.id).join(GolfCourse, 
-        UserProfile.golf_course_id == GolfCourse.id).join(Img, 
-        UserProfile.profile_picture_id == Img.id).first()
+    Drinking, PlayingType, GolfCourse, Img).filter_by(id=user.id
+    ).join(Day, UserProfile.day_id == Day.id, isouter = True
+    ).join(State, UserProfile.state_id == State.id, isouter = True
+    ).join(City, UserProfile.city_id == City.id, isouter = True
+    ).join(Gender, UserProfile.gender_id == Gender.id, isouter = True
+    ).join(TimeOfDay, UserProfile.time_of_day_id == TimeOfDay.id, isouter = True
+    ).join(RideOrWalk, UserProfile.ride_or_walk_id == RideOrWalk.id,  isouter = True
+    ).join(Handicap, UserProfile.handicap_id == Handicap.id, isouter = True
+    ).join(Smoking, UserProfile.smoking_id == Smoking.id, isouter = True
+    ).join(Drinking, UserProfile.drinking_id == Drinking.id, isouter = True
+    ).join(PlayingType, UserProfile.playing_type_id == PlayingType.id,  isouter = True
+    ).join(GolfCourse, UserProfile.golf_course_id == GolfCourse.id, isouter = True
+    ).join(Img, UserProfile.profile_picture_id == Img.id,isouter = True).first()
 
     posts = user.post.order_by(Post.timestamp.desc()).all()
     # image_file = os.path.join('../main', userprofile.Img.img)

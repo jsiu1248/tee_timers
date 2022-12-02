@@ -28,8 +28,8 @@
             {% if post.comments.count() > 0 %}
                 <h2>Comments</h2>
                 <p>
-                {% for comment in post.comments %}
-                    <p>{{ comment.username }}</p>
+                {% for comment in post.comments.all() %}
+                    <p>{{ comment.users.username }}</p>
                     <p>{{ comment.description }}</p>
                 {% endfor %}
                 </p>
@@ -48,8 +48,5 @@
 
         </div>
 
-{#            <a class="btn btn-default" href="{{ url_for('main.comment', slug = comment.slug) }}">
-logic for accessing individual comment links
-#}
 
 
