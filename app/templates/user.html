@@ -44,13 +44,16 @@
         <a href="{{ url_for('.match', username=user.username) }}">Match</a> <span
             class="badge badge-light"></span>
     </button>
+
     {% if user != current_user %}
+
     <button type="button" class="btn btn-light">
         <a href="{{ url_for('main.send_message',
                             recipient=user.username) }}">
-            {{ _('Send private message') }}
+                            Send private message
+            {# {{ _('Send private message') }} #}
         </a>
-        class="badge badge-light"></span>
+        <span class="badge badge-light"></span>
     </button>
     {% endif %}
 
@@ -125,7 +128,7 @@
             {% endif %}
 
                 <th scope="row">Last seen</th>
-                <td>{{ moment(user.last_seen).fromNow() }}</td>
+                <td>{% if user.last_seen %} {{ moment(user.last_seen).fromNow() }} {% endif %}</td>
 
             </tr>
         </tbody>

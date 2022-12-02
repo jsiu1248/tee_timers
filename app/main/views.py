@@ -549,7 +549,7 @@ def send_message(recipient):
         db.session.commit()
         flash(_('Your message has been sent.'))
         return redirect(url_for('main.user', username = recipient))
-    return render_template('send_message.html', title = _('Send Message'),
+    return render_template('send_message.html', title = 'Send Message', # _('Send Message'),
                            form = form, recipient = recipient)
 
 @main.route('/messages')
