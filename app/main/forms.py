@@ -130,7 +130,8 @@ class EditProfileForm(FlaskForm):
                                coerce=int,
                                validators=[])  
     golf_course = SelectField('Golf Course', coerce=int, choices=[('')], validators=[])
-         
+    picture =    FileField(label = "Update Profile Picture", validators=[FileAllowed(['png', 'jpeg'])]) 
+
     submit = SubmitField("Submit")
 
     def __init__(self, *args, **kwargs):
