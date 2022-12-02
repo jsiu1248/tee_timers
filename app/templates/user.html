@@ -57,6 +57,15 @@
     </button>
     {% endif %}
 
+    {% if user == current_user %}
+    <button type="button" class="btn btn-light">
+        <a href="{{ url_for('main.messages') }}">
+                            Messages
+        </a>
+        <span class="badge badge-light"></span>
+    </button>
+        {% endif %}
+
 
 {# displaying table with user profile #}
     <table class="table">
