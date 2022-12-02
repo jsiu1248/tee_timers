@@ -419,6 +419,9 @@ class Comment(db.Model):
     description_html = db.Column(db.Text)
     slug = db.Column(db.String(128), unique=True)
 
+def __repr__(self):
+    return f"<User {self.username}>"
+
 
 
 
@@ -649,3 +652,5 @@ class Message(db.Model):
 # Smoking.insert_smoking()
 # Drinking.insert_drinking()
 # PlayingType.insert_playingtype()
+# Role.insert_roles()
+# User.add_self_follows()

@@ -33,7 +33,7 @@
 
                         <p class = "center"> {{ user.User.username }} </p>
                         <a class="btn btn-default" href="{{ url_for('main.send_message',
-                            recipient = user.username) }}">
+                            recipient = user.User.username) }}">
                             Message
 
                         </a>
