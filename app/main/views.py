@@ -18,28 +18,34 @@ import secrets
 from datetime import datetime
 
 
-""" was trying to fix CSRF error"""
-# @main.before_app_request
-# def fix_missing_csrf_token():
-#     if current_app.config['WTF_CSRF_FIELD_NAME'] not in session:
-#         if current_app.config['WTF_CSRF_FIELD_NAME'] in g:
-#             g.pop(current_app.config['WTF_CSRF_FIELD_NAME'])
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
+    """
+    Home page.
+    Return: the index html
+    """
     return render_template('index.html')
 
 @main.route('/admin')
 @login_required
 @admin_required
 def for_admins_only():
-    """route will require login and user to have admin permission"""
+    """
+    route will require login and user to have admin permission
+    Return: Welcome Admin
+    """
     return f"Welcome, Administrator! {Permission.ADMIN}"
 
 # route will pass user_name variable
 @main.route('/user/<username>')
 def user(username):
-    # query user or return error
+    """
+    Query user. Query userprofile with joined tables. Shows all of the user's information.
+    Args: Username
+    Return: user.html
+    
+    """
     user = User.query.filter_by(username = username).first()
     userprofile = db.session.query(UserProfile, Day, State, City, 
     Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
@@ -158,7 +164,11 @@ def followers(username):
                            follows=follows)
 
 def save_picture(form_picture):
-    # creating random generated hex so that there won't be a name conflict
+    """
+    Making a randon hex so that there won't be a name conflict. And then saving it to static folder. 
+    Args: form_picture
+    Return: the picture str with the changed name
+    """
     random_hex = secrets.token_hex(8)
 
     # splitting the filename and the extension
@@ -168,8 +178,6 @@ def save_picture(form_picture):
     picture_fn = random_hex + f_ext
 
     picture_path = os.path.join(main.root_path, '../static', picture_fn)
-    print(app.root_path)
-    print(app.instance_path)
     output_size = (125, 125)
     i = Image.open(form_picture)
     i.thumbnail(output_size)
@@ -182,6 +190,11 @@ def save_picture(form_picture):
 @login_required
 @admin_required
 def edit_profile_admin(id):
+    """
+    Query user. Query profile information. Save new information to database and and/or image. 
+    Args: id
+    Return: edit profile or user page
+    """
     # user = User.query.get_or_404(id)
     user = User.query.filter_by(id = id).first()
     userprofile = db.session.query(UserProfile, Day, State, City, 
@@ -312,13 +325,6 @@ def show_followed():
     resp.set_cookie('show_followed', '1', max_age=30*24*60*60) # 30 days
     return resp
 
-# @main.route('/match/<slug>')
-# @login_required
-# def match(slug):
-#     # passes user contained in a list to template
-#     user = User.query.filter_by(username = username).first_or_404()
-#     return render_template('match.html',
-#                            user=[user])
 
 @main.route('/match', methods=["GET","POST"])
 @login_required
@@ -329,7 +335,6 @@ def match():
     """
     form = MatchForm()
     # passes users contained in a list to template
-    # users = User.query.all()
     users = db.session.query(User, UserProfile).join(UserProfile, 
                 UserProfile.id == User.id, 
                 isouter = True).all()
@@ -369,10 +374,6 @@ def match():
             except:
                 pass
 
-        # b = base64.b64decode(db.session.query(UserProfile.profile_picture).filter(UserProfile.id == "149"))
-        # b = base64.b64decode(image_bytes)
-
-        # picture = Image.open(io.BytesIO(b))
 
         users = db.session.query(User, UserProfile).join(UserProfile, 
                 UserProfile.id == User.id, 
@@ -384,7 +385,11 @@ def match():
 @main.route('/post/<slug>',  methods=["GET", "POST"])
 @login_required
 def post(slug):
-    # passes post contained in a list respresented as post to template
+    """
+    Passes post contained in a list represented as post to template. Paginate. It has the CommentForm also. 
+    Args: slug
+    Return: post.html with slug
+    """
     post = Post.query.filter_by(slug = slug).first_or_404()
     form = CommentForm()
     if form.validate_on_submit():
@@ -482,12 +487,12 @@ def edit_profile():
     """
     form = EditProfileForm()
     if form.validate_on_submit():
+
         current_user.name = form.name.data
-        # current_user.age = form.age.data
-        # current_user.city_id = form.city.data
-        # current_user.state_id = form.state.data
-        # current_user.bio = form.bio.data
-        # current_user.gender_id = form.gender.data
+        current_user.UserProfile.bio = form.bio.data
+        current_user.UserProfile.age = form.age.data
+        current_user.UserProfile.city_id = form.city.data
+        current_user.UserProfile.state_id = form.state.data
         # current_user.day_id = form.day.data
     #     current_user.time_of_day_id = form.time_of_day.data
     #     current_user.ride_or_walk_id = form.ride_or_walk.data
@@ -499,7 +504,7 @@ def edit_profile():
         db.session.commit()
         flash('You successfully updated your profile! Looks great.')
         return redirect(url_for('.user', username = current_user.username, Day = Day))
-    form.name.data = current_user.name
+    form.name.data = User.name
     # form.age.data = current_user.age
     # form.city.data = current_user.city_id
     # form.state.data = current_user.state_id
