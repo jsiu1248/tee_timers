@@ -210,9 +210,9 @@ def edit_profile_admin(id):
         user.name = form.name.data
         userprofile.UserProfile.bio = form.bio.data
         userprofile.UserProfile.age = form.age.data
-        # userprofile.city_id = form.city.data
-        # current_user.state_id = form.state.data
-        # userprofile.gender_id = request.form.getlist('gender')
+        userprofile.UserProfile.city_id = form.city.data
+        userprofile.UserProfile.state_id = form.state.data
+        # userprofile.UserProfile.gender_id = request.form.getlist('gender')
         # userprofile.day_id = request.form.getlist('day')
         # return redirect(url_for('edit_profile_admin'))
         # days = "0000000"
@@ -226,13 +226,10 @@ def edit_profile_admin(id):
             
         # current_user.time_of_day_id = form.time_of_day.data
         # current_user.ride_or_walk_id = form.ride_or_walk.data
-        # current_user.handicap_id = form.handicap.data
-        # current_user.smoking_id = form.smoking.data
-        # current_user.drinking_id = form.drinking.data
-        # current_user.playing_type = form.playing_type.data
-
-        # user.bio = form.bio.data
-        ### need to add more info here
+        userprofile.UserProfile.handicap_id = form.handicap.data
+        userprofile.UserProfile.smoking_id = form.smoking.data
+        userprofile.UserProfile.drinking_id = form.drinking.data
+        userprofile.UserProfile.playing_type = form.playing_type.data
         # db.session.add(current_user._get_current_object())
         # db.session.commit()
         if form.picture.data:
@@ -244,18 +241,17 @@ def edit_profile_admin(id):
         return redirect(url_for('.user', username=user.username))
     form.username.data = user.username
     form.confirmed.data = user.confirmed
-    # We must ensure role field gets int data
     form.role.data = user.role_id
     form.name.data = user.name
     form.bio.data = userprofile.UserProfile.bio
     form.age.data = userprofile.UserProfile.age
-    # form.city.data = userprofile.city_id
-    # form.state.data = current_user.state_id
+    form.city.data = userprofile.UserProfile.city_id
+    form.state.data = userprofile.UserProfile.state_id
     # form.gender.data = userprofile.UserProfile.gender_id
     # form.day.data =  userprofile.UserProfile.day_id
     # form.time_of_day.data = current_user.time_of_day_id
     # form.ride_or_walk.data = current_user.ride_or_walk_id
-    # form.handicap.data = current_user.handicap_id
+    # form.handicap.data = userprofile.UserProfile.handicap_id
     # form.smoking.data = current_user.smoking_id
     # form.drinking.data = current_user.drinking_id
     # form.playing_type.data = current_user.playing_type_id
