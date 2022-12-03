@@ -10,6 +10,8 @@
 {% block page_content %}
 {{ super() }}
 <div class="page-header">
+    <img class="rounded-circle account-img" src = "{{image_file}}">
+
     <h1>{{ user.username }}</h1>
 
     {# creating Follow and Unfollow Button #}
@@ -70,6 +72,7 @@
 {# displaying table with user profile #}
     <table class="table">
         <tbody>
+
             <tr>
                 <th scope="row">Name</th>
                 <td>{% if user.name %}{{ user.name }}{% endif %}</td>
@@ -157,9 +160,7 @@
 {% endif %}
 
 
-<img class="rounded-circle account-img" src = "{{image_file}}">
 
 
-"{{image_file}}"
 {% endblock %}
 

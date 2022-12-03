@@ -80,3 +80,9 @@ div.composition-tabs {
 .center {
     text-align: center;
 }
+
+/**/
+.comments-container {
+    border: 5px solid #c3c3c3;
+    margin-left: 50px;
+}

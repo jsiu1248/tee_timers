@@ -58,8 +58,8 @@ def user(username):
     ).join(Img, UserProfile.profile_picture_id == Img.id,isouter = True).first()
 
     posts = user.post.order_by(Post.timestamp.desc()).all()
-    # image_file = os.path.join('../main', userprofile.Img.img)
-    image_file = "../main/79c603e05a9d7987.jpeg"
+    image_file = os.path.join('../static', userprofile.Img.img)
+    # image_file = "../main/79c603e05a9d7987.jpeg"
 
     # image_file = "../static/istockphoto-515229864-612x612.jpeg"
 
@@ -167,8 +167,9 @@ def save_picture(form_picture):
     # adding hex and extenssion
     picture_fn = random_hex + f_ext
 
-    picture_path = os.path.join(main.root_path, picture_fn)
-
+    picture_path = os.path.join(main.root_path, '../static', picture_fn)
+    print(app.root_path)
+    print(app.instance_path)
     output_size = (125, 125)
     i = Image.open(form_picture)
     i.thumbnail(output_size)

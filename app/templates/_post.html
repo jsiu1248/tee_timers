@@ -26,27 +26,32 @@
 
             {% if post.comments %}
             {% if post.comments.count() > 0 %}
-                <h2>Comments</h2>
-                <p>
-                {% for comment in post.comments.all() %}
-                    <p>{{ comment.users.username }}</p>
-                    <p>{{ comment.description }}</p>
-                {% endfor %}
-                </p>
-            {% endif %}
-            {% endif %}
-
-
-            <br>
-            <a class="btn btn-default" href="{{ url_for('main.comment_form') }}">
-                Comment
-            </a>
+    <li class="comment">
+        <div class="comments-container">
+            <h2>Comments</h2>
+            {% for comment in post.comments.all() %}
+            <div class="comment-content">
+                <div class="comment-username">
+                    {{ comment.users.username }}
+                </div>
+                <div class="comment-description">
+                    {{ comment.description }}
+                </div>
+            </div>
 
             {% endfor %}
+        </div>
+        {% endif %}
+        {% endif %}
+
+
+        <br>
+        <a class="btn btn-default" href="{{ url_for('main.comment_form') }}">
+            Comment
+        </a>
+
+        {% endfor %}
 
 
 
         </div>
-
-
-
