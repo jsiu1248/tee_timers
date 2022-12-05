@@ -1,29 +1,32 @@
-\\ using templates css for now
-.body {
+\\ using templates css for now .body {
     background-color: #66B9BF;
-    }
+}
+
 .profile-thumbnail {
     position: absolute;
 }
+
 .profile-header {
     min-height: 260px;
     margin-left: 150px;
 }
 
 /* Making user profile boxes*/
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
 .flex-item {
-   flex: 0 0 215px;
-   display: inline-block;
-   border-radius: 10px;
-   border: 5px solid #c3c3c3;
-   text-align: center;
-   height: 200px;
-   width: 200px;
-   margin: 10px;
+    flex: 0 0 215px;
+    display: inline-block;
+    border-radius: 10px;
+    border: 5px solid #c3c3c3;
+    text-align: center;
+    height: 200px;
+    width: 200px;
+    margin: 10px;
 
 }
 
@@ -50,14 +53,15 @@
 }
 
 /*for the index page */
+/*Parallex effect for first image*/
 .parallax-effect {
     background-image: url("../static/istockphoto-515229864-612x612.jpeg");
-     height: 100%;
+    height: 100%;
     /*width: auto;*/
 
     background-attachment: fixed;
     background-repeat: no-repeat;
-    background-size: cover; 
+    background-size: cover;
     position: relative;
     left: 50%;
     right: 50%;
@@ -65,9 +69,10 @@
     margin-right: -50vw;
     max-width: 100vw;
     width: 100vw;
-  }
-  
-.welcome-message{
+}
+
+/*Welcome message for index page*/
+.welcome-message {
     color: #FFFFFF;
     font-family: 'Raleway', Arial, sans-serif;
     font-size: 200px;
@@ -81,7 +86,7 @@
 }
 
 
-  .text {
+/* .text {
     position: relative;
     left: 50%;
     right: 50%;
@@ -94,4 +99,77 @@
     font-size: 36px;
     text-align: center;
     font-family: 'Raleway', Arial, sans-serif;
-  }
+  } */
+
+/*making grid boxes for images of the index page*/
+body {
+    margin: 0;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0px;
+    grid-auto-rows: auto;
+    grid-auto-columns: auto;
+    width: 100vw;
+    height: 200%;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    max-width: 100vw;
+
+
+    background-color: #333333;
+}
+
+.one {
+    grid-column: 1 / 2;
+    grid-row: 1;
+    background-color: #f2f2f2;
+}
+
+.two {
+    grid-column: 2 / 2;
+    grid-row: 1;
+    background-color: #c0c0c0;
+}
+
+.three {
+    grid-column: 1 / 2;
+    grid-row: 2;
+    background-color: red;
+}
+
+.four {
+    grid-column: 2 / 4;
+    grid-row: 2;
+    background-color: green;
+}
+
+.five {
+    grid-column: 1 / 2;
+    grid-row: 3;
+    background-color: blue;
+}
+
+.six {
+    grid-column: 2 / 4;
+    grid-row: 3;
+    background-color: black;
+}
+
+.seven {
+    grid-column: 1 / 2;
+    grid-row: 4;
+    background-color: pink;
+}
+
+.eight {
+    grid-column: 2 / 4;
+    grid-row: 4;
+    background-color: yellow;
+
+}
