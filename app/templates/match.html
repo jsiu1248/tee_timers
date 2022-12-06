@@ -29,11 +29,11 @@
 
         <div class="flex-item">
             {# getting the boxes div for each user#}
-             {# {% if user.Img.img is not none %}
-                <img class="rounded-circle account-img" src="../static/{{ user.Img.img}}">
-            {% else  %}
+            {# {% if user.Img.img is not none %}
+            <img class="rounded-circle account-img" src="../static/{{ user.Img.img}}">
+            {% else %}
             NONE
-            {% endif %}  #}
+            {% endif %} #}
             <a href="{{ url_for('main.user', username=user.username) }}">
 
 
@@ -52,9 +52,24 @@
             <a class="btn btn-default" href="{{ url_for('main.user',
             username = user.User.username) }}">
                 Go to Profile
-                            </a>
-
-
+            </a>
+            <br>
+            <br>
+            <a class="btn btn-default" href="#">
+                {{user.GolfCourse.course}}
+            </a>
+            <a class="btn btn-default" href="#">
+                {{user.Handicap.handicap}}
+            </a>
+            <a class="btn btn-default" href="#">
+                {{user.PlayingType.playing_type}}
+            </a>
+            <a class="btn btn-default" href="#">
+                {{user.Smoking.smoking}}
+            </a>
+            <a class="btn btn-default" href="#">
+                {{user.Drinking.drinking}}
+            </a>
         </div>
 
 
