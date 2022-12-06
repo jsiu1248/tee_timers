@@ -19,19 +19,66 @@
   </div>
 
   <div class="wrapper">
-    <div class="one">One</div>
-    <div class="two">Two</div>
+    <div class="one">
+      <h1>Golf with a </h1>
+      <div id="section-1_grid" class="section-1_grid">
+        <h2 class="highlighted-text">friend</h2>
+        ::before
+        <style>
+          .section-1-svg path {
+            stroke-dasharray: 1;
+            stroke-dashoffset: 2;
+            animation: lineanimation 1s cubic-bezier(0.4, 0, 0.2, 1) alternate;
+          }
+        </style>
+
+        <svg viewBox="0 0 290 147" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M248.38 4C45.3799 21.5 -21.1201 56 13.8799 106.5C48.8799 157 194.38 149.5 262.38 111C330.38 72.5 238.88 25.7173 143.38 33"
+            stroke="#77C9D4" stroke-width="8" stroke-linecap="round" pathLength="1"></path>
+        </svg>
+        ::after
+
+        <a data-w-tab="Tab 1" class="tabs_tab-link-purple cc-links-section-1 w-inline-block w-tab-link"
+          id="w-tabs-0-data-w-tab-0" href="#w-tabs-0-data-w-pane-0" role="tab" aria-controls="w-tabs-0-data-w-pane-0"
+          aria-selected="false" tabindex="-1">
+          <div>Manage your day</div>
+          <div class="tabs_tab-link-grey-border">
+            <div class="tabs_tab-link-accent-border cc-purple"></div>
+          </div>
+        </a><a data-w-tab="Tab 2" class="tabs_tab-link-purple cc-links-section-1 w-inline-block w-tab-link"
+          id="w-tabs-0-data-w-tab-1" href="#w-tabs-0-data-w-pane-1" role="tab" aria-controls="w-tabs-0-data-w-pane-1"
+          aria-selected="false" tabindex="-1">
+          <div>Work with your team</div>
+          <div class="tabs_tab-link-grey-border">
+            <div class="tabs_tab-link-accent-border cc-purple"></div>
+          </div>
+        </a><a data-w-tab="Tab 3" class="tabs_tab-link-purple cc-links-section-1 w-inline-block w-tab-link w--current"
+          id="w-tabs-0-data-w-tab-2" href="#w-tabs-0-data-w-pane-2" role="tab" aria-controls="w-tabs-0-data-w-pane-2"
+          aria-selected="true">
+          <div>Plan a family vacation</div>
+          <div class="tabs_tab-link-grey-border">
+            <div class="tabs_tab-link-accent-border cc-purple"></div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="two">Two
+    </div>
+
     <div class="three">Three</div>
+
     <div class="four">
       <div>
         <h2>Find Golfers</h2>
       </div>
       <div>
-        <p class="format-text">Find a playing partner that suits your needs.</p>
+        <p class="format-text">Find a playing partner that suits you.</p>
       </div>
     </div>
     <div class="five">
-      <h2>Messsage and Forum</h2>
+      <h2>Messaging and Forum</h2>
       <p class="format-text">Get to know them through messages or ask questions through the forum.</p>
 
     </div>
@@ -46,10 +93,10 @@
   </div>
 
 
-{# <h2>How It Works</h2>
-<p>1. Filter golfers that you would like to message.
-  2. Message them and start golfing together.
-  3. Comment on the forum for more short term matching.
-</p> #}
-{# bootstrap some footers#}
-{% endblock%}
+  {# <h2>How It Works</h2>
+  <p>1. Filter golfers that you would like to message.
+    2. Message them and start golfing together.
+    3. Comment on the forum for more short term matching.
+  </p> #}
+  {# bootstrap some footers#}
+  {% endblock%}

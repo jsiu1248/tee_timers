@@ -21,31 +21,41 @@
 <body class="users">
 
 
-        {% for user in users %}
+    {% for user in users %}
 
-        <body class="user">
-            {# Single user #}
+    <body class="user">
+        {# Single user #}
 
 
-                <div class="flex-item">
-                    {# getting the boxes div for each user#}
-                    <a href="{{ url_for('main.user', username=user.username) }}">
+        <div class="flex-item">
+            {# getting the boxes div for each user#}
+            <img class="rounded-circle shadow-4-strong" src="../static/{{ user.Img.img}}">
 
-                        <p class = "center"> {{ user.User.username }} </p>
-                        <a class="btn btn-default" href="{{ url_for('main.send_message',
+            <a href="{{ url_for('main.user', username=user.username) }}">
+
+                <p class="center"> {{ user.User.username }} </p>
+
+
+            </a>
+            <p class="center"> {{ user.UserProfile.bio }} </p>
+
+            <a class="btn btn-default" href="{{ url_for('main.send_message',
                             recipient = user.User.username) }}">
-                            Message
+                Message
+            </a>
+            <br>
+<br>
+            <a class="btn btn-default" href="{{ url_for('main.user',
+            username = user.User.username) }}">
+                Go to Profile
 
-                        </a>
-
-                    </a>
-                </div>
+        </div>
 
 
-                {# add image of user#}
-                {# have to link to the message between user1 and user2 or start a new message between between#}
+        {# add image of user#}
+        {# have to link to the message between user1 and user2 or start a new message between between#}
 
-        </body>
+    </body>
 
 
     {% endfor %}

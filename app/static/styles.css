@@ -24,8 +24,8 @@
     border-radius: 10px;
     border: 5px solid #c3c3c3;
     text-align: center;
-    height: 200px;
-    width: 200px;
+    height: 300px;
+    width: 300px;
     margin: 10px;
 
 }
@@ -130,18 +130,29 @@ body {
     grid-column: 1 / 2;
     grid-row: 1;
     background-color: #f2f2f2;
+    display: block;
+    align-self: center;
+    justify-self: center;
+
+
 }
 
 .two {
     grid-column: 2 / 2;
     grid-row: 1;
-    background-color: #c0c0c0;
+    background-color: #f2f2f2;
+    display: block;
+    align-self: center;
+    justify-self: center;
+
+
+
 }
 
 .three {
     grid-column: 1 / 2;
     grid-row: 2;
-    background-color: red;
+    background-color: #f2f2f2;
     background-image: url("../static/istockphoto-486876112-612x612.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -156,7 +167,7 @@ body {
     text-align: center;
     display: block;
     align-self: center;
-  justify-self: center;
+    justify-self: center;
 
 }
 
@@ -167,7 +178,7 @@ body {
     text-align: center;
     display: block;
     align-self: center;
-  justify-self: center;
+    justify-self: center;
 
 
 }
@@ -175,7 +186,7 @@ body {
 .six {
     grid-column: 2 / 4;
     grid-row: 3;
-    background-color: black;
+    background-color: #f2f2f2;
     background-image: url("../static/istockphoto-1016165168-612x612.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -186,7 +197,7 @@ body {
 .seven {
     grid-column: 1 / 2;
     grid-row: 4;
-    background-color: pink;
+    background-color: #f2f2f2;
     background-image: url("../static/istockphoto-1272952470-612x612.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -200,7 +211,7 @@ body {
     background-color: #f2f2f2;
     display: block;
     align-self: center;
-  justify-self: center;
+    justify-self: center;
 
 
 }
@@ -213,7 +224,7 @@ body {
 
 }
 
-.format-text{
+.format-text {
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -224,7 +235,7 @@ body {
 
 }
 
-.format-header{
+.format-header {
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -232,3 +243,5 @@ body {
     align-self: center;
 
 }
+
+

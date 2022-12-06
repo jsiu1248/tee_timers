@@ -335,9 +335,23 @@ def match():
     """
     form = MatchForm()
     # passes users contained in a list to template
-    users = db.session.query(User, UserProfile).join(UserProfile, 
+    users = db.session.query(User, UserProfile, Day, State, City, 
+    Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
+    Drinking, PlayingType, GolfCourse, Img).join(UserProfile, 
                 UserProfile.id == User.id, 
-                isouter = True).all()
+                isouter = True
+    ).join(State, UserProfile.state_id == State.id, isouter = True
+    ).join(City, UserProfile.city_id == City.id, isouter = True
+    ).join(Gender, UserProfile.gender_id == Gender.id, isouter = True
+    ).join(TimeOfDay, UserProfile.time_of_day_id == TimeOfDay.id, isouter = True
+    ).join(RideOrWalk, UserProfile.ride_or_walk_id == RideOrWalk.id,  isouter = True
+    ).join(Handicap, UserProfile.handicap_id == Handicap.id, isouter = True
+    ).join(Smoking, UserProfile.smoking_id == Smoking.id, isouter = True
+    ).join(Drinking, UserProfile.drinking_id == Drinking.id, isouter = True
+    ).join(PlayingType, UserProfile.playing_type_id == PlayingType.id,  isouter = True
+    ).join(GolfCourse, UserProfile.golf_course_id == GolfCourse.id, isouter = True
+    ).join(Img, UserProfile.profile_picture_id == Img.id,isouter = True).all()
+
 
     if request.method == 'POST':
         data = dict((key, request.form.getlist(key) if len(
@@ -378,8 +392,10 @@ def match():
         users = db.session.query(User, UserProfile).join(UserProfile, 
                 UserProfile.id == User.id, 
                 isouter = True).filter(and_(k for k in filter_list))
+
+
     return render_template('match.html',
-                           users = users, form = form) #, profile_picture = picture)
+                           users = users, form = form)
 
 
 @main.route('/post/<slug>',  methods=["GET", "POST"])
