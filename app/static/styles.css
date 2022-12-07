@@ -1,4 +1,4 @@
-\\ using templates css for now .body {
+.body {
     background-color: #f2f2f2;
 }
 
@@ -11,22 +11,17 @@
     margin-left: 150px;
 }
 
-/* Making user profile boxes*/
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
 
 .flex-item {
-    flex: 0 0 300px;
-    display: inline-block;
+    /* flex: 0 0 0; */
+    display: inline-grid;
     border-radius: 10px;
     border: 5px solid #c3c3c3;
     text-align: center;
-    height: 400px;
-    width: 300px;
+    height: 600px;
+    width: 350px;
     margin: 10px;
+    background-color: white;
 
 }
 
@@ -240,8 +235,21 @@ body {
     justify-content: center;
     align-items: center;
     align-self: center;
-    align-self: center;
 
 }
 
+/*Formatting Matching Page*/
+.format-button{
+    height:40;
+    width: auto;
+    align-items: center;
+    justify-self: center;
+    justify-content: center;
+    text-align: center;
+    
 
+}
+
+.format-profile-attributes{
+    display:inline-block
+}

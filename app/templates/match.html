@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 {% import "_macros.html" as macros %}
 {% import "bootstrap/wtf.html" as wtf %}
@@ -34,8 +35,9 @@
             {% else %}
             NONE
             {% endif %} #}
-            <a href="{{ url_for('main.user', username=user.username) }}">
+                        {{user.City.city}}
 
+            <a href="{{ url_for('main.user', username=user.username) }}">
 
                 <p class="center"> {{ user.User.username }} </p>
 
@@ -43,44 +45,45 @@
             </a>
             <p class="center"> {{ user.UserProfile.bio }} </p>
 
-            <a class="btn btn-default" href="{{ url_for('main.send_message',
+            <a class="btn btn-default format-button" href="{{ url_for('main.send_message',
                             recipient = user.User.username) }}">
+                            <i class="bi bi-chat-dots"></i>
                 Message
             </a>
             <br>
             <br>
-            <a class="btn btn-default" href="{{ url_for('main.user',
+            <a class="btn btn-default format-button" href="{{ url_for('main.user',
             username = user.User.username) }}">
-                Go to Profile
+            <i class="bi bi-hand-thumbs-up"></i>  Go to Profile
             </a>
             <br>
             <br>
             {% if user.GolfCourse.course %}
-            <a class="btn btn-default" href="#">
+            <a class="btn btn-default format-button format-profile-attributes" href="#">
                 {{user.GolfCourse.course}}
             </a>
             {% endif %}
 
             {% if user.Handicap.handicap%}
-            <a class="btn btn-default" href="#">
+            <a class="btn btn-default format-button format-profile-attributes" href="#">
                 {{user.Handicap.handicap}}
             </a>
             {% endif %}
 
             {% if user.PlayingType.playing_type %}
-            <a class="btn btn-default" href="#">
+            <a class="btn btn-default format-button format-profile-attributes" href="#">
                 {{user.PlayingType.playing_type}}
             </a>
             {% endif %}
 
             {% if user.Smoking.smoking %}
-            <a class="btn btn-default" href="#">
+            <a class="btn btn-default format-button format-profile-attributes" href="#">
                 {{user.Smoking.smoking}}
             </a>
             {% endif %}
 
             {% if user.Drinking.drinking %}
-            <a class="btn btn-default" href="#">
+            <a class="btn btn-default format-button format-profile-attributes" href="#">
                 {{user.Drinking.drinking}}
             </a>
             {% endif %}
