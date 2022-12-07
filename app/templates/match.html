@@ -55,21 +55,35 @@
             </a>
             <br>
             <br>
+            {% if user.GolfCourse.course %}
             <a class="btn btn-default" href="#">
                 {{user.GolfCourse.course}}
             </a>
+            {% endif %}
+
+            {% if user.Handicap.handicap%}
             <a class="btn btn-default" href="#">
                 {{user.Handicap.handicap}}
             </a>
+            {% endif %}
+
+            {% if user.PlayingType.playing_type %}
             <a class="btn btn-default" href="#">
                 {{user.PlayingType.playing_type}}
             </a>
+            {% endif %}
+
+            {% if user.Smoking.smoking %}
             <a class="btn btn-default" href="#">
                 {{user.Smoking.smoking}}
             </a>
+            {% endif %}
+
+            {% if user.Drinking.drinking %}
             <a class="btn btn-default" href="#">
                 {{user.Drinking.drinking}}
             </a>
+            {% endif %}
         </div>
 
 
