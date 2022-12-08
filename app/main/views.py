@@ -7,7 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, or_
 from ..models import User, Role, Permission, Comment, Post, Day, UserProfile, State, City, GolfCourse, Gender, TimeOfDay, RideOrWalk, Handicap, Smoking, Drinking, PlayingType, Img, Message
 from ..decorators import permission_required, admin_required
-from .forms import PostForm, TechSupportForm, MatchForm, EditProfileForm, AdminLevelEditProfileForm, CommentForm, MessageForm
+from .forms import PostForm, SupportForm, MatchForm, EditProfileForm, AdminLevelEditProfileForm, CommentForm, MessageForm
 from ..email import send_email
 from PIL import Image
 import io
@@ -25,7 +25,13 @@ def index():
     Home page.
     Return: the index html
     """
-    support_form = TechSupportForm()
+    support_form = SupportForm()
+    if support_form.validate_on_submit():
+        name = support_form;name.data
+        title = support_form.title.data
+        message = support_form.message.data
+        send_email('flaskwebdev.js@gmail.com', title = title, message = message, name = name)
+
     return render_template('index.html', support_form = support_form)
 
 @main.route('/admin')
@@ -497,16 +503,6 @@ def forum():
 
     return render_template('forum.html',
                            form = form, posts = posts, pagination = pagination)
-
-# @main.route('/tech_support', methods=["GET","POST"])
-# @login_required
-# def tech_support():
-#     form = TechSupportForm()
-#     if form.validate_on_submit():
-#         title_entered = form.title.data
-#         tech_message_entered = form.tech_message.data
-#         send_email('flaskwebdev.js@gmail.com', title_entered, tech_message_entered)
-#     return render_template('tech_support.html', form = form)
 
 
 

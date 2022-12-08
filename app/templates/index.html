@@ -88,10 +88,17 @@
     <p class="format-text">Meetup and start playing together.</p>
   </div>
 
-  <div class="nine"></div>
+  <div class="nine">Send your good vibes our way.</div>
   <div class="ten">
     <div class="support-form">
-      {{ wtf.quick_form(support_form) }}
+      {{wtf.form_field(support_form.name)}}
+      {{wtf.form_field(support_form.email)}}
+      {{wtf.form_field(support_form.message)}}
+      
+      {# <a class="btn btn-default" href="#"> #}
+
+      {{wtf.form_field(support_form.submit)}}
+      {# </a> #}
     </div>
   </div>
 </div>

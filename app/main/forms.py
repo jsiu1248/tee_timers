@@ -9,12 +9,13 @@ from app.models import City, GolfCourse, State, PlayingType, TimeOfDay, Smoking,
 from wtforms_sqlalchemy.fields import QuerySelectField
 from flask_wtf.file import FileField, FileAllowed
 
-class TechSupportForm(FlaskForm):
+class SupportForm(FlaskForm):
     """
     Form for asking any questions. 
     """
-    title = StringField("Title")
-    tech_message = TextAreaField("What would you like help with?") 
+    name = StringField("Name")
+    email = StringField("Email Address")
+    message = TextAreaField("Message") 
     submit = SubmitField("Submit")
 
 

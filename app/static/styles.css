@@ -90,6 +90,13 @@
     transform: translate(-50%, -50%);
 }
 
+.title-format{
+    color: #FFFFFF;
+    font-size: 50px;
+    left:-100
+
+}
+
 
 
 /*making grid boxes for images of the index page*/
@@ -217,7 +224,7 @@ body {
 .ten{
     grid-column: 2 / 4;
     grid-row: 5;
-    background-color: #f2f2f2;
+    background-color: #57BC90; 
 
 }
 
@@ -225,7 +232,7 @@ body {
 .formatting {
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: #f2f2f2;
+    background-color: #015249;
 
 }
 
