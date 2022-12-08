@@ -30,11 +30,9 @@
 
         <div class="flex-item">
             {# getting the boxes div for each user#}
-            {# {% if user.Img.img is not none %}
+             {% if user.Img.img%}
             <img class="rounded-circle account-img" src="../static/{{ user.Img.img}}">
-            {% else %}
-            NONE
-            {% endif %} #}
+            {% endif %} 
                         {{user.City.city}}
 
             <a href="{{ url_for('main.user', username=user.username) }}">

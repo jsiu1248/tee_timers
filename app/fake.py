@@ -1,7 +1,7 @@
 from sqlalchemy.exc import IntegrityError
 from faker import Faker
 from . import db
-from .models import User, Post, Comment, UserProfile
+from .models import User, Post, Comment, UserProfile, Img
 from random import randint
 import string
 
@@ -123,4 +123,23 @@ def comment(count=100):
                         )
         db.session.add(c)
     db.session.commit()
+
+def image(count = 100):
+    """
+    Function that creates fake images for users
+    """
+    fake = Faker()
+
+    user_count = User.query.count()
+
+    for k in range(count):
+        # offset dicards a certain number of results, n is a random number between 0 and then user_count -1
+        # so it is picking a random user and don't care about duplicated users because users can have multiple compositions
+        u = User.query.offset(randint(0, user_count - 1)).first()
+
+        i = Img(img = "f948cd663594a1ef.jpeg"
+                        )
+        db.session.add(i)
+    db.session.commit()
+
 

@@ -23,8 +23,14 @@
                     {{ post.description }}
                 </p>
             </div>
-
+            <a class="btn btn-default" href="{{ url_for('main.comment_form') }}">
+                <i class="bi bi-reply-all-fill"></i> reply
+            </a>
+    
         </div>
+        <br>
+
+
         {% if post.comments %}
         {% if post.comments.count() > 0 %}
     <li class="comment">
@@ -33,22 +39,22 @@
             {% for comment in post.comments.all() %}
             <div class="comment-content">
                 <div class="comment-username">
-                    {{ comment.users.username }}
+                    <a href="{{ url_for('main.user', username = comment.users.username) }}">
+
+                        {{ comment.users.username }} -
+                    </a>
                 </div>
+                <div class="comment-date"> {{ comment.timestamp }} {{moment(comment.timestamp).fromNow() }}</div>
+
                 <div class="comment-description">
                     {{ comment.description }}
                 </div>
             </div>
-
+            <br>
             {% endfor %}
         </div>
         {% endif %}
         {% endif %}
 
-
-        <br>
-            <a class="btn btn-default" href="{{ url_for('main.comment_form') }}">
-                <i class="bi bi-reply-all-fill"></i> reply     
-            </a>
 
         {% endfor %}
