@@ -207,6 +207,20 @@ body {
 
 }
 
+.nine{
+    grid-column: 1 / 2;
+    grid-row: 5;
+    background-color: #f2f2f2;
+
+}
+
+.ten{
+    grid-column: 2 / 4;
+    grid-row: 5;
+    background-color: #f2f2f2;
+
+}
+
 /*Four, Five, Eight formatting */
 .formatting {
     background-repeat: no-repeat;

@@ -25,7 +25,8 @@ def index():
     Home page.
     Return: the index html
     """
-    return render_template('index.html')
+    support_form = TechSupportForm()
+    return render_template('index.html', support_form = support_form)
 
 @main.route('/admin')
 @login_required
@@ -469,6 +470,21 @@ def forum():
     Return: redirects to forum page
     """
     form = PostForm()
+    if form.validate_on_submit():
+
+        p = Post(description = form.description.data, title = form.title.data
+        , 
+                    users = current_user._get_current_object()
+
+                        )
+                        
+
+        db.session.add(p)
+        db.session.commit()
+        p.generate_slug()
+
+
+
     page = request.args.get('page', 1, type = int)
     # Pagination of the posts for all users
     pagination = \

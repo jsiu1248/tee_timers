@@ -14,7 +14,9 @@
 
             <div class="post-date">- {{ post.timestamp }} {{moment(post.timestamp).fromNow() }}</div>
             <div class="post-title">
+                    {% if post.slug %}
                 <a href="{{ url_for('.post', slug = post.slug) }}">
+                {% endif %}
                     {{ post.title }}</a>
             </div>
 
