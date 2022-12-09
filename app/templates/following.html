@@ -4,7 +4,7 @@
 {% block page_content %}
 <h1>Following: {{current_user.username}}</h1>
 <br>
-<table class="table table-light">
+<table class="table table-white">
     <thead>
         <tr>
             <th scope="col"></th>
@@ -17,22 +17,21 @@
         {% for f in user.following.all()%}
 
         {% if f.user != user %}
-        <li class="following">
-            {# Single composition #}
+            {# Single composition #}                   
             <tr height=75px>
                 <td>
                     <img class="profile-thumbnail">
                     <a href="{{ url_for('.user', username=f.following.username) }}">
-
-                        <img class="img-rounded profile-thumbnail" src="#">
+                        {# {% if f.Img.img %}
+                        <img class="img-rounded profile-thumbnail" src="{{f.Img.img}}">
+                        {% endif %} #}
                 </td>
                 <td><a href="{{ url_for('main.user', username=f.following.username) }}">{{f.following.username}}</a>
                 </td>
 
-                <td> {{ moment(f.timestamp).format('L') }}</td>>
+                <td> {{ moment(f.timestamp).format('L') }}</td>
                 </a>
                 </div>
-        </li>
 
 
         </a>
