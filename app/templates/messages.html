@@ -335,7 +335,7 @@
             </div>
           </div>
           <div class="inbox_chat">
-            {% for i in data %}
+            {# {% for i in data %}
             <a href="{{ url_for('chat',rid=i.room_id) }}">
               <div class="chat_list" id="{{ i.room_id }}">
                 <div class="chat_people">
@@ -347,7 +347,7 @@
                 </div>
               </div>
             </a>
-            {% endfor %}
+            {% endfor %} #}
           </div>
         </div>
         <div class="mesgs">
@@ -357,7 +357,7 @@
             <div class="outgoing_msg" id="{{ j.timestamp }}">
               <div class="sent_msg">
                 <p>{{ j["message"] }}</p>
-                {# <span class="time_date">{{ j["timestamp"] | ftime }}</span> #}
+                <span class="time_date">{{ j["timestamp"] | ftime }}</span>
               </div>
             </div>
             {% else %}
@@ -367,11 +367,11 @@
               <div class="received_msg">
                 <div class="received_withd_msg">
                   <p>{{ j["message"] }}</p>
-                  {# <span class="time_date">{{ j["timestamp"] | ftime }}</span> #}
+                  <span class="time_date">{{ j["timestamp"] | ftime }}</span>
                 </div>
               </div>
             </div>
-            {# {% endif %} #}
+            {% endif %}
             {% endfor %} #}
           </div>
           <div class="type_msg">
@@ -442,8 +442,8 @@
       let user_input = $('input.message').val()
       socket.emit('outgoing', {
         timestamp: Date.now() / 1000,
-        sender_username: "{{ user_data['username'] }}",
-        sender_id: {{ user_data["id"] }},
+   //     sender_username: "{{ user_data['username'] }}",
+    //    sender_id: {{ user_data["id"] }},
       message : user_input,
       rid: '{{ room_id }}'
           } )

@@ -332,3 +332,21 @@ body {
 	opacity: 1;
 	transform: scale(1,1);
 }
+
+/*Nav Bar*/
+.name-formatting{
+	color: black;
+    font-size: 24px;
+
+}
+
+.icon-formatting{
+    color: black;
+  border-color: black;
+  font-size: 50px;
+}
+
+.nav-bg{
+    background-color: #f2f2f2;
+
+}
