@@ -1,0 +1,25 @@
+{
+  "name": "golf_app_flask",
+  "version": "1.0.0",
+  "description": "express application",
+  "main": "index.js",
+  "scripts": {
+    "test": "\"echo \\\"Error: no test specified\\\" && exit 1\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsiu1248/golf_app_flask.git"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "Jonathan Siu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jsiu1248/golf_app_flask/issues"
+  },
+  "homepage": "https://github.com/jsiu1248/golf_app_flask#readme",
+  "dependencies": {
+    "tailwindcss": "^3.2.4"
+  }
+}
