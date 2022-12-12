@@ -291,7 +291,7 @@ body {
 .wrapper-match {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: repeat(1, 1fr);
     grid-gap: 0px;
     grid-auto-rows: 20%;
     grid-auto-columns: auto;
@@ -314,7 +314,17 @@ body {
     grid-column: 1 / 2;
     grid-row: 1 5;
     background-color: #f2f2f2;
-    display: grid;
+    display: block;
+    align-self: center;
+    justify-self: center;
+
+}
+
+.matches-grid{
+    grid-column: 2 / 2;
+    grid-row: 1 5;
+    background-color: #f2f2f2;
+    display: block;
     align-self: center;
     justify-self: center;
 
