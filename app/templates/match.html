@@ -21,101 +21,106 @@
     <br>
     <div id="matches-grid" class="matches-grid">
 
-    <body class="users">
+        <body class="users">
 
 
-        {% for user in users %}
+            {% for user in users %}
 
-        <body class="user">
-            {# Single user #}
-
-
-            <div class="flex-item">
-                {# getting the boxes div for each user#}
-                {% if user.Img.img%}
-                <img class="rounded-circle account-img" src="../static/{{user.Img.img}}">
-                {% endif %}
-                {{user.City.city}}
-
-                <a href="{{ url_for('main.user', username=user.username) }}">
-
-                    <p class="center"> {{ user.User.username }} </p>
+            <body class="user">
+                {# Single user #}
 
 
-                </a>
-                <p class="center"> {{ user.UserProfile.bio }} </p>
+                <div class="flex-item">
+                    {# getting the boxes div for each user#}
+                    {% if user.Img.img%}
+                    <img class="rounded-circle account-img" src="../static/{{user.Img.img}}">
+                    {% endif %}
+                    {{user.City.city}}
 
-                <a class="btn btn-default format-button" href="{{ url_for('main.send_message',
+                    <a href="{{ url_for('main.user', username=user.username) }}">
+
+                        <p class="center"> {{ user.User.username }} </p>
+
+
+                    </a>
+                    <p class="center"> {{ user.UserProfile.bio }} </p>
+
+                    <a class="btn btn-default format-button" href="{{ url_for('main.send_message',
                             recipient = user.User.username) }}">
-                    <i class="bi bi-chat-dots"></i>
-                    Message
-                </a>
-                <br>
-                <br>
-                <a class="btn btn-default format-button" href="{{ url_for('main.user',
+                        <i class="bi bi-chat-dots"></i>
+                        Message
+                    </a>
+                    <br>
+                    <br>
+                    <a class="btn btn-default format-button" href="{{ url_for('main.user',
             username = user.User.username) }}">
-                    <i class="bi bi-hand-thumbs-up"></i> Go to Profile
-                </a>
-                <br>
-                <br>
-                {% if user.GolfCourse.course %}
-                <a class="btn btn-default format-button format-profile-attributes" href="#">
-                    {{user.GolfCourse.course}}
-                </a>
-                {% endif %}
+                        <i class="bi bi-hand-thumbs-up"></i> Go to Profile
+                    </a>
+                    <br>
+                    <br>
+                    {% if user.GolfCourse.course %}
+                    <a class="btn btn-default format-button format-profile-attributes" href="#">
+                        {{user.GolfCourse.course}}
+                    </a>
+                    {% endif %}
 
-                {% if user.Handicap.handicap%}
-                <a class="btn btn-default format-button format-profile-attributes" href="#">
-                    {{user.Handicap.handicap}}
-                </a>
-                {% endif %}
+                    {% if user.Handicap.handicap%}
+                    <a class="btn btn-default format-button format-profile-attributes" href="#">
+                        {{user.Handicap.handicap}}
+                    </a>
+                    {% endif %}
 
-                {% if user.PlayingType.playing_type %}
-                <a class="btn btn-default format-button format-profile-attributes" href="#">
-                    {{user.PlayingType.playing_type}}
-                </a>
-                {% endif %}
+                    {% if user.PlayingType.playing_type %}
+                    <a class="btn btn-default format-button format-profile-attributes" href="#">
+                        {{user.PlayingType.playing_type}}
+                    </a>
+                    {% endif %}
 
-                {% if user.Smoking.smoking %}
-                <a class="btn btn-default format-button format-profile-attributes" href="#">
-                    {{user.Smoking.smoking}}
-                </a>
-                {% endif %}
+                    {% if user.Smoking.smoking %}
+                    <a class="btn btn-default format-button format-profile-attributes" href="#">
+                        {{user.Smoking.smoking}}
+                    </a>
+                    {% endif %}
 
-                {% if user.Drinking.drinking %}
-                <a class="btn btn-default format-button format-profile-attributes" href="#">
-                    {{user.Drinking.drinking}}
-                </a>
-                {% endif %}
-            </div>
-
-
-            {# add image of user#}
-            {# have to link to the message between user1 and user2 or start a new message between between#}
-
-        </body>
+                    {% if user.Drinking.drinking %}
+                    <a class="btn btn-default format-button format-profile-attributes" href="#">
+                        {{user.Drinking.drinking}}
+                    </a>
+                    {% endif %}
+                </div>
 
 
-        {% endfor %}
-</div>
+                {# add image of user#}
+                {# have to link to the message between user1 and user2 or start a new message between between#}
+
+            </body>
+
+
+            {% endfor %}
+
+            {% if pagination %}
+            {{ macros.pagination_widget(pagination, '.match') }}
+            {% endif %}
+
+    </div>
 
     </body>
 
-</body>
-{# username, #}
+    </body>
+    {# username, #}
 
-{# create gender with choices for a filter#}
-{# if gender is clicked then filter #}
-{# checkbox on or off #}
-{# 3 check boxes #}
-
-
-{# show all filters with checkboxes #}
-{# for each user you can follow, or message, link #}
-{#filter for different golf courses# }
-{# as each filter is done then it starts filtering list #}
+    {# create gender with choices for a filter#}
+    {# if gender is clicked then filter #}
+    {# checkbox on or off #}
+    {# 3 check boxes #}
 
 
-{# paging and ordering #}
+    {# show all filters with checkboxes #}
+    {# for each user you can follow, or message, link #}
+    {#filter for different golf courses# }
+    {# as each filter is done then it starts filtering list #}
 
-{% endblock %}
+
+    {# paging and ordering #}
+
+    {% endblock %}

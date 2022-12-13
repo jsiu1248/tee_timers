@@ -11,7 +11,7 @@
         </a>
     </li>
     {# link to all shown pages #}
-    {% for p in pagination.iter_pages(1, 5, 5, 1) %}
+    {% for p in pagination.iter_pages() %}
         {% if p %}
         {# active class is given to the current page to make it pop out#}
             <li {% if p == pagination.page %} class="active"{% endif %}>
