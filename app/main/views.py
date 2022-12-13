@@ -387,13 +387,6 @@ def match():
     # Convert to list
     users = pagination.items
 
-    # pagination = User.query.paginate(
-    #         page = page,
-    #         per_page=current_app.config['USERS_PER_PAGE'],
-    #         error_out=False)
-    # # Convert to list
-    # users = pagination.items
-
 
     if request.method == 'POST':
         data = dict((key, request.form.getlist(key) if len(
@@ -431,7 +424,7 @@ def match():
                 pass
 
 
-        users = db.session.query(User, UserProfile, Day, State, City, 
+        pagination = db.session.query(User, UserProfile, Day, State, City, 
     Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
     Drinking, PlayingType, GolfCourse, Img).join(UserProfile, 
                 UserProfile.id == User.id, 
@@ -447,7 +440,13 @@ def match():
     ).join(Drinking, UserProfile.drinking_id == Drinking.id, isouter = True
     ).join(PlayingType, UserProfile.playing_type_id == PlayingType.id,  isouter = True
     ).join(GolfCourse, UserProfile.golf_course_id == GolfCourse.id, isouter = True
-    ).join(Img, UserProfile.profile_picture_id == Img.id, isouter = True).all()
+    ).join(Img, UserProfile.profile_picture_id == Img.id, isouter = True).paginate(
+            page = page,
+            per_page = current_app.config['USERS_PER_PAGE'],
+            error_out = False)
+            
+    # Convert to list
+    users = pagination.items
 
 
 
