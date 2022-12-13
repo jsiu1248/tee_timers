@@ -346,25 +346,7 @@ def match():
     page = request.args.get('page', 1, type = int)
 
     # passes users contained in a list to template
-    users = db.session.query(User, UserProfile, Day, State, City, 
-    Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
-    Drinking, PlayingType, GolfCourse, Img
-    ).select_from(User
-    ).join(UserProfile,  User.id == UserProfile.id, isouter = True
-    ).join(Day, UserProfile.day_id == Day.id, isouter = True
-    ).join(State, UserProfile.state_id == State.id, isouter = True
-    ).join(City, UserProfile.city_id == City.id, isouter = True
-    ).join(Gender, UserProfile.gender_id == Gender.id, isouter = True
-    ).join(TimeOfDay, UserProfile.time_of_day_id == TimeOfDay.id, isouter = True
-    ).join(RideOrWalk, UserProfile.ride_or_walk_id == RideOrWalk.id,  isouter = True
-    ).join(Handicap, UserProfile.handicap_id == Handicap.id, isouter = True
-    ).join(Smoking, UserProfile.smoking_id == Smoking.id, isouter = True
-    ).join(Drinking, UserProfile.drinking_id == Drinking.id, isouter = True
-    ).join(PlayingType, UserProfile.playing_type_id == PlayingType.id,  isouter = True
-    ).join(GolfCourse, UserProfile.golf_course_id == GolfCourse.id, isouter = True
-    ).join(Img, UserProfile.profile_picture_id == Img.id, isouter = True).all()
-
-    # pagination = db.session.query(User, UserProfile, Day, State, City, 
+    # users = db.session.query(User, UserProfile, Day, State, City, 
     # Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
     # Drinking, PlayingType, GolfCourse, Img
     # ).select_from(User
@@ -380,12 +362,30 @@ def match():
     # ).join(Drinking, UserProfile.drinking_id == Drinking.id, isouter = True
     # ).join(PlayingType, UserProfile.playing_type_id == PlayingType.id,  isouter = True
     # ).join(GolfCourse, UserProfile.golf_course_id == GolfCourse.id, isouter = True
-    # ).join(Img, UserProfile.profile_picture_id == Img.id, isouter = True).paginate(
-    #         page = page,
-    #         per_page = current_app.config['USERS_PER_PAGE'],
-    #         error_out = False)
-    # # Convert to list
-    # users = pagination.items
+    # ).join(Img, UserProfile.profile_picture_id == Img.id, isouter = True).all()
+
+    pagination = db.session.query(User, UserProfile, Day, State, City, 
+    Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
+    Drinking, PlayingType, GolfCourse, Img
+    ).select_from(User
+    ).join(UserProfile,  User.id == UserProfile.id, isouter = True
+    ).join(Day, UserProfile.day_id == Day.id, isouter = True
+    ).join(State, UserProfile.state_id == State.id, isouter = True
+    ).join(City, UserProfile.city_id == City.id, isouter = True
+    ).join(Gender, UserProfile.gender_id == Gender.id, isouter = True
+    ).join(TimeOfDay, UserProfile.time_of_day_id == TimeOfDay.id, isouter = True
+    ).join(RideOrWalk, UserProfile.ride_or_walk_id == RideOrWalk.id,  isouter = True
+    ).join(Handicap, UserProfile.handicap_id == Handicap.id, isouter = True
+    ).join(Smoking, UserProfile.smoking_id == Smoking.id, isouter = True
+    ).join(Drinking, UserProfile.drinking_id == Drinking.id, isouter = True
+    ).join(PlayingType, UserProfile.playing_type_id == PlayingType.id,  isouter = True
+    ).join(GolfCourse, UserProfile.golf_course_id == GolfCourse.id, isouter = True
+    ).join(Img, UserProfile.profile_picture_id == Img.id, isouter = True).paginate(
+            page = page,
+            per_page = current_app.config['USERS_PER_PAGE'],
+            error_out = False)
+    # Convert to list
+    users = pagination.items
 
     # pagination = User.query.paginate(
     #         page = page,
@@ -454,7 +454,7 @@ def match():
 
 
     return render_template('match.html',
-                           users = users, form = form #, pagination = pagination)
+                           users = users, form = form , pagination = pagination
     )
 
 @main.route('/post/<slug>',  methods=["GET", "POST"])
