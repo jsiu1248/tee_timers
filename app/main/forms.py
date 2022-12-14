@@ -1,7 +1,7 @@
 from ast import Str
 from xmlrpc.client import Boolean
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, DateField, TextAreaField, SelectField, BooleanField, SelectMultipleField, IntegerField
+from wtforms import StringField, SubmitField, DateField, TextAreaField, SelectField, BooleanField, SelectMultipleField, IntegerField, RadioField
 from wtforms.validators import DataRequired, Length, Regexp, NumberRange
 from wtforms import widgets, SelectMultipleField
 from app.models import db, Gender
@@ -34,6 +34,16 @@ class CommentForm(FlaskForm):
     description = TextAreaField("What's your response?") 
     submit = SubmitField("Submit")
 
+class MultiCheckboxField(SelectMultipleField):
+    """
+    A multiple-select, except displays a list of checkboxes.
+
+    Iterating the field will produce subfields, allowing custom rendering of
+    the enclosed checkbox fields.
+    """
+    widget = widgets.ListWidget(prefix_label=False)
+    option_widget = widgets.CheckboxInput()
+    
 class MatchForm(FlaskForm):
     """
     Form for user to select criteria of playing partner. 
@@ -47,17 +57,16 @@ class MatchForm(FlaskForm):
     time_of_day = SelectMultipleField('Time of Day',
                                coerce=int,
                                validators=[])
-
     ride_or_walk = SelectMultipleField('Ride or Walk',
                                coerce=int,
                                validators=[])
     handicap = SelectMultipleField('Handicap',
                                coerce=int,
                                validators=[])
-    smoking = SelectMultipleField('Smoking',
+    smoking = RadioField(label = 'Smoking',
                                coerce=int,
                                validators=[])
-    drinking = SelectMultipleField('Drinking',
+    drinking = RadioField(label = 'Drinking',
                                coerce=int,
                                validators=[])            
     playing_type = SelectMultipleField('Playing Type',

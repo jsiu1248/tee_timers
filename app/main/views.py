@@ -444,7 +444,7 @@ def match():
             page = page,
             per_page = current_app.config['USERS_PER_PAGE'],
             error_out = False)
-            
+
     # Convert to list
     users = pagination.items
 
