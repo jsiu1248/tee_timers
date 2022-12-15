@@ -21,7 +21,7 @@
     <br>
     <div id="matches-grid" class="matches-grid">
 
-        <body class="users">
+        <div class="users">
 
 
             {% for user in users %}
@@ -31,7 +31,7 @@
 
 
                 <div class="flex-item">
-                    <div style='display: inline-flex;'>
+                    <p style='display: inline-flex;'>
                         <p style="  display: flex;
                         align-items: center; ">
                             {{user.City.city}}
@@ -41,7 +41,7 @@
                         {% if user.Img.img%}
                         <img class="rounded-circle account-img img-responsive center-block d-block mx-auto"
                             src="../static/{{user.Img.img}}">
-                    </div>
+                    <p>
                     {% endif %}
 
                     <a href="{{ url_for('main.user', username=user.username) }}">
@@ -96,40 +96,38 @@
                         </a>
                         {% endif %}
                     </div>
+
+
+                    {# add image of user#}
+                    {# have to link to the message between user1 and user2 or start a new message between between#}
+
                 </div>
 
+                {% endfor %}
+                <div>
+                    {% if pagination %}
+                    {{ macros.pagination_widget(pagination, '.match') }}
+                    {% endif %}
+                </div>
+            </div>
+        </body>
 
-                {# add image of user#}
-                {# have to link to the message between user1 and user2 or start a new message between between#}
-
-            </body>
-
-<div>
-            {% endfor %}
-
-            {% if pagination %}
-            {{ macros.pagination_widget(pagination, '.match') }}
-            {% endif %}
-</div>
     </div>
+</div>
+{# username, #}
 
-    </body>
-
-    </body>
-    {# username, #}
-
-    {# create gender with choices for a filter#}
-    {# if gender is clicked then filter #}
-    {# checkbox on or off #}
-    {# 3 check boxes #}
+{# create gender with choices for a filter#}
+{# if gender is clicked then filter #}
+{# checkbox on or off #}
+{# 3 check boxes #}
 
 
-    {# show all filters with checkboxes #}
-    {# for each user you can follow, or message, link #}
-    {#filter for different golf courses# }
-    {# as each filter is done then it starts filtering list #}
+{# show all filters with checkboxes #}
+{# for each user you can follow, or message, link #}
+{#filter for different golf courses# }
+{# as each filter is done then it starts filtering list #}
 
 
-    {# paging and ordering #}
+{# paging and ordering #}
 
-    {% endblock %}
+{% endblock %}
