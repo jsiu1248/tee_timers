@@ -24,6 +24,11 @@
                 <p>
                     {{ post.description }}
                 </p>
+
+            </div class="form-header">
+            {{ wtf.quick_form(comment_form) }}
+            </div>
+            
             </div>
             <a class="btn btn-default" href="{{ url_for('main.comment_form') }}">
                 <i class="bi bi-reply-all-fill"></i> reply

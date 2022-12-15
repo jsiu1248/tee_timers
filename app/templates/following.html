@@ -2,24 +2,27 @@
 {% import "_macros.html" as macros %}
 
 {% block page_content %}
+
 <body style="background-color: #f2f2f2;">
-<h1 class = "text-center">{{current_user.username}} is following : </h1>
-<br>
-<table class="table table-white">
-    <thead>
-        <tr>
-            <th scope="col"></th>
-            <th scope="col">User</th>
-            <th scope="col">Since</th>
-        </tr>
-    </thead>
-    <tbody>
+    <h1 class="text-center">{{current_user.username}} is following : </h1>
+    <br>
+    <table class="table table-white">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">User</th>
+                <th scope="col">Since</th>
+                <th scope="col">Follow</th>
 
-        
-        {% for f in user.following.all()%}
+            </tr>
+        </thead>
+        <tbody>
 
-        {% if f.user != user %}
-            {# Single composition #}                   
+
+            {% for f in user.following.all()%}
+
+            {% if f.user != user %}
+            {# Single composition #}
             <tr height=75px>
                 <td>
                     <img class="profile-thumbnail">
@@ -32,30 +35,34 @@
                 </td>
 
                 <td> {{ moment(f.timestamp).format('L') }}</td>
+
+
+                <td>
+                    {% if current_user.can(Permission.FOLLOW) %}
+                    {% if not current_user.is_following(user) %}
+                    <a class="btn btn-default" href="{{ url_for('.follow', username=user.username) }}">
+                        Follow
+                    </a>
+                    {% else %}
+                    <a class="btn btn-default" href="{{ url_for('.unfollow', username=user.username) }}">
+                        Unfollow
+                    </a>
+                    {% endif %}
+                    {% endif %}
+
+                </td>
                 </a>
                 </div>
 
 
-        </a>
-        
-        {% if current_user.can(Permission.FOLLOW) %}
-        {% if not current_user.is_following(user) %}
-        <a class="btn btn-default" href="{{ url_for('.follow', username=user.username) }}">
-            Follow
-        </a>
-        {% else %}
-            <a class="btn btn-default" href="{{ url_for('.unfollow', username=user.username) }}">
-            Unfollow
-        </a>
-        {% endif %}
-        {% endif %}
-    
+                </a>
 
-        {% endif %}
-        {% endfor %}
 
-    </tbody>
-</table>
+                {% endif %}
+                {% endfor %}
+
+        </tbody>
+    </table>
 </body>
 
 {% endblock %}

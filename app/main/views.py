@@ -540,6 +540,8 @@ def forum():
         db.session.commit()
         p.generate_slug()
 
+    comment_form = CommentForm()
+
 
 
     page = request.args.get('page', 1, type = int)
@@ -553,7 +555,7 @@ def forum():
     posts = pagination.items
 
     return render_template('forum.html',
-                           form = form, posts = posts, pagination = pagination)
+                           form = form, posts = posts, pagination = pagination, comment_form = comment_form)
 
 
 

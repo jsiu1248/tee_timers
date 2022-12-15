@@ -353,9 +353,11 @@ body {
     Interactive  Button
 */
 .btn-three {
-    color: #FFF;
+    color: white;
     transition: all 0.5s;
     position: relative;
+    background-color: #77C9D4;
+
 }
 
 .btn-three::before {

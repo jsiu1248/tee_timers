@@ -16,18 +16,20 @@
     <div id="filter-grid" class="filter-grid">
 
         {{wtf.form_field(form.gender)}}
-      {{wtf.form_field(form.day)}}
-      {{wtf.form_field(form.time_of_day)}}
+        {{wtf.form_field(form.day)}}
+        {{wtf.form_field(form.time_of_day)}}
         {{wtf.form_field(form.ride_or_walk)}}
-      {{wtf.form_field(form.handicap)}}
-      {{wtf.form_field(form.smoking)}}
-      {{wtf.form_field(form.drinking)}}
-      {{wtf.form_field(form.playing_type)}}
-      {{wtf.form_field(form.golf_course)}}
-      {{wtf.form_field(form.time_of_day)}}
-      {{wtf.form_field(form.city)}}
-      {{wtf.form_field(form.state)}}
-      {{wtf.form_field(form.submit)}}
+        {{wtf.form_field(form.handicap)}}
+        <p>Smoking</p>
+        {{wtf.form_field(form.smoking)}}
+        <p>Drinking</p>
+        {{wtf.form_field(form.drinking)}}
+        {{wtf.form_field(form.playing_type)}}
+        {{wtf.form_field(form.golf_course)}}
+        {{wtf.form_field(form.time_of_day)}}
+        {{wtf.form_field(form.city)}}
+        {{wtf.form_field(form.state)}}
+        {{wtf.form_field(form.submit)}}
 
 
 
@@ -47,24 +49,24 @@
 
                 <div class="flex-item">
                     <p style='display: inline-flex;'>
-                        <p style="  display: flex;
+                    <p style="  display: flex;
                         align-items: center; ">
-                            {{user.City.city}}
-                        </p>
+                        {{user.City.city}}
+                    </p>
 
-                        {# getting the boxes div for each user#}
-                        {% if user.Img.img%}
-                        <img class="rounded-circle account-img img-responsive center-block d-block mx-auto"
-                            src="../static/{{user.Img.img}}">
+                    {# getting the boxes div for each user#}
+                    {% if user.Img.img%}
+                    <img class="rounded-circle account-img img-responsive center-block d-block mx-auto"
+                        src="../static/{{user.Img.img}}">
                     <p>
-                    {% endif %}
+                        {% endif %}
 
-                    <a href="{{ url_for('main.user', username=user.username) }}">
+                        <a href="{{ url_for('main.user', username=user.username) }}">
 
-                        <p class="center"> {{ user.User.username }} </p>
+                            <p class="center"> {{ user.User.username }} </p>
 
 
-                    </a>
+                        </a>
                     <p class="center"> {{ user.UserProfile.bio }} </p>
 
                     <a class="btn btn-default format-button" href="{{ url_for('main.send_message',
@@ -82,8 +84,9 @@
                     <br>
                     <div style="display: inline-block;">
                         {% if user.GolfCourse.course %}
-                        <a class="btn btn-default format-button format-profile-attributes" href="#">
-                            {{user.GolfCourse.course}}
+
+                            <a class="btn btn-default format-button format-profile-attributes" href="#">
+                                {{user.GolfCourse.course}}
                         </a>
                         {% endif %}
 
@@ -124,7 +127,7 @@
                     {{ macros.pagination_widget(pagination, '.match') }}
                     {% endif %}
                 </div>
-            </div>
+        </div>
         </body>
 
     </div>
