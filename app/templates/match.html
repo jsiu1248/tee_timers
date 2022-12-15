@@ -31,11 +31,18 @@
 
 
                 <div class="flex-item">
-                    {# getting the boxes div for each user#}
-                    {% if user.Img.img%}
-                    <img class="rounded-circle account-img img-responsive center-block d-block mx-auto" src="../static/{{user.Img.img}}">
+                    <div style='display: inline-flex;'>
+                        <p style="  display: flex;
+                        align-items: center; ">
+                            {{user.City.city}}
+                        </p>
+
+                        {# getting the boxes div for each user#}
+                        {% if user.Img.img%}
+                        <img class="rounded-circle account-img img-responsive center-block d-block mx-auto"
+                            src="../static/{{user.Img.img}}">
+                    </div>
                     {% endif %}
-                    {{user.City.city}}
 
                     <a href="{{ url_for('main.user', username=user.username) }}">
 
@@ -58,35 +65,37 @@
                     </a>
                     <br>
                     <br>
-                    {% if user.GolfCourse.course %}
-                    <a class="btn btn-default format-button format-profile-attributes" href="#">
-                        {{user.GolfCourse.course}}
-                    </a>
-                    {% endif %}
+                    <div style="display: inline-block;">
+                        {% if user.GolfCourse.course %}
+                        <a class="btn btn-default format-button format-profile-attributes" href="#">
+                            {{user.GolfCourse.course}}
+                        </a>
+                        {% endif %}
 
-                    {% if user.Handicap.handicap%}
-                    <a class="btn btn-default format-button format-profile-attributes" href="#">
-                        {{user.Handicap.handicap}}
-                    </a>
-                    {% endif %}
+                        {% if user.Handicap.handicap%}
+                        <a class="btn btn-default format-button format-profile-attributes" href="#">
+                            {{user.Handicap.handicap}}
+                        </a>
+                        {% endif %}
 
-                    {% if user.PlayingType.playing_type %}
-                    <a class="btn btn-default format-button format-profile-attributes" href="#">
-                        {{user.PlayingType.playing_type}}
-                    </a>
-                    {% endif %}
+                        {% if user.PlayingType.playing_type %}
+                        <a class="btn btn-default format-button format-profile-attributes" href="#">
+                            {{user.PlayingType.playing_type}}
+                        </a>
+                        {% endif %}
 
-                    {% if user.Smoking.smoking %}
-                    <a class="btn btn-default format-button format-profile-attributes" href="#">
-                        {{user.Smoking.smoking}}
-                    </a>
-                    {% endif %}
+                        {% if user.Smoking.smoking %}
+                        <a class="btn btn-default format-button format-profile-attributes" href="#">
+                            {{user.Smoking.smoking}}
+                        </a>
+                        {% endif %}
 
-                    {% if user.Drinking.drinking %}
-                    <a class="btn btn-default format-button format-profile-attributes" href="#">
-                        {{user.Drinking.drinking}}
-                    </a>
-                    {% endif %}
+                        {% if user.Drinking.drinking %}
+                        <a class="btn btn-default format-button format-profile-attributes" href="#">
+                            {{user.Drinking.drinking}}
+                        </a>
+                        {% endif %}
+                    </div>
                 </div>
 
 
@@ -95,13 +104,13 @@
 
             </body>
 
-
+<div>
             {% endfor %}
 
             {% if pagination %}
             {{ macros.pagination_widget(pagination, '.match') }}
             {% endif %}
-
+</div>
     </div>
 
     </body>
