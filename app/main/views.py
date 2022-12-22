@@ -17,7 +17,7 @@ import os
 import secrets
 from datetime import datetime
 from flask_socketio import SocketIO, join_room
-
+from jinja2 import DebugUndefined
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -566,7 +566,7 @@ def edit_profile():
     editing the profile. The user's profile is blank initially. 
     Return: redirects to edit_profile link
     """
-    form = EditProfileForm()
+    form = EditProfileForm(undefined=DebugUndefined)
     if form.validate_on_submit():
 
         current_user.name = form.name.data

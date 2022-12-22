@@ -26,11 +26,12 @@
         {{wtf.form_field(form.drinking)}}
         {{wtf.form_field(form.playing_type)}}
         {{wtf.form_field(form.golf_course)}}
-        {{wtf.form_field(form.time_of_day)}}
         {{wtf.form_field(form.city)}}
         {{wtf.form_field(form.state)}}
-        {{wtf.form_field(form.submit)}}
+        <div class="submit-container">
 
+            {{wtf.form_field(form.submit)}}
+        </div>
 
 
     </div>
@@ -85,8 +86,8 @@
                     <div style="display: inline-block;">
                         {% if user.GolfCourse.course %}
 
-                            <a class="btn btn-default format-button format-profile-attributes" href="#">
-                                {{user.GolfCourse.course}}
+                        <a class="btn btn-default format-button format-profile-attributes" href="#">
+                            {{user.GolfCourse.course}}
                         </a>
                         {% endif %}
 
