@@ -15,7 +15,7 @@ class Config:
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     USERS_PER_PAGE = 10
-    POSTS_PER_PAGE = 25
+    POSTS_PER_PAGE = 10
     COMMENTS_PER_PAGE = 25
     FOLLOWERS_PER_PAGE = 25
     # Other email settings
