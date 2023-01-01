@@ -1,11 +1,11 @@
-<ul class="posts">
+<div class="posts">
 
     {% for post in posts %}
-    <li class="post">
+    <div class="post">
         {# Single post #}
 
         <div class="posts-container">
-            <h2>Post</h2>
+            {# <h2>Post</h2> #}
             <div class="post-user">
                 <a href="{{ url_for('main.user', username = post.users.username) }}">
                     {{ post.users.username }}
@@ -30,19 +30,23 @@
             </div>
             
             </div>
-            <a class="btn btn-default" href="{{ url_for('main.comment_form') }}">
+            {# <a class="btn btn-default" href="{{ url_for('main.comment_form') }}">
                 <i class="bi bi-reply-all-fill"></i> reply
-            </a>
+            </a> #}
+
     
         </div>
-        <br>
+
+    </div>
+                                <br>
+
 
 
         {% if post.comments %}
         {% if post.comments.count() > 0 %}
-    <li class="comment">
+    <div class="comment">
         <div class="comments-container">
-            <h2>Comments</h2>
+            {# <h2>Comments</h2> #}
             {% for comment in post.comments.all() %}
             <div class="comment-content">
                 <div class="comment-username">
@@ -60,7 +64,11 @@
             <br>
             {% endfor %}
         </div>
+    </div>
+                                            <br>
+
         {% endif %}
+
         {% endif %}
 
 
