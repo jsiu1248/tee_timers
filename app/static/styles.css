@@ -37,10 +37,14 @@
 .comments-container {
     border: 5px solid #c3c3c3;
     margin-left: 50px;
+    background-color: white;
+
 }
 
 .posts-container {
     border: 5px solid #c3c3c3;
+    background-color: white;
+
 }
 
 .post-user {
