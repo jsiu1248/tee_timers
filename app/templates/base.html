@@ -38,31 +38,37 @@
         </button>
         <div class="offcanvas offcanvas-end nav-bg" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Tee Timers</h5>
+                <h5 class="offcanvas-title side-bar-formatting" id="offcanvasNavbarLabel">Tee Timers</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body nav-bg">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link active side-bar-formatting" aria-current="page" href="/">Home</a>
                     </li>
+                    <br>
+                    <br>
                     {% if current_user.is_authenticated %}
 
-                    <li><a class="nav-item" href="{{url_for('main.user', username=current_user.username)}}">Profile</a>
+                    <li><a class="nav-item side-bar-formatting" href="{{url_for('main.user', username=current_user.username)}}">Profile</a>
                     </li>
-                    <li><a class="nav-item" href="{{url_for('auth.change_password')}}">Change Password</a></li>
-                    <li><a class="nav-item" href="{{url_for('auth.logout')}}">Log Out</a></li>
+                    <br>
+                    <br>
+                    <li><a class="nav-item side-bar-formatting" href="{{url_for('auth.change_password')}}">Change Password</a></li>
+                    <br>
+                    <br>
+                    <li><a class="nav-item side-bar-formatting" href="{{url_for('auth.logout')}}">Log Out</a></li>
 
                     </li>
                     {% else %}
-                    <li><a href="{{url_for('auth.login')}}">Log In</a></li>
+                    <li><a class="nav-item side-bar-formatting" href="{{url_for('auth.login')}}">Log In</a></li>
                     {% endif %}
 
                     </li>
                 </ul>
                 <form class="d-flex mt-3" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <button class="btn btn-outline-success side-bar-formatting" type="submit">Search</button>
                 </form>
             </div>
         </div>
