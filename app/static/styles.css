@@ -151,7 +151,6 @@ body {
     align-self: center;
     justify-self: center;
 
-
 }
 
 .two {
@@ -173,6 +172,8 @@ body {
     background-image: url("../static/istockphoto-486876112-612x612.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
+    background-clip: content-box;
+    padding: 50px;
 
 
 }
@@ -198,6 +199,7 @@ body {
     justify-self: center;
 
 
+
 }
 
 .six {
@@ -207,6 +209,8 @@ body {
     background-image: url("../static/istockphoto-1016165168-612x612.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
+    background-clip: content-box;
+    padding: 50px;
 
 
 }
@@ -218,6 +222,9 @@ body {
     background-image: url("../static/istockphoto-1272952470-612x612.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
+    background-clip: content-box;
+    padding: 50px;
+
 
 
 }
@@ -255,6 +262,7 @@ body {
     grid-row: 5;
     background-color: #57BC90;
     padding: 100px;
+
 
 
 }
