@@ -59,7 +59,9 @@ def userprofile(count=20):
                  smoking_id = randint(1,2), 
                  drinking_id = randint(1,2), 
                  playing_type_id = randint(1,5), 
-                 golf_course_id = randint(1, 50)
+                 golf_course_id = randint(1, 50),
+                profile_picture_id  = u.id
+
                 #  , 
 
 

@@ -626,7 +626,7 @@ class GolfCourse(db.Model):
 class Img(db.Model):
     __tablename__ = 'imgs'
     id = db.Column(db.Integer, primary_key = True)
-    img = db.Column(db.Text, unique = True, nullable = False)
+    img = db.Column(db.Text, nullable = False)
 
 class Message(db.Model):
     __tablename__ = 'messages'

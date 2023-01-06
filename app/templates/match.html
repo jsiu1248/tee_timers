@@ -14,7 +14,7 @@
 
 <div class="wrapper-match">
     <div id="filter-grid" class="filter-grid">
-
+{# {{ wtf.quick_form(form) }} #}
         {{wtf.form_field(form.gender)}}
         {{wtf.form_field(form.day)}}
         {{wtf.form_field(form.time_of_day)}}
@@ -27,11 +27,12 @@
         {{wtf.form_field(form.playing_type)}}
         {{wtf.form_field(form.golf_course)}}
         {{wtf.form_field(form.city)}}
-        {{wtf.form_field(form.state)}}
-        <div class="submit-container">
+        {{wtf.form_field(form.state)}} 
+        {# <div class="submit-container"> #}
 
             {{wtf.form_field(form.submit)}}
-        </div>
+            {# {{wtf.quick_form(form)}} #}
+        {# </div> #}
 
 
     </div>

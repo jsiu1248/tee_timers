@@ -76,7 +76,7 @@ class MatchForm(FlaskForm):
     city = SelectField('City', coerce=int, choices=[('')], validators=[])
     state = SelectField('State', coerce=int, choices=[('')], validators=[])
 
-    submit = SubmitField('Submit')
+    submit = SubmitField('Submit', render_kw={'type':'submit'})
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
