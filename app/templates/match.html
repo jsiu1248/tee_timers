@@ -15,6 +15,8 @@
 <div class="wrapper-match">
     <div id="filter-grid" class="filter-grid">
 {# {{ wtf.quick_form(form) }} #}
+<form name="match_forn"  id="matchForm" method="POST">
+{{ form.csrf_token }}
         {{wtf.form_field(form.gender)}}
         {{wtf.form_field(form.day)}}
         {{wtf.form_field(form.time_of_day)}}
@@ -28,12 +30,13 @@
         {{wtf.form_field(form.golf_course)}}
         {{wtf.form_field(form.city)}}
         {{wtf.form_field(form.state)}} 
-        {# <div class="submit-container"> #}
+        <div class="submit-container">
 
             {{wtf.form_field(form.submit)}}
+            
             {# {{wtf.quick_form(form)}} #}
-        {# </div> #}
-
+        </div>
+</form>
 
     </div>
     <br>
