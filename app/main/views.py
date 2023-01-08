@@ -584,6 +584,8 @@ def edit_profile():
     ).join(Img, UserProfile.profile_picture_id == Img.id,isouter = True).first()
 
     form = EditProfileForm(undefined=DebugUndefined, user=user, userprofile = userprofile)
+
+
     if form.validate_on_submit():
 
         # user.username = form.data.get('username','')
@@ -592,14 +594,44 @@ def edit_profile():
         userprofile.UserProfile.age = form.age.data
         userprofile.UserProfile.city_id = form.city.data
         userprofile.UserProfile.state_id = form.state.data
+        try:
+            userprofile.UserProfile.day_id = form.day.data[0] # short time fix for getting element out of list
+        except:
+            pass
+        try:
+            userprofile.UserProfile.gender_id = form.gender.data[0]
+        except:
+            pass
 
-        # current_user.day_id = form.day.data
-    #     current_user.time_of_day_id = form.time_of_day.data
-    #     current_user.ride_or_walk_id = form.ride_or_walk.data
-    #     current_user.handicap_id = form.handicap.data
-    #     current_user.smoking_id = form.smoking.data
-    #     current_user.drinking_id = form.drinking.data
-    #     current_user.playing_type_id = form.playing_type_id.data
+        try:
+            userprofile.UserProfile.time_of_day_id = form.time_of_day.data[0]
+        except:
+            pass
+        try:
+            userprofile.UserProfile.ride_or_walk_id = form.ride_or_walk.data[0]
+        except:
+            pass
+        try:
+            userprofile.UserProfile.handicap_id = form.handicap.data[0]
+        except:
+            pass
+        try:
+            userprofile.UserProfile.smoking_id = form.smoking.data[0]
+        except:
+            pass
+        try:
+            userprofile.UserProfile.drinking_id = form.drinking.data[0]
+        except:
+            pass
+        try:
+            userprofile.UserProfile.playing_type_id = form.playing_type.data[0]
+        except:
+            pass
+        try:
+            userprofile.UserProfile.golf_course_id = form.golf_course.data
+        except:
+            pass
+
         db.session.add(current_user._get_current_object())
         db.session.commit()
         flash('You successfully updated your profile! Looks great.')
