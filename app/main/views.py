@@ -566,14 +566,38 @@ def edit_profile():
     editing the profile. The user's profile is blank initially. 
     Return: redirects to edit_profile link
     """
-    form = EditProfileForm(undefined=DebugUndefined)
+    user = User.query.filter_by(id = current_user.id).first()
+    userprofile = db.session.query(UserProfile, Day, State, City, 
+    Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
+    Drinking, PlayingType, GolfCourse, Img).filter_by(id=user.id
+    ).join(Day, UserProfile.day_id == Day.id, isouter = True
+    ).join(State, UserProfile.state_id == State.id, isouter = True
+    ).join(City, UserProfile.city_id == City.id, isouter = True
+    ).join(Gender, UserProfile.gender_id == Gender.id, isouter = True
+    ).join(TimeOfDay, UserProfile.time_of_day_id == TimeOfDay.id, isouter = True
+    ).join(RideOrWalk, UserProfile.ride_or_walk_id == RideOrWalk.id,  isouter = True
+    ).join(Handicap, UserProfile.handicap_id == Handicap.id, isouter = True
+    ).join(Smoking, UserProfile.smoking_id == Smoking.id, isouter = True
+    ).join(Drinking, UserProfile.drinking_id == Drinking.id, isouter = True
+    ).join(PlayingType, UserProfile.playing_type_id == PlayingType.id,  isouter = True
+    ).join(GolfCourse, UserProfile.golf_course_id == GolfCourse.id, isouter = True
+    ).join(Img, UserProfile.profile_picture_id == Img.id,isouter = True).first()
+
+    form = EditProfileForm(undefined=DebugUndefined, user=user, userprofile = userprofile)
     if form.validate_on_submit():
 
-        current_user.name = form.name.data
-        current_user.UserProfile.bio = form.bio.data
-        current_user.UserProfile.age = form.age.data
-        current_user.UserProfile.city_id = form.city.data
-        current_user.UserProfile.state_id = form.state.data
+        user.username = form.username.data
+        # user.User.name = form.name.data
+        # userprofile.UserProfile.bio = form.bio.data
+        # userprofile.UserProfile.age = form.age.data
+        # userprofile.UserProfile.city_id = form.city.data
+        # userprofile.UserProfile.state_id = form.state.data
+
+        # current_user.name = form.name.data
+        # current_user.bio = form.bio.data
+        # current_user.age = form.age.data
+        # current_user.city_id = form.city.data
+        # current_user.state_id = form.state.data
         # current_user.day_id = form.day.data
     #     current_user.time_of_day_id = form.time_of_day.data
     #     current_user.ride_or_walk_id = form.ride_or_walk.data
@@ -585,7 +609,9 @@ def edit_profile():
         db.session.commit()
         flash('You successfully updated your profile! Looks great.')
         return redirect(url_for('.user', username = current_user.username, Day = Day))
-    form.name.data = User.name
+    form.name.data =  user.username
+    form.age.data = user.name
+    # form.name.data = current_user.name
     # form.age.data = current_user.age
     # form.city.data = current_user.city_id
     # form.state.data = current_user.state_id
