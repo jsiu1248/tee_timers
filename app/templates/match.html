@@ -15,7 +15,7 @@
 <div class="wrapper-match">
     <div id="filter-grid" class="filter-grid">
 {# {{ wtf.quick_form(form) }} #}
-<form name="match_forn"  id="matchForm" method="POST">
+<form name="match_form"  id="matchForm" method="POST">
 {{ form.csrf_token }}
         {{wtf.form_field(form.gender)}}
         {{wtf.form_field(form.day)}}

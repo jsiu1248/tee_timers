@@ -3,10 +3,13 @@
 
 {% block content %}
 {{super()}}
-</div class="form-header">
-{# {{ wtf.quick_form(form) }} #}
 
-{# {% if current_user.is_administrator() %}
+<div class="form-header">
+{# {{ wtf.quick_form(form) }} #}
+<form name="profile_edit_form"  id="profileEditForm" method="POST">
+{{ form.csrf_token }}
+
+{% if current_user.is_administrator() %}
 {{wtf.form_field(form.username)}}
 {{wtf.form_field(form.role)}}
 {% endif %}
@@ -26,13 +29,13 @@
 <p>Drinking</p>
 {{wtf.form_field(form.drinking)}}
 {{wtf.form_field(form.playing_type)}}
-{{wtf.form_field(form.golf_course)}} #}
-{# <div class="submit-container">
+{{wtf.form_field(form.golf_course)}}
+{# <div class="submit-container"> #}
     {{wtf.form_field(form.submit)}}
-</div> #}
+{# </div> #}
 {# {{ wtf.form_field(form.submit, button_map={'submit': 'submit-container'}) }} #}
-{{ wtf.quick_form(form) }}
+{# {{ wtf.quick_form(form) }} #}
 
-
+</form>
 </div>
 {% endblock content %}
