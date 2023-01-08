@@ -586,18 +586,13 @@ def edit_profile():
     form = EditProfileForm(undefined=DebugUndefined, user=user, userprofile = userprofile)
     if form.validate_on_submit():
 
-        user.username = form.username.data
-        # user.User.name = form.name.data
-        # userprofile.UserProfile.bio = form.bio.data
-        # userprofile.UserProfile.age = form.age.data
-        # userprofile.UserProfile.city_id = form.city.data
-        # userprofile.UserProfile.state_id = form.state.data
+        # user.username = form.data.get('username','')
+        user.name = form.name.data
+        userprofile.UserProfile.bio = form.bio.data
+        userprofile.UserProfile.age = form.age.data
+        userprofile.UserProfile.city_id = form.city.data
+        userprofile.UserProfile.state_id = form.state.data
 
-        # current_user.name = form.name.data
-        # current_user.bio = form.bio.data
-        # current_user.age = form.age.data
-        # current_user.city_id = form.city.data
-        # current_user.state_id = form.state.data
         # current_user.day_id = form.day.data
     #     current_user.time_of_day_id = form.time_of_day.data
     #     current_user.ride_or_walk_id = form.ride_or_walk.data
@@ -609,6 +604,7 @@ def edit_profile():
         db.session.commit()
         flash('You successfully updated your profile! Looks great.')
         return redirect(url_for('.user', username = current_user.username, Day = Day))
+        # what shows up on the form
     form.name.data =  user.username
     form.age.data = user.name
     # form.name.data = current_user.name
