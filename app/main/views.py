@@ -642,7 +642,7 @@ def edit_profile():
     form.city.data = userprofile.UserProfile.city_id
     form.state.data = userprofile.UserProfile.state_id
     form.bio.data = userprofile.UserProfile.bio
-    # form.gender.data = userprofile.UserProfile.gender_id
+    form.gender.data = [userprofile.UserProfile.gender_id]
     form.day.data = [userprofile.UserProfile.day_id] # needs a list type
     form.time_of_day.data = [userprofile.UserProfile.time_of_day_id]
     form.ride_or_walk.data = [userprofile.UserProfile.ride_or_walk_id]
