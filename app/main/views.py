@@ -504,20 +504,6 @@ def comment(slug):
     comment = Comment.query.filter_by(slug=slug).first_or_404()
     return render_template('_comment.html', comment=[comment], form = form)
 
-@main.route('/comment_form',  methods=["GET", "POST"])
-@login_required
-def comment_form():
-    form = CommentForm()
-    # post = Post.query.filter_by(slug = slug).first_or_404()
-
-    if form.validate_on_submit():
-        # how to query the id of the post that just clicked and also the userid
-        
-        comment = Comment(description = form.description.data,
-                            post_id = post.id , user_id = post.user_id)
-        db.session.add(comment)
-        db.session.commit()
-    return render_template('comment_form.html',  form = form)
 
 @main.route('/forum', methods=["GET","POST"])
 @login_required
