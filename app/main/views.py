@@ -587,8 +587,11 @@ def edit_profile():
 
 
     if form.validate_on_submit():
-
-        # user.username = form.data.get('username','')
+        """
+        This shows the data pulled from the database for the user and the changed data after submission. For the multiple
+        select options, they come as lists so we are indexing it and making sure that it doesn't raise any 
+        exception.
+        """
         user.name = form.name.data
         userprofile.UserProfile.bio = form.bio.data
         userprofile.UserProfile.age = form.age.data
@@ -631,12 +634,18 @@ def edit_profile():
             userprofile.UserProfile.golf_course_id = form.golf_course.data
         except:
             pass
-
+        
+        """
+        Add changed data to the database and then commit it.
+        """
         db.session.add(current_user._get_current_object())
         db.session.commit()
         flash('You successfully updated your profile! Looks great.')
         return redirect(url_for('.user', username = current_user.username, Day = Day))
-        # what shows up on the form
+        
+    """
+    What shows up on the edit profile form.
+    """
     form.name.data =  user.username
     form.age.data = userprofile.UserProfile.age
     form.city.data = userprofile.UserProfile.city_id
