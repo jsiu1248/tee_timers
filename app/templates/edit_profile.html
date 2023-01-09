@@ -9,9 +9,11 @@
 <form name="profile_edit_form"  id="profileEditForm" method="POST">
 {{ form.csrf_token }}
 
-{% if current_user.is_administrator() %}
+{# have to edit so that the administrator can edit their own problem with the edit button. #}
+{% if current_user.is_administrator()%}
 {{wtf.form_field(form.username)}}
 {{wtf.form_field(form.role)}}
+{{wtf.form_field(form.confirmed)}}
 {% endif %}
 
 {{wtf.form_field(form.name)}}
@@ -30,11 +32,9 @@
 {{wtf.form_field(form.drinking)}}
 {{wtf.form_field(form.playing_type)}}
 {{wtf.form_field(form.golf_course)}}
-{# <div class="submit-container"> #}
+<div class="submit-container">
     {{wtf.form_field(form.submit)}}
-{# </div> #}
-{# {{ wtf.form_field(form.submit, button_map={'submit': 'submit-container'}) }} #}
-{# {{ wtf.quick_form(form) }} #}
+</div>
 
 </form>
 </div>
