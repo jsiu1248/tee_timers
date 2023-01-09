@@ -638,20 +638,19 @@ def edit_profile():
         return redirect(url_for('.user', username = current_user.username, Day = Day))
         # what shows up on the form
     form.name.data =  user.username
-    form.age.data = user.name
-    # form.name.data = current_user.name
-    # form.age.data = current_user.age
-    # form.city.data = current_user.city_id
-    # form.state.data = current_user.state_id
-    # form.bio.data = current_user.bio
-    # form.gender.data = current_user.gender_id
-    # form.day.data = current_user.day_id
-    # form.time_of_day.data = current_user.time_of_day_id
-    # form.ride_or_walk.data = current_user.ride_or_walk_id
-    # form.handicap.data = current_user.handicap_id
-    # form.smoking.data = current_user.smoking_id
-    # form.drinking.data = current_user.drinking_id
-    # form.playing_type.data = current_user.playing_type_id
+    form.age.data = userprofile.UserProfile.age
+    form.city.data = userprofile.UserProfile.city_id
+    form.state.data = userprofile.UserProfile.state_id
+    form.bio.data = userprofile.UserProfile.bio
+    # form.gender.data = userprofile.UserProfile.gender_id
+    form.day.data = [userprofile.UserProfile.day_id] # needs a list type
+    form.time_of_day.data = [userprofile.UserProfile.time_of_day_id]
+    form.ride_or_walk.data = [userprofile.UserProfile.ride_or_walk_id]
+    form.handicap.data = [userprofile.UserProfile.handicap_id]
+    form.smoking.data = [userprofile.UserProfile.smoking_id]
+    form.drinking.data = [userprofile.UserProfile.drinking_id]
+    form.playing_type.data = [userprofile.UserProfile.playing_type_id]
+    form.golf_course.data = userprofile.UserProfile.golf_course_id
     return render_template('edit_profile.html', form=form)
 
 
