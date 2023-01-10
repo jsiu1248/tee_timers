@@ -276,7 +276,9 @@ def edit_profile_admin(id):
             pass
         
         userprofile.UserProfile.golf_course_id = form.golf_course.data
+
         # db.session.add(current_user._get_current_object())
+        # need to fix inserting a picture
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
             userprofile.Img.img = picture_file
