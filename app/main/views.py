@@ -233,8 +233,14 @@ def edit_profile_admin(id):
         userprofile.UserProfile.age = form.age.data
         userprofile.UserProfile.city_id = form.city.data
         userprofile.UserProfile.state_id = form.state.data
-        # userprofile.UserProfile.gender_id = request.form.getlist('gender')
-        # userprofile.day_id = request.form.getlist('day')
+        try:
+            userprofile.UserProfile.gender_id = request.form.getlist('gender')[0] # indexing list temporary if selecting multiple later
+        except:
+            pass
+        try:
+            userprofile.UserProfile.day_id = request.form.getlist('day')[0]
+        except:
+            pass
         # return redirect(url_for('edit_profile_admin'))
         # days = "0000000"
         # for i in userprofile.day_id:
@@ -244,15 +250,33 @@ def edit_profile_admin(id):
         #     days = days_changed
             # userprofile.avaliable_days = days_changed
         # print(days_changed) # 1100110
-            
-        # current_user.time_of_day_id = form.time_of_day.data
-        # current_user.ride_or_walk_id = form.ride_or_walk.data
-        # userprofile.UserProfile.handicap_id = form.handicap.data
-        # userprofile.UserProfile.smoking_id = form.smoking.data
-        # userprofile.UserProfile.drinking_id = form.drinking.data
-        # userprofile.UserProfile.playing_type = form.playing_type.data
+        try:    
+            userprofile.UserProfile.time_of_day_id = request.form.getlist('time_of_day')[0]
+        except:
+            pass
+        try:
+            userprofile.UserProfile.ride_or_walk_id = request.form.getlist("ride_or_walk")[0]
+        except:
+            pass
+        try:
+            userprofile.UserProfile.handicap_id = request.form.getlist("handicap")[0]
+        except:
+            pass
+        try:
+            userprofile.UserProfile.smoking_id = request.form.getlist("smoking")[0]
+        except:
+            pass 
+        try:   
+            userprofile.UserProfile.drinking_id = request.form.getlist("drinking")[0]
+        except:
+            pass
+        try:
+            userprofile.UserProfile.playing_type_id = request.form.getlist("playing_type")[0]
+        except:
+            pass
+        
+        userprofile.UserProfile.golf_course_id = form.golf_course.data
         # db.session.add(current_user._get_current_object())
-        # db.session.commit()
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
             userprofile.Img.img = picture_file
