@@ -292,14 +292,15 @@ def edit_profile_admin(id):
     form.city.data = userprofile.UserProfile.city_id
     form.state.data = userprofile.UserProfile.state_id
     form.role.data = user.role_id
-    # form.gender.data = userprofile.UserProfile.gender_id
-    # form.day.data =  userprofile.UserProfile.day_id
-    # form.time_of_day.data = current_user.time_of_day_id
-    # form.ride_or_walk.data = current_user.ride_or_walk_id
-    # form.handicap.data = userprofile.UserProfile.handicap_id
-    # form.smoking.data = current_user.smoking_id
-    # form.drinking.data = current_user.drinking_id
-    # form.playing_type.data = current_user.playing_type_id
+    form.gender.data = [userprofile.UserProfile.gender_id]
+    form.day.data =  [userprofile.UserProfile.day_id]
+    form.time_of_day.data = [userprofile.UserProfile.time_of_day_id]
+    form.ride_or_walk.data = [userprofile.UserProfile.ride_or_walk_id]
+    form.handicap.data = [userprofile.UserProfile.handicap_id]
+    form.smoking.data = [userprofile.UserProfile.smoking_id]
+    form.drinking.data = [userprofile.UserProfile.drinking_id]
+    form.playing_type.data = [userprofile.UserProfile.playing_type_id]
+    form.golf_course.data = userprofile.UserProfile.golf_course_id
     image_file = url_for('static', filename='profile_pics/' + Img.img)
     return render_template('edit_profile.html', form=form, user=user, image_file = image_file)
 
