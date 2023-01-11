@@ -1,10 +1,10 @@
 <div class="posts">
 
     {% for post in posts %}
-    <div class="post">
+    <div class="post forum-formatting">
         {# Single post #}
 
-        <div class="posts-container">
+        <div class="posts-container forum-formatting">
             {# <h2>Post</h2> #}
             <div class="post-user">
                 <a href="{{ url_for('main.user', username = post.users.username) }}">
@@ -52,8 +52,8 @@
 
         {% if post.comments %}
         {% if post.comments.count() > 0 %}
-    <div class="comment">
-        <div class="comments-container">
+    <div class="comment forum-formatting">
+        <div class="comments-container forum-formatting">
             {# <h2>Comments</h2> #}
             {% for comment in post.comments.all() %}
             <div class="comment-content">

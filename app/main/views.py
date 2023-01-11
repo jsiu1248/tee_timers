@@ -391,90 +391,93 @@ def match():
     # ).join(GolfCourse, UserProfile.golf_course_id == GolfCourse.id, isouter = True
     # ).join(Img, UserProfile.profile_picture_id == Img.id, isouter = True).all()
 
+    # pagination = db.session.query(User, UserProfile, Day, State, City, 
+    # Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
+    # Drinking, PlayingType, GolfCourse, Img
+    # ).select_from(User
+    # ).join(UserProfile,  User.id == UserProfile.id, isouter = True
+    # ).join(Day, UserProfile.day_id == Day.id, isouter = True
+    # ).join(State, UserProfile.state_id == State.id, isouter = True
+    # ).join(City, UserProfile.city_id == City.id, isouter = True
+    # ).join(Gender, UserProfile.gender_id == Gender.id, isouter = True
+    # ).join(TimeOfDay, UserProfile.time_of_day_id == TimeOfDay.id, isouter = True
+    # ).join(RideOrWalk, UserProfile.ride_or_walk_id == RideOrWalk.id,  isouter = True
+    # ).join(Handicap, UserProfile.handicap_id == Handicap.id, isouter = True
+    # ).join(Smoking, UserProfile.smoking_id == Smoking.id, isouter = True
+    # ).join(Drinking, UserProfile.drinking_id == Drinking.id, isouter = True
+    # ).join(PlayingType, UserProfile.playing_type_id == PlayingType.id,  isouter = True
+    # ).join(GolfCourse, UserProfile.golf_course_id == GolfCourse.id, isouter = True
+    # ).join(Img, UserProfile.profile_picture_id == Img.id, isouter = True).paginate(
+    #         page = page,
+    #         per_page = current_app.config['USERS_PER_PAGE'],
+    #         error_out = False)
+    # # Convert to list
+    # users = pagination.items
+
+    """
+    if POST method then look at all of the multi-selector variables. If it is not empty, 
+    then it will append to data_values. Then, filter_list will include
+    all variables that are not empty.
+    """ 
+    # if request.method == 'POST':
+    data = dict((key, request.form.getlist(key) if len(
+        request.form.getlist(key)) > 0 else request.form.getlist(key)[0])
+        for key in request.form.keys())
+    gender_filter = UserProfile.gender_id.in_( data['gender'] if ('gender') in data else [] )
+    day_filter = UserProfile.day_id.in_(data['day'] if ('day') in data else [])
+    time_of_day_filter = UserProfile.time_of_day_id.in_(data['time_of_day'] if ('time_of_day') in data else [])
+    ride_or_walk_filter = UserProfile.ride_or_walk_id.in_(data['ride_or_walk'] if ('ride or walk') in data else [])
+    handicap_filter = UserProfile.handicap_id.in_(data['handicap'] if ('handicap') in data else [])
+    smoking_filter = UserProfile.smoking_id.in_(data['smoking'] if 'smoking' in data else [])
+    drinking_filter = UserProfile.drinking_id.in_(data['drinking'] if 'drinking' in data else [])
+    playing_type_filter = UserProfile.playing_type_id.in_(data['playing_type'] if ('playing_type') in data else [])
+    
+
+    filter_list = []
+    data_values = []
+    data_columns = ['gender', 'day', 'time_of_day','ride_or_walk', 'handicap',
+    'smoking','drinking','playing_type']
+
+    for k in data_columns:
+        try:
+            if data[k]:
+                data_values.append(data[k])
+                
+        except:
+                data_values.append([])
+    data_filter = (gender_filter, day_filter, time_of_day_filter, ride_or_walk_filter, 
+    handicap_filter, smoking_filter, drinking_filter, playing_type_filter)
+    for i,j in zip(data_values, data_filter):
+        try:
+            if len(i) > 0:
+                filter_list.append(j)
+        except:
+            pass
+
+
     pagination = db.session.query(User, UserProfile, Day, State, City, 
-    Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
-    Drinking, PlayingType, GolfCourse, Img
-    ).select_from(User
-    ).join(UserProfile,  User.id == UserProfile.id, isouter = True
-    ).join(Day, UserProfile.day_id == Day.id, isouter = True
-    ).join(State, UserProfile.state_id == State.id, isouter = True
-    ).join(City, UserProfile.city_id == City.id, isouter = True
-    ).join(Gender, UserProfile.gender_id == Gender.id, isouter = True
-    ).join(TimeOfDay, UserProfile.time_of_day_id == TimeOfDay.id, isouter = True
-    ).join(RideOrWalk, UserProfile.ride_or_walk_id == RideOrWalk.id,  isouter = True
-    ).join(Handicap, UserProfile.handicap_id == Handicap.id, isouter = True
-    ).join(Smoking, UserProfile.smoking_id == Smoking.id, isouter = True
-    ).join(Drinking, UserProfile.drinking_id == Drinking.id, isouter = True
-    ).join(PlayingType, UserProfile.playing_type_id == PlayingType.id,  isouter = True
-    ).join(GolfCourse, UserProfile.golf_course_id == GolfCourse.id, isouter = True
-    ).join(Img, UserProfile.profile_picture_id == Img.id, isouter = True).paginate(
-            page = page,
-            per_page = current_app.config['USERS_PER_PAGE'],
-            error_out = False)
-    # Convert to list
-    users = pagination.items
-
-
-    if request.method == 'POST':
-        data = dict((key, request.form.getlist(key) if len(
-            request.form.getlist(key)) > 0 else request.form.getlist(key)[0])
-            for key in request.form.keys())
-        gender_filter = UserProfile.gender_id.in_( data['gender'] if ('gender') in data else [] )
-        day_filter = UserProfile.day_id.in_(data['day'] if ('day') in data else [])
-        time_of_day_filter = UserProfile.time_of_day_id.in_(data['time_of_day'] if ('time_of_day') in data else [])
-        ride_or_walk_filter = UserProfile.ride_or_walk_id.in_(data['ride_or_walk'] if ('ride or walk') in data else [])
-        handicap_filter = UserProfile.handicap_id.in_(data['handicap'] if ('handicap') in data else [])
-        smoking_filter = UserProfile.smoking_id.in_(data['smoking'] if 'smoking' in data else [])
-        drinking_filter = UserProfile.drinking_id.in_(data['drinking'] if 'drinking' in data else [])
-        playing_type_filter = UserProfile.playing_type_id.in_(data['playing_type'] if ('playing_type') in data else [])
-        
-
-        filter_list = []
-        data_values = []
-        data_columns = ['gender', 'day', 'time_of_day','ride_or_walk', 'handicap',
-        'smoking','drinking','playing_type']
-  
-        for k in data_columns:
-            try:
-                if data[k]:
-                    data_values.append(data[k])
-                    
-            except:
-                    data_values.append([])
-        data_filter = (gender_filter, day_filter, time_of_day_filter, ride_or_walk_filter, 
-        handicap_filter, smoking_filter, drinking_filter, playing_type_filter)
-        for i,j in zip(data_values, data_filter):
-            try:
-                if len(i) > 0:
-                    filter_list.append(j)
-            except:
-                pass
-
-
-        pagination = db.session.query(User, UserProfile, Day, State, City, 
-    Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
-    Drinking, PlayingType, GolfCourse, Img).join(UserProfile, 
-                UserProfile.id == User.id, 
-                isouter = True).filter(and_(k for k in filter_list)
-    ).join(Day, UserProfile.day_id == Day.id, isouter = True
-    ).join(State, UserProfile.state_id == State.id, isouter = True
-    ).join(City, UserProfile.city_id == City.id, isouter = True
-    ).join(Gender, UserProfile.gender_id == Gender.id, isouter = True
-    ).join(TimeOfDay, UserProfile.time_of_day_id == TimeOfDay.id, isouter = True
-    ).join(RideOrWalk, UserProfile.ride_or_walk_id == RideOrWalk.id,  isouter = True
-    ).join(Handicap, UserProfile.handicap_id == Handicap.id, isouter = True
-    ).join(Smoking, UserProfile.smoking_id == Smoking.id, isouter = True
-    ).join(Drinking, UserProfile.drinking_id == Drinking.id, isouter = True
-    ).join(PlayingType, UserProfile.playing_type_id == PlayingType.id,  isouter = True
-    ).join(GolfCourse, UserProfile.golf_course_id == GolfCourse.id, isouter = True
-    ).join(Img, UserProfile.profile_picture_id == Img.id, isouter = True).paginate(
-            page = page,
-            per_page = current_app.config['USERS_PER_PAGE'],
-            error_out = False)
+Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
+Drinking, PlayingType, GolfCourse, Img).join(UserProfile, 
+            UserProfile.id == User.id, 
+            isouter = True).filter(and_(k for k in filter_list)
+).join(Day, UserProfile.day_id == Day.id, isouter = True
+).join(State, UserProfile.state_id == State.id, isouter = True
+).join(City, UserProfile.city_id == City.id, isouter = True
+).join(Gender, UserProfile.gender_id == Gender.id, isouter = True
+).join(TimeOfDay, UserProfile.time_of_day_id == TimeOfDay.id, isouter = True
+).join(RideOrWalk, UserProfile.ride_or_walk_id == RideOrWalk.id,  isouter = True
+).join(Handicap, UserProfile.handicap_id == Handicap.id, isouter = True
+).join(Smoking, UserProfile.smoking_id == Smoking.id, isouter = True
+).join(Drinking, UserProfile.drinking_id == Drinking.id, isouter = True
+).join(PlayingType, UserProfile.playing_type_id == PlayingType.id,  isouter = True
+).join(GolfCourse, UserProfile.golf_course_id == GolfCourse.id, isouter = True
+).join(Img, UserProfile.profile_picture_id == Img.id, isouter = True).paginate(
+        page = page,
+        per_page = current_app.config['USERS_PER_PAGE'],
+        error_out = False)
 
     # Convert to list
     users = pagination.items
-
 
 
 

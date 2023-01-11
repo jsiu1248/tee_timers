@@ -5,35 +5,14 @@
 
 {% block content %}
 {{super()}}
-</div class="form-header">
+
+<div class="form-header forum-formatting">
 {{ wtf.quick_form(form) }}
 </div>
 
 <br>
-<div>
     {% include '_post.html' %}
     {% if pagination %}
     {{ macros.pagination_widget(pagination, '.forum') }}
     {% endif %}
-</div>
-
-
 {% endblock content %}
-
-
-
-{# after submimission show the posts below #}
-{# show the most recent posts #}
-{# loop through posts#}
-{# show user name and then post #}
-{# one write something
-another button below that can reply #}
-
-{# need info from user, shoot the database render commmit data #}
-
-{# reply when there is an id. post when null #}
-
-
-{# how do you grab the right post for the page #}
-
-{# paging and ordering #}
