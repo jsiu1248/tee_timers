@@ -16,7 +16,7 @@ from werkzeug.utils import secure_filename
 import os
 import secrets
 from datetime import datetime
-from flask_socketio import SocketIO, join_room
+from flask_socketio import SocketIO, join_room, emit
 from jinja2 import DebugUndefined
 
 
