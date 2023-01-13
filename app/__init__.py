@@ -47,7 +47,7 @@ def create_app(config_name='default'):
     login_manager.init_app(app)
     mail.init_app(app)
     csrf.init_app(app)
-    socketio.init_app(app)
+    socketio.init_app(app, cors_allowed_origins='*')
 
     """registering blue prints"""
     from .main import main as main_blueprint 
@@ -61,5 +61,5 @@ def create_app(config_name='default'):
 
 
 
-
     return app
+

@@ -1,4 +1,4 @@
-from app import create_app, db
+from app import create_app, db, socketio
 import os
 from app.models import Comment, Role, User, Follow, GolfCourse, Post, City, State
 from app.fake import users, post
@@ -25,3 +25,6 @@ def deploy():
     User.add_self_follows()
 
     GolfCourse.insert_golf_course()
+
+if __name__ == "__main__":
+    socketio.run(app, host = "localhost")
