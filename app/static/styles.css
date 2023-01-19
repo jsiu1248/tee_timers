@@ -479,7 +479,7 @@ body {
 .submit-container > .btn:after {
     content:"SUBMIT";
   }
-.onclic {
+.submit-container > .onclic {
   width: 40px;
   border-color:#bbbbbb;
   border-width:3px;
@@ -487,20 +487,20 @@ body {
   border-left-color:#1ECD97;
   animation: rotating 2s 0.25s linear infinite;
 }
-  .onclic:after {
+.submit-container > .onclic:after {
     content:"";
   }
-  .onclic:hover {
+  .submit-container > .onclic:hover {
     color:#1ECD97;
     background: white;
   }
 
-.validate {
+  .submit-container > .validate {
   font-size:13px;
   color: white;
   background: #1ECD97;
 }
-  .validate:after {
+.submit-container > .validate:after {
     font-family:'FontAwesome';
     content:"\f00c";
   }

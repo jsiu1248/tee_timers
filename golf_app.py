@@ -26,5 +26,5 @@ def deploy():
 
     GolfCourse.insert_golf_course()
 
-if __name__ == "__main__":
+if __name__ == "__golf_app__":
     socketio.run(app, host = "localhost")
