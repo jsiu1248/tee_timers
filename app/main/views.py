@@ -370,6 +370,7 @@ def match():
     """
     form = MatchForm()
 
+    # choosing the starting page
     page = request.args.get('page', 1, type = int)
 
     # passes users contained in a list to template
