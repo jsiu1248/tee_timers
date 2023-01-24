@@ -455,7 +455,7 @@ def match():
         except:
             pass
 
-
+    """Joining all of the tables together and filtering for the needed users. Paginating the filtered users."""
     pagination = db.session.query(User, UserProfile, Day, State, City, 
 Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
 Drinking, PlayingType, GolfCourse, Img).join(UserProfile, 
