@@ -1,6 +1,3 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
 
 .body {
     background-color: #f2f2f2;
@@ -521,3 +518,104 @@ body {
     padding-right: 150px;
 
 }
+
+/*two section*/
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap');
+
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-family: 'Montserrat', sans-serif;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+
+body{
+	background: #7fc469;
+	color: #565e6b;
+}
+
+.wrapper_two{
+	width: 500px;
+	height: 100%;
+	background: #fff;
+	margin: 15px auto 0;
+}
+
+.wrapper_two .title_two{
+	padding: 30px 20px;
+	text-align: center;
+	font-size: 24px;
+	font-weight: 700;
+	border-bottom: 1px solid #ebedec;
+}
+
+.wrapper_two .tabs_wrap_two{
+	padding: 20px;
+	border-bottom: 1px solid #ebedec;
+}
+
+.wrapper_two .tabs_wrap_two ul{
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+}
+
+.wrapper_two .tabs_wrap_two ul li{
+	width: 135px;
+    text-align: center;
+    background: #e9ecf1;
+    border-right: 1px solid #c1c4c9;
+    padding: 13px 15px;
+	cursor: pointer;
+	-webkit-transition: all 0.2s ease;
+	-o-transition: all 0.2s ease;
+	transition: all 0.2s ease;
+}
+
+.wrapper_two .tabs_wrap_two ul li:first-child{
+	border-top-left-radius: 25px;
+	border-bottom-left-radius: 25px;
+}
+
+.wrapper_two .tabs_wrap_two ul li:last-child{
+	border-right: 0px;
+	border-top-right-radius: 25px;
+	border-bottom-right-radius: 25px;
+}
+
+.wrapper_two .tabs_wrap_two ul li:hover,
+.wrapper_two .tabs_wrap_two ul li.active{
+	background: #7fc469;
+	color: #fff;
+}
+
+.wrapper_two .container_two .item_wrap_two{
+	padding: 10px 20px;
+	border-bottom: 1px solid #ebedec;
+	cursor: pointer;
+}
+
+.wrapper_two .container_two .item_wrap_two:hover{
+	background: #e9ecf1;
+}
+
+.wrapper_two .container_two .item_two{
+	position: relative;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	    -ms-flex-pack: justify;
+	        justify-content: space-between;
+}
+
+
+
