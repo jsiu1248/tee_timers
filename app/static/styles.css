@@ -605,4 +605,7 @@ body{
 }
 
 
-
+/*nav bar*/
+.navbar{
+    margin-bottom: 0px;
+}
