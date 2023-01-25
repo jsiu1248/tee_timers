@@ -532,28 +532,15 @@ body {
 }
 
 body{
-	background: #7fc469;
-	color: #565e6b;
 }
 
 .wrapper_two{
-	width: 500px;
-	height: 100%;
-	background: #fff;
-	margin: 15px auto 0;
 }
 
 .wrapper_two .title_two{
-	padding: 30px 20px;
-	text-align: center;
-	font-size: 24px;
-	font-weight: 700;
-	border-bottom: 1px solid #ebedec;
 }
 
 .wrapper_two .tabs_wrap_two{
-	padding: 20px;
-	border-bottom: 1px solid #ebedec;
 }
 
 .wrapper_two .tabs_wrap_two ul{
@@ -590,7 +577,7 @@ body{
 
 .wrapper_two .tabs_wrap_two ul li:hover,
 .wrapper_two .tabs_wrap_two ul li.active{
-	background: #7fc469;
+	background: #1ECD97;
 	color: #fff;
 }
 
