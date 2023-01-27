@@ -481,11 +481,17 @@ Drinking, PlayingType, GolfCourse, Img).join(UserProfile,
     users = pagination.items
 
 
+    if request.method == 'GET':
+        return render_template('match.html',
+                            users = users, form = form , pagination = pagination)
 
+    # if request.method == 'POST':
+    #     return render_template('match.html',
+    #                         users = users, form = request.form , pagination = pagination)
+    else:
+        return render_template('match.html',
+                            users = users, form = request.form , pagination = pagination)
 
-    return render_template('match.html',
-                           users = users, form = form , pagination = pagination
-    )
 
 @main.route('/post/<slug>',  methods=["GET", "POST"])
 @login_required

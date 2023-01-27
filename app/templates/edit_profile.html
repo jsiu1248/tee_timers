@@ -3,8 +3,7 @@
 
 {% block content %}
 {{super()}}
-
-<div class="form-header">
+<div class="form-header page-formatting">
 {# {{ wtf.quick_form(form) }} #}
 <form name="profile_edit_form"  id="profileEditForm" method="POST">
 {{ form.csrf_token }}

@@ -519,6 +519,12 @@ body {
 
 }
 
+.page-formatting{
+    padding-left: 150px;
+    padding-right: 150px;
+
+}
+
 /*two section*/
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap');
 
