@@ -480,7 +480,7 @@ Drinking, PlayingType, GolfCourse, Img).join(UserProfile,
     # Convert to list
     users = pagination.items
 
-
+    # TODO
     if request.method == 'GET':
         return render_template('match.html',
                             users = users, form = form , pagination = pagination)
