@@ -8,4 +8,9 @@
             {{ wtf.quick_form(form) }}
         </div>
     </div> 
+
+    {% for message in messages %}
+    {{message.description}}
+{% endfor %}
+
 {% endblock%}

@@ -710,6 +710,7 @@ def send_message(recipient):
     user = User.query.filter_by(username=recipient).first()
 
     form = MessageForm()
+    messages = Message.query.order_by(Message.timestamp.desc())
     if form.validate_on_submit():
         msg = Message(description = form.message.data, 
 sender_id = current_user.id, recipient_id = user.id)
@@ -719,7 +720,7 @@ sender_id = current_user.id, recipient_id = user.id)
         return redirect(url_for('main.user', username = recipient))
     return render_template('send_message.html',
                             form = form, 
-                        recipient = recipient
+                        recipient = recipient, messages = messages
                         )
 
 @main.route('/messages')
