@@ -240,8 +240,3 @@ class MessageForm(FlaskForm):
         DataRequired(), Length(min=0, max=140)])
     submit = SubmitField(('Submit'))
         
-class ChatLoginForm(FlaskForm):
-    """Accepts a nickname and a room."""
-    name = StringField('Name', validators=[DataRequired()])
-    room = StringField('Room', validators=[DataRequired()])
-    submit = SubmitField('Enter Chatroom')

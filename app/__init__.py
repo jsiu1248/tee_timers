@@ -8,7 +8,6 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_moment import Moment
 from flask_wtf.csrf import CSRFProtect
-from flask_socketio import SocketIO
 
 # absolute path
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -22,7 +21,6 @@ moment = Moment()
 # protects against cross-site request forgery outside of forms
 csrf = CSRFProtect()
 login_manager = LoginManager()
-socketio = SocketIO()
 
 login_manager.login_view = 'auth.login'
 
@@ -47,7 +45,6 @@ def create_app(config_name='default'):
     login_manager.init_app(app)
     mail.init_app(app)
     csrf.init_app(app)
-    socketio.init_app(app, cors_allowed_origins='*')
 
     """registering blue prints"""
     from .main import main as main_blueprint 

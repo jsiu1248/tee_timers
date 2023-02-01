@@ -7,16 +7,14 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, or_
 from ..models import User, Role, Permission, Comment, Post, Day, UserProfile, State, City, GolfCourse, Gender, TimeOfDay, RideOrWalk, Handicap, Smoking, Drinking, PlayingType, Img, Message
 from ..decorators import permission_required, admin_required
-from .forms import PostForm, SupportForm, MatchForm, EditProfileForm, AdminLevelEditProfileForm, CommentForm, MessageForm, ChatLoginForm
+from .forms import PostForm, SupportForm, MatchForm, EditProfileForm, AdminLevelEditProfileForm, CommentForm, MessageForm
 from ..email import send_email
 from PIL import Image
-import io
 import base64
 from werkzeug.utils import secure_filename
 import os
 import secrets
 from datetime import datetime
-from flask_socketio import SocketIO, join_room, emit
 from jinja2 import DebugUndefined
 
 
@@ -709,37 +707,27 @@ def create_post():
 @login_required
 def send_message(recipient):
     # user = User.query.filter_by(username = recipient).first_or_404()
-    # form = MessageForm()
-    # if form.validate_on_submit():
-    #     msg = Message(author = current_user, recipient = user,
-    #                   description = form.message.data)
-    #     db.session.add(msg)
-    #     db.session.commit()
-        # flash(('Your message has been sent.'))
-        # return redirect(url_for('main.user', username = recipient))
-    return render_template('send_message.html', #title = _('Send Message'),
-                        #    form = form, 
+    user = User.query.filter_by(username=recipient).first()
+
+    form = MessageForm()
+    if form.validate_on_submit():
+        msg = Message(description = form.message.data, 
+sender_id = current_user.id, recipient_id = user.id)
+        db.session.add(msg)
+        db.session.commit()
+        flash(('Your message has been sent.'))
+        return redirect(url_for('main.user', username = recipient))
+    return render_template('send_message.html',
+                            form = form, 
                         recipient = recipient
                         )
 
 @main.route('/messages')
 @login_required
 def messages():
-    # current_user.last_message_read_time = datetime.utcnow()
-    # db.session.commit()
-    # page = request.args.get('page', 1, type=int)
-    # messages = current_user.messages_received.order_by(
-    #     Message.timestamp.desc()).paginate(
-    #         page=page, per_page=current_app.config['POSTS_PER_PAGE'],
-    #         error_out=False)
-    # next_url = url_for('main.messages', page=messages.next_num) \
-    #     if messages.has_next else None
-    # prev_url = url_for('main.messages', page=messages.prev_num) \
-    #     if messages.has_prev else None
-    return render_template('messages.html'
-    # , messages=messages.items,
-    #                        next_url=next_url, prev_url=prev_url
-                           )
+    form = MessageForm()
+
+    return render_template('messages.html', form = form)
 
 # @main.route('/edit/<slug>',  methods=["GET", "POST"])
 # @login_required
@@ -770,27 +758,3 @@ def messages():
 #     form.title.data = composition.title
 #     form.post.data = post.description
 #     return render_template('post.html', form=form)
-
-@main.route('/room', methods=['GET', 'POST'])
-def room():
-    """Login form to enter a room."""
-    form = ChatLoginForm()
-    if form.validate_on_submit():
-        session['name'] = form.name.data
-        session['room'] = form.room.data
-        return redirect(url_for('.chat'))
-    elif request.method == 'GET':
-        form.name.data = session.get('name', '')
-        form.room.data = session.get('room', '')
-    return render_template('room.html', form=form)
-
-
-@main.route('/chat')
-def chat():
-    """Chat room. The user's name and room must be stored in
-    the session."""
-    name = session.get('name', '')
-    room = session.get('room', '')
-    if name == '' or room == '':
-        return redirect(url_for('.room'))
-    return render_template('chat.html', name=name, room=room)
