@@ -70,6 +70,7 @@ def user(username):
     ).join(Img, UserProfile.profile_picture_id == Img.id,isouter = True).first()
 
     posts = user.post.order_by(Post.timestamp.desc()).all()
+    
     image_file = os.path.join('../static', userprofile.Img.img)
     # image_file = "../main/79c603e05a9d7987.jpeg"
 
@@ -717,7 +718,7 @@ sender_id = current_user.id, recipient_id = user.id)
         db.session.add(msg)
         db.session.commit()
         flash(('Your message has been sent.'))
-        return redirect(url_for('main.user', username = recipient))
+        # return redirect(url_for('main.user', username = recipient))
     return render_template('send_message.html',
                             form = form, 
                         recipient = recipient, messages = messages

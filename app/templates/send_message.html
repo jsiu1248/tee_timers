@@ -2,15 +2,30 @@
 {%import "bootstrap/wtf.html" as wtf %}
 
 {% block page_content %}
-     <h1> Send Message to {{ recipient }}</h1>
-    <div class="row">
-        <div class="col-md-4">
-            {{ wtf.quick_form(form) }}
-        </div>
-    </div> 
+<h1> Send Message to {{ recipient }}</h1>
+<div class="row">
+    <div class="col-md-4">
+        {{ wtf.quick_form(form) }}
+    </div>
+</div>
 
-    {% for message in messages %}
+{% for message in messages %}
+<div class="message-user">
+    <a href="{{ url_for('main.user', username = current_user.username) }}">
+        {{ current_user.username }}
+    </a>
+</div>
+<div class="message-date">- {{ message.timestamp.replace(microsecond=0).strftime("%b %d %Y %H:%M:%S") }}
+    {{moment(message.timestamp.replace(microsecond=0)).fromNow() }}</div>
+
+<div class="message">
+<div class="message-description">
+
     {{message.description}}
+</div>
+</div>
+
+
 {% endfor %}
 
 {% endblock%}
