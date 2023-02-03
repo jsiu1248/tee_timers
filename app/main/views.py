@@ -711,7 +711,11 @@ def send_message(recipient):
     user = User.query.filter_by(username=recipient).first()
 
     form = MessageForm()
-    messages = Message.query.order_by(Message.timestamp.desc())
+    messages = db.session.query(Message, User).join(User, Message.sender_id == User.id, isouter = True
+                                                    ).order_by(Message.timestamp.desc())
+    
+    # messages = Message.query.order_by(Message.timestamp.desc())
+
     if form.validate_on_submit():
         msg = Message(description = form.message.data, 
 sender_id = current_user.id, recipient_id = user.id)
@@ -721,8 +725,15 @@ sender_id = current_user.id, recipient_id = user.id)
         # return redirect(url_for('main.user', username = recipient))
     return render_template('send_message.html',
                             form = form, 
-                        recipient = recipient, messages = messages
+                        recipient = recipient, messages = messages, 
+                        user = user
                         )
+
+    # userprofile = db.session.query(UserProfile, Day, State, City, 
+    # Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
+    # Drinking, PlayingType, GolfCourse, Img).filter_by(id=user.id
+    # ).join(Day, UserProfile.day_id == Day.id, isouter = True
+
 
 @main.route('/messages')
 @login_required
