@@ -639,6 +639,16 @@ class Message(db.Model):
 
     def __repr__(self):
         return '<Message {}>'.format(self.description)
+    
+
+class Support(db.Model):
+    __tablename__ = 'supports'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(64), index = True)
+    message = db.Column(db.Text)
+    email = db.Column(db.String(64), index = True)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+
 
 # figure out how to auto insert data later
 # State.insert_state()

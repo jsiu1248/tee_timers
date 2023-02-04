@@ -2,11 +2,6 @@
 {%import "bootstrap/wtf.html" as wtf %}
 
 {% block page_content %}
-<div class="row">
-    <div class="col-md-4">
-        {{ wtf.quick_form(form) }}
-    </div>
-</div>
 
 <div id="container">
     <aside>
@@ -14,7 +9,7 @@
     <main>
         <header>
             <div>
-                <h3> Send Message to {{ recipient }}</h3>
+                <h3> Chat with {{ recipient }}</h3>
             </div>
         </header>
         <ul id="chat">
@@ -28,7 +23,8 @@
                         {{ current_user.username }}
                     </a>
                 </div>
-                <div class="message-date entete">- {{ message.Message.timestamp.replace(microsecond=0).strftime("%b %d %Y
+                <div class="message-date entete">- {{ message.Message.timestamp.replace(microsecond=0).strftime("%b %d
+                    %Y
                     %H:%M:%S") }}
                     {{moment(message.Message.timestamp.replace(microsecond=0)).fromNow() }}</div>
 
@@ -46,7 +42,8 @@
                         {{ message.User.username }}
                     </a>
                 </div>
-                <div class="message-date entete">- {{ message.Message.timestamp.replace(microsecond=0).strftime("%b %d %Y
+                <div class="message-date entete">- {{ message.Message.timestamp.replace(microsecond=0).strftime("%b %d
+                    %Y
                     %H:%M:%S") }}
                     {{moment(message.Message.timestamp.replace(microsecond=0)).fromNow() }}</div>
 
@@ -58,6 +55,19 @@
 
             {% endfor %}
         </ul>
+        <footer>
+<form name="message_form"  id="messageForm" method="POST">
+{{ form.csrf_token }}
+
+                {{wtf.form_field(form.message)}}
+
+            <div class="submit-container">
+
+                {{wtf.form_field(form.submit)}}
+            </div>
+
+</form>
+        </footer>
 
     </main>
 
