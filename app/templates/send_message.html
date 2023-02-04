@@ -8,13 +8,27 @@
         <header>
             <input type="text" placeholder="search">
         </header>
+
         <ul>
+            {# {% for message in messages %} #}
+            {% set recipient_list = [] %}
+            {%for recipient in messages if recipient.Message.sender_id not in recipient_list%}
+            {% do recipient_list.append(recipient.Message.sender_id)%}
+
+            {# {% if message.Message.sender_id == current_user.id or message.Message.recipient_id == current_user.id%} #}
+            {# {% set recipient_list = [] %} #}
+            {# {%for recipient in messages if recipient.Message.sender_id not in recipient_list%} #}
+            {# {% do recipient_list.append(recipient.Message.sender_id)%}
+            {%endfor%} #}
+
             <li>
                 <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
                 <div>
-                    <h2>Prénom Nom</h2>
+                    <h2> {{recipient.Message.sender_id}} </h2>
                 </div>
             </li>
+            {# {%endif%} #}
+            {%endfor%}
         </ul>
     </aside>
     <main>
@@ -22,6 +36,7 @@
             <div>
                 <h3> Chat with {{ recipient }}</h3>
             </div>
+
         </header>
         <ul id="chat">
             {% for message in messages %}
@@ -67,17 +82,17 @@
             {% endfor %}
         </ul>
         <footer>
-<form name="message_form"  id="messageForm" method="POST">
-{{ form.csrf_token }}
+            <form name="message_form" id="messageForm" method="POST">
+                {{ form.csrf_token }}
 
                 {{wtf.form_field(form.message)}}
 
-            <div class="submit-container">
+                <div class="submit-container">
 
-                {{wtf.form_field(form.submit)}}
-            </div>
+                    {{wtf.form_field(form.submit)}}
+                </div>
 
-</form>
+            </form>
         </footer>
 
     </main>
