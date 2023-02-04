@@ -25,7 +25,7 @@
 
       <div id="section-1_grid" class="section-1_grid">
 
-<img src = "../static/Vanilla-1s-280px.svg"/>
+        <img src="../static/Vanilla-1s-280px.svg" />
       </div>
   </div>
 
@@ -69,15 +69,17 @@
   </div>
   <div class="ten">
     <div class="support-form ten-text-formating">
-      {{wtf.form_field(support_form.name)}}
-      {{wtf.form_field(support_form.email)}}
-      {{wtf.form_field(support_form.message)}}
+      <form name="supportForm" id="supportForm" method="POST">
+        {{ form.csrf_token }}
+        {{wtf.form_field(form.name)}}
+        {{wtf.form_field(form.email)}}
+        {{wtf.form_field(form.message)}}
 
 
-      <div class="submit-container">
-        {{wtf.form_field(support_form.submit)}}
-      </div>
-
+        <div class="submit-container">
+          {{wtf.form_field(form.submit)}}
+        </div>
+      </form>
 
     </div>
   </div>

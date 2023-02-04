@@ -5,7 +5,7 @@ from flask_login import login_required, current_user
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, or_
-from ..models import User, Role, Permission, Comment, Post, Day, UserProfile, State, City, GolfCourse, Gender, TimeOfDay, RideOrWalk, Handicap, Smoking, Drinking, PlayingType, Img, Message
+from ..models import User, Role, Permission, Comment, Post, Day, UserProfile, State, City, GolfCourse, Gender, TimeOfDay, RideOrWalk, Handicap, Smoking, Drinking, PlayingType, Img, Message, Support
 from ..decorators import permission_required, admin_required
 from .forms import PostForm, SupportForm, MatchForm, EditProfileForm, AdminLevelEditProfileForm, CommentForm, MessageForm
 from ..email import send_email
@@ -24,14 +24,25 @@ def index():
     Home page.
     Return: the index html
     """
-    support_form = SupportForm()
-    if support_form.validate_on_submit():
-        name = support_form;name.data
-        title = support_form.title.data
-        message = support_form.message.data
-        send_email('flaskwebdev.js@gmail.com', title = title, message = message, name = name)
+    
+    form = SupportForm()
 
-    return render_template('index.html', support_form = support_form)
+    if form.validate_on_submit():
+
+
+
+        support = Support(username = form.name.data,
+                          email = form.email.data,
+                          message = form.message.data)
+
+
+        # send_email('flaskwebdev.js@gmail.com', email = email,  username = name, 
+        #            subject ="test", template = message)
+        db.session.add(support)
+        db.session.commit()
+
+
+    return render_template('index.html', form = form)
 
 @main.route('/admin')
 @login_required
