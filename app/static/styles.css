@@ -789,7 +789,7 @@ main header h3{
 
 main footer{
 	height:155px;
-	padding:20px 30px 10px 20px;
+	padding:10px 30px 10px 20px;
 }
 main footer textarea{
 	resize:none;
@@ -831,5 +831,5 @@ main footer a{
 }
 
 .message-description{
-    
+
 }
