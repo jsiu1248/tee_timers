@@ -626,6 +626,7 @@ body{
 	font-size:0;
 	border-radius:5px;
 	overflow:hidden;
+    margin-top: 50px;
 }
 aside{
 	width:260px;
