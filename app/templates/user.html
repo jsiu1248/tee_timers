@@ -61,7 +61,7 @@
 
     {% if user == current_user %}
     <button type="button" class="btn btn-light">
-        <a href="{{ url_for('main.messages') }}">
+        <a href="{{  url_for('main.send_message', recipient = current_user.username)  }}">
                             Messages
         </a>
         <span class="badge badge-light"></span>
