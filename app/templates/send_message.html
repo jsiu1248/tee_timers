@@ -10,28 +10,37 @@
         </header>
 
         <ul>
-            {# {% for message in messages %} #}
+            {#trying to get all users that sender has messaged #}
             {% set recipient_list = [] %}
+            {# {% set count = 0 %} #}
 
-            {%for recipient in messages if recipient.User.username not in recipient_list%}
-            {% if recipient.Message.sender_id != current_user.id and recipient.Message.recipient_id != current_user.id%}
+            {%for rep in messages if rep.User.username not in recipient_list and rep.UserRep.username not in
+            recipient_list %}
+            {% if (rep.Message.sender_id == current_user.id or rep.Message.recipient_id == current_user.id)%}
 
-            {% do recipient_list.append(recipient.User.username)%}
+            {% if rep.User.username != current_user.username %}
+            {% do recipient_list.append(rep.User.username)%}
+            {%endif%}
+            {% if rep.UserRep.username != current_user.username%}
+            {% do recipient_list.append(rep.UserRep.username)%}
+            {%endif%}
 
-            {# {% set recipient_list = [] %} #}
-            {# {%for recipient in messages if recipient.Message.sender_id not in recipient_list%} #}
-            {# {% do recipient_list.append(recipient.Message.sender_id)%}
-            {%endfor%} #}
+
 
             <li>
                 <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
                 <div>
-                    <a href="{{ url_for('main.send_message', recipient = recipient.User.username) }}">
+                    <a href="{{ url_for('main.send_message', recipient = rep.UserRep.username) }}">
 
-                        {{recipient.User.username}} </a>
+                        {{rep.UserRep.username}} </a>
+                    {{recipient_list[loop.index-1]}}
                 </div>
             </li>
+            {# count = count + 1 #}
             {%endif%}
+            {%endfor%}
+
+            {% for name in recipient_list%}
             {%endfor%}
         </ul>
     </aside>
@@ -44,9 +53,8 @@
         </header>
         <ul id="chat">
             {% for message in messages%}
-            {# {% if recipient == message.User.username%} #}
             {% if message.Message.sender_id == current_user.id and message.Message.recipient_id == user.id%}
-            <li class="me"> 
+            <li class="me">
 
                 <div class="message-user entete">
                     <a href="{{ url_for('main.user', username = current_user.username) }}">
