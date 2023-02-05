@@ -12,8 +12,8 @@
         <ul>
             {# {% for message in messages %} #}
             {% set recipient_list = [] %}
-            {%for recipient in messages if recipient.Message.sender_id not in recipient_list%}
-            {% do recipient_list.append(recipient.Message.sender_id)%}
+            {%for recipient in messages if recipient.User.username not in recipient_list%}
+            {% do recipient_list.append(recipient.User.username)%}
 
             {# {% if message.Message.sender_id == current_user.id or message.Message.recipient_id == current_user.id%} #}
             {# {% set recipient_list = [] %} #}
@@ -24,7 +24,7 @@
             <li>
                 <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
                 <div>
-                    <h2> {{recipient.Message.sender_id}} </h2>
+                    <h2> {{recipient.User.username}} </h2>
                 </div>
             </li>
             {# {%endif%} #}
