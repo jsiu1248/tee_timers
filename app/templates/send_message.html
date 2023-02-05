@@ -12,10 +12,12 @@
         <ul>
             {# {% for message in messages %} #}
             {% set recipient_list = [] %}
+
             {%for recipient in messages if recipient.User.username not in recipient_list%}
+            {% if recipient.Message.sender_id != current_user.id and recipient.Message.recipient_id != current_user.id%}
+
             {% do recipient_list.append(recipient.User.username)%}
 
-            {# {% if message.Message.sender_id == current_user.id or message.Message.recipient_id == current_user.id%} #}
             {# {% set recipient_list = [] %} #}
             {# {%for recipient in messages if recipient.Message.sender_id not in recipient_list%} #}
             {# {% do recipient_list.append(recipient.Message.sender_id)%}
@@ -24,10 +26,12 @@
             <li>
                 <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
                 <div>
-                    <h2> {{recipient.User.username}} </h2>
+                    <a href="{{ url_for('main.send_message', recipient = recipient.User.username) }}">
+
+                        {{recipient.User.username}} </a>
                 </div>
             </li>
-            {# {%endif%} #}
+            {%endif%}
             {%endfor%}
         </ul>
     </aside>
@@ -64,7 +68,7 @@
             <li class="you">
 
                 <div class="message-user entete">
-                    <a href="{{ url_for('main.user', username = current_user.username) }}">
+                    <a href="{{ url_for('main.user', username = message.User.username) }}">
                         {{ message.User.username }}
                     </a>
                 </div>
