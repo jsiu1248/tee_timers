@@ -16,6 +16,7 @@ import os
 import secrets
 from datetime import datetime
 from jinja2 import DebugUndefined
+from sqlalchemy.orm import aliased
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -722,7 +723,9 @@ def send_message(recipient):
     user = User.query.filter_by(username=recipient).first()
 
     form = MessageForm()
-    messages = db.session.query(Message, User).join(User, Message.sender_id == User.id, isouter = True
+    UserRep = aliased(User, name = 'UserRep')
+    messages = db.session.query(Message, User, UserRep).join(User, Message.sender_id == User.id, isouter = True
+                                                    ).join(UserRep, Message.recipient_id == UserRep.id, isouter = True
                                                     ).order_by(Message.timestamp.desc())
     
     # messages = Message.query.order_by(Message.timestamp.desc())
@@ -745,13 +748,6 @@ sender_id = current_user.id, recipient_id = user.id)
     # Drinking, PlayingType, GolfCourse, Img).filter_by(id=user.id
     # ).join(Day, UserProfile.day_id == Day.id, isouter = True
 
-
-@main.route('/messages')
-@login_required
-def messages():
-    form = MessageForm()
-
-    return render_template('messages.html', form = form)
 
 # @main.route('/edit/<slug>',  methods=["GET", "POST"])
 # @login_required
