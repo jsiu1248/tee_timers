@@ -3,6 +3,7 @@
 
 {% block page_content %}
 
+<body style="background-color: #f2f2f2;">
 <div id="container">
     <aside>
         <header>
@@ -12,7 +13,6 @@
         <ul>
             {#trying to get all users that sender has messaged #}
             {% set recipient_list = [] %}
-            {# {% set count = 0 %} #}
 
             {%for rep in messages if rep.User.username not in recipient_list and rep.UserRep.username not in
             recipient_list %}
@@ -112,4 +112,5 @@
     </main>
 
 </div>
+</body>
 {% endblock%}
