@@ -84,20 +84,60 @@
 
       </div>
     </div> #}
-    <div class="child">
+    <div class="child one" id="one">
           <h2 class="nine-text-formating">Golf is <span class="highlighted-text text-gray-300">with a friend</span></h1>
 
           <img src="../static/Vanilla-1s-280px (2).svg" />
 </div>
-    <div class="child"></div>
-    <div class="child"></div>
-    <div class="child"></div>
-    <div class="child"></div>
-    <div class="child"></div>
-    <div class="child"></div>
-    <div class="child"></div>
-    <div class="child"></div>
-    <div class="child"></div>
+    <div class="child two" id="two">
+          <div class="wrapper_two">
+        <div class="tabs_wrap_two">
+          <ul>
+            <li data-tabs="find">Find</li>
+            <li data-tabs="message">Message</li>
+            <li data-tabs="play">Play</li>
+          </ul>
+        </div>
+      </div>
+</div>
+    <div class="child three wrapper_two item_wrap_two item_two find" id="three"></div>
+    <div class="child four wrapper_two bg-rose-800 item_wrap_two item_two find" id="four">
+          <div>
+        <h2 class="nine-text-formating">Find Golfers</h2>
+      </div>
+      <div>
+        <p class="format-text">Find a playing partner that suits you.</p>
+      </div>
+</div>
+    <div class="child five wrapper_two item_wrap_two item_two message" id="five">
+          <h2 class="nine-text-formating">Messaging and Forum</h2>
+      <p class="format-text">Get to know them through messages or ask questions through the forum.</p>
+
+</div>
+    <div class="child six wrapper_two item_wrap_two item_two message" id="six"></div>
+    <div class="child seven wrapper_two item_wrap_two item_two play" id="seven"></div>
+    <div class="child eight wrapper_two item_wrap_two item_two play" id="eight">
+          <h2 class="nine-text-formating">Meet and Play</h2>
+      <p class="format-text">Meetup and start playing together.</p>
+</div>
+    <div class="child nine" id="nine">
+          <h2 class="nine-text-formating"> Send your good vibes our way.
+
+      </h2>
+</div>
+    <div class="child ten support-form ten-text-formating" id="ten">
+            <form name="supportForm" id="supportForm" method="POST">
+          {{ form.csrf_token }}
+          {{wtf.form_field(form.name)}}
+          {{wtf.form_field(form.email)}}
+          {{wtf.form_field(form.message)}}
+
+
+          <div class="submit-container">
+            {{wtf.form_field(form.submit)}}
+          </div>
+        </form>
+</div>
 
   </div>
 </div>
