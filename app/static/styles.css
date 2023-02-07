@@ -925,3 +925,32 @@ main footer a {
     border-radius: 20px;
 
   }
+
+
+  /*filterBox*/
+  .filterBox{
+    width: 350px;
+    height: 80px;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #B2D3A8; 
+    color:#474350;  
+  }
+
+  .filterWord{
+    font-size: 2.5em;  
+    /* margin-block-start: 1em;
+    margin-block-end: 1em; */
+    margin-inline-start: 40px;
+    /* margin-inline-end: 1px */
+    display: inline-block;
+    font-weight: 700;
+}
+
+  .filterCount{
+    display: inline-block;
+    font-size: 2em;
+    padding-left: 0.5em;
+    font-weight: 400;
+    
+  }
