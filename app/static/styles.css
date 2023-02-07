@@ -89,7 +89,7 @@
 /*Welcome message for index page*/
 .welcome-message {
     color: #f2f2f2;
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 150px;
     text-align: center;
     margin: 0;
@@ -149,6 +149,7 @@ body {
     align-items: center;
     border-radius: 100px;
     margin: 25px;
+
 }
 
 .two {
@@ -439,8 +440,7 @@ body {
 .name-formatting {
     color: black;
     font-size: 36px;
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
-    
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
 }
 
 .icon-formatting {
@@ -891,31 +891,32 @@ main footer a {
 .message-description {}
 
 /*flex box */
-.wrapper{
+.wrapper {}
 
-}
 .box {
 
     display: flex;
     flex-wrap: wrap;
 
-  }
-  .child {
+}
+
+.child {
     margin: 20px;
     padding: 10px;
-    flex: 40%;/* explanation below */
+    flex: 40%;
+    /* explanation below */
     height: 400px;
     background-color: #B2D3A8;
     border-radius: 100px;
     align-content: center;
 
-  }
+}
 
-  .supportForm{
-    padding:50px;
-  }
+.supportForm {
+    padding: 50px;
+}
 
-  .follow-format{
+.follow-format {
     background-color: #B2D3A8;
     margin-left: 250px;
     margin-right: 250px;
@@ -924,21 +925,22 @@ main footer a {
     /* padding-bottom: 0.25px; */
     border-radius: 20px;
 
-  }
+}
 
 
-  /*filterBox*/
-  .filterBox{
+/*filterBox*/
+.filterBox {
     width: 350px;
     height: 80px;
     padding: 10px;
     margin-bottom: 20px;
-    background-color: #B2D3A8; 
-    color:#474350;  
-  }
+    background-color: #B2D3A8;
+    color: #474350;
+    border-radius: 30px;
+}
 
-  .filterWord{
-    font-size: 2.5em;  
+.filterWord {
+    font-size: 2.5em;
     /* margin-block-start: 1em;
     margin-block-end: 1em; */
     margin-inline-start: 40px;
@@ -947,10 +949,32 @@ main footer a {
     font-weight: 700;
 }
 
-  .filterCount{
+.filterCount {
     display: inline-block;
     font-size: 2em;
     padding-left: 0.5em;
     font-weight: 400;
-    
-  }
+
+}
+
+/*format one items*/
+.oneImage {
+    margin-left: 100px;
+    position: relative;
+    z-index: 1;
+}
+
+.oneFriend {
+    position: absolute;
+    padding-left: 100px;
+    padding-top: 200px;
+    z-index: 2;
+}
+
+.oneGolf{
+    position: absolute;
+    padding-left: 175px;
+    padding-bottom: 200px;
+    z-index: 2;
+
+}
