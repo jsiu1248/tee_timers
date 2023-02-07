@@ -70,7 +70,7 @@
 /*for the index page */
 /*Parallex effect for first image*/
 .parallax-effect {
-    background-image: url("../static/istockphoto-515229864-612x612.jpeg");
+    background-image: url("../static/pexels-photo-6256836.jpeg");
     height: 100%;
     /*width: auto;*/
 
@@ -88,9 +88,9 @@
 
 /*Welcome message for index page*/
 .welcome-message {
-    color: #FFFFFF;
-    font-family: 'Raleway', Arial, sans-serif;
-    font-size: 200px;
+    color: #f2f2f2;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 150px;
     text-align: center;
     margin: 0;
     position: absolute;
@@ -907,5 +907,21 @@ main footer a {
     height: 400px;
     background-color: #B2D3A8;
     border-radius: 100px;
+    align-content: center;
+
+  }
+
+  .supportForm{
+    padding:50px;
+  }
+
+  .follow-format{
+    background-color: #B2D3A8;
+    margin-left: 250px;
+    margin-right: 250px;
+    margin-bottom: 20px;
+    /* padding-top: 0.25px; */
+    /* padding-bottom: 0.25px; */
+    border-radius: 20px;
 
   }
