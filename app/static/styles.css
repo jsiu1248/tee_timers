@@ -37,15 +37,18 @@
 
 /**/
 .comments-container {
-    border: 5px solid #c3c3c3;
+    border: 1px solid #c3c3c3;
     margin-left: 50px;
     background-color: white;
+    border-radius: 50px;
+
 
 }
 
 .posts-container {
-    border: 5px solid #c3c3c3;
+    border: 1px solid #c3c3c3;
     background-color: white;
+    border-radius: 50px;
 
 }
 
@@ -89,7 +92,7 @@
 /*Welcome message for index page*/
 .welcome-message {
     color: #f2f2f2;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 150px;
     text-align: center;
     margin: 0;
