@@ -665,9 +665,12 @@ body {}
     background: #eff3f7;
     margin: 0 auto;
     font-size: 0;
-    border-radius: 5px;
+    border-radius: 10px;
     overflow: hidden;
     margin-top: 50px;
+
+    /* border: 1px solid #c3c3c3; */
+
 }
 
 aside {
@@ -677,6 +680,8 @@ aside {
     display: inline-block;
     font-size: 15px;
     vertical-align: top;
+    border: 1px solid #c3c3c3;
+
 }
 
 main {
@@ -760,6 +765,8 @@ aside li h3 {
 main header {
     height: 110px;
     padding: 30px 20px 30px 40px;
+    border: 1px solid #c3c3c3;
+
 }
 
 main header>* {
@@ -798,8 +805,9 @@ main header h3 {
     list-style-type: none;
     overflow-y: scroll;
     height: 535px;
-    border-top: 2px solid #fff;
-    border-bottom: 2px solid #fff;
+    /* border-bottom: 1px solid #c3c3c3; */
+    border-right: 1px solid #c3c3c3;;
+    /* border-left: 1px solid #c3c3c3; */
 }
 
 #chat li {
@@ -829,6 +837,7 @@ main header h3 {
     display: inline-block;
     text-align: left;
     border-radius: 5px;
+    
 }
 
 #chat .me {
@@ -863,6 +872,11 @@ main header h3 {
 main footer {
     height: 155px;
     padding: 10px 30px 10px 20px;
+    border-bottom: 1px solid #c3c3c3;
+    border-right: 1px solid #c3c3c3;
+    border-top: 1px solid #c3c3c3;
+
+
 }
 
 main footer textarea {
@@ -879,6 +893,7 @@ main footer textarea {
 
 main footer textarea::placeholder {
     color: #ddd;
+    
 }
 
 main footer img {
@@ -895,6 +910,7 @@ main footer a {
     margin-left: 333px;
     margin-top: 5px;
     display: inline-block;
+    
 }
 
 /*send_message*/
