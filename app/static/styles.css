@@ -41,6 +41,7 @@
     margin-left: 50px;
     background-color: white;
     border-radius: 50px;
+    padding-top: 20px;
 
 
 }
@@ -49,6 +50,8 @@
     border: 1px solid #c3c3c3;
     background-color: white;
     border-radius: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 
 }
 
