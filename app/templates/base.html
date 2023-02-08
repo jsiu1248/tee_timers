@@ -41,31 +41,31 @@
             <span class="bi bi-three-dots-vertical icon-formatting"></span>
         </button>
         <div class="offcanvas offcanvas-end nav-bg" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title side-bar-formatting" id="offcanvasNavbarLabel">Tee Timers</h5>
+            <div class="offcanvas-header navOffFormat">
+                <h5 class="offcanvas-title side-bar-formatting navOffFormatText" id="offcanvasNavbarLabel">Tee Timers</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body nav-bg">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
-                        <a class="nav-link active side-bar-formatting" aria-current="page" href="/">Home</a>
+                        <a class="nav-link active side-bar-formatting navOffFormatText" aria-current="page" href="/">Home</a>
                     </li>
                     <br>
                     <br>
                     {% if current_user.is_authenticated %}
 
-                    <li><a class="nav-item side-bar-formatting" href="{{url_for('main.user', username=current_user.username)}}">Profile</a>
+                    <li><a class="nav-item side-bar-formatting navOffFormatText" href="{{url_for('main.user', username=current_user.username)}}">Profile</a>
                     </li>
                     <br>
                     <br>
-                    <li><a class="nav-item side-bar-formatting" href="{{url_for('auth.change_password')}}">Change Password</a></li>
+                    <li><a class="nav-item side-bar-formatting navOffFormatText" href="{{url_for('auth.change_password')}}">Change Password</a></li>
                     <br>
                     <br>
-                    <li><a class="nav-item side-bar-formatting" href="{{url_for('auth.logout')}}">Log Out</a></li>
+                    <li><a class="nav-item side-bar-formatting navOffFormatText" href="{{url_for('auth.logout')}}">Log Out</a></li>
 
                     </li>
                     {% else %}
-                    <li><a class="nav-item side-bar-formatting" href="{{url_for('auth.login')}}">Log In</a></li>
+                    <li><a class="nav-item side-bar-formatting navOffFormatText" href="{{url_for('auth.login')}}">Log In</a></li>
                     {% endif %}
 
                     </li>
