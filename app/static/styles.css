@@ -22,12 +22,13 @@
     /* flex: 0 0 0; */
     display: inline-grid;
     border-radius: 10px;
-    border: 5px solid #c3c3c3;
+    border: 1px solid #c3c3c3;
     text-align: center;
     height: 600px;
     width: 350px;
     margin: 10px;
     background-color: white;
+    padding: 20px;
 
 }
 
