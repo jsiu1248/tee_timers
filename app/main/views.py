@@ -315,7 +315,7 @@ def edit_profile_admin(id):
     form.playing_type.data = [userprofile.UserProfile.playing_type_id]
     form.golf_course.data = userprofile.UserProfile.golf_course_id
     image_file = url_for('static', filename='profile_pics/' + Img.img)
-    return render_template('edit_profile.html', form=form, user=user, image_file = image_file)
+    return render_template('edit_profile.html', form=form, user=user, image_file = image_file, admin_profile = True)
 
 
 
@@ -492,16 +492,16 @@ Drinking, PlayingType, GolfCourse, Img).join(UserProfile,
     users = pagination.items
 
     # TODO
-    if request.method == 'GET':
+    # if request.method == 'GET':
+    #     return render_template('match.html',
+    #                         users = users, form = form , pagination = pagination)
+
+    if request.method == 'POST':
         return render_template('match.html',
                             users = users, form = form , pagination = pagination)
-
-    # if request.method == 'POST':
-    #     return render_template('match.html',
-    #                         users = users, form = request.form , pagination = pagination)
     else:
         return render_template('match.html',
-                            users = users, form = request.form , pagination = pagination)
+                            users = users, form = form , pagination = pagination)
 
 
 @main.route('/post/<slug>',  methods=["GET", "POST"])
@@ -694,7 +694,7 @@ def edit_profile():
     form.drinking.data = [userprofile.UserProfile.drinking_id]
     form.playing_type.data = [userprofile.UserProfile.playing_type_id]
     form.golf_course.data = userprofile.UserProfile.golf_course_id
-    return render_template('edit_profile.html', form=form)
+    return render_template('edit_profile.html', form=form, admin_form = False)
 
 
 @main.route('/create_post', methods=['GET', 'POST'])

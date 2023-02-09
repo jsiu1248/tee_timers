@@ -42,7 +42,7 @@
         </button>
         <div class="offcanvas offcanvas-end nav-bg" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header navOffFormat">
-                <h5 class="offcanvas-title side-bar-formatting navOffFormatText" id="offcanvasNavbarLabel">Tee Timers</h5>
+                <h5 class="offcanvas-title side-bar-formatting navOffFormatText" id="offcanvasNavbarLabel"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body nav-bg">
@@ -58,6 +58,19 @@
                     </li>
                     <br>
                     <br>
+                    <li><a class="nav-item side-bar-formatting navOffFormatText" href="{{url_for('main.user', username=current_user.username)}}">Forum</a>
+                    </li>
+                    <br>
+                    <br>
+                    <li><a class="nav-item side-bar-formatting navOffFormatText" href="{{url_for('main.user', username=current_user.username)}}">Match</a>
+                    </li>
+                    <br>
+                    <br>
+                    <li><a class="nav-item side-bar-formatting navOffFormatText" href="{{url_for('main.user', username=current_user.username)}}">Message</a>
+                    </li>
+                    <br>
+                    <br>
+
                     <li><a class="nav-item side-bar-formatting navOffFormatText" href="{{url_for('auth.change_password')}}">Change Password</a></li>
                     <br>
                     <br>
@@ -90,7 +103,7 @@
     {% endfor %}
     {% block page_content %}
 
-    <body style="background-color: #f2f2f2; color:black">
+    <body style="background-color: white; color:black">
     </body> {% endblock %}
 </div>
 {% endblock content %}
