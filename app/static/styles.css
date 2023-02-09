@@ -36,11 +36,11 @@
     text-align: center;
 }
 
-/**/
+/*forum*/
 .comments-container {
     border: 1px solid #c3c3c3;
     margin-left: 50px;
-    background-color: #B2D3A8;
+    background-color: #457056;
     border-radius: 50px;
     padding-top: 20px;
 
@@ -72,6 +72,17 @@
 
 .comment-date {
     display: inline-block
+}
+
+.forumFormBox{
+    width: 700px;
+    height: 300px;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #52B788;
+    color: #474350;
+    border-radius: 30px;
+    margin-left: 250px;
 }
 
 /*for the index page */
@@ -459,7 +470,7 @@ body {
 }
 
 .navOffFormat{
-    margin-top: 300px;
+    margin-top: 200px;
 }
 
 .navOffFormatText{
