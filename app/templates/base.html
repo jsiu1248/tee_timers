@@ -58,15 +58,16 @@
                     </li>
                     <br>
                     <br>
-                    <li><a class="nav-item side-bar-formatting navOffFormatText" href="{{url_for('main.user', username=current_user.username)}}">Forum</a>
+                    <li><a class="nav-item side-bar-formatting navOffFormatText" href="{{url_for('main.forum', username=current_user.username)}}">Forum</a>
                     </li>
                     <br>
                     <br>
-                    <li><a class="nav-item side-bar-formatting navOffFormatText" href="{{url_for('main.user', username=current_user.username)}}">Match</a>
+                    <li><a class="nav-item side-bar-formatting navOffFormatText" href="{{url_for('main.match', username=current_user.username)}}">Match</a>
                     </li>
                     <br>
                     <br>
-                    <li><a class="nav-item side-bar-formatting navOffFormatText" href="{{url_for('main.user', username=current_user.username)}}">Message</a>
+                    <li><a class="nav-item side-bar-formatting navOffFormatText" href="{{ url_for('main.send_message',
+                        recipient=current_user.username) }}">Message</a>
                     </li>
                     <br>
                     <br>
