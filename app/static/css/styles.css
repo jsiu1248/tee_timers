@@ -88,7 +88,7 @@
 /*for the index page */
 /*Parallex effect for first image*/
 .parallax-effect {
-    background-image: url("../static/jpeg/pexels-photo-6256836.jpeg");
+    background-image: url("../jpeg/istockphoto-486876112-612x612.jpeg");
     height: 100%;
     /*width: auto;*/
 
@@ -191,7 +191,7 @@ body {
     grid-row: 2;
     border-radius: 100px;
     background-color: #f2f2f2;
-    background-image: url("../static/jpeg/istockphoto-486876112-612x612.jpeg");
+    background-image: url("../jpeg/istockphoto-486876112-612x612.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
     background-clip: content-box;
@@ -233,7 +233,7 @@ body {
     grid-row: 3;
     background-color: #f2f2f2;
     border-radius: 100px;
-    background-image: url("../static/jpeg/istockphoto-1016165168-612x612.jpeg");
+    background-image: url("../jpeg/istockphoto-1016165168-612x612.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
     background-clip: content-box;
@@ -247,7 +247,7 @@ body {
     grid-row: 4;
     border-radius: 100px;
     background-color: #f2f2f2;
-    background-image: url("../static/jpeg/istockphoto-515229864-612x612.jpeg");
+    background-image: url("../jpeg/istockphoto-515229864-612x612.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
     background-clip: content-box;
