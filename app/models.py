@@ -563,7 +563,7 @@ class City(db.Model):
     def insert_city():
         "adding city and state data from json file."
         # load data in json
-        with open('app/static/us-cities-demographics.json', 'r') as loc:
+        with open('app/static/json/us-cities-demographics.json', 'r') as loc:
             data = json.load(loc)
         city_dict = {}
         for dicts in data:
@@ -586,7 +586,7 @@ class State(db.Model):
     def insert_state():
         "adding city and state data from json file."
         # load data in json
-        with open('app/static/us-cities-demographics.json', 'r') as loc:
+        with open('app/static/json/us-cities-demographics.json', 'r') as loc:
             data = json.load(loc)
         state_dict = {}
         for dicts in data:
@@ -612,7 +612,7 @@ class GolfCourse(db.Model):
     def insert_golf_course():
         "adding city and state data from json file."
         # load data in json
-        with open('app/static/California_Golf_Courses.json', 'r') as loc:
+        with open('app/static/json/California_Golf_Courses.json', 'r') as loc:
             data = json.load(loc)
         for dicts in data:
                 city = dicts['City']
