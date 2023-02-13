@@ -1017,3 +1017,20 @@ main footer a {
     z-index: 2;
 
 }
+
+
+/*auth */
+.bg-img {
+    /* The image used */
+    background-image:   url("../static/jpeg/istockphoto-486876112-612x612.jpeg");
+  
+    min-height: 380px;
+  
+    /* Center and scale the image nicely */
+    /*background-position: center;*/
+    /*background-repeat: no-repeat;*/
+    background-size: cover;
+    /*position: relative;*/
+  }
+  
+  
