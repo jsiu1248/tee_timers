@@ -9,7 +9,7 @@
 {{ form.csrf_token }}
 
 {# have to edit so that the administrator can edit their own problem with the edit button. #}
-{% if current_user.is_administrator() and admin_form == True%}
+{% if current_user.is_administrator() and admin_profile == True%}
 {{wtf.form_field(form.username)}}
 {{wtf.form_field(form.role)}}
 {{wtf.form_field(form.confirmed)}}
