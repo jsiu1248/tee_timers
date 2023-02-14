@@ -1022,15 +1022,20 @@ main footer a {
 /*auth */
 .bg-img {
     /* The image used */
-    background-image:   url("../jpeg/istockphoto-486876112-612x612.jpeg");
+    /* background-image:   url("../jpeg/istockphoto-486876112-612x612.jpeg"); */
   
-    min-height: 380px;
   
     /* Center and scale the image nicely */
     /*background-position: center;*/
     /*background-repeat: no-repeat;*/
-    background-size: cover;
+    /* background-size: cover; */
     /*position: relative;*/
+    border-radius: 30px;
+    background-color: #B2D3A8;
+    padding: 20px;
+    padding-left: 300px;
+    padding-right: 300px;
+
   }
   
   
