@@ -3,9 +3,9 @@
 
 {% block page_content %}
 
-<body style="background-color: #f2f2f2;">
+<body>
 <div id="container">
-    <aside>
+    <aside class="boxColor">
         <header>
             <input type="text" placeholder="search">
         </header>
@@ -14,16 +14,21 @@
             {#trying to get all users that sender has messaged #}
             {% set recipient_list = [] %}
 
-            {%for rep in messages if rep.User.username not in recipient_list and rep.UserRep.username not in
-            recipient_list %}
+            {%for rep in messages if rep.UserRep.username not in recipient_list  %}
             {% if (rep.Message.sender_id == current_user.id or rep.Message.recipient_id == current_user.id)%}
 
-            {% if rep.User.username != current_user.username %}
+            {% if rep.User.username not in recipient_list 
+            or rep.UserRep.username not in recipient_list%}
             {% do recipient_list.append(rep.User.username)%}
             {%endif%}
-            {% if rep.UserRep.username != current_user.username%}
+            {% if rep.UserRep.username != current_user.username and rep.UserRep.username not in recipient_list
+            or rep.User.username not in recipient_list%}
             {% do recipient_list.append(rep.UserRep.username)%}
+            
             {%endif%}
+{{rep.User.username}}
+{{rep.UserRep.username}}
+            {{recipient_list}}
 
 
 
@@ -40,8 +45,8 @@
             {%endif%}
             {%endfor%}
 
-            {% for name in recipient_list%}
-            {%endfor%}
+            {# {% for name in recipient_list%}
+            {%endfor%} #}
         </ul>
     </aside>
     <main>
