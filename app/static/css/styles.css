@@ -1,4 +1,9 @@
 
+  *{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: black;
+
+  }
 .profile-thumbnail {
     position: absolute;
 }
@@ -9,7 +14,6 @@
 }
 
 .side-bar-formatting {
-    font-family: Arial, Helvetica, sans-serif, sans-serif;
     font-size: 20px;
     color: black;
 }
@@ -104,7 +108,6 @@
 /*Welcome message for index page*/
 .welcome-message {
     color: #f2f2f2;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 150px;
     text-align: center;
     margin: 0;
@@ -452,7 +455,6 @@ body {
 .name-formatting {
     color: black;
     font-size: 36px;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     margin-right: 700px;
 }
 
@@ -472,13 +474,11 @@ body {
 }
 
 .navOffFormatText{
-font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 font-size: 35px;
 }
 
 /* Submit button*/
 * {
-    font-family: 'Roboto', sans-serif;
 }
 
 .submit-container {
@@ -548,7 +548,6 @@ font-size: 35px;
 }
 
 .submit-container>.validate:after {
-    font-family: 'FontAwesome';
     content: "\f00c";
 }
 
@@ -577,13 +576,11 @@ font-size: 35px;
 }
 
 /*two section*/
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap');
 
 * {
     margin: 0;
     padding: 0;
     list-style: none;
-    font-family: 'Montserrat', sans-serif;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
@@ -1024,3 +1021,4 @@ main footer a {
     background-color: #B2D3A8;
 
   }
+
