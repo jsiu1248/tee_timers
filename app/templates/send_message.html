@@ -26,9 +26,6 @@
             {% do recipient_list.append(rep.UserRep.username)%}
             
             {%endif%}
-{{rep.User.username}}
-{{rep.UserRep.username}}
-            {{recipient_list}}
 
 
 
@@ -66,7 +63,7 @@
                         {{ current_user.username }}
                     </a>
                 </div>
-                <div class="message-date entete">- {{ message.Message.timestamp.replace(microsecond=0).strftime("%b %d
+                <div class="message-date entete">{{ message.Message.timestamp.replace(microsecond=0).strftime("%b %d
                     %Y
                     %H:%M:%S") }}
                     {{moment(message.Message.timestamp.replace(microsecond=0)).fromNow() }}</div>
@@ -87,7 +84,7 @@
                         {{ message.User.username }}
                     </a>
                 </div>
-                <div class="message-date entete">- {{ message.Message.timestamp.replace(microsecond=0).strftime("%b %d
+                <div class="message-date entete">{{ message.Message.timestamp.replace(microsecond=0).strftime("%b %d
                     %Y
                     %H:%M:%S") }}
                     {{moment(message.Message.timestamp.replace(microsecond=0)).fromNow() }}</div>

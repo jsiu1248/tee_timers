@@ -12,7 +12,7 @@
                 </a>
             </div>
 
-            <div class="post-date">- {{ post.timestamp.replace(microsecond=0).strftime("%b %d %Y %H:%M:%S") }} {{moment(post.timestamp.replace(microsecond=0)).fromNow() }}</div>
+            <div class="post-date">{{ post.timestamp.replace(microsecond=0).strftime("%b %d %Y %H:%M:%S") }} {{moment(post.timestamp.replace(microsecond=0)).fromNow() }}</div>
             <div class="post-title">
                     {% if post.slug %}
                 <a href="{{ url_for('.post', slug = post.slug) }}">
