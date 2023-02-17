@@ -5,18 +5,18 @@
         {# Single post #}
 
         <div class="posts-container forum-formatting">
-            {# <h2>Post</h2> #}
             <div class="post-user">
                 <a href="{{ url_for('main.user', username = post.users.username) }}">
                     {{ post.users.username }}
                 </a>
             </div>
 
-            <div class="post-date">{{ post.timestamp.replace(microsecond=0).strftime("%b %d %Y %H:%M:%S") }} {{moment(post.timestamp.replace(microsecond=0)).fromNow() }}</div>
+            <div class="post-date">{{ post.timestamp.replace(microsecond=0).strftime("%b %d %Y %H:%M:%S") }}
+                {{moment(post.timestamp.replace(microsecond=0)).fromNow() }}</div>
             <div class="post-title">
-                    {% if post.slug %}
+                {% if post.slug %}
                 <a href="{{ url_for('.post', slug = post.slug) }}">
-                {% endif %}
+                    {% endif %}
                     {{ post.title }}</a>
             </div>
 
@@ -26,58 +26,61 @@
                 </p>
 
             </div class="form-header">
-            {# <div class="submit-container"> #}
-            {{ wtf.quick_form(comment_form) }}
+            <form name="postForm" id="postForm" method="POST">
 
-            {# {{wtf.form_field(comment_form.description)}}
-            {{wtf.form_field(comment_form.submit)}}
- #}
-            {# </div> #}
+                {{ form.csrf_token }}
 
-            </div>
-            </div>
-            
-            </div>
-            {# <a class="btn btn-default" href="{{ url_for('main.comment_form') }}">
-                <i class="bi bi-reply-all-fill"></i> reply
-            </a> #}
+                {{ wtf.form_field(comment_form.description)}}
+                <div class="submit-container">
 
-    
+                    {{wtf.form_field(comment_form.submit)}}
+            </form>
         </div>
 
     </div>
-                                <br>
+</div>
+
+</div>
+{# <a class="btn btn-default" href="{{ url_for('main.comment_form') }}">
+    <i class="bi bi-reply-all-fill"></i> reply
+</a> #}
+
+
+</div>
+
+</div>
+<br>
 
 
 
-        {% if post.comments %}
-        {% if post.comments.count() > 0 %}
-    <div class="comment forum-formatting">
-        <div class="comments-container forum-formatting">
-            {# <h2>Comments</h2> #}
-            {% for comment in post.comments.all() %}
-            <div class="comment-content">
-                <div class="comment-username">
-                    <a href="{{ url_for('main.user', username = comment.users.username) }}">
+{% if post.comments %}
+{% if post.comments.count() > 0 %}
+<div class="comment forum-formatting">
+    <div class="comments-container forum-formatting">
+        {% for comment in post.comments.all() %}
+        <div class="comment-content">
+            <div class="comment-username">
+                <a href="{{ url_for('main.user', username = comment.users.username) }}">
 
-                        {{ comment.users.username }} -
-                    </a>
-                </div>
-                <div class="comment-date"> {{ comment.timestamp.replace(microsecond=0).strftime("%b %d %Y %H:%M:%S") }} {{moment(comment.timestamp.replace(microsecond=0)).fromNow() }}</div>
-
-                <div class="comment-description">
-                    {{ comment.description }}
-                </div>
+                    {{ comment.users.username }} -
+                </a>
             </div>
-            <br>
-            {% endfor %}
+            <div class="comment-date"> {{ comment.timestamp.replace(microsecond=0).strftime("%b %d %Y %H:%M:%S") }}
+                {{moment(comment.timestamp.replace(microsecond=0)).fromNow() }}</div>
+
+            <div class="comment-description">
+                {{ comment.description }}
+            </div>
         </div>
-    </div>
-                                            <br>
-
-        {% endif %}
-
-        {% endif %}
-
-
+        <br>
         {% endfor %}
+    </div>
+</div>
+<br>
+
+{% endif %}
+
+{% endif %}
+
+
+{% endfor %}

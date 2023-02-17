@@ -6,7 +6,17 @@
 
 <div class="bg-img boxColor">
     <h1>Login</h1>
-    {{ wtf.quick_form(form) }}
+    <form name="loginForm" id="loginForm" method="POST">
+
+        {{ form.csrf_token }}
+        {{wtf.form_field(form.email)}}
+        {{wtf.form_field(form.password)}}
+        {{wtf.form_field(form.remember_me)}}
+        <div class="submit-container">
+            {{wtf.form_field(form.submit)}}
+          </div>
+        </form>
+
     <p>
         New user? <a href="{{ url_for('auth.register') }}">
             Register here

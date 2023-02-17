@@ -4,6 +4,14 @@
 {% block content %}
 {{super()}}
 </div class="form-header">
-{{ wtf.quick_form(form) }}
+ <form name="commentForm" id="commentForm" method="POST">
+
+    {{ form.csrf_token }}
+    {{wtf.form_field(form.description)}}
+    <div class="submit-container">
+        {{wtf.form_field(form.submit)}}
+      </div>
+    </form>
+
 </div>
 {% endblock content %}

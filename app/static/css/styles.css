@@ -6,7 +6,10 @@
 
   }
 
-
+a{
+    color:black;
+    font-weight: 600;
+}
 
 .profile-thumbnail {
     position: absolute;
