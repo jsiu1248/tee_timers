@@ -3,16 +3,16 @@
     {% for comment in comments %}
     <li class="comment">
         {# Single comment #}
-        <div class="commnet-content">
+        <div class="comment-content">
             <div class="comment-date">{{ moment(comment.timestamp).fromNow() }}</div>
 
             <div class="comment-description">
-                <p>
+                <p style="font-size: 26px">
                     {{ comment.description }}
                 </p>
             </div>
 
-            <div class="comment-user">
+            <div class="comment-user fontSize">
                 <a href="{{ url_for('main.user', username = comment.users.username) }}">
                     {{ comment.users.username }}
                 </a>
