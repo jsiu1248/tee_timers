@@ -789,20 +789,23 @@ main header img:last-child {
 }
 
 main header div {
-    margin-left: 10px;
-    margin-right: 145px;
+    /* margin-left: 10px;
+    margin-right: 145px; */
+    font-size: 30px;
+    justify-content: center;
+    display: flex;
 }
 
-main header h2 {
+/* main header h2 {
     font-size: 16px;
     margin-bottom: 5px;
-}
+} */
 
-main header h3 {
+/* main header h3 {
     font-size: 14px;
     font-weight: normal;
     color: #7e818a;
-}
+} */
 
 #chat {
     padding-left: 0;
@@ -982,7 +985,7 @@ main footer a {
 
 .filterCount {
     display: inline-block;
-    font-size: 2em;
+    font-size: 1.5em;
     padding-left: 0.5em;
     font-weight: 400;
 

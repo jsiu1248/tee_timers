@@ -1,3 +1,4 @@
+
 <div class="posts">
 
     {% for post in posts %}
@@ -52,7 +53,6 @@
 <br>
 
 
-
 {% if post.comments %}
 {% if post.comments.count() > 0 %}
 <div class="comment forum-formatting">
@@ -78,9 +78,11 @@
 </div>
 <br>
 
-{% endif %}
 
 {% endif %}
 
+{% endif %}
 
+<br>
+<br>
 {% endfor %}

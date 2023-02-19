@@ -48,7 +48,7 @@
     </aside>
     <main>
         <header>
-            <div class="">
+            <div class = "">
                  Chat with {{ recipient }}
             </div>
 
@@ -71,7 +71,9 @@
                 <div class="message-description message">
                     {{message.Message.description}}
                 </div>
+                
             </li>
+            <br>
             {% endif %}
             {# {% endif %} #}
 
@@ -93,6 +95,7 @@
                     {{message.Message.description}}
                 </div>
             </li>
+            <br>
             {% endif %}
 
             {% endfor %}
