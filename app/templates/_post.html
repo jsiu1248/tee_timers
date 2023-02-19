@@ -27,9 +27,9 @@
                 </p>
 
             </div class="form-header">
-            <form name="postForm" id="postForm" method="POST">
+            <form name="commentForm" id="commentForm" method="POST">
 
-                {{ form.csrf_token }}
+                {{ comment_form.csrf_token }}
 
                 {{ wtf.form_field(comment_form.description)}}
                 <div class="submit-container">

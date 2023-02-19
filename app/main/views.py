@@ -513,15 +513,16 @@ def post(slug):
     Return: post.html with slug
     """
     post = Post.query.filter_by(slug = slug).first_or_404()
-    form = CommentForm()
-    if form.validate_on_submit():
-        comment = Comment(body = form.body.data,
-                          comment = post,
-                          users = current_user._get_current_object())
-        db.session.add(comment)
-        db.session.commit()
-        flash('Comment submission successful.')
-        return redirect(url_for('.composition', slug = post.slug, page=-1))
+    # trying to see why this exists
+    # form = CommentForm()
+    # if form.validate_on_submit():
+    #     comment = Comment(body = form.body.data,
+    #                       comment = post,
+    #                       users = current_user._get_current_object())
+    #     db.session.add(comment)
+    #     db.session.commit()
+    #     flash('Comment submission successful.')
+    #     return redirect(url_for('.composition', slug = post.slug, page=-1))
     page = request.args.get('page', 1, type=int)
     if page == -1:
         # Calculate last page number
@@ -535,7 +536,7 @@ def post(slug):
     # Use list so we can pass to _compositions template
     return render_template('post.html',
                            post = [post],
-                           form = form,
+                        #    form = form,
                            comments = comments,
                            pagination = pagination)
 
@@ -572,9 +573,21 @@ def forum():
 
         db.session.add(p)
         db.session.commit()
-        p.generate_slug()
+        # p.generate_slug()
 
     comment_form = CommentForm()
+    if comment_form.validate_on_submit():
+
+        c = Comment(description = comment_form.description.data,
+    
+                    users = current_user._get_current_object()
+
+                        )
+                        
+
+        db.session.add(c)
+        db.session.commit()
+
 
 
 
@@ -697,23 +710,24 @@ def edit_profile():
     return render_template('edit_profile.html', form=form, admin_form = False)
 
 
-@main.route('/create_post', methods=['GET', 'POST'])
-@login_required
-def create_post():
-    """
-    Editting the posts or creating them, or replyies. 
-    NOTE: Maybe the functionality needs to be changed. 
-    Return: Returns the edit_posts page
-    """
-    form = PostForm()
-    if form.validate_on_submit():
-        posts = Post(title = form.title.data, 
-        post = form.description.data)
-        db.session.add(posts)
-        db.session.commit()
-        posts.generate_slug()
-        return render_template('create_post.html', form = form)
-    return render_template('forum.html', form = form)
+# @main.route('/create_post', methods=['GET', 'POST'])
+# @login_required
+# def create_post():
+#     """
+#     Editting the posts or creating them, or replyies. 
+#     NOTE: Maybe the functionality needs to be changed. 
+#     Return: Returns the edit_posts page
+#     """
+#     #is this being used?
+#     form = PostForm()
+#     if form.validate_on_submit():
+#         posts = Post(title = form.title.data, 
+#         post = form.description.data)
+#         db.session.add(posts)
+#         db.session.commit()
+#         posts.generate_slug()
+#         return render_template('create_post.html', form = form)
+#     return render_template('forum.html', form = form)
 
 
 @main.route('/send_message/<recipient>', methods=['GET', 'POST'])
