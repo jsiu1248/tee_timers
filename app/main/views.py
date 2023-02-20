@@ -196,7 +196,8 @@ def save_picture(form_picture):
     # adding hex and extenssion
     picture_fn = random_hex + f_ext
 
-    picture_path = os.path.join(main.root_path, '../static', picture_fn)
+    picture_path = os.path.join(main.root_path, '../jpeg/users', picture_fn)
+    print(picture_path)
     output_size = (125, 125)
     i = Image.open(form_picture)
     i.thumbnail(output_size)
@@ -314,7 +315,7 @@ def edit_profile_admin(id):
     form.drinking.data = [userprofile.UserProfile.drinking_id]
     form.playing_type.data = [userprofile.UserProfile.playing_type_id]
     form.golf_course.data = userprofile.UserProfile.golf_course_id
-    image_file = url_for('static', filename='profile_pics/' + Img.img)
+    image_file = url_for('static', filename='jpeg/users/' + Img.img)
     return render_template('edit_profile.html', form=form, user=user, image_file = image_file, admin_profile = True)
 
 
@@ -573,7 +574,8 @@ def forum():
 
         db.session.add(p)
         db.session.commit()
-        # p.generate_slug()
+        db.session.flush() 
+        p.generate_slug()
 
     comment_form = CommentForm()
     if comment_form.validate_on_submit():
@@ -602,7 +604,8 @@ def forum():
     posts = pagination.items
 
     return render_template('forum.html',
-                           form = form, posts = posts, pagination = pagination, comment_form = comment_form)
+                           form = form, 
+                           posts = posts, pagination = pagination, comment_form = comment_form)
 
 
 
