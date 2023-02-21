@@ -717,7 +717,7 @@ aside input {
 }
 
 aside input::placeholder {
-    color: #fff;
+    color: black;
 }
 
 aside ul {
