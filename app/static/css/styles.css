@@ -83,14 +83,17 @@ a{
 }
 
 .forumFormBox{
-    width: 700px;
-    height: 300px;
     padding: 10px;
     margin-bottom: 20px;
     background-color: #52B788;
     color: #474350;
     border-radius: 30px;
     margin: 0 auto;
+    margin-left: 150px;
+    margin-right: 150px;
+    padding-left: 150px;
+    padding-right: 150px;
+
 }
 
 /*for the index page */
