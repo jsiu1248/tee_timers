@@ -693,6 +693,10 @@ def edit_profile():
         """
         Add changed data to the database and then commit it.
         """
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            userprofile.Img.img = picture_file
+            db.session.query(Img).filter(Img.id == user.id).update({'img': userprofile.Img.img})
         db.session.add(current_user._get_current_object())
         db.session.commit()
         flash('You successfully updated your profile! Looks great.')
@@ -715,7 +719,9 @@ def edit_profile():
     form.drinking.data = [userprofile.UserProfile.drinking_id]
     form.playing_type.data = [userprofile.UserProfile.playing_type_id]
     form.golf_course.data = userprofile.UserProfile.golf_course_id
-    return render_template('edit_profile.html', form=form, admin_form = False)
+    image_file = url_for('static', filename='jpeg/users/' + Img.img)
+
+    return render_template('edit_profile.html', form=form, admin_form = False, image_file = image_file) 
 
 
 # @main.route('/create_post', methods=['GET', 'POST'])
