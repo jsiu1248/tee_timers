@@ -942,7 +942,11 @@ main footer a {
   .is-hidden { display: none; }
 
 /*flex box */
-.wrapper {}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    
+}
 
 .box {
 
@@ -1076,3 +1080,31 @@ main footer a {
     text-align: center;
     line-height: 100px;
   } */
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .dynamic-row {
+    order: 2;
+  }
+  
+  #find-row {
+    order: 3;
+  }
+  
+  #message-row {
+    order: 4;
+  }
+  
+  #play-row {
+    order: 5;
+  }
+  
+  .last-row {
+    order: 6;
+  }
