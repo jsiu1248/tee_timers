@@ -5,7 +5,7 @@
 {{super()}}
 <div class="form-header page-formatting">
 {# {{ wtf.quick_form(form) }} #}
-<form name="profile_edit_form"  id="profileEditForm" method="POST">
+<form name="profile_edit_form"  id="profileEditForm" method="POST" enctype="multipart/form-data">
 {{ form.csrf_token }}
 
 {# have to edit so that the administrator can edit their own problem with the edit button. #}
