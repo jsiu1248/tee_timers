@@ -1108,3 +1108,8 @@ main footer a {
   .last-row {
     order: 6;
   }
+
+  img.rounded-circle {
+    width: 100px;
+    height: 100px;
+  }
