@@ -22,7 +22,7 @@
         {# Single composition #}
         <tr height=75px>
             <td>
-        <img class="profile-thumbnail">
+        <img class="profile-thumbnail" {#src="../static/jpeg/users/{{user.Img.img}}"#}>
             <a href="{{ url_for('.user', username=f.follower.username) }}">
             
                 <img class="img-rounded profile-thumbnail" src="#">
