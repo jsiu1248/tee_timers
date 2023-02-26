@@ -9,7 +9,8 @@
 
 {% block page_content %}
 {{ super() }}
-<div class="page-header">
+<div class="wrapper">
+    <div style="display: block;">
     <img class="rounded-circle" src = "{{image_file}}">
 
     <h1>{{ user.username }}</h1>
@@ -66,7 +67,7 @@
         <span class="badge badge-light"></span>
     </button>
         {% endif %}
-
+    </div>
 
 {# displaying table with user profile #}
     <table class="table table-striped table-hover">
