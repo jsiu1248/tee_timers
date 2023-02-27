@@ -11,65 +11,63 @@
 {{ super() }}
 <div class="wrapper">
     <div style="display: block;">
-    <img class="rounded-circle" src = "{{image_file}}">
+        <img class="rounded-circle" src="{{image_file}}">
 
-    <h1>{{ user.username }}</h1>
+        <h1>{{ user.username }}</h1>
 
-    {# creating Follow and Unfollow Button #}
-    {% if current_user.can(Permission.FOLLOW) %}
-    {% if not current_user.is_following(user) %}
-    <a class="btn btn-default" href="{{ url_for('.follow', username=user.username) }}">
-        Follow
-    </a>
-    {% else %}
+        {# creating Follow and Unfollow Button #}
+        {% if current_user.can(Permission.FOLLOW) %}
+        {% if not current_user.is_following(user) %}
+        <a class="btn btn-default" href="{{ url_for('.follow', username=user.username) }}">
+            Follow
+        </a>
+        {% else %}
         <a class="btn btn-default" href="{{ url_for('.unfollow', username=user.username) }}">
-        Unfollow
-    </a>
-    {% endif %}
-    {% endif %}
+            Unfollow
+        </a>
+        {% endif %}
+        {% endif %}
 
-    {# creating followers, following, forum, and match button #}
-    <button type="button" class="btn btn-light">
-        <a href="{{ url_for('.following', username=user.username) }}">Following</a> <span
-            class="badge badge-light">{{user.following.count() - 1}}</span>
-    </button>
+        {# creating followers, following, forum, and match button #}
+        <button type="button" class="btn btn-light">
+            <a href="{{ url_for('.following', username=user.username) }}">Following</a> <span
+                class="badge badge-light">{{user.following.count() - 1}}</span>
+        </button>
 
-    <button type="button" class="btn btn-light">
-        <a href="{{ url_for('.followers', username=user.username) }}">Followers</a> <span
-            class="badge badge-light">{{user.followers.count() - 1}}</span>
-    </button>
+        <button type="button" class="btn btn-light">
+            <a href="{{ url_for('.followers', username=user.username) }}">Followers</a> <span
+                class="badge badge-light">{{user.followers.count() - 1}}</span>
+        </button>
 
-    <button type="button" class="btn btn-light">
-        <a href="{{ url_for('.forum', username=user.username) }}">Forum</a> <span
-            class="badge badge-light"></span>
-    </button>
-    <button type="button" class="btn btn-light">
-        <a href="{{ url_for('.match', username=user.username) }}">Match</a> <span
-            class="badge badge-light"></span>
-    </button>
+        <button type="button" class="btn btn-light">
+            <a href="{{ url_for('.forum', username=user.username) }}">Forum</a> <span class="badge badge-light"></span>
+        </button>
+        <button type="button" class="btn btn-light">
+            <a href="{{ url_for('.match', username=user.username) }}">Match</a> <span class="badge badge-light"></span>
+        </button>
 
-    {% if user != current_user %}
+        {% if user != current_user %}
 
-    <button type="button" class="btn btn-light">
-        <a href="{{ url_for('main.send_message',
+        <button type="button" class="btn btn-light">
+            <a href="{{ url_for('main.send_message',
                             recipient=user.username) }}">
-                            Send private message
-        </a>
-        <span class="badge badge-light"></span>
-    </button>
-    {% endif %}
+                Send private message
+            </a>
+            <span class="badge badge-light"></span>
+        </button>
+        {% endif %}
 
-    {% if user == current_user %}
-    <button type="button" class="btn btn-light">
-        <a href="{{  url_for('main.send_message', recipient = current_user.username)  }}">
-                            Messages
-        </a>
-        <span class="badge badge-light"></span>
-    </button>
+        {% if user == current_user %}
+        <button type="button" class="btn btn-light">
+            <a href="{{  url_for('main.send_message', recipient = current_user.username)  }}">
+                Messages
+            </a>
+            <span class="badge badge-light"></span>
+        </button>
         {% endif %}
     </div>
 
-{# displaying table with user profile #}
+    {# displaying table with user profile #}
     <table class="table table-striped table-hover">
         <tbody>
 
@@ -105,11 +103,13 @@
 
             <tr>
                 <th scope="row">Time of Day</th>
-                <td>{% if userprofile.UserProfile.time_of_day_id %}{{ userprofile.TimeOfDay.time_of_day }}{% endif %}</td>
+                <td>{% if userprofile.UserProfile.time_of_day_id %}{{ userprofile.TimeOfDay.time_of_day }}{% endif %}
+                </td>
             </tr>
             <tr>
                 <th scope="row">Ride or Walk</th>
-                <td>{% if userprofile.UserProfile.ride_or_walk_id %}{{ userprofile.RideOrWalk.ride_or_walk }}{% endif %}</td>
+                <td>{% if userprofile.UserProfile.ride_or_walk_id %}{{ userprofile.RideOrWalk.ride_or_walk }}{% endif %}
+                </td>
             </tr>
             <tr>
                 <th scope="row">Handicap</th>
@@ -125,7 +125,8 @@
             </tr>
             <tr>
                 <th scope="row">Playing Type</th>
-                <td>{% if userprofile.UserProfile.playing_type_id %}{{ userprofile.PlayingType.playing_type }}{% endif %}</td>
+                <td>{% if userprofile.UserProfile.playing_type_id %}{{ userprofile.PlayingType.playing_type }}{% endif
+                    %}</td>
             </tr>
             <tr>
                 <th scope="row">Golf Course</th>
@@ -139,28 +140,27 @@
             </tr>
             {% endif %}
 
-                <th scope="row">Last seen</th>
-                <td>{% if user.last_seen %} {{ moment(user.last_seen).fromNow() }} {% endif %}</td>
+            <th scope="row">Last seen</th>
+            <td>{% if user.last_seen %} {{ moment(user.last_seen).fromNow() }} {% endif %}</td>
 
             </tr>
         </tbody>
     </table>
+
+    <div style="display:block">
+        {# edit button#}
+        {% if user.username == current_user.username %}
+        <a class="btn btn-default" href="{{ url_for('.edit_profile') }}">
+            Edit Profile
+        </a>
+        {% endif %}
+
+        {#edit the profile as admin button #}
+        {% if current_user.is_administrator() %}
+        <a class="btn btn-danger" href="{{ url_for('.edit_profile_admin', id=user.id) }}">Edit as Admin</a>
+        {% endif %}
+
+    </div>
 </div>
 
-{# edit button#}
-{% if user.username == current_user.username %}
-<a class="btn btn-default" href="{{ url_for('.edit_profile') }}">
-    Edit Profile
-</a>
-{% endif %}
-
-{#edit the profile as admin button #}
-{% if current_user.is_administrator() %}
-<a class="btn btn-danger" href="{{ url_for('.edit_profile_admin', id=user.id) }}">Edit as Admin</a>
-{% endif %}
-
-
-
-
 {% endblock %}
-
