@@ -2,10 +2,10 @@
 <div class="posts">
 
     {% for post in posts %}
-    <div class="post forum-formatting">
+    <div class="post forum-formatting ">
         {# Single post #}
 
-        <div class="posts-container forum-formatting">
+        <div class="posts-container forum-formatting wrapper">
             <div class="post-user">
                 <a href="{{ url_for('main.user', username = post.users.username) }}">
                     {{ post.users.username }}

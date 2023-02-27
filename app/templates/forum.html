@@ -5,27 +5,28 @@
 
 {% block content %}
 {{super()}}
-<br>
-<br>
-<div class=" forumFormBox">
-    <form name="postForm" id="postForm" method="POST">
+    <br>
+    <br>
+    <div class="forumFormBox wrapper">
+        <form name="postForm" id="postForm" method="POST">
 
-        {{ form.csrf_token }}
-        {{wtf.form_field(form.title)}}
-        {{wtf.form_field(form.description)}}
-        <div class="submit-container">
-            {{wtf.form_field(form.submit)}}
-          </div>
+            {{ form.csrf_token }}
+            {{wtf.form_field(form.title)}}
+            {{wtf.form_field(form.description)}}
+            <div class="submit-container">
+                {{wtf.form_field(form.submit)}}
+            </div>
         </form>
-    
-</div>
 
-<br>
-<br>
-<br>
+    </div>
+
+    <br>
+    <br>
+    <br>
     {% include '_post.html' %}
-    
     {% if pagination %}
     {{ macros.pagination_widget(pagination, '.forum') }}
+
     {% endif %}
+
 {% endblock content %}
