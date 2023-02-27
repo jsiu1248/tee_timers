@@ -2,7 +2,8 @@
 {% import "_macros.html" as macros %}
 
 {% block page_content %}
-<div class = "follow-format boxColor wrapper">
+<div class="wrapper">
+<div class = "follow-format boxColor">
 <h1 class = "text-center">Followers of: {{current_user.username}}</h1>
 </div>
 <br>
@@ -42,5 +43,5 @@
 
 </tbody>
 </table>
-
+</div>
 {% endblock %}
