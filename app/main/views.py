@@ -389,6 +389,7 @@ def match():
 
     # choosing the starting page
     page = request.args.get('page', 1, type = int)
+    # gender filter
 
     # passes users contained in a list to template
     # users = db.session.query(User, UserProfile, Day, State, City, 

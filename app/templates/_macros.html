@@ -16,6 +16,7 @@
         {# active class is given to the current page to make it pop out#}
             <li {% if p == pagination.page %} class="active"{% endif %}>
                 <a href="{{ url_for(endpoint, page=p, **kwargs) }}">{{ p }}</a>
+                {# how to pass gender filter here #}
             </li>
         {% else %}
         <li class="disabled"><a href="#">&hellip;</a></li>
