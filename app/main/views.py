@@ -568,7 +568,7 @@ def forum():
     Return: redirects to forum page
     """
     form = PostForm()
-    if form.validate_on_submit():
+    if form.validate_on_submit() and request.form['post_submit'] == 'Submit':
 
         p = Post(description = form.description.data, title = form.title.data
         , 
@@ -583,7 +583,7 @@ def forum():
         p.generate_slug()
 
     comment_form = CommentForm()
-    if comment_form.validate_on_submit():
+    if comment_form.validate_on_submit() and request.form['comment_submit'] == 'Submit':
 
         c = Comment(description = comment_form.description.data,
     

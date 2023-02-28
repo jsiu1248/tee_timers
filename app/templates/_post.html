@@ -32,6 +32,7 @@
                 {{ comment_form.csrf_token }}
 
                 {{ wtf.form_field(comment_form.description)}}
+                <input type="hidden" name="form_type" value="comment_form">
                 <div class="submit-container">
 
                     {{wtf.form_field(comment_form.comment_submit)}}
