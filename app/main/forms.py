@@ -25,14 +25,14 @@ class PostForm(FlaskForm):
     """
     title = StringField("Title")
     description = TextAreaField("What are you up to?") 
-    submit = SubmitField("Submit")
+    post_submit = SubmitField("Submit")
 
 class CommentForm(FlaskForm):
     """
     Form for creating a post or reply. 
     """
     description = TextAreaField("What's your response?") 
-    submit = SubmitField("Submit")
+    comment_submit = SubmitField("Submit")
 
 class MultiCheckboxField(SelectMultipleField):
     """

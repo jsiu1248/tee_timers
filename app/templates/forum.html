@@ -8,13 +8,13 @@
     <br>
     <br>
     <div class="forumFormBox wrapper">
-        <form name="postForm" id="postForm" method="POST">
+        <form name="postForm" id="postForm" method="POST" action="/forum">
 
             {{ form.csrf_token }}
             {{wtf.form_field(form.title)}}
             {{wtf.form_field(form.description)}}
             <div class="submit-container">
-                {{wtf.form_field(form.submit)}}
+                {{wtf.form_field(form.post_submit)}}
             </div>
         </form>
 

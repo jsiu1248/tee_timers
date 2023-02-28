@@ -27,14 +27,14 @@
                 </p>
 
             </div class="form-header">
-            <form name="commentForm" id="commentForm" method="POST">
+            <form name="commentForm" id="commentForm" method="POST" action="/forum">
 
                 {{ comment_form.csrf_token }}
 
                 {{ wtf.form_field(comment_form.description)}}
                 <div class="submit-container">
 
-                    {{wtf.form_field(comment_form.submit)}}
+                    {{wtf.form_field(comment_form.comment_submit)}}
             </form>
         </div>
 
