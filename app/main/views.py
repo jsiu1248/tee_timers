@@ -389,7 +389,6 @@ def match():
 
     # choosing the starting page
     page = request.args.get('page', 1, type = int)
-    # gender filter
 
     # passes users contained in a list to template
     # users = db.session.query(User, UserProfile, Day, State, City, 
@@ -472,6 +471,10 @@ def match():
                 filter_list.append(j)
         except:
             pass
+
+
+    # gender filter
+    kwargs={'gender':data_values[0]}
 
     """Joining all of the tables together and filtering for the needed users. Paginating the filtered users."""
     pagination = db.session.query(User, UserProfile, Day, State, City, 
