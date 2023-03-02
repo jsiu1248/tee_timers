@@ -475,6 +475,8 @@ def match():
 
     # gender filter
     kwargs={'gender':data_values[0]}
+    request.args =  request.args.copy()
+    request.args.update(kwargs)
 
     """Joining all of the tables together and filtering for the needed users. Paginating the filtered users."""
     pagination = db.session.query(User, UserProfile, Day, State, City, 
@@ -494,7 +496,7 @@ Drinking, PlayingType, GolfCourse, Img).join(UserProfile,
 ).join(PlayingType, UserProfile.playing_type_id == PlayingType.id,  isouter = True
 ).join(GolfCourse, UserProfile.golf_course_id == GolfCourse.id, isouter = True
 ).join(Img, UserProfile.profile_picture_id == Img.id, isouter = True).paginate(
-        page = page,
+        page = page,  
         per_page = current_app.config['USERS_PER_PAGE'],
         error_out = False)
 
@@ -508,10 +510,10 @@ Drinking, PlayingType, GolfCourse, Img).join(UserProfile,
 
     if request.method == 'POST':
         return render_template('match.html',
-                            users = users, form = form , pagination = pagination)
+                            users = users, form = form , pagination = pagination, **kwargs)
     else:
         return render_template('match.html',
-                            users = users, form = form , pagination = pagination)
+                            users = users, form = form , pagination = pagination , **kwargs)
 
 
 @main.route('/post/<slug>',  methods=["GET", "POST"])
