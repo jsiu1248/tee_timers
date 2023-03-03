@@ -573,12 +573,14 @@ def forum():
     showing all of the posts and paging it. 
     Return: redirects to forum page
     """
-    form = PostForm()
-    if form.validate_on_submit() and request.form['post_submit'] == 'Submit':
+    post_form = PostForm()
+    comment_form = CommentForm()
 
-        p = Post(description = form.description.data, title = form.title.data
-        , 
-                    users = current_user._get_current_object()
+    if post_form.post_submit.data and post_form.validate_on_submit():
+
+        p = Post(description = post_form.description.data, title = post_form.title.data
+        # , 
+        #             users = current_user._get_current_object()
 
                         )
                         
@@ -587,19 +589,21 @@ def forum():
         db.session.commit()
         db.session.flush() 
         p.generate_slug()
+        return redirect(url_for('main.forum'))
 
-    comment_form = CommentForm()
-    if comment_form.validate_on_submit() and request.form['comment_submit'] == 'Submit':
+    elif comment_form.comment_submit.data and comment_form.validate_on_submit():
 
-        c = Comment(description = comment_form.description.data,
+        c = Comment(description = comment_form.description.data
+                    # ,
     
-                    users = current_user._get_current_object()
+                    # users = current_user._get_current_object()
 
                         )
                         
 
         db.session.add(c)
         db.session.commit()
+        return redirect(url_for('main.forum'))
 
 
 
@@ -615,7 +619,7 @@ def forum():
     posts = pagination.items
 
     return render_template('forum.html',
-                           form = form, 
+                           post_form = post_form, 
                            posts = posts, pagination = pagination, comment_form = comment_form)
 
 

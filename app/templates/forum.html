@@ -10,12 +10,12 @@
     <div class="forumFormBox wrapper">
         <form name="postForm" id="postForm" method="POST" action="/forum">
 
-            {{ form.csrf_token }}
-            {{wtf.form_field(form.title)}}
-            {{wtf.form_field(form.description)}}
+            {{ post_form.csrf_token }}
+            {{wtf.form_field(post_form.title)}}
+            {{wtf.form_field(post_form.description)}}
             <input type="hidden" name="form_type" value="post_form">
             <div class="submit-container">
-                {{wtf.form_field(form.post_submit)}}
+                {{wtf.form_field(post_form.post_submit)}}
             </div>
         </form>
 
