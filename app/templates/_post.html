@@ -1,4 +1,3 @@
-
 <div class="posts">
 
     {% for post in posts %}
@@ -26,21 +25,24 @@
                     {{ post.description }}
                 </p>
 
-            </div class="form-header">
-            <form name="commentForm" id="commentForm" method="POST" action="/forum">
+            </div>
+            {# <div class="form-header">
+                <form name="commentForm" id="commentForm" method="POST" action="/forum">
 
-                {{ comment_form.csrf_token }}
+                    {{ comment_form.csrf_token }}
 
-                {{ wtf.form_field(comment_form.description)}}
-                <input type="hidden" name="form_type" value="comment_form">
-                <div class="submit-container">
+                    {{ wtf.form_field(comment_form.description)}}
+                    <input type="hidden" name="form_type" value="comment_form">
+                    <div class="submit-container">
 
-                    {{wtf.form_field(comment_form.comment_submit)}}
-            </form>
+                        {{wtf.form_field(comment_form.comment_submit)}}
+                </form>
+            </div>
+ #}
+            {% include '_comment_form.html' %}
+
         </div>
-
     </div>
-</div>
 
 </div>
 {# <a class="btn btn-default" href="{{ url_for('main.comment_form') }}">

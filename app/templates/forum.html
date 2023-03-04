@@ -2,12 +2,12 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 {% import "_macros.html" as macros %}
 
-
+<div class= "wrapper">
 {% block content %}
 {{super()}}
     <br>
     <br>
-    <div class="forumFormBox wrapper">
+    {# <div class="forumFormBox wrapper">
         <form name="postForm" id="postForm" method="POST" action="/forum">
 
             {{ post_form.csrf_token }}
@@ -19,8 +19,9 @@
             </div>
         </form>
 
-    </div>
+    </div> #}
 
+{% include '_post_form.html'%}
     <br>
     <br>
     <br>
@@ -31,3 +32,4 @@
     {% endif %}
 
 {% endblock content %}
+</div>

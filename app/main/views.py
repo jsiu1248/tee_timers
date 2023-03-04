@@ -27,9 +27,12 @@ def index():
     """
     
     form = SupportForm()
+    print("hisupport")
+    print(request.args)
 
     if form.validate_on_submit():
 
+        print("hisupportif")
 
 
         support = Support(username = form.name.data,
@@ -576,34 +579,37 @@ def forum():
     post_form = PostForm()
     comment_form = CommentForm()
 
-    if post_form.post_submit.data and post_form.validate_on_submit():
+    print("post")
+    print(request.args)
+    # if post_form.post_submit.data and post_form.validate_on_submit():
 
-        p = Post(description = post_form.description.data, title = post_form.title.data
-        # , 
-        #             users = current_user._get_current_object()
+    #     p = Post(description = post_form.description.data, title = post_form.title.data
+    #     # , 
+    #     #             users = current_user._get_current_object()
 
-                        )
+    #                     )
                         
 
-        db.session.add(p)
-        db.session.commit()
-        db.session.flush() 
-        p.generate_slug()
-        return redirect(url_for('main.forum'))
+    #     db.session.add(p)
+    #     db.session.commit()
+    #     db.session.flush() 
+    #     p.generate_slug()
+    #     return redirect(url_for('main.forum'))
 
-    elif comment_form.comment_submit.data and comment_form.validate_on_submit():
-
-        c = Comment(description = comment_form.description.data
-                    # ,
+ 
+    # if comment_form.comment_submit.data and comment_form.validate_on_submit():
+    #     print("comment")
+    #     c = Comment(description = comment_form.description.data
+    #                 # ,
     
-                    # users = current_user._get_current_object()
+    #                 # users = current_user._get_current_object()
 
-                        )
+    #                     )
                         
 
-        db.session.add(c)
-        db.session.commit()
-        return redirect(url_for('main.forum'))
+    #     db.session.add(c)
+    #     db.session.commit()
+    #     return redirect(url_for('main.forum'))
 
 
 
@@ -620,7 +626,34 @@ def forum():
 
     return render_template('forum.html',
                            post_form = post_form, 
-                           posts = posts, pagination = pagination, comment_form = comment_form)
+                           posts = posts, 
+                           pagination = pagination, comment_form = comment_form)
+
+
+@main.route('/forum/post', methods=['GET', 'POST'])
+@login_required 
+def post_form():
+    post_form = PostForm()
+    if post_form.validate_on_submit():
+        # save post to database
+        post = Post(title=post_form.title.data, description=post_form.description.data, users = current_user._get_current_object())
+        db.session.add(post)
+        db.session.commit()
+        flash('Post submitted successfully!', 'success')
+        return redirect(url_for('main.forum'))
+    return render_template('_post_form.html', post_form=post_form)
+
+@main.route('/forum/comment', methods=['POST'])
+def comment_form():
+    comment_form = CommentForm()
+    if comment_form.validate_on_submit():
+        # save comment to database
+        comment = Comment(description=comment_form.description.data, users = current_user._get_current_object())
+        db.session.add(comment)
+        db.session.commit()
+        flash('Comment submitted successfully!', 'success')
+        return redirect(url_for('main.forum'))
+    return render_template('_comment_form.html', comment_form=comment_form)
 
 
 
