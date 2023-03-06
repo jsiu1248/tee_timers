@@ -562,7 +562,7 @@ def comment(slug):
     form = CommentForm()
     comment = Comment(body=form.body.data,
                           comment = comment,
-                          users = current_user._get_current_object())
+                          users = current_user._get_current_object(), post_id = post.id)
 
     # passes post contained in a list respresented as post to template
     comment = Comment.query.filter_by(slug=slug).first_or_404()
