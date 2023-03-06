@@ -82,6 +82,7 @@ class ProductionConfig(Config):
         app.logger.addHandler(mail_handler)
 
 class HerokuConfig(ProductionConfig):
+    HTTPS_REDIRECT = True if os.environ.get('DYNO') else False
     @classmethod
     def init_app(cls, app):
         ProductionConfig.init_app(app)
@@ -92,6 +93,8 @@ class HerokuConfig(ProductionConfig):
         file_handler = StreamHandler
         file_handler.setLevel(file_handler, level=logging.INFO)
         app.logger.addHandler(file_handler)
+        from werkzeug.middleware.proxy_fix import ProxyFix
+        app.wsgi_app = ProxyFix(app.wsgi_app)
 
 # giving them all names
 configs = {

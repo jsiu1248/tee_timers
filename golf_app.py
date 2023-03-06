@@ -1,6 +1,6 @@
 from app import create_app, db
 import os
-from app.models import Comment, Role, User, Follow, GolfCourse, Post, City, State
+from app.models import Comment, Role, User, Follow, GolfCourse, Post, City, State, Day, Gender, TimeOfDay, RideOrWalk, Handicap, Smoking, Drinking, PlayingType
 from app.fake import users, post
 from flask_migrate import upgrade
 
@@ -20,9 +20,17 @@ def deploy():
     # migrate database
     upgrade()
 
-    Role.insert_roles()
 
-    User.add_self_follows()
-
+    State.insert_state()
+    City.insert_city()
     GolfCourse.insert_golf_course()
-
+    Day.insert_day()
+    Gender.insert_gender()
+    TimeOfDay.insert_timeofday()
+    RideOrWalk.insert_rideorwalk()
+    Handicap.insert_handicap()
+    Smoking.insert_smoking()
+    Drinking.insert_drinking()
+    PlayingType.insert_playingtype()
+    Role.insert_roles()
+    User.add_self_follows()
