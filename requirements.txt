@@ -1,3 +1,4 @@
+-r requirements/heroku.txt
 alembic==1.8.1
 bidict==0.22.0
 bleach==5.0.1
