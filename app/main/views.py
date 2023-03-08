@@ -627,6 +627,9 @@ def forum():
 @main.route('/forum/post', methods=['GET', 'POST'])
 @login_required 
 def post_form():
+    """
+    Post form in the forum. 
+    """
     post_form = PostForm()
     if post_form.validate_on_submit():
         # save post to database
@@ -639,6 +642,9 @@ def post_form():
 
 @main.route('/forum/comment', methods=['POST'])
 def comment_form():
+    """
+    Comment form in the forum. A comment forum is within each post.
+    """
     comment_form = CommentForm()
     if comment_form.validate_on_submit():
         # save comment to database
