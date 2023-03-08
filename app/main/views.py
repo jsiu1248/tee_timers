@@ -27,12 +27,9 @@ def index():
     """
     
     form = SupportForm()
-    print("hisupport")
-    print(request.args)
 
     if form.validate_on_submit():
 
-        print("hisupportif")
 
 
         support = Support(username = form.name.data,
@@ -579,8 +576,6 @@ def forum():
     post_form = PostForm()
     comment_form = CommentForm()
 
-    print("post")
-    print(request.args)
     # if post_form.post_submit.data and post_form.validate_on_submit():
 
     #     p = Post(description = post_form.description.data, title = post_form.title.data
@@ -598,7 +593,6 @@ def forum():
 
  
     # if comment_form.comment_submit.data and comment_form.validate_on_submit():
-    #     print("comment")
     #     c = Comment(description = comment_form.description.data
     #                 # ,
     
