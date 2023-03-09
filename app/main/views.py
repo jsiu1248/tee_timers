@@ -373,6 +373,9 @@ def show_all():
 @main.route('/followed')
 @login_required
 def show_followed():
+    """
+    Shows a user who followed.
+    """
     resp = make_response(redirect(url_for('.index')))
     resp.set_cookie('show_followed', '1', max_age=30*24*60*60) # 30 days
     return resp
@@ -556,6 +559,9 @@ def post(slug):
 @main.route('/comment/<slug>',  methods=["GET", "POST"])
 @login_required
 def comment(slug):
+    """
+    Linking to a single comment
+    """
     form = CommentForm()
     comment = Comment(body=form.body.data,
                           comment = comment,
