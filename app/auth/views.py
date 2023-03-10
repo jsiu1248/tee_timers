@@ -15,6 +15,9 @@ from io import BytesIO
 
 @auth.route('/login' , methods=["GET", "POST"])
 def login():
+    """ 
+    Allows users to login
+    """
     # form is created
     form = LoginForm()
 
@@ -38,6 +41,9 @@ def login():
 
 @auth.route('/register', methods=["GET","POST"])
 def register():
+    """ 
+    Allows users to register an account
+    """
     form = RegistrationForm()
     if form.validate_on_submit():
         email_entered = form.email.data
@@ -79,6 +85,9 @@ def register():
 
 @auth.route('/logout')
 def logout():
+    """ 
+    Allows users to logout
+    """
     logout_user()
     flash("You've been logged out successfully")
     return redirect(url_for('main.index'))
