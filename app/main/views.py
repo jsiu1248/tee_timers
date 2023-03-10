@@ -796,6 +796,9 @@ def edit_profile():
 @main.route('/send_message/<recipient>', methods=['GET', 'POST'])
 @login_required
 def send_message(recipient):
+    """
+    Send message to each use individually.
+    """
     # user = User.query.filter_by(username = recipient).first_or_404()
     user = User.query.filter_by(username=recipient).first()
 
