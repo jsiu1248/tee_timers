@@ -1,4 +1,5 @@
 /*returns static Nodelist of document elements that match specified group of selectors*/
+/* NOTE: that isn't being used. Before, it was a feature that hid the items instead of reordering them.*/
 var tabs = document.querySelectorAll(".tabs_wrap_two ul li");
 var find = document.querySelectorAll(".find");
 var message = document.querySelectorAll(".message");
