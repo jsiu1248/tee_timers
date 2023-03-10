@@ -1,3 +1,5 @@
+/*three functions for the submit button. After it is clicked, then it validates, then callbacks. */
+
 $(function() {
   console.log("submit-button")
     $( ".submit-container > .btn" ).click(function() {
