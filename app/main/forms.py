@@ -167,6 +167,7 @@ class EditProfileForm(FlaskForm):
         
 
 class AdminLevelEditProfileForm(FlaskForm):
+    """Form so that the admin can edit the information of the users"""
     # the admin can change the username
     username = StringField('Username', validators=[
         DataRequired(),
@@ -236,6 +237,7 @@ class AdminLevelEditProfileForm(FlaskForm):
             (g.id, g.course) for g in GolfCourse.query.all()]
 
 class MessageForm(FlaskForm):
+    """Form for messages in the index from user."""
     message = TextAreaField(('Message'), validators=[
         DataRequired(), Length(min=0, max=140)])
     submit = SubmitField(('Submit'))
