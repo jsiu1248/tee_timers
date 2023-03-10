@@ -1,3 +1,5 @@
+
+/*There are three elements associated to three buttons. When, the button is clicked, then items are reordered in the index.*/
 const findButton = document.getElementById("find");
 const messageButton = document.getElementById("message");
 const playButton = document.getElementById("play");
