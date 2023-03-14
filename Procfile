@@ -1,1 +1,1 @@
-web: gunicorn teetimers:app
+web: gunicorn golf_app:app
