@@ -1,1 +1,1 @@
-web: gunicorn ragtime:app
+web: gunicorn teetimers:app
