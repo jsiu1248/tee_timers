@@ -9,4 +9,7 @@ from . import views, errors
 
 @main.app_context_processor
 def inject_permissions():
+    """ 
+    Adding Permission to app_context
+    """
     return dict(Permission=Permission)
