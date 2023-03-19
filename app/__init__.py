@@ -61,7 +61,7 @@ def create_app(config_name='default'):
         Talisman(app, content_security_policy={
                 'default-src': [
                     "'self'",
-                    'cdnjs.cloudflare.com',
+                    'cdnjs.cloudflare.com', 'cdn.jsdelivr.net' ,'127.0.0.1:5000' ,'teetimers.herokuapp.com',
                 ],
                 # allow images from anywhere, 
                 #   including unicornify.pictures
