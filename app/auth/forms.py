@@ -4,6 +4,9 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, Regexp, Val
 from ..models import User
 
 class LoginForm(FlaskForm):
+    """
+    Login form for logining in users. 
+    """
 # the validator is needed because a string is required
     email = StringField("Email", validators=[DataRequired(), Length(min = 1, max = 64), Email()])
     password = PasswordField("Password", validators=[DataRequired()])
@@ -11,6 +14,9 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Submit")
 
 class RegistrationForm(FlaskForm):
+    """
+    Register form for registering users.
+    """
     email = StringField('Email',
                         validators=[DataRequired(),
                                     Length(1,64),
@@ -40,7 +46,8 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('Sorry! Username already in use.')
 
 class ChangePasswordForm(FlaskForm):
-    """Form for changing password
+    """
+    Form for changing password
     """
     old_password = PasswordField("Old Password", validators=[DataRequired()])
     new_password = PasswordField('New Password', validators=[DataRequired(), EqualTo('new_password_confirm', message='Sorry, the passwords do not match.'
