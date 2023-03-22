@@ -13,11 +13,17 @@ from app.exceptions import ValidationError
 import json
 
 class Permission:
+    """
+    Permissions are assigned to a value, so that users can be determined what permissions they have. 
+    """
     FOLLOW = 1
     MODERATE = 2
     ADMIN = 4
 
 class Role(db.Model):
+    """
+    The role table shows distinct roles of users. 
+    """
     __tablename__='roles'
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(64), unique = True)
@@ -105,6 +111,9 @@ class Role(db.Model):
 
 
 class Follow(db.Model):
+    """
+    The follow table tracks who the users follows and who the user is following. 
+    """
     __tablename__ = 'follows'
 
     # ID of the user who follows another
@@ -147,6 +156,9 @@ class UserProfile(db.Model):
                                                                                                                                                                                                                                                                    
 
 class User(UserMixin, db.Model):
+    """
+    The users table contains the user account information excluding the biodemo data. 
+    """
     __tablename__='users'
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(64), unique = True, index = True)
@@ -344,13 +356,18 @@ class User(UserMixin, db.Model):
 
 
 class AnonymousUser(AnonymousUserMixin):
-    # checking that a user has a given permission and can perform a task
+    """
+    checking that a user has a given permission and can perform a task
+    """
     def can(self, perm):
         return False
     def is_administrator(self):
         return False
 
 class Post(db.Model):
+    """
+    The posts table show the posts from users. 
+    """
     __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(64))
@@ -410,6 +427,9 @@ def __repr__(self):
     return f"<User {self.username}>"
 
 class Comment(db.Model):
+    """
+    The comments table show the comments from each post from each user. 
+    """
     __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     description = db.Column(db.Text)
@@ -426,6 +446,9 @@ def __repr__(self):
 
 
 class Gender(db.Model):
+    """
+    Lookup table for gender. 
+    """
     __tablename__ = 'genders'
     id = db.Column(db.Integer, primary_key = True)
     gender = db.Column(db.String(64))
@@ -442,6 +465,9 @@ class Gender(db.Model):
 
 
 class Day(db.Model):
+    """
+    Lookup table for days. 
+    """
     __tablename__ = 'days'
     id = db.Column(db.Integer , primary_key = True)
     day = db.Column(db.String(64))
@@ -461,6 +487,9 @@ class Day(db.Model):
 
 
 class TimeOfDay(db.Model):
+    """
+    Lookup table for time of days. 
+    """
     __tablename__ = 'time_of_days'
     id = db.Column(db.Integer, primary_key = True)
     time_of_day = db.Column(db.String(64))
@@ -476,6 +505,9 @@ class TimeOfDay(db.Model):
 
 
 class RideOrWalk(db.Model):
+    """
+    Lookup table for ride or walks. 
+    """
     __tablename__ = 'ride_or_walks'
     id = db.Column(db.Integer, primary_key = True)
     ride_or_walk = db.Column(db.String(64))
@@ -491,6 +523,9 @@ class RideOrWalk(db.Model):
 
 
 class Handicap(db.Model):
+    """
+    Lookup tables for handicaps
+    """
     __tablename__ = 'handicaps'
     id = db.Column(db.Integer, primary_key = True)
     handicap = db.Column(db.String(64))
@@ -506,6 +541,9 @@ class Handicap(db.Model):
 
 
 class Smoking(db.Model):
+    """
+    Lookup tables for smokings
+    """
     __tablename__ = 'smokings'
     id = db.Column(db.Integer, primary_key = True)
     smoking = db.Column(db.String(64))
@@ -521,6 +559,9 @@ class Smoking(db.Model):
 
 
 class Drinking(db.Model):
+    """
+    Lookup tables for drinkings
+    """
     __tablename__ = 'drinkings'
     id = db.Column(db.Integer, primary_key = True)
     drinking = db.Column(db.String(64))
@@ -536,6 +577,9 @@ class Drinking(db.Model):
 
 
 class PlayingType(db.Model):
+    """
+    Lookup table for playing type
+    """
     __tablename__ = 'playing_types'
     id = db.Column(db.Integer, primary_key = True)
     playing_type = db.Column(db.String(64))
@@ -553,6 +597,9 @@ class PlayingType(db.Model):
 
 
 class City(db.Model):
+    """
+    Lookup table for cities
+    """
     __tablename__ = 'cities'
     id = db.Column(db.Integer , primary_key=True, autoincrement=True)
     city = db.Column(db.String(64), unique = True)
@@ -576,6 +623,9 @@ class City(db.Model):
             db.session.commit()
 
 class State(db.Model):
+    """
+    Lookup tables for states
+    """
     __tablename__ = 'states'
     id = db.Column(db.Integer , primary_key=True, autoincrement=True)
     state = db.Column(db.String(64), unique = True)
@@ -600,6 +650,9 @@ class State(db.Model):
 
 
 class GolfCourse(db.Model):
+    """
+    Lookup tables for golf courses.
+    """
     __tablename__ = 'golf_courses'
     id = db.Column(db.Integer, primary_key=True)
     city = db.Column(db.String(64))
@@ -624,11 +677,17 @@ class GolfCourse(db.Model):
         db.session.commit()
 
 class Img(db.Model):
+    """
+    Table holds the profile images for each user
+    """
     __tablename__ = 'imgs'
     id = db.Column(db.Integer, primary_key = True)
     img = db.Column(db.Text, nullable = False)
 
 class Message(db.Model):
+    """
+    Table for messages between users.
+    """
     __tablename__ = 'messages'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -642,6 +701,9 @@ class Message(db.Model):
     
 
 class Support(db.Model):
+    """
+    Table for recieving support/inquiry messages from user. 
+    """
     __tablename__ = 'supports'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index = True)
