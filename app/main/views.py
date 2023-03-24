@@ -92,8 +92,6 @@ def user(username):
     return render_template('user.html', user=user, userprofile = userprofile, 
     posts = posts, image_file = image_file
     )
-#/Users/JonathanSiu/Documents/golf_app_flask/app/main/79c603e05a9d7987.jpeg
-#/Users/JonathanSiu/Documents/golf_app_flask/app/static/istockphoto-486876112-612x612.jpeg
 
 @main.route('/moderate')
 @login_required
@@ -217,7 +215,6 @@ def edit_profile_admin(id):
     Args: id
     Return: edit profile or user page
     """
-    # user = User.query.get_or_404(id)
     user = User.query.filter_by(id = id).first()
     userprofile = db.session.query(UserProfile, Day, State, City, 
     Gender, TimeOfDay, RideOrWalk, Handicap, Smoking,
@@ -506,10 +503,6 @@ Drinking, PlayingType, GolfCourse, Img).join(UserProfile,
     # Convert to list
     users = pagination.items
 
-    # TODO
-    # if request.method == 'GET':
-    #     return render_template('match.html',
-    #                         users = users, form = form , pagination = pagination)
 
     if request.method == 'POST':
         return render_template('match.html',
@@ -582,34 +575,6 @@ def forum():
     post_form = PostForm()
     comment_form = CommentForm()
 
-    # if post_form.post_submit.data and post_form.validate_on_submit():
-
-    #     p = Post(description = post_form.description.data, title = post_form.title.data
-    #     # , 
-    #     #             users = current_user._get_current_object()
-
-    #                     )
-                        
-
-    #     db.session.add(p)
-    #     db.session.commit()
-    #     db.session.flush() 
-    #     p.generate_slug()
-    #     return redirect(url_for('main.forum'))
-
- 
-    # if comment_form.comment_submit.data and comment_form.validate_on_submit():
-    #     c = Comment(description = comment_form.description.data
-    #                 # ,
-    
-    #                 # users = current_user._get_current_object()
-
-    #                     )
-                        
-
-    #     db.session.add(c)
-    #     db.session.commit()
-    #     return redirect(url_for('main.forum'))
 
 
 
@@ -799,7 +764,6 @@ def send_message(recipient):
     """
     Send message to each use individually.
     """
-    # user = User.query.filter_by(username = recipient).first_or_404()
     user = User.query.filter_by(username=recipient).first()
 
     form = MessageForm()
