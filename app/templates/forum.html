@@ -7,19 +7,7 @@
 {{super()}}
     <br>
     <br>
-    {# <div class="forumFormBox wrapper">
-        <form name="postForm" id="postForm" method="POST" action="/forum">
 
-            {{ post_form.csrf_token }}
-            {{wtf.form_field(post_form.title)}}
-            {{wtf.form_field(post_form.description)}}
-            <input type="hidden" name="form_type" value="post_form">
-            <div class="submit-container">
-                {{wtf.form_field(post_form.post_submit)}}
-            </div>
-        </form>
-
-    </div> #}
 
 {% include '_post_form.html'%}
     <br>

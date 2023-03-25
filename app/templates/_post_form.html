@@ -1,11 +1,11 @@
-{# post form in the forum # }
+
 <div class="forumFormBox">
-<form name="postForm" id="postForm" method="POST" action="/forum/post">
-    {{ post_form.csrf_token }}
-    {{ wtf.form_field(post_form.title) }}
-    {{ wtf.form_field(post_form.description) }}
-    <div class="submit-container">
-        {{ wtf.form_field(post_form.post_submit) }}
-    </div>
-</form>
+    <form name="postForm" id="postForm" method="POST" action="/forum/post">
+        {{ post_form.csrf_token }}
+        {{ wtf.form_field(post_form.title) }}
+        {{ wtf.form_field(post_form.description) }}
+        <div class="submit-container">
+            {{ wtf.form_field(post_form.post_submit) }}
+        </div>
+    </form>
 </div>
