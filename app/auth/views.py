@@ -72,7 +72,7 @@ def register():
 
     #     # _external = True in Flask Mail tells it to generate an absolute link
         confirmation_link = url_for('auth.confirm', token = token, _external = True)
-        send_email(u.email, 'Welcome to Tee Timers!', 'mail/welcome', user = u)
+        # send_email(u.email, 'Welcome to Tee Timers!', 'mail/welcome', user = u)
         send_email(u.email, "Confirmation email!", 'auth/confirm', user = u, confirmation_link = confirmation_link)
         flash("A confirmation email was send to you.")
 
