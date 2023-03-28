@@ -84,9 +84,6 @@ def user(username):
     posts = user.post.order_by(Post.timestamp.desc()).all()
     
     image_file = os.path.join('../static/jpeg/users', userprofile.Img.img)
-    # image_file = "../main/79c603e05a9d7987.jpeg"
-
-    # image_file = "../static/istockphoto-515229864-612x612.jpeg"
 
     # have to add back pagination later
     return render_template('user.html', user=user, userprofile = userprofile, 
