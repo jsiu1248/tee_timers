@@ -52,23 +52,39 @@ def register():
         u = User(email = email_entered, username = username_entered, 
         password = password_entered)
 
-        db.session.add(u)
-        db.session.commit()
+        try:
+            db.session.add(u)
+            db.session.commit()
+        except:
+            flash('Error occurred while creating account. Please try again later.', 'error')
+            return redirect(url_for('register'))
+
+        try:    
+            p = User.query.filter_by(username = username_entered).first()
+
+            up = UserProfile(id = p.id, profile_picture_id = p.id )
+
+            db.session.add(up)
+            db.session.commit()
         
-        p = User.query.filter_by(username = username_entered).first()
+        except:
+            db.session.rollback()
+            flash('Error occurred while creating profile. Please try again later.', 'error')
+            return redirect(url_for('register'))
 
-        up = UserProfile(id = p.id, profile_picture_id = p.id )
+        try:
+            picture = Img(id = p.id, img = "istockphoto-515229864-612x612.jpeg")
 
-        db.session.add(up)
-        db.session.commit()
+            #testing to see if the relative path isn't needed. 
+            #picture = Img(id = p.id, img = "../static/jpeg/users/istockphoto-515229864-612x612.jpeg")
 
-        picture = Img(id = p.id, img = "istockphoto-515229864-612x612.jpeg")
-
-        #testing to see if the relative path isn't needed. 
-        #picture = Img(id = p.id, img = "../static/jpeg/users/istockphoto-515229864-612x612.jpeg")
-
-        db.session.add(picture)
-        db.session.commit()
+            db.session.add(picture)
+            db.session.commit()
+        
+        except:
+            db.session.rollback()
+            flash('Error occurred while uploading image. Please try again later.', 'error')
+            return redirect(url_for('register'))
         flash("You can now login.")
     
     # generating token for user
