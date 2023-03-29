@@ -191,9 +191,13 @@ def save_picture(form_picture):
     # adding hex and extenssion
     picture_fn = random_hex + f_ext
 
-    picture_path = os.path.join(main.root_path, 
-                                '../static/jpeg/users',
-                                  picture_fn)
+    # testing to not use relative path
+    # picture_path = os.path.join(main.root_path, 
+    #                             '../static/jpeg/users',
+    #                               picture_fn)
+    
+    picture_path = picture_fn
+    
     print(picture_path)
     output_size = (125, 125)
     i = Image.open(form_picture)
