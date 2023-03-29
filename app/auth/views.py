@@ -57,9 +57,11 @@ def register():
             db.session.commit()
         except:
             flash('Error occurred while creating account. Please try again later.', 'error')
-            return redirect(url_for('register'))
+            return redirect(url_for('auth.register'))
         
         try:
+            p = User.query.filter_by(username = username_entered).first()
+
             picture = Img(id = p.id, img = "istockphoto-515229864-612x612.jpeg")
 
             #testing to see if the relative path isn't needed. 
@@ -71,7 +73,7 @@ def register():
         except:
             db.session.rollback()
             flash('Error occurred while uploading image. Please try again later.', 'error')
-            return redirect(url_for('register'))
+            return redirect(url_for('auth.register'))
 
         try:    
             p = User.query.filter_by(username = username_entered).first()
@@ -84,7 +86,7 @@ def register():
         except:
             db.session.rollback()
             flash('Error occurred while creating profile. Please try again later.', 'error')
-            return redirect(url_for('register'))
+            return redirect(url_for('auth.register'))
 
         flash("You can now login.")
     
