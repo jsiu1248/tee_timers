@@ -197,7 +197,7 @@ def save_picture(form_picture):
     #                               picture_fn)
     
     picture_path = picture_fn
-    
+
     print(picture_path)
     output_size = (125, 125)
     i = Image.open(form_picture)
@@ -739,24 +739,6 @@ def edit_profile():
     return render_template('edit_profile.html', form=form, admin_form = False, image_file = image_file) 
 
 
-# @main.route('/create_post', methods=['GET', 'POST'])
-# @login_required
-# def create_post():
-#     """
-#     Editting the posts or creating them, or replyies. 
-#     NOTE: Maybe the functionality needs to be changed. 
-#     Return: Returns the edit_posts page
-#     """
-#     #is this being used?
-#     form = PostForm()
-#     if form.validate_on_submit():
-#         posts = Post(title = form.title.data, 
-#         post = form.description.data)
-#         db.session.add(posts)
-#         db.session.commit()
-#         posts.generate_slug()
-#         return render_template('create_post.html', form = form)
-#     return render_template('forum.html', form = form)
 
 
 @main.route('/send_message/<recipient>', methods=['GET', 'POST'])
