@@ -755,7 +755,6 @@ def send_message(recipient):
                                                     ).join(UserRep, Message.recipient_id == UserRep.id, isouter = True
                                                     ).order_by(Message.timestamp.desc())
     
-    # messages = Message.query.order_by(Message.timestamp.desc())
 
     if form.validate_on_submit():
         msg = Message(description = form.message.data, 
