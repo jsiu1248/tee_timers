@@ -2,19 +2,20 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 {% import "_macros.html" as macros %}
 
-<div class= "wrapper">
-{% block content %}
-{{super()}}
 
-<div class = "follow-format boxColor">
-    <h1 class = "text-center">Forum</h1>
+    {% block content %}
+    {{super()}}
+    <div class="wrapper">
+
+    <div class="follow-format boxColor">
+        <h1 class="text-center">Forum</h1>
     </div>
 
     <br>
     <br>
 
 
-{% include '_post_form.html'%}
+    {% include '_post_form.html'%}
     <br>
     <br>
     <br>
@@ -24,5 +25,11 @@
 
     {% endif %}
 
-{% endblock content %}
+    {% block bottom %}
+    {{ super() }}
+    {% endblock bottom %}
+
+    {% endblock content %}
+
+
 </div>
