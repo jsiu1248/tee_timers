@@ -1061,6 +1061,16 @@ main footer a {
 
   }
 
+  .boxRight{
+    margin-right:100px;
+  }
+
+  .boxCenter{
+    text-align: center;
+    vertical-align: middle;
+    line-height: normal;
+  }
+
   .fontSize{
     font-size: 18px;
   }
