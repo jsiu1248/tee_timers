@@ -144,8 +144,11 @@
                 </div>
         </div>
         </body>
-
+        {% block bottom %}
+        {{ super() }}
+        {% endblock bottom %}
     </div>
+    
 </div>
 </div>
 {# username, #}
@@ -163,5 +166,7 @@
 
 
 {# paging and ordering #}
+
+
 
 {% endblock %}

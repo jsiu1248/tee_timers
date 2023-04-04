@@ -82,6 +82,11 @@ a{
     display: inline-block
 }
 
+.comment-left {
+    margin-left: 100px;
+}
+
+
 .forumFormBox{
     padding: 10px;
     margin-bottom: 20px;
@@ -977,11 +982,19 @@ main footer a {
 .follow-format {
     /* margin-left: 250px;
     margin-right: 250px; */
-    margin-bottom: 20px;
+    margin-bottom: 20px; 
     /* border-radius: 20px; */
+    height: 100px;
 
 }
 
+.bottom-format {
+    /* margin-left: 250px;
+    margin-right: 250px; */
+    /* border-radius: 20px; */
+    height: 200px;
+
+}
 
 /*filterBox*/
 .filterBox {
