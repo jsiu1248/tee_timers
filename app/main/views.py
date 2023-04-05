@@ -769,7 +769,7 @@ sender_id = current_user.id, recipient_id = user.id)
     return render_template('send_message.html',
                             form = form, 
                         recipient = recipient, messages = messages, 
-                        user = user, users = users
+                        user = user
                         )
 
     # userprofile = db.session.query(UserProfile, Day, State, City, 
