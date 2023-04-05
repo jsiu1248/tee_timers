@@ -612,15 +612,15 @@ def post_form():
         return redirect(url_for('main.forum'))
     return render_template('_post_form.html', post_form=post_form)
 
-@main.route('/forum/comment', methods=['POST'])
-def comment_form():
+@main.route('/forum/post/<int:post_id>/comment', methods=['POST'])
+def comment_form(post_id):
     """
     Comment form in the forum. A comment forum is within each post.
     """
     comment_form = CommentForm()
     if comment_form.validate_on_submit():
         # save comment to database
-        comment = Comment(description=comment_form.description.data, users = current_user._get_current_object())
+        comment = Comment(description=comment_form.description.data, users = current_user._get_current_object(), post_id=post_id)
         db.session.add(comment)
         db.session.commit()
         flash('Comment submitted successfully!', 'success')

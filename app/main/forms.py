@@ -1,7 +1,7 @@
 from ast import Str
 from xmlrpc.client import Boolean
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, DateField, TextAreaField, SelectField, BooleanField, SelectMultipleField, IntegerField, RadioField
+from wtforms import StringField, HiddenField, SubmitField, DateField, TextAreaField, SelectField, BooleanField, SelectMultipleField, IntegerField, RadioField
 from wtforms.validators import DataRequired, Length, Regexp, NumberRange
 from wtforms import widgets, SelectMultipleField
 from app.models import db, Gender
@@ -32,6 +32,7 @@ class CommentForm(FlaskForm):
     Form for creating a post or reply. 
     """
     description = TextAreaField("What's your response?") 
+    post_id = HiddenField()
     comment_submit = SubmitField("Submit")
 
 class MultiCheckboxField(SelectMultipleField):

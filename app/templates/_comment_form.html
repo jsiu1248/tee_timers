@@ -1,4 +1,4 @@
-<form name="commentForm" id="commentForm" method="POST" action="/forum/comment">
+<form name="commentForm" id="commentForm" method="POST" action="{{ url_for('main.comment_form', post_id=post.id) }}">
     {{ comment_form.csrf_token }}
     {{ wtf.form_field(comment_form.description) }}
     <div class="submit-container">
