@@ -1071,6 +1071,10 @@ main footer a {
     line-height: normal;
   }
 
+  .boxDown{
+    justify-content: flex-end;
+  }
+
   .fontSize{
     font-size: 18px;
   }

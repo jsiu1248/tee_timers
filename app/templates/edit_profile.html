@@ -4,6 +4,10 @@
 
 {% block content %}
 {{super()}}
+<div class="wrapper">
+    <div class = "follow-format boxColor">
+        <h1 class = "text-center">Edit Profile</h1>
+        </div>
 <div class="form-header page-formatting">
 {# {{ wtf.quick_form(form) }} #}
 <form name="profile_edit_form"  id="profileEditForm" method="POST" enctype="multipart/form-data">
@@ -39,5 +43,9 @@
 </div>
 
 </form>
+</div>
+{% block bottom %}
+{{ super() }}
+{% endblock bottom %}
 </div>
 {% endblock content %}
