@@ -12,7 +12,7 @@
                 </a>
             </div>
 
-            <div class="post-date">{{ post.timestamp.replace(microsecond=0).strftime("%b %d %Y %H:%M:%S") }}
+            <div class="post-date">{{ post.timestamp.replace(microsecond=0).strftime("%b %d %H:%M") }}
                 {{moment(post.timestamp.replace(microsecond=0)).fromNow() }}</div>
             <div class="post-title">
                 {% if post.slug %}
@@ -67,7 +67,7 @@
                     {{ comment.users.username }} -
                 </a>
             </div>
-            <div class="comment-date"> {{ comment.timestamp.replace(microsecond=0).strftime("%b %d %Y %H:%M:%S") }}
+            <div class="comment-date"> {{ comment.timestamp.replace(microsecond=0).strftime("%b %d %H:%M") }}
                 {{moment(comment.timestamp.replace(microsecond=0)).fromNow() }}</div>
 
             <div class="comment-description">
