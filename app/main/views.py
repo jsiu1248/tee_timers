@@ -751,9 +751,12 @@ def send_message(recipient):
 
     form = MessageForm()
     UserRep = aliased(User, name = 'UserRep')
-    messages = db.session.query(Message, User, UserRep).join(User, Message.sender_id == User.id, isouter = True
+    messages = db.session.query(Message, User, UserRep, UserProfile, Img).join(User, Message.sender_id == User.id, isouter = True
                                                     ).join(UserRep, Message.recipient_id == UserRep.id, isouter = True
-                                                    ).order_by(Message.timestamp.desc())
+                                                    ).join(UserProfile,  User.id == UserProfile.id, isouter = True
+    ).join(Img, UserProfile.profile_picture_id == Img.id, isouter = True).order_by(Message.timestamp.desc())
+    
+  
     
 
     if form.validate_on_submit():
@@ -766,7 +769,7 @@ sender_id = current_user.id, recipient_id = user.id)
     return render_template('send_message.html',
                             form = form, 
                         recipient = recipient, messages = messages, 
-                        user = user
+                        user = user, users = users
                         )
 
     # userprofile = db.session.query(UserProfile, Day, State, City, 

@@ -17,6 +17,8 @@
 
         <ul >
             {#trying to get all users that sender has messaged #}
+                 {# {% for user in users %}
+            {% endfor %} #}
             {% set recipient_list = [] %}
 
             {%for rep in messages if rep.UserRep.username not in recipient_list  %}
@@ -32,10 +34,10 @@
             
             {%endif%}
 
-
-
+       
             <li class="usernameList">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg" alt="">
+                <img src="../static/jpeg/users/{{rep.Img.img}}" alt="">
+            
                 <div>
                     <a href="{{ url_for('main.send_message', recipient = rep.UserRep.username) }}">
 
