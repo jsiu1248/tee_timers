@@ -23,10 +23,10 @@
         {# Single composition #}
         <tr height=75px>
             <td>
-        <img class="profile-thumbnail" {#src="../static/jpeg/users/{{user.Img.img}}"#}>
+        <img class="profile-thumbnail" >
             <a href="{{ url_for('.user', username=f.follower.username) }}">
             
-                <img class="img-rounded profile-thumbnail" src="#">
+                <img class="img-rounded profile-thumbnail" src="../static/jpeg/users/{{user.UserProfile.Img.img}}">
             </td>
             {# follower is from the backref of the following db relationship from models #}
             <td><a href="{{ url_for('main.user', username=f.follower.username) }}">{{f.follower.username}}</a></td>

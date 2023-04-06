@@ -156,7 +156,10 @@ def followers(username):
         Args: username (str): name of the user who has followers
         Returns: followers.html returns a page displaying the followers of the user
     """
-    user = User.query.filter_by(username=username).first()
+    # user = User.query.filter_by(username=username).first()
+    user = db.session.query(User).filter_by(username=username).join(UserProfile).join(Img).first()
+    followers = user.followers
+    
     if user is None:
         flash("That is not a valid user.")
         return redirect(url_for('.index'))
