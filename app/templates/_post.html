@@ -18,15 +18,16 @@
                 {% if post.slug %}
                 <a href="{{ url_for('.post', slug = post.slug) }}">
                     {% endif %}
-                    {{ post.title }}</a>
+                    <br>
+                    <b>{{ post.title }}</b></a>
             </div>
-
             <div class="post-description">
                 <p>
                     {{ post.description }}
                 </p>
 
             </div>
+            <br>
             {# <div class="form-header">
                 <form name="commentForm" id="commentForm" method="POST" action="/forum">
 
@@ -70,6 +71,8 @@
             <div class="comment-date"> {{ comment.timestamp.replace(microsecond=0).strftime("%b %d %H:%M") }}
                 {{moment(comment.timestamp.replace(microsecond=0)).fromNow() }}</div>
 
+            <br>
+            <br>
             <div class="comment-description">
                 {{ comment.description }}
             </div>
