@@ -672,6 +672,7 @@ body {}
 /*nav bar*/
 .navbar {
     margin-bottom: 0px;
+    height: 100px;
 }
 
 
@@ -1062,7 +1063,7 @@ main footer a {
   }
 
   .boxRight{
-    margin-right:100px;
+    margin-right:150px;
   }
 
   .boxCenter{
