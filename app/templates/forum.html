@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
 {% import "_macros.html" as macros %}
+{% from "_macros.html" import flash_messages %}
 
 
     {% block content %}
@@ -21,16 +22,23 @@
     <br>
     <br>
     {% include '_post.html' %}
+    {{ flash_messages() }}
+  
+
     {% if pagination %}
     {{ macros.pagination_widget(pagination, '.forum') }}
 
     {% endif %}
 
+ 
+    
+    
     {% block bottom %}
     {{ super() }}
     {% endblock bottom %}
-
     {% endblock content %}
+
+
 
 
 </div>
