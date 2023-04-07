@@ -9,9 +9,11 @@
 
 
 {# get all users #}
-{% block page_content %}
+{% block content %}
 {{ super() }}
-
+<div class = "follow-format boxColor boxCenter" style="display: grid;">
+    <h1 class = "text-center">Matches</h1>
+    </div>
 <div class = "wrapper">
 <div class="wrapper-match">
     <div id="filter-grid" class="filter-grid">
@@ -49,9 +51,7 @@
     <br>
     <br>
     <div id="matches-grid" class="matches-grid">
-        <div class = "follow-format boxColor boxRight boxCenter" style="display: grid;">
-            <h1 class = "text-center">Matches</h1>
-            </div>
+
 
             <br>
         <div class="users">
@@ -145,11 +145,7 @@
                 </div>
         </div>
         </body>
-        <div class ="boxRight">
-        {% block bottom %}
-        {{ super() }}
-        {% endblock bottom %}
-        </div>
+
     </div>
     
 </div>
@@ -171,6 +167,8 @@
 
 {# paging and ordering #}
 
-
+{% block bottom %}
+{{ super() }}
+{% endblock bottom %}
 
 {% endblock %}

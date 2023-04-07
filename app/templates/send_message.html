@@ -1,13 +1,14 @@
 {% extends 'base.html'%}
 {%import "bootstrap/wtf.html" as wtf %}
 
-{% block page_content %}
+{% block content %}
 
 <body>
-<div class="wrapper">
     <div class = "follow-format boxColor">
         <h1 class = "text-center">Messages</h1>
         </div>
+<div class="wrapper">
+
 <div id="container">
     <aside class="boxColor">
         <header>
@@ -124,11 +125,11 @@
     </main>
 
 </div>
+
+</div>
 {% block bottom %}
 {{ super() }}
 {% endblock bottom %}
-</div>
-
 </body>
 
 

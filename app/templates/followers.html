@@ -1,11 +1,12 @@
 {% extends 'base.html'%}
 {% import "_macros.html" as macros %}
 
-{% block page_content %}
-<div class="wrapper">
+{% block content %}
 <div class = "follow-format boxColor">
-<h1 class = "text-center">Followers of: {{current_user.username}}</h1>
-</div>
+    <h1 class = "text-center">Followers of: {{current_user.username}}</h1>
+    </div>
+<div class="wrapper">
+
 <br>
 <table class="table table-striped table-hover">
     <thead>
@@ -49,5 +50,7 @@
 
 </div>
 
-
+{% block bottom %}
+{{ super() }}
+{% endblock bottom %}
 {% endblock %}

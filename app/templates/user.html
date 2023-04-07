@@ -7,12 +7,13 @@
 {% endblock navbar %}
 
 
-{% block page_content %}
+{% block content %}
 {{ super() }}
+<div class="follow-format boxColor">
+    <h1 class="text-center">Profile</h1>
+</div>
 <div class="wrapper">
-    <div class="follow-format boxColor">
-        <h1 class="text-center">Profile</h1>
-    </div>
+
 
     <br>
     <div style="display: block;">
@@ -166,11 +167,11 @@
         {% endif %}
 
     </div>
-    {% block bottom %}
-    {{ super() }}
-    {% endblock bottom %}
-</div>
 
+</div>
+{% block bottom %}
+{{ super() }}
+{% endblock bottom %}
 {% endblock %}
 
 
