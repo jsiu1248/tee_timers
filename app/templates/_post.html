@@ -2,10 +2,10 @@
 <div class="posts">
 
     {% for post in posts %}
-    <div class="post forum-formatting ">
+    <div class="post forum-formatting wrapper">
         {# Single post #}
 
-        <div class="posts-container forum-formatting wrapper">
+        <div class="posts-container forum-formatting">
             <div class="post-user">
                 <a href="{{ url_for('main.user', username = post.users.username) }}">
                     {{ post.users.username }}
@@ -46,48 +46,53 @@
         </div>
     </div>
 
-</div>
-{# <a class="btn btn-default" href="{{ url_for('main.comment_form , post_id=post.id') }}">
-    <i class="bi bi-reply-all-fill"></i> reply
-</a> #}
+    
+    {# <a class="btn btn-default" href="{{ url_for('main.comment_form , post_id=post.id') }}">
+        <i class="bi bi-reply-all-fill"></i> reply
+    </a> #}
 
 
 
-<br>
+    <br>
 
 
-{% if post.comments %}
-{% if post.comments.count() > 0 %}
-<div class="comment forum-formatting">
-    <div class="comments-container forum-formatting comment-left">
+    {% if post.comments %}
+    {% if post.comments.count() > 0 %}
+    <div class="comment forum-formatting wrapper">
         {% for comment in post.comments.all() %}
-        <div class="comment-content">
-            <div class="comment-username">
-                <a href="{{ url_for('main.user', username = comment.users.username) }}">
+        <div class="comments-container forum-formatting">
 
-                    {{ comment.users.username }} -
-                </a>
-            </div>
-            <div class="comment-date"> {{ comment.timestamp.replace(microsecond=0).strftime("%b %d %H:%M") }}
-                {{moment(comment.timestamp.replace(microsecond=0)).fromNow() }}</div>
+            <div class="comment-content post-{{ post.id }} comment-right">
+                <div class="comment-username">
+                    <a href="{{ url_for('main.user', username = comment.users.username) }}">
 
-            <br>
-            <br>
-            <div class="comment-description">
-                {{ comment.description }}
+                        {{ comment.users.username }} -
+                    </a>
+                </div>
+                <div class="comment-date"> {{ comment.timestamp.replace(microsecond=0).strftime("%b %d %H:%M") }}
+                    {{moment(comment.timestamp.replace(microsecond=0)).fromNow() }}</div>
+
+                <br>
+                <br>
+                <div class="comment-description">
+                    {{ comment.description }}
+                </div>
+
             </div>
+
         </div>
         <br>
         {% endfor %}
     </div>
-</div>
+    <br>
+
+
+    {% endif %}
+
+    {% endif %}
+
+<br>
 <br>
 
-
-{% endif %}
-
-{% endif %}
-
-<br>
-<br>
 {% endfor %}
+</div>
