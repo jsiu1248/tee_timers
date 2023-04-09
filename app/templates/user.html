@@ -24,15 +24,19 @@
         {# creating Follow and Unfollow Button #}
         {% if current_user.can(Permission.FOLLOW) %}
         {% if not current_user.is_following(user) %}
-        <a class="btn btn-default" href="{{ url_for('.follow', username=user.username) }}">
+        <button type="button" class="btn btn-light">
+        <a  href="{{ url_for('.follow', username=user.username) }}">
             Follow
         </a>
+        </button>
         {% else %}
-        <a class="btn btn-default" href="{{ url_for('.unfollow', username=user.username) }}">
+        <button type="button" class="btn btn-light">
+        <a href="{{ url_for('.unfollow', username=user.username) }}">
             Unfollow
         </a>
         {% endif %}
         {% endif %}
+        </button>
 
         {# creating followers, following, forum, and match button #}
         <button type="button" class="btn btn-light">
@@ -156,14 +160,19 @@
     <div style="display:block">
         {# edit button#}
         {% if user.username == current_user.username %}
-        <a class="btn btn-default" href="{{ url_for('.edit_profile') }}">
+        <button type="button" class="btn btn-light">
+        <a  href="{{ url_for('.edit_profile') }}">
             Edit Profile
         </a>
+        </button>
         {% endif %}
+
 
         {#edit the profile as admin button #}
         {% if current_user.is_administrator() %}
-        <a class="btn btn-danger" href="{{ url_for('.edit_profile_admin', id=user.id) }}">Edit as Admin</a>
+        <button type="button" class="btn btn-danger">
+        <a href="{{ url_for('.edit_profile_admin', id=user.id) }}">Edit as Admin</a>
+        </button>
         {% endif %}
 
     </div>
