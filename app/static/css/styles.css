@@ -51,6 +51,7 @@ a{
     background-color: #457056;
     border-radius: 50px;
     padding-top: 20px;
+    margin-left: 75px;
 
 
 }
@@ -82,9 +83,9 @@ a{
     display: inline-block
 }
 
-.comment-left {
-    margin-left: 100px;
-}
+/* .comment-right {
+    margin-left: 50px;
+} */
 
 
 .forumFormBox{
@@ -994,7 +995,6 @@ main footer a {
     margin-right: 250px; */
     /* border-radius: 20px; */
     height: 200px;
-
 }
 
 /*filterBox*/
