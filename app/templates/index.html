@@ -76,19 +76,10 @@
       </h2>
     </div>
     <div class="child ten support-form ten-text-formating boxColor" id="ten">
-      <form name="supportForm" id="supportForm" method="POST" class="supportForm">
-        {{ form.csrf_token }}
-        {{wtf.form_field(form.name)}}
-        {{wtf.form_field(form.email)}}
-        {{wtf.form_field(form.message)}}
+      {% include 'tech_support.html' %}
 
-
-        <div class="submit-container">
-          {{wtf.form_field(form.submit)}}
-        </div>
-      </form>
     </div>
-
+    
   </div>
 </div>
 

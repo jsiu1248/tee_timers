@@ -1,9 +1,14 @@
-{% extends "base.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
 
-{% block content %}
-{{super()}}
-</div class="form-header">
-{{ wtf.quick_form(form) }}
-</div>
-{% endblock content %}
+
+<form name="supportForm" id="supportForm" method="POST" class="supportForm">
+    {{ form.csrf_token }}
+    {{wtf.form_field(form.name)}}
+    {{wtf.form_field(form.email)}}
+    {{wtf.form_field(form.message)}}
+
+
+    <div class="submit-container">
+        {{wtf.form_field(form.submit)}}
+    </div>
+</form>

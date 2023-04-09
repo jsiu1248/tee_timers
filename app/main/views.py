@@ -41,7 +41,8 @@ def index():
         #            subject ="test", template = message)
         db.session.add(support)
         db.session.commit()
-
+        flash('Message submitted successfully!', 'success')
+        return redirect(url_for('main.index'))
 
     return render_template('index.html', form = form)
 
@@ -156,9 +157,9 @@ def followers(username):
         Args: username (str): name of the user who has followers
         Returns: followers.html returns a page displaying the followers of the user
     """
-    # user = User.query.filter_by(username=username).first()
-    user = db.session.query(User).filter_by(username=username).join(UserProfile).join(Img).first()
-    followers = user.followers
+    user = User.query.filter_by(username=username).first()
+    # user = db.session.query(User).filter_by(username=username).join(UserProfile).join(Img).first()
+    # followers = user.followers
     
     if user is None:
         flash("That is not a valid user.")
@@ -810,3 +811,4 @@ sender_id = current_user.id, recipient_id = user.id)
 #     form.title.data = composition.title
 #     form.post.data = post.description
 #     return render_template('post.html', form=form)
+
