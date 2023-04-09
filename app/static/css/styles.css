@@ -1,13 +1,12 @@
-
-  *{
+* {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: black;
     font-size: 18px;
 
-  }
+}
 
-a{
-    color:black;
+a {
+    color: black;
     font-weight: 600;
 }
 
@@ -88,17 +87,17 @@ a{
 } */
 
 
-.forumFormBox{
+.forumFormBox {
     padding: 10px;
     margin-bottom: 20px;
     background-color: #52B788;
     border-radius: 30px;
-     /* margin: 0 auto;
+    /* margin: 0 auto;
     margin-left: 150px;
     margin-right: 150px; */
     padding-left: 150px;
     padding-right: 150px;
- 
+
 }
 
 /*for the index page */
@@ -484,17 +483,16 @@ body {
 
 }
 
-.navOffFormat{
+.navOffFormat {
     margin-top: 200px;
 }
 
-.navOffFormatText{
-font-size: 35px;
+.navOffFormatText {
+    font-size: 35px;
 }
 
 /* Submit button*/
-* {
-}
+* {}
 
 .submit-container {
     /* position: absolute;
@@ -823,7 +821,8 @@ main header div {
     overflow-y: scroll;
     height: 535px;
     /* border-bottom: 1px solid #c3c3c3; */
-    border-right: 1px solid #c3c3c3;;
+    border-right: 1px solid #c3c3c3;
+    ;
     /* border-left: 1px solid #c3c3c3; */
 }
 
@@ -854,7 +853,7 @@ main header div {
     display: inline-block;
     text-align: left;
     border-radius: 5px;
-    
+
 }
 
 #chat .me {
@@ -910,7 +909,7 @@ main footer textarea {
 
 main footer textarea::placeholder {
     color: #ddd;
-    
+
 }
 
 main footer img {
@@ -927,7 +926,7 @@ main footer a {
     margin-left: 333px;
     margin-top: 5px;
     display: inline-block;
-    
+
 }
 
 /*send_message*/
@@ -943,20 +942,22 @@ main footer a {
     list-style-type: none;
     padding: 0;
     margin: 0;
-  }
+}
 
-  .is-hidden { display: none; }
+.is-hidden {
+    display: none;
+}
 
 /*flex box */
 .wrapper {
     display: flex;
     flex-direction: column;
     margin-left: auto;
-  margin-right: auto;
-  max-width: 1000px;
-  /* padding-left: 200px;
+    margin-right: auto;
+    max-width: 1000px;
+    /* padding-left: 200px;
   padding-right: 200px; */
-  /* margin: 0 auto; */
+    /* margin: 0 auto; */
 }
 
 .box {
@@ -984,7 +985,7 @@ main footer a {
 .follow-format {
     /* margin-left: 250px;
     margin-right: 250px; */
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
     /* border-radius: 20px; */
     height: 100px;
 
@@ -995,6 +996,9 @@ main footer a {
     margin-right: 250px; */
     /* border-radius: 20px; */
     height: 200px;
+    /* position: absolute;
+    bottom: 0;
+    width: 100%; */
 }
 
 /*filterBox*/
@@ -1039,7 +1043,7 @@ main footer a {
     z-index: 2;
 }
 
-.oneGolf{
+.oneGolf {
     position: absolute;
     padding-left: 175px;
     padding-bottom: 200px;
@@ -1055,40 +1059,40 @@ main footer a {
     padding-left: 300px;
     padding-right: 300px;
 
-  }
-  
-  .boxColor{
+}
+
+.boxColor {
     background-color: #B2D3A8;
 
-  }
+}
 
-  .boxRight{
-    margin-right:150px;
-  }
+.boxRight {
+    margin-right: 150px;
+}
 
-  .boxCenter{
+.boxCenter {
     text-align: center;
     vertical-align: middle;
     line-height: normal;
-  }
+}
 
-  .boxDown{
+.boxDown {
     justify-content: flex-end;
-  }
+}
 
-  .fontSize{
+.fontSize {
     font-size: 18px;
-  }
+}
 
 
-  /*tablist reorder*/
-  /* .container {
+/*tablist reorder*/
+/* .container {
     display: flex;
     flex-direction: column;
     align-items: center;
   } */
-  
-  /* .buttons {
+
+/* .buttons {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -1098,8 +1102,8 @@ main footer a {
   .button {
     margin: 0 10px;
   } */
-  
-  /* .items {
+
+/* .items {
     display: flex;
     flex-direction: column;
   }
@@ -1113,35 +1117,35 @@ main footer a {
     line-height: 100px;
   } */
 
-  .row {
+.row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-  }
-  
-  .dynamic-row {
-    order: 2;
-  }
-  
-  #find-row {
-    order: 3;
-  }
-  
-  #message-row {
-    order: 4;
-  }
-  
-  #play-row {
-    order: 5;
-  }
-  
-  .last-row {
-    order: 6;
-  }
+}
 
-  img.rounded-circle {
+.dynamic-row {
+    order: 2;
+}
+
+#find-row {
+    order: 3;
+}
+
+#message-row {
+    order: 4;
+}
+
+#play-row {
+    order: 5;
+}
+
+.last-row {
+    order: 6;
+}
+
+img.rounded-circle {
     width: 100px;
     height: 100px;
-  }
+}
