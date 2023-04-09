@@ -115,14 +115,14 @@ def logout():
     flash("You've been logged out successfully")
     return redirect(url_for('main.index'))
 
-@auth.route('/change_password')
+@auth.route('/change_password', methods=['GET', 'POST'])
 def change_password():
     """ Allows users to change password
     Returns: renders change password form and change-password.
     """
     form = ChangePasswordForm()
     if form.validate_on_submit():
-        password = form.password.data
+        password = form.old_password.data
         new_password = form.new_password.data
     # Checks if old password matches then we can use the new password
         if current_user.verify_password(password) == True:
