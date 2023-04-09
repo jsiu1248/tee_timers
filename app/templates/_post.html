@@ -8,10 +8,10 @@
         <div class="posts-container forum-formatting">
             <div class="post-user">
                 <a href="{{ url_for('main.user', username = post.users.username) }}">
-                    {{ post.users.username }}
+                    <b>{{ post.users.username }}</b>
                 </a>
             </div>
-
+            <br>
             <div class="post-date">{{ post.timestamp.replace(microsecond=0).strftime("%b %d %H:%M") }}
                 {{moment(post.timestamp.replace(microsecond=0)).fromNow() }}</div>
             <div class="post-title">
@@ -66,9 +66,11 @@
                 <div class="comment-username">
                     <a href="{{ url_for('main.user', username = comment.users.username) }}">
 
-                        {{ comment.users.username }} -
+                        <b>{{ comment.users.username }}</b>
                     </a>
                 </div>
+                <br>
+
                 <div class="comment-date"> {{ comment.timestamp.replace(microsecond=0).strftime("%b %d %H:%M") }}
                     {{moment(comment.timestamp.replace(microsecond=0)).fromNow() }}</div>
 
