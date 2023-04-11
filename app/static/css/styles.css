@@ -982,12 +982,15 @@ main footer a {
     padding: 50px;
 }
 
-.follow-format {
+.header-format {
     /* margin-left: 250px;
     margin-right: 250px; */
     margin-bottom: 20px;
     /* border-radius: 20px; */
     height: 100px;
+    display: flex;
+  align-items: center;
+  justify-content: center;
 
 }
 
@@ -996,9 +999,10 @@ main footer a {
     margin-right: 250px; */
     /* border-radius: 20px; */
     height: 200px;
-    /* position: absolute;
-    bottom: 0;
-    width: 100%; */
+    display: flex;
+  align-items: center;
+  justify-content: center;
+    
 }
 
 /*filterBox*/
