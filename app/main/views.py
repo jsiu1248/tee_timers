@@ -758,7 +758,7 @@ def send_message(recipient):
     messages = db.session.query(Message, User, UserRep, UserProfile, Img).join(User, Message.sender_id == User.id, isouter = True
                                                     ).join(UserRep, Message.recipient_id == UserRep.id, isouter = True
                                                     ).join(UserProfile,  User.id == UserProfile.id, isouter = True
-    ).join(Img, UserProfile.profile_picture_id == Img.id, isouter = True).order_by(Message.timestamp.desc())
+    ).join(Img, UserProfile.profile_picture_id == Img.id, isouter = True).order_by(Message.timestamp.asc())
     
   
     
