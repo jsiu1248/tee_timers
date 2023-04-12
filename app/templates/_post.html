@@ -1,11 +1,19 @@
 {# listing out all of the posts and all of the comments#}
 <div class="posts">
 
+    <header>
+        <input type="search" placeholder="filter" id="filterBox" onkeyup="filterFunction()">
+
+    </header>
+    
     {% for post in posts %}
     <div class="post forum-formatting wrapper">
         {# Single post #}
 
-        <div class="posts-container forum-formatting">
+     
+        <div class="posts-container forum-formatting usernameList">
+
+    
             <div class="post-user">
                 <a href="{{ url_for('main.user', username = post.users.username) }}">
                     <b>{{ post.users.username }}</b>
