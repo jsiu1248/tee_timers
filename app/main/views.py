@@ -769,7 +769,7 @@ sender_id = current_user.id, recipient_id = user.id)
         db.session.add(msg)
         db.session.commit()
         flash(('Your message has been sent.'))
-        # return redirect(url_for('main.user', username = recipient))
+        return redirect(url_for('main.send_message', recipient = recipient))
     return render_template('send_message.html',
                             form = form, 
                         recipient = recipient, messages = messages, 
