@@ -51,11 +51,14 @@
     <br>
     <br>
     <div id="matches-grid" class="matches-grid">
+        {% if users|length  == 0 %}
 
+        <h1>Sorry, there aren't any users with those filters.</h1>
+        {% endif %}
 
             <br>
         <div class="users">
-
+ 
 
             {% for user in users %}
 

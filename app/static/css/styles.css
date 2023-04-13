@@ -393,7 +393,7 @@ body {
     grid-column: 2 / 2;
     grid-row: 1;
     display: block;
-    align-self: center;
+    align-self: flex-start;
     justify-self: center;
 
 }
