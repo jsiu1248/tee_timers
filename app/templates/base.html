@@ -18,6 +18,7 @@
 
 {% extends "bootstrap/base.html" %}
 {% block title %}{{super()}}App -{% endblock %}
+{% from '_macros.html' import flash_messages %}
 
 {% block head %}
 {{ super() }}
@@ -31,7 +32,7 @@
 <!-- <script src="../static/js/tablistTwo.js"></script> -->
 <script src="../static/js/filter.js"></script>
 <script src="../static/js/tablistOrder.js"></script>
-
+<script src="../static/js/timeOut.js"></script>
 
 {{ moment.include_moment() }}
 {% endblock %}
