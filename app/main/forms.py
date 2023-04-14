@@ -1,9 +1,9 @@
 from ast import Str
 from xmlrpc.client import Boolean
 from flask_wtf import FlaskForm
-from wtforms import StringField, HiddenField, SubmitField, DateField, TextAreaField, SelectField, BooleanField, SelectMultipleField, IntegerField, RadioField
+from wtforms import StringField, HiddenField, SubmitField, DateField, TextAreaField, SelectField, BooleanField, SelectField, IntegerField, RadioField
 from wtforms.validators import DataRequired, Length, Regexp, NumberRange
-from wtforms import widgets, SelectMultipleField
+from wtforms import widgets, SelectField
 from app.models import db, Gender
 from app.models import City, GolfCourse, State, PlayingType, TimeOfDay, Smoking, Day, Drinking, RideOrWalk, Handicap
 from wtforms_sqlalchemy.fields import QuerySelectField
@@ -35,7 +35,7 @@ class CommentForm(FlaskForm):
     post_id = HiddenField()
     comment_submit = SubmitField("Submit")
 
-class MultiCheckboxField(SelectMultipleField):
+class MultiCheckboxField(SelectField):
     """
     A multiple-select, except displays a list of checkboxes.
 
@@ -49,19 +49,19 @@ class MatchForm(FlaskForm):
     """
     Form for user to select criteria of playing partner. 
     """
-    gender = SelectMultipleField('Gender',
+    gender = SelectField('Gender',
                                coerce=int,
                                validators=[])
-    day = SelectMultipleField('Day',
+    day = SelectField('Day',
                                coerce=int,
                                validators=[])
-    time_of_day = SelectMultipleField('Time of Day',
+    time_of_day = SelectField('Time of Day',
                                coerce=int,
                                validators=[])
-    ride_or_walk = SelectMultipleField('Ride or Walk',
+    ride_or_walk = SelectField('Ride or Walk',
                                coerce=int,
                                validators=[])
-    handicap = SelectMultipleField('Handicap',
+    handicap = SelectField('Handicap',
                                coerce=int,
                                validators=[])
     smoking = RadioField(label = 'Smoking',
@@ -70,7 +70,7 @@ class MatchForm(FlaskForm):
     drinking = RadioField(label = 'Drinking',
                                coerce=int,
                                validators=[])            
-    playing_type = SelectMultipleField('Playing Type',
+    playing_type = SelectField('Playing Type',
                                coerce=int,
                                validators=[])            
     golf_course = SelectField('Golf Course', coerce=int, choices=[('')], validators=[])
@@ -115,29 +115,29 @@ class EditProfileForm(FlaskForm):
     state = SelectField("State", validators=[])
     # users can write bios as long as they want
     bio = TextAreaField("Bio")
-    gender = SelectMultipleField('Gender',
+    gender = SelectField('Gender',
                                coerce=int,
                                validators=[])
-    day = SelectMultipleField('Day',
+    day = SelectField('Day',
                                coerce=int,
                                validators=[])
-    time_of_day = SelectMultipleField('Time of Day',
+    time_of_day = SelectField('Time of Day',
                                coerce=int,
                                validators=[])
 
-    ride_or_walk = SelectMultipleField('Ride or Walk',
+    ride_or_walk = SelectField('Ride or Walk',
                                coerce=int,
                                validators=[])
-    handicap = SelectMultipleField('Handicap',
+    handicap = SelectField('Handicap',
                                coerce=int,
                                validators=[])
-    smoking = SelectMultipleField('Smoking',
+    smoking = SelectField('Smoking',
                                coerce=int,
                                validators=[])
-    drinking = SelectMultipleField('Drinking',
+    drinking = SelectField('Drinking',
                                coerce=int,
                                validators=[])            
-    playing_type = SelectMultipleField('Playing Type',
+    playing_type = SelectField('Playing Type',
                                coerce=int,
                                validators=[])  
     golf_course = SelectField('Golf Course', coerce=int, choices=[('')], validators=[])
@@ -187,29 +187,29 @@ class AdminLevelEditProfileForm(FlaskForm):
     state = SelectField("State", validators=[])
     # users can write bios as long as they want
     bio = TextAreaField("Bio")
-    gender = SelectMultipleField('Gender',
+    gender = SelectField('Gender',
                                coerce=int,
                                validators=[])
-    day = SelectMultipleField('Day',
+    day = SelectField('Day',
                                coerce=int,
                                validators=[])
-    time_of_day = SelectMultipleField('Time of Day',
+    time_of_day = SelectField('Time of Day',
                                coerce=int,
                                validators=[])
 
-    ride_or_walk = SelectMultipleField('Ride or Walk',
+    ride_or_walk = SelectField('Ride or Walk',
                                coerce=int,
                                validators=[])
-    handicap = SelectMultipleField('Handicap',
+    handicap = SelectField('Handicap',
                                coerce=int,
                                validators=[])
-    smoking = SelectMultipleField('Smoking',
+    smoking = SelectField('Smoking',
                                coerce=int,
                                validators=[])
-    drinking = SelectMultipleField('Drinking',
+    drinking = SelectField('Drinking',
                                coerce=int,
                                validators=[])            
-    playing_type = SelectMultipleField('Playing Type',
+    playing_type = SelectField('Playing Type',
                                coerce=int,
                                validators=[])       
     golf_course = SelectField("Golf Course", choices=[('')],coerce=int, validators=[]) 
