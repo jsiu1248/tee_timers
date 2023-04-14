@@ -1005,6 +1005,12 @@ main footer a {
     
 }
 
+.bottom-position{
+    bottom:0;
+    position:absolute;
+    width: 100%;
+}
+
 /*filterBox*/
 .filterBox {
     width: 350px;
