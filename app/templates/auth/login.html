@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Tee Timers - Login{% endblock  %}
+{% block title %}Tee Timers - Login
+{% endblock  title %}
 {% block content %}
 
 <div class="bg-img boxColor">
@@ -29,10 +30,8 @@
     </p>
 
 </div>
+{% block bottom %}
+{{ super() }}
 {% endblock bottom %}
-
-{% endblock content %}
-
-
 
 {% endblock content %}
