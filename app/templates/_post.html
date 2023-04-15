@@ -2,7 +2,7 @@
 <div class="posts">
 
     <header>
-        <input type="search" placeholder="filter" id="filterBox" onkeyup="filterFunction()">
+        <input type="search" placeholder="filter" id="filterBox" onkeyup="filterPostFunction()">
 
     </header>
     
@@ -11,7 +11,7 @@
         {# Single post #}
 
      
-        <div class="posts-container forum-formatting usernameList">
+        <div class="posts-container forum-formatting">
 
     
             <div class="post-user">
@@ -51,7 +51,51 @@
             #}
             {% include '_comment_form.html' %}
 
+
+            
+
         </div>
+
+        <br>
+
+
+        {% if post.comments %}
+        {% if post.comments.count() > 0 %}
+        <div class="comment forum-formatting wrapper">
+            {% for comment in post.comments.all() %}
+            <div class="comments-container forum-formatting">
+    
+                <div class="comment-content post-{{ post.id }} comment-right">
+                    <div class="comment-username">
+                        <a href="{{ url_for('main.user', username = comment.users.username) }}">
+    
+                            <b>{{ comment.users.username }}</b>
+                        </a>
+                    </div>
+                    <br>
+    
+                    <div class="comment-date"> {{ comment.timestamp.replace(microsecond=0).strftime("%b %d %H:%M") }}
+                        {{moment(comment.timestamp.replace(microsecond=0)).fromNow() }}</div>
+    
+                    <br>
+                    <br>
+                    <div class="comment-description">
+                        {{ comment.description }}
+                    </div>
+    
+                </div>
+    
+            </div>
+            <br>
+            {% endfor %}
+        </div>
+        <br>
+    
+    
+        {% endif %}
+    
+        {% endif %}
+    
     </div>
 
     
@@ -61,45 +105,6 @@
 
 
 
-    <br>
-
-
-    {% if post.comments %}
-    {% if post.comments.count() > 0 %}
-    <div class="comment forum-formatting wrapper">
-        {% for comment in post.comments.all() %}
-        <div class="comments-container forum-formatting">
-
-            <div class="comment-content post-{{ post.id }} comment-right">
-                <div class="comment-username">
-                    <a href="{{ url_for('main.user', username = comment.users.username) }}">
-
-                        <b>{{ comment.users.username }}</b>
-                    </a>
-                </div>
-                <br>
-
-                <div class="comment-date"> {{ comment.timestamp.replace(microsecond=0).strftime("%b %d %H:%M") }}
-                    {{moment(comment.timestamp.replace(microsecond=0)).fromNow() }}</div>
-
-                <br>
-                <br>
-                <div class="comment-description">
-                    {{ comment.description }}
-                </div>
-
-            </div>
-
-        </div>
-        <br>
-        {% endfor %}
-    </div>
-    <br>
-
-
-    {% endif %}
-
-    {% endif %}
 
 <br>
 <br>
