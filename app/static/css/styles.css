@@ -10,6 +10,10 @@ a {
     font-weight: 600;
 }
 
+body {
+    height: 100%;
+  }
+
 .profile-thumbnail {
     position: absolute;
 }
@@ -948,6 +952,10 @@ main footer a {
     display: none;
 }
 
+.is-hidden.post {
+    display: none;
+}
+
 /*flex box */
 .wrapper {
     display: flex;
@@ -955,9 +963,17 @@ main footer a {
     margin-left: auto;
     margin-right: auto;
     max-width: 1000px;
+    min-height: calc(100% - 450px);
+
     /* padding-left: 200px;
   padding-right: 200px; */
     /* margin: 0 auto; */
+
+}
+
+.center{
+    justify-content: center;
+
 }
 
 .box {
