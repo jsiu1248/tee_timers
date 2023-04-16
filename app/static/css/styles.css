@@ -369,7 +369,7 @@ body {
     grid-auto-rows: 20%;
     grid-auto-columns: auto;
     width: 100vw;
-    height: 100vw;
+    /* height: 100vw; */
     position: relative;
     left: 50%;
     right: 50%;
@@ -1018,11 +1018,12 @@ main footer a {
     display: flex;
   align-items: center;
   justify-content: center;
-    
+  border-top: 1px solid #131313;
+  border-bottom: 1px solid #131313;
 }
 
 .bottom-position{
-    bottom:0;
+    /* bottom:0; */
     position:absolute;
     width: 100%;
 }
