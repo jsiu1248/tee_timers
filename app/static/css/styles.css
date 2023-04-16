@@ -356,6 +356,7 @@ body {
     justify-content: center;
     align-items: center;
     align-self: center;
+    
 
 }
 
@@ -1175,4 +1176,8 @@ main footer a {
 img.rounded-circle {
     width: 100px;
     height: 100px;
+}
+
+h1 {
+    font-size: 56px;
 }
