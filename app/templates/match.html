@@ -11,146 +11,153 @@
 {# get all users #}
 {% block content %}
 {{ super() }}
-<div class = "header-format boxColor boxCenter" style="display: grid;">
-    <h1 class = "text-center">Matches</h1>
+
+<body>
+    <div class="header-format boxColor boxCenter" style="display: grid;">
+        <h1 class="text-center">Matches</h1>
     </div>
-<div class = "wrapper">
-<div class="wrapper-match">
-    <div id="filter-grid" class="filter-grid">
-    
-<div class="filterBox boxColor">
-    <div class="filterWord">FILTER</div>
-    <div class="filterCount">{{users|length}} Golfers </div>
-    
-    </div>
-{# {{ wtf.quick_form(form) }} #}
-<form name="match_form"  id="matchForm" method="POST">
-{{ form.csrf_token }}
-        {{wtf.form_field(form.gender)}}
-        {{wtf.form_field(form.day)}}
-        {{wtf.form_field(form.time_of_day)}}
-        {{wtf.form_field(form.ride_or_walk)}}
-        {{wtf.form_field(form.handicap)}}
-        <b><p>Smoking</p></b>
-        {{wtf.form_field(form.smoking)}}
-        <b><p>Drinking</p></b>
-        {{wtf.form_field(form.drinking)}}
-        {{wtf.form_field(form.playing_type)}}
-        {{wtf.form_field(form.golf_course)}}
-        {{wtf.form_field(form.city)}}
-        {{wtf.form_field(form.state)}} 
-        <div class="submit-container">
+    <div class="wrapper">
+        <div class="wrapper-match">
+            <div id="filter-grid" class="filter-grid">
 
-            {{wtf.form_field(form.submit)}}
-            
-            {# {{wtf.quick_form(form)}} #}
-        </div>
-</form>
+                <div class="filterBox boxColor">
+                    <div class="filterWord">FILTER</div>
+                    <div class="filterCount">{{users|length}} Golfers </div>
 
-    </div>
-    <br>
-    <br>
-    <div id="matches-grid" class="matches-grid">
-        {% if users|length  == 0 %}
+                </div>
+                {# {{ wtf.quick_form(form) }} #}
+                <form name="match_form" id="matchForm" method="POST">
+                    {{ form.csrf_token }}
+                    {{wtf.form_field(form.gender)}}
+                    {{wtf.form_field(form.day)}}
+                    {{wtf.form_field(form.time_of_day)}}
+                    {{wtf.form_field(form.ride_or_walk)}}
+                    {{wtf.form_field(form.handicap)}}
+                    <b>
+                        <p>Smoking</p>
+                    </b>
+                    {{wtf.form_field(form.smoking)}}
+                    <b>
+                        <p>Drinking</p>
+                    </b>
+                    {{wtf.form_field(form.drinking)}}
+                    {{wtf.form_field(form.playing_type)}}
+                    {{wtf.form_field(form.golf_course)}}
+                    {{wtf.form_field(form.city)}}
+                    {{wtf.form_field(form.state)}}
+                    <div class="submit-container">
 
-        <h1>Sorry, there aren't any users with those filters.</h1>
-        {% endif %}
+                        {{wtf.form_field(form.submit)}}
 
+                        {# {{wtf.quick_form(form)}} #}
+                    </div>
+                </form>
+
+            </div>
             <br>
-        <div class="users">
- 
+            <br>
+            <div id="matches-grid" class="matches-grid">
+                {% if users|length == 0 %}
 
-            {% for user in users %}
+                <h1>Sorry, there aren't any users with those filters.</h1>
+                {% endif %}
 
-            <body class="user">
-                {# Single user #}
+                <br>
+                <div class="users">
 
 
-                <div class="flex-item boxColor">
-                    <p style='display: inline-flex;'>
-                    <p style="  display: flex;
+                    {% for user in users %}
+
+                    <body class="user">
+                        {# Single user #}
+
+
+                        <div class="flex-item boxColor">
+                            <p style='display: inline-flex;'>
+                            <p style="  display: flex;
                         align-items: center; ">
-                        {{user.City.city}}
-                    </p>
+                                {{user.City.city}}
+                            </p>
 
-                    {# getting the boxes div for each user#}
-                    {% if user.Img.img%}
-                    <img class="rounded-circle account-img img-responsive center-block d-block mx-auto"
-                        src="../static/jpeg/users/{{user.Img.img}}">
-                    <p>
-                        {% endif %}
+                            {# getting the boxes div for each user#}
+                            {% if user.Img.img%}
+                            <img class="rounded-circle account-img img-responsive center-block d-block mx-auto"
+                                src="../static/jpeg/users/{{user.Img.img}}">
+                            <p>
+                                {% endif %}
 
-                        <a href="{{  url_for('main.user',
+                                <a href="{{  url_for('main.user',
                         username = user.User.username) }}">
 
-                            <p class="center"> {{ user.User.username }} </p>
+                                    <p class="center"> {{ user.User.username }} </p>
 
 
-                        </a>
-                    <p class="center"> {{ user.UserProfile.bio }} </p>
+                                </a>
+                            <p class="center"> {{ user.UserProfile.bio }} </p>
 
-                    <a class="btn btn-default format-button" href="{{ url_for('main.send_message',
+                            <a class="btn btn-default format-button" href="{{ url_for('main.send_message',
                             recipient = user.User.username) }}">
-                        <i class="bi bi-chat-dots"></i>
-                        Message
-                    </a>
-                    <br>
-                    <br>
-                    <a class="btn btn-default format-button" href="{{ url_for('main.user',
+                                <i class="bi bi-chat-dots"></i>
+                                Message
+                            </a>
+                            <br>
+                            <br>
+                            <a class="btn btn-default format-button" href="{{ url_for('main.user',
             username = user.User.username) }}">
-                        <i class="bi bi-hand-thumbs-up"></i> Go to Profile
-                    </a>
-                    <br>
-                    <div style="display: inline-block;">
-                        {% if user.GolfCourse.course %}
+                                <i class="bi bi-hand-thumbs-up"></i> Go to Profile
+                            </a>
+                            <br>
+                            <div style="display: inline-block;">
+                                {% if user.GolfCourse.course %}
 
-                        <a class="btn btn-default format-button format-profile-attributes" href="#">
-                            {{user.GolfCourse.course}}
-                        </a>
-                        {% endif %}
+                                <a class="btn btn-default format-button format-profile-attributes" href="#">
+                                    {{user.GolfCourse.course}}
+                                </a>
+                                {% endif %}
 
-                        {% if user.Handicap.handicap%}
-                        <a class="btn btn-default format-button format-profile-attributes" href="#">
-                            {{user.Handicap.handicap}}
-                        </a>
-                        {% endif %}
+                                {% if user.Handicap.handicap%}
+                                <a class="btn btn-default format-button format-profile-attributes" href="#">
+                                    {{user.Handicap.handicap}}
+                                </a>
+                                {% endif %}
 
-                        {% if user.PlayingType.playing_type %}
-                        <a class="btn btn-default format-button format-profile-attributes" href="#">
-                            {{user.PlayingType.playing_type}}
-                        </a>
-                        {% endif %}
+                                {% if user.PlayingType.playing_type %}
+                                <a class="btn btn-default format-button format-profile-attributes" href="#">
+                                    {{user.PlayingType.playing_type}}
+                                </a>
+                                {% endif %}
 
-                        {% if user.Smoking.smoking %}
-                        <a class="btn btn-default format-button format-profile-attributes" href="#">
-                            {{user.Smoking.smoking}}
-                        </a>
-                        {% endif %}
+                                {% if user.Smoking.smoking %}
+                                <a class="btn btn-default format-button format-profile-attributes" href="#">
+                                    {{user.Smoking.smoking}}
+                                </a>
+                                {% endif %}
 
-                        {% if user.Drinking.drinking %}
-                        <a class="btn btn-default format-button format-profile-attributes" href="#">
-                            {{user.Drinking.drinking}}
-                        </a>
-                        {% endif %}
-                    </div>
+                                {% if user.Drinking.drinking %}
+                                <a class="btn btn-default format-button format-profile-attributes" href="#">
+                                    {{user.Drinking.drinking}}
+                                </a>
+                                {% endif %}
+                            </div>
 
 
-                    {# add image of user#}
-                    {# have to link to the message between user1 and user2 or start a new message between between#}
+                            {# add image of user#}
+                            {# have to link to the message between user1 and user2 or start a new message between
+                            between#}
 
+                        </div>
+
+                        {% endfor %}
+                        <div>
+                            {% if pagination %}
+                            {{ macros.pagination_widget(pagination, '.match') }}
+                            {% endif %}
+                        </div>
                 </div>
+</body>
 
-                {% endfor %}
-                <div>
-                    {% if pagination %}
-                    {{ macros.pagination_widget(pagination, '.match') }}
-                    {% endif %}
-                </div>
-        </div>
-        </body>
+</div>
 
-    </div>
-    
 </div>
 
 </div>
@@ -170,8 +177,9 @@
 
 {# paging and ordering #}
 
-{% block bottom %}
+{% block footer %}
 {{ super() }}
-{% endblock bottom %}
+{% endblock footer %}
 
+</body>
 {% endblock %}
