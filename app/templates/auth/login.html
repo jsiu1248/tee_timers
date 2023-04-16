@@ -2,33 +2,40 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}Tee Timers - Login
-{% endblock  title %}
+{% endblock title %}
 {% block content %}
 
-<div class="bg-img boxColor">
-    <h1>Login</h1>
-    <form name="loginForm" id="loginForm" method="POST">
 
-        {{ form.csrf_token }}
-        {{wtf.form_field(form.email)}}
-        {{wtf.form_field(form.password)}}
-        {{wtf.form_field(form.remember_me)}}
-        <div class="submit-container">
-            {{wtf.form_field(form.submit)}}
-          </div>
+
+<div class="header-format boxColor">
+    <h1 class="text-center">Login</h1>
+</div>
+
+<div class="wrapper">
+    <div class="bg-img boxColor">
+        <form name="loginForm" id="loginForm" method="POST">
+
+            {{ form.csrf_token }}
+            {{wtf.form_field(form.email)}}
+            {{wtf.form_field(form.password)}}
+            {{wtf.form_field(form.remember_me)}}
+            <div class="submit-container">
+                {{wtf.form_field(form.submit)}}
+            </div>
         </form>
 
-    <p>
-        New user? <a href="{{ url_for('auth.register') }}">
-            Register here
-        </a>
-    </p>
-    <p>
-        Forgot Password? <a href="{{ url_for('auth.change_password') }}">
-            Change Password here
-        </a>
-    </p>
+        <p>
+            New user? <a href="{{ url_for('auth.register') }}">
+                Register here
+            </a>
+        </p>
+        <p>
+            Forgot Password? <a href="{{ url_for('auth.change_password') }}">
+                Change Password here
+            </a>
+        </p>
 
+    </div>
 </div>
 {% block bottom %}
 {{ super() }}
