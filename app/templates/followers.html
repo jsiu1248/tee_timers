@@ -27,7 +27,7 @@
         <img class="profile-thumbnail" >
             <a href="{{ url_for('.user', username=f.follower.username) }}">
             
-                <img class="img-rounded profile-thumbnail" src="../static/jpeg/users/{{user.UserProfile.Img.img}}">
+                {# <img class="img-rounded profile-thumbnail" src="../static/jpeg/users/{{user}}"> #}
             </td>
             {# follower is from the backref of the following db relationship from models #}
             <td><a href="{{ url_for('main.user', username=f.follower.username) }}">{{f.follower.username}}</a></td>
