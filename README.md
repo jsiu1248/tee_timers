@@ -17,9 +17,10 @@
 
 [Environment Variables](#environment-variables)
 
+[Future Features](#future-features)
+
 [Contributing](#contributing)
 
-[References](#references)
 
 
 
@@ -70,6 +71,8 @@ Login and make a new user. You can change the underlying admin email address in 
 Then, navigate to your *register* template: __localhost:5000/auth/register__ and register your email address. Confirm yourself as a user by opening the link sent to you in an email (see [Send Emails](#send-emails)).
 Now you can add as many golfers as you want. You can also search for other users and follow them. 
 
+You can also create fake user data using the fake.py. 
+
 ## User Data
 Each golfer has basic biodemo data such as name, age, city, state, bio section, gender. In addition, there are ways that enable the golfers to specify criteria of their interests in a golfing partner such as a certain day, time of day that they are avaliable, if they prefer riding or walking, a certain handicap, and playing type such as for fun or competitive.  
 
@@ -106,13 +109,22 @@ It might be useful to save your environment variables in your project, so you do
 touch .env
 ```
 Be sure to create it in your root directory and not to push it to GitHub or any public space where it can be viewed. Then you can add your environment variables to the file. For example:
-```python
+
+python
 # .env
 FLASK_APP=golf_app.py
 FLASK_ENV=development
 FLASK_CONFIG=development
 FLASK_DEBUG=0
 FOLLOWERS_PER_PAGE=25 
+
+## Future Features
+Here are some features that will be in future releases:
+Groupon API that shows current deals for golf. 
+A more integrated scheduling system that allows golfers to schedule and book tee times within Tee Timers.
+An option to share images, videos, and voice call other users. 
+A platform that allows users to track their own statistics and compete with others. 
+
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
