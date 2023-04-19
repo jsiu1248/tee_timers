@@ -18,7 +18,7 @@
 
 {% extends "bootstrap/base.html" %}
 {% block title %}{{super()}}App -{% endblock %}
-{% from '_macros.html' import flash_messages %}
+{# {% from '_macros.html' import flash_messages %} #}
 
 {% block head %}
 {{ super() }}
@@ -113,12 +113,14 @@
 
 <div class="container">
     {% for msg in get_flashed_messages()%}
-    <div class="alert warning">
-        {# what does &times; do?#}
-        <button type="button" class="done" data-dismiss="alert">&times;</button>
+    <div class="alert warning show flash-message" role="alert">
+        <button type="button" class="done flash-message" data-dismiss="alert" aria-label="Close">&times;
         {{msg}}
+        </button>
     </div>
     {% endfor %}
+
+
     {% block page_content %}
 
     <body style="background-color: white; color:black">
