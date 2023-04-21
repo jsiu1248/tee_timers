@@ -1,11 +1,13 @@
 {# listing out all of the posts and all of the comments#}
 <div class="posts">
 
-    <header>
+    {# <header class="filterPost"> #}
         <input type="search" placeholder="filter" id="filterBox" onkeyup="filterPostFunction()">
 
-    </header>
-    
+    {# </header> #}
+    </div>
+    <br>
+
     {% for post in posts %}
     <div class="post forum-formatting wrapper">
         {# Single post #}

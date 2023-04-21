@@ -1181,3 +1181,15 @@ img.rounded-circle {
 h1 {
     font-size: 52px;
 }
+
+
+.filterPost{
+    height: 50px;
+    width: 100px;
+    line-height: 50px;
+    padding: 0 50px 0 20px;
+    background-color: #eff3f7;
+    border: none;
+    border-radius: 25px;
+    color: black;
+}
