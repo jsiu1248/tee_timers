@@ -812,3 +812,7 @@ sender_id = current_user.id, recipient_id = user.id)
 #     form.post.data = post.description
 #     return render_template('post.html', form=form)
 
+@main.route('/leaderboard')
+@login_required
+def leaderboard():
+    return render_template('leaderboard.html')
