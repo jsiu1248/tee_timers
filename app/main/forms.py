@@ -248,6 +248,6 @@ class GolfLogForm(FlaskForm):
     action = SelectField('Action', choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')],
                                validators=[DataRequired()])
     date = DateField('Date', validators=[DataRequired()], default=date.today(), format='%Y-%m-%d')
-    satisfaction = SelectField('Satisfaction Level', choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')],
+    satisfaction = SelectField('Satisfaction Level', choices=[('Terrible', '1'), ('Poor', '2'), ('Okay', '3'), ('Good', '4'), ('Great', '5')],
                                validators=[DataRequired()])
     submit = SubmitField('Submit')
