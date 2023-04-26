@@ -8,6 +8,7 @@ from app.models import db, Gender
 from app.models import City, GolfCourse, State, PlayingType, TimeOfDay, Smoking, Day, Drinking, RideOrWalk, Handicap
 from wtforms_sqlalchemy.fields import QuerySelectField
 from flask_wtf.file import FileField, FileAllowed
+from datetime import date
 
 class SupportForm(FlaskForm):
     """
@@ -243,3 +244,10 @@ class MessageForm(FlaskForm):
         DataRequired(), Length(min=0, max=140)])
     submit = SubmitField(('Submit'))
         
+class GolfLogForm(FlaskForm):
+    action = SelectField('Action', choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')],
+                               validators=[DataRequired()])
+    date = DateField('Date', validators=[DataRequired()], default=date.today(), format='%Y-%m-%d')
+    satisfaction = SelectField('Satisfaction Level', choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')],
+                               validators=[DataRequired()])
+    submit = SubmitField('Submit')
