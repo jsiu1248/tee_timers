@@ -816,3 +816,13 @@ sender_id = current_user.id, recipient_id = user.id)
 @login_required
 def leaderboard():
     return render_template('leaderboard.html')
+
+@main.route('/golf_log')
+@login_required
+def golf_log():
+    return render_template('golf_log.html')
+
+@main.route('/badges')
+@login_required
+def badges():
+    return render_template('badges.html')
