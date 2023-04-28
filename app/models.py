@@ -712,6 +712,22 @@ class Support(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
 
+# Create a database table to store the badge/achievement information
+class Badge(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), nullable=False)
+    description = db.Column(db.String(256), nullable=False)
+    image_path = db.Column(db.String(256), nullable=False)
+    criteria = db.Column(db.String(256), nullable=False)
+
+# Create a user-badges/achievements table to store the badges/achievements earned by each user
+class UserBadge(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    badge_id = db.Column(db.Integer, db.ForeignKey('badge.id'), nullable=False)
+    date_earned = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+
 # figure out how to auto insert data later
 # State.insert_state()
 # City.insert_city()
