@@ -834,3 +834,26 @@ def has_practiced_range(user):
     # return True if the user has practiced at least once
     # otherwise return False
     pass
+
+
+# Create a function to check if a user has earned the badge/achievement
+def check_badge(user, badge):
+    # call the function that checks the criteria for earning the badge/achievement
+    if has_practiced_range(user):
+        # award the badge/achievement to the user
+        award_badge(user, badge)
+
+# Create a function to award the badge/achievement to a user
+def award_badge(user, badge):
+    # create a new UserBadge object and add it to the database
+    user_badge = UserBadge(user_id=user.id, badge_id=badge.id, date_earned=datetime.utcnow())
+    db.session.add(user_badge)
+    db.session.commit()
+
+# Create a page or dashboard where users can view the badges/achievements they have earned
+@app.route('/badges')
+@login_required
+def badges():
+    user_badges = UserBadge.query.filter_by(user_id=current_user.id).all()
+    badges = [Badge.query.get(user_badge.badge_id) for user_badge in user_badges]
+    return render_template('badges.html', badges=badges)
