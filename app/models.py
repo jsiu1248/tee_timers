@@ -190,6 +190,9 @@ class User(UserMixin, db.Model):
                                         foreign_keys='Message.recipient_id',
                                         backref='recipient', lazy='dynamic')
     last_message_read_time = db.Column(db.DateTime)
+    golf_log = db.relationship('GolfLog',
+                                        foreign_keys='GolfLog.user_id',
+                                        backref='user')
 
     
 
@@ -728,6 +731,21 @@ class UserBadge(db.Model):
     date_earned = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
 
+class GolfLog(db.Model):
+    """
+    Lookup table for action. 
+    """
+    __tablename__ = 'golflog'
+    id = db.Column(db.Integer, primary_key = True)
+    action_id = db.Column(db.Integer, db.ForeignKey('actions.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    satisfaction_level_id = db.Column(db.Integer, nullable=False)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    golf_log = db.relationship('User', backref='golf_logs', uselist=True) # have to edit this to the match to be matched
+    action = db.relationship('Action', backref='golf_logs', uselist=True)
+
+
+
 class Action(db.Model):
     """
     Lookup table for action. 
@@ -735,7 +753,7 @@ class Action(db.Model):
     __tablename__ = 'actions'
     id = db.Column(db.Integer, primary_key = True)
     action = db.Column(db.String(64))
-    golf_log = db.relationship('GolfLog', backref='action', lazy='dynamic') # have to edit this to the match to be matched
+    golf_log = db.relationship('GolfLog', backref='action_ref', lazy='dynamic') # have to edit this to the match to be matched
     @staticmethod
     def insert_action():
         "adding action lookup to database"

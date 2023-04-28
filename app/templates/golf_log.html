@@ -3,4 +3,17 @@
 
 {% block content %}
 {{super()}}
+
+
+<form name="postForm" id="postForm" method="POST">
+
+    {{ form.csrf_token }}
+    {{wtf.form_field(form.action)}}
+    {{wtf.form_field(form.date)}}
+    {{wtf.form_field(form.satisfaction)}}
+    <div class="submit-container">
+        {{wtf.form_field(form.submit)}}
+      </div>
+    </form>
 {%endblock content %}
+

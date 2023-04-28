@@ -5,9 +5,9 @@ from flask_login import login_required, current_user
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, or_
-from ..models import User, Role, Permission, Comment, Post, Day, UserProfile, State, City, GolfCourse, Gender, TimeOfDay, RideOrWalk, Handicap, Smoking, Drinking, PlayingType, Img, Message, Support
+from ..models import User, Role, Permission, Comment, Post, Day, UserProfile, State, City, GolfCourse, Gender, TimeOfDay, RideOrWalk, Handicap, Smoking, Drinking, PlayingType, Img, Message, Support, Badge, UserBadge
 from ..decorators import permission_required, admin_required
-from .forms import PostForm, SupportForm, MatchForm, EditProfileForm, AdminLevelEditProfileForm, CommentForm, MessageForm
+from .forms import PostForm, SupportForm, MatchForm, EditProfileForm, AdminLevelEditProfileForm, CommentForm, MessageForm, GolfLogForm
 from ..email import send_email
 from PIL import Image
 import base64
@@ -820,12 +820,9 @@ def leaderboard():
 @main.route('/golf_log')
 @login_required
 def golf_log():
-    return render_template('golf_log.html')
+    form = GolfLogForm()
+    return render_template('golf_log.html', form=form)
 
-@main.route('/badges')
-@login_required
-def badges():
-    return render_template('badges.html')
 
 # maybe this needs to be another file
 # Define the criteria for earning the badge/achievement
@@ -851,7 +848,7 @@ def award_badge(user, badge):
     db.session.commit()
 
 # Create a page or dashboard where users can view the badges/achievements they have earned
-@app.route('/badges')
+@main.route('/badges')
 @login_required
 def badges():
     user_badges = UserBadge.query.filter_by(user_id=current_user.id).all()
