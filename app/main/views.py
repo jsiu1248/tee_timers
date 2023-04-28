@@ -826,3 +826,11 @@ def golf_log():
 @login_required
 def badges():
     return render_template('badges.html')
+
+# maybe this needs to be another file
+# Define the criteria for earning the badge/achievement
+def has_practiced_range(user):
+    # check if user has practiced at the range
+    # return True if the user has practiced at least once
+    # otherwise return False
+    pass
