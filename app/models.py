@@ -735,7 +735,7 @@ class Action(db.Model):
     __tablename__ = 'actions'
     id = db.Column(db.Integer, primary_key = True)
     action = db.Column(db.String(64))
-    profile = db.relationship('UserProfile', backref='action', lazy='dynamic') # have to edit this to the match to be matched
+    golf_log = db.relationship('GolfLog', backref='action', lazy='dynamic') # have to edit this to the match to be matched
     @staticmethod
     def insert_action():
         "adding action lookup to database"
