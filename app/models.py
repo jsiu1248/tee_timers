@@ -738,12 +738,12 @@ class Action(db.Model):
     profile = db.relationship('UserProfile', backref='action', lazy='dynamic') # have to edit this to the match to be matched
     @staticmethod
     def insert_action():
-        "adding gender lookup to database"
+        "adding action lookup to database"
         # load data in json
-        data = ["Male", "Female","Other"]
-        for gender in data:
-                gender = Gender(gender = gender)
-                db.session.add(gender)
+        data = ["Play 9 Holes", "Play 18 Holes","Practice at Range", "Practice on Green", "Practice at Home", "Golf Lesson", "Play Golf Tournament", "New Equipment/Fitting", "Meditate"]
+        for action in data:
+                action = Action(action = action)
+                db.session.add(action)
         db.session.commit()
 
 
