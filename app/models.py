@@ -728,6 +728,26 @@ class UserBadge(db.Model):
     date_earned = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
 
+class Action(db.Model):
+    """
+    Lookup table for action. 
+    """
+    __tablename__ = 'actions'
+    id = db.Column(db.Integer, primary_key = True)
+    action = db.Column(db.String(64))
+    profile = db.relationship('UserProfile', backref='action', lazy='dynamic') # have to edit this to the match to be matched
+    @staticmethod
+    def insert_action():
+        "adding gender lookup to database"
+        # load data in json
+        data = ["Male", "Female","Other"]
+        for gender in data:
+                gender = Gender(gender = gender)
+                db.session.add(gender)
+        db.session.commit()
+
+
+
 # figure out how to auto insert data later
 # State.insert_state()
 # City.insert_city()
