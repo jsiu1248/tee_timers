@@ -36,3 +36,5 @@ def deploy():
     # PlayingType.insert_playingtype()
     # Role.insert_roles()
     # User.add_self_follows()
+    # Action.insert_action()
+    
