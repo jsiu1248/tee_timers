@@ -190,9 +190,11 @@ class User(UserMixin, db.Model):
                                         foreign_keys='Message.recipient_id',
                                         backref='recipient', lazy='dynamic')
     last_message_read_time = db.Column(db.DateTime)
-    golf_log = db.relationship('GolfLog',
+    golf_logs = db.relationship('GolfLog',
                                         foreign_keys='GolfLog.user_id',
-                                        backref='user')
+                                        backref='user_golf_log')
+    user_badges = db.relationship('UserBadge', foreign_keys='UserBadge.user_id',
+                                        backref='user', lazy='dynamic')
 
     
 
@@ -722,14 +724,20 @@ class Badge(db.Model):
     description = db.Column(db.String(256), nullable=False)
     image_path = db.Column(db.String(256), nullable=False)
     criteria = db.Column(db.String(256), nullable=False)
+    user_badges = db.relationship('UserBadge', back_populates='badge')
+    
 
 # Create a user-badges/achievements table to store the badges/achievements earned by each user
 class UserBadge(db.Model):
+    __tablename__ = 'user_badges'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     badge_id = db.Column(db.Integer, db.ForeignKey('badge.id'), nullable=False)
     date_earned = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-
+    badge_user = db.relationship('User', backref='user_badges', lazy='dynamic') # have to edit this to the match to be matched
+    badge = db.relationship('Badge', backref='user_badges', lazy='dynamic')
+    golf_log_user_badges = db.relationship('GolfLog', backref = 'user_badges_golf_log', lazy='dynamic')
+    user_badges_parent = db.relationship('UserBadge', back_populates='user')
 
 class GolfLog(db.Model):
     """
@@ -743,7 +751,7 @@ class GolfLog(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     golf_log = db.relationship('User', backref='golf_logs', uselist=True) # have to edit this to the match to be matched
     action = db.relationship('Action', backref='golf_logs', uselist=True)
-
+    user_badges_golf_log = db.relationship('UserBadge', backref='golf_log_user_badges', lazy='dynamic')
 
 
 class Action(db.Model):
