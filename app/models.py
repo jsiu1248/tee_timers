@@ -167,6 +167,8 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(64), unique = True, index = True)
     confirmed = db.Column(db.Boolean, default = False)
     name = db.Column(db.String(64))
+
+    # Relationships and Backrefs
     comment = db.relationship('Comment', backref='users', lazy='dynamic')
     user_profile = db.relationship('UserProfile', foreign_keys=[UserProfile.id],
     backref='users', lazy='dynamic')
@@ -190,12 +192,7 @@ class User(UserMixin, db.Model):
                                         foreign_keys='Message.recipient_id',
                                         backref='recipient', lazy='dynamic')
     last_message_read_time = db.Column(db.DateTime)
-    golf_logs = db.relationship('GolfLog',
-                                        foreign_keys='GolfLog.user_id',
-                                        backref='user_golf_log')
-    user_badges = db.relationship('UserBadge', foreign_keys='UserBadge.user_id',
-                                        backref='user', lazy='dynamic')
-
+ 
     
 
     # we want to assign the users their roles right away
@@ -724,7 +721,9 @@ class Badge(db.Model):
     description = db.Column(db.String(256), nullable=False)
     image_path = db.Column(db.String(256), nullable=False)
     criteria = db.Column(db.String(256), nullable=False)
-    user_badges = db.relationship('UserBadge', back_populates='badge')
+
+     # Relationships and Backrefs
+
     
 
 # Create a user-badges/achievements table to store the badges/achievements earned by each user
@@ -734,10 +733,10 @@ class UserBadge(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     badge_id = db.Column(db.Integer, db.ForeignKey('badge.id'), nullable=False)
     date_earned = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    badge_user = db.relationship('User', backref='user_badges', lazy='dynamic') # have to edit this to the match to be matched
-    badge = db.relationship('Badge', backref='user_badges', lazy='dynamic')
-    golf_log_user_badges = db.relationship('GolfLog', backref = 'user_badges_golf_log', lazy='dynamic')
-    user_badges_parent = db.relationship('UserBadge', back_populates='user')
+
+    # Relationships and Backrefs
+
+
 
 class GolfLog(db.Model):
     """
@@ -749,9 +748,7 @@ class GolfLog(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     satisfaction_level_id = db.Column(db.Integer, nullable=False)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    golf_log = db.relationship('User', backref='golf_logs', uselist=True) # have to edit this to the match to be matched
-    action = db.relationship('Action', backref='golf_logs', uselist=True)
-    user_badges_golf_log = db.relationship('UserBadge', backref='golf_log_user_badges', lazy='dynamic')
+
 
 
 class Action(db.Model):
@@ -761,7 +758,6 @@ class Action(db.Model):
     __tablename__ = 'actions'
     id = db.Column(db.Integer, primary_key = True)
     action = db.Column(db.String(64))
-    golf_log = db.relationship('GolfLog', backref='action_ref', lazy='dynamic') # have to edit this to the match to be matched
     @staticmethod
     def insert_action():
         "adding action lookup to database"
