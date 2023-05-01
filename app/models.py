@@ -716,8 +716,8 @@ class Support(db.Model):
 
 # Create a database table to store the badge/achievement information
 class Badge(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), nullable=False)
+    id = db.Column(db.Integer, primary_key=True, unique = True)
+    name = db.Column(db.String(64), nullable=False, unique = True)
     description = db.Column(db.String(256), nullable=False)
     image_path = db.Column(db.String(256), nullable=False)
     criteria = db.Column(db.String(256), nullable=False)
@@ -729,7 +729,7 @@ class Badge(db.Model):
 # Create a user-badges/achievements table to store the badges/achievements earned by each user
 class UserBadge(db.Model):
     __tablename__ = 'user_badges'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, unique = True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     badge_id = db.Column(db.Integer, db.ForeignKey('badge.id'), nullable=False)
     date_earned = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -743,7 +743,7 @@ class GolfLog(db.Model):
     Lookup table for action. 
     """
     __tablename__ = 'golflog'
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key = True, unique = True)
     action_id = db.Column(db.Integer, db.ForeignKey('actions.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     satisfaction_level_id = db.Column(db.Integer, nullable=False)
@@ -756,8 +756,8 @@ class Action(db.Model):
     Lookup table for action. 
     """
     __tablename__ = 'actions'
-    id = db.Column(db.Integer, primary_key = True)
-    action = db.Column(db.String(64))
+    id = db.Column(db.Integer, primary_key = True, unique = True)
+    action = db.Column(db.String(64), unique = True)
     @staticmethod
     def insert_action():
         "adding action lookup to database"
