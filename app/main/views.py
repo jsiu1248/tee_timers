@@ -5,7 +5,7 @@ from flask_login import login_required, current_user
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, or_
-from ..models import User, Role, Permission, Comment, Post, Day, UserProfile, State, City, GolfCourse, Gender, TimeOfDay, RideOrWalk, Handicap, Smoking, Drinking, PlayingType, Img, Message, Support, Badge, UserBadge
+from ..models import User, Role, Permission, Comment, Post, Day, UserProfile, State, City, GolfCourse, Gender, TimeOfDay, RideOrWalk, Handicap, Smoking, Drinking, PlayingType, Img, Message, Support, Badge, UserBadge, GolfLog
 from ..decorators import permission_required, admin_required
 from .forms import PostForm, SupportForm, MatchForm, EditProfileForm, AdminLevelEditProfileForm, CommentForm, MessageForm, GolfLogForm
 from ..email import send_email
@@ -817,11 +817,21 @@ sender_id = current_user.id, recipient_id = user.id)
 def leaderboard():
     return render_template('leaderboard.html')
 
-@main.route('/golf_log')
+@main.route('/golf_log/form', methods=['GET', 'POST'])
 @login_required
-def golf_log():
-    form = GolfLogForm()
-    return render_template('golf_log.html', form=form)
+def golf_log_form():
+    """
+    Golf log form for tracking a user's golfing habits and satisfaction level. 
+    """
+    golf_log_form = GolfLogForm()
+    if golf_log_form.validate_on_submit():
+        # save post to database
+        golf_log = GolfLog(action_id = golf_log_form.action.data, satisfaction_level_id = golf_log_form.satisfaction.data, user_id=current_user.id)
+        db.session.add(golf_log)
+        db.session.commit()
+        flash('Golf log submitted successfully!', 'success')
+        return redirect(url_for('main.golf_log'))
+    return render_template('golf_log.html', form = golf_log_form)
 
 
 # maybe this needs to be another file
