@@ -1,5 +1,5 @@
 
-  <form name="postForm" id="postForm" method="POST">
+  <form name="postForm" id="postForm" method="POST" action="{{ url_for('main.golf_log_form') }}">
 
     {{ form.csrf_token }}
     {{wtf.form_field(form.action)}}

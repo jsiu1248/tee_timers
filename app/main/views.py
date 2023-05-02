@@ -817,13 +817,37 @@ sender_id = current_user.id, recipient_id = user.id)
 def leaderboard():
     return render_template('leaderboard.html')
 
+@main.route('/golf_log', methods=["GET","POST"])
+@login_required
+def golf_log():
+    """
+    Golf log for tracking a user's golfing habits and satisfaction level. 
+    """
+    golf_log_form = GolfLogForm()
+    print("aw")
+    page = request.args.get('page', 1, type = int)
+    # Pagination of the posts for all users
+    pagination = \
+        GolfLog.query.order_by(GolfLog.timestamp.desc()).paginate(
+            page = page,
+            per_page = current_app.config['POSTS_PER_PAGE'],
+            error_out = False)
+    # Convert to list
+    logs = pagination.items
+
+    return render_template('golf_log.html',
+                           pagination = pagination, logs = logs, form = golf_log_form)
+
+
 @main.route('/golf_log/form', methods=['GET', 'POST'])
 @login_required
 def golf_log_form():
     """
     Golf log form for tracking a user's golfing habits and satisfaction level. 
     """
+    print("test")
     golf_log_form = GolfLogForm()
+    print("yay")
     if golf_log_form.validate_on_submit():
         # save post to database
         golf_log = GolfLog(action_id = golf_log_form.action.data, satisfaction_level_id = golf_log_form.satisfaction.data, user_id=current_user.id)
@@ -831,8 +855,7 @@ def golf_log_form():
         db.session.commit()
         flash('Golf log submitted successfully!', 'success')
         return redirect(url_for('main.golf_log'))
-    return render_template('golf_log.html', form = golf_log_form)
-
+    return render_template('golf_log.html', form=golf_log_form)
 
 # maybe this needs to be another file
 # Define the criteria for earning the badge/achievement
