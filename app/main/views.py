@@ -824,7 +824,6 @@ def golf_log():
     Golf log for tracking a user's golfing habits and satisfaction level. 
     """
     golf_log_form = GolfLogForm()
-    print("aw")
     page = request.args.get('page', 1, type = int)
     # Pagination of the posts for all users
     pagination = \
@@ -845,9 +844,7 @@ def golf_log_form():
     """
     Golf log form for tracking a user's golfing habits and satisfaction level. 
     """
-    print("test")
     golf_log_form = GolfLogForm()
-    print("yay")
     if golf_log_form.validate_on_submit():
         # save post to database
         golf_log = GolfLog(action_id = golf_log_form.action.data, satisfaction_level_id = golf_log_form.satisfaction.data, user_id=current_user.id)
