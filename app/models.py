@@ -748,6 +748,7 @@ class GolfLog(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     satisfaction_level_id = db.Column(db.Integer, nullable=False)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    action = db.relationship('Action', backref='logs')
 
 
 

@@ -5,7 +5,7 @@ from flask_login import login_required, current_user
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, or_
-from ..models import User, Role, Permission, Comment, Post, Day, UserProfile, State, City, GolfCourse, Gender, TimeOfDay, RideOrWalk, Handicap, Smoking, Drinking, PlayingType, Img, Message, Support, Badge, UserBadge, GolfLog
+from ..models import User, Role, Permission, Comment, Post, Day, UserProfile, State, City, GolfCourse, Gender, TimeOfDay, RideOrWalk, Handicap, Smoking, Drinking, PlayingType, Img, Message, Support, Badge, UserBadge, GolfLog, Action
 from ..decorators import permission_required, admin_required
 from .forms import PostForm, SupportForm, MatchForm, EditProfileForm, AdminLevelEditProfileForm, CommentForm, MessageForm, GolfLogForm
 from ..email import send_email
@@ -827,7 +827,7 @@ def golf_log():
     page = request.args.get('page', 1, type = int)
     # Pagination of the posts for all users
     pagination = \
-        GolfLog.query.order_by(GolfLog.timestamp.desc()).paginate(
+        GolfLog.query.join(Action).order_by(GolfLog.timestamp.desc()).paginate(
             page = page,
             per_page = current_app.config['POSTS_PER_PAGE'],
             error_out = False)
@@ -836,6 +836,8 @@ def golf_log():
 
     return render_template('golf_log.html',
                            pagination = pagination, logs = logs, form = golf_log_form)
+
+
 
 
 @main.route('/golf_log/form', methods=['GET', 'POST'])
