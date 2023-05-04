@@ -770,6 +770,24 @@ class Action(db.Model):
         db.session.commit()
 
 
+class Satisfaction(db.Model):
+    """
+    Lookup table for satisfaction. 
+    """
+    __tablename__ = 'satisfactions'
+    id = db.Column(db.Integer, primary_key = True, unique = True)
+    satisfaction = db.Column(db.String(64), unique = True)
+    @staticmethod
+    def insert_satisfaction():
+        "adding satisfaction lookup to database"
+        # load data in json
+        data = ['Terrible', 'Poor', 'Okay', 'Good', 'Great']
+        for s in data:
+                s = Satisfaction(satisfaction = s)
+                db.session.add(s)
+        db.session.commit()
+
+
 
 # figure out how to auto insert data later
 # State.insert_state()

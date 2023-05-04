@@ -5,7 +5,7 @@ from wtforms import StringField, HiddenField, SubmitField, DateField, TextAreaFi
 from wtforms.validators import DataRequired, Length, Regexp, NumberRange
 from wtforms import widgets, SelectField
 from app.models import db, Gender
-from app.models import City, GolfCourse, State, PlayingType, TimeOfDay, Smoking, Day, Drinking, RideOrWalk, Handicap, Action
+from app.models import City, GolfCourse, State, PlayingType, TimeOfDay, Smoking, Day, Drinking, RideOrWalk, Handicap, Action, Satisfaction
 from wtforms_sqlalchemy.fields import QuerySelectField
 from flask_wtf.file import FileField, FileAllowed
 from datetime import date
@@ -248,9 +248,10 @@ class GolfLogForm(FlaskForm):
     action = SelectField('Action', coerce=int,
                                validators=[DataRequired()])
     date = DateField('Date', validators=[DataRequired()], default=date.today(), format='%Y-%m-%d')
-    satisfaction = SelectField('Satisfaction Level', choices=[( '1', 'Terrible'), ('2', 'Poor'), ( '3','Okay'), ( '4', 'Good'), ( '5', 'Great')],
+    satisfaction = SelectField('Satisfaction Level', coerce=int,
                                validators=[DataRequired()])
     submit = SubmitField('Submit')
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.action.choices = [(a.id, a.action) for a in Action.query.all()]
+        self.satisfaction.choices = [(s.id, s.satisfication) for s in Satisfaction.query.all()]
