@@ -37,4 +37,4 @@ def deploy():
     # Role.insert_roles()
     # User.add_self_follows()
     # Action.insert_action()
-    
+    # Satisfaction.insert_satisfaction()
