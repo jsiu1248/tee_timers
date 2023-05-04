@@ -254,4 +254,4 @@ class GolfLogForm(FlaskForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.action.choices = [(a.id, a.action) for a in Action.query.all()]
-        self.satisfaction.choices = [(s.id, s.satisfication) for s in Satisfaction.query.all()]
+        self.satisfaction.choices = [(s.id, s.satisfaction) for s in Satisfaction.query.all()]
