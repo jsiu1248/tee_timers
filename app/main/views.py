@@ -5,7 +5,7 @@ from flask_login import login_required, current_user
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, or_
-from ..models import User, Role, Permission, Comment, Post, Day, UserProfile, State, City, GolfCourse, Gender, TimeOfDay, RideOrWalk, Handicap, Smoking, Drinking, PlayingType, Img, Message, Support, Badge, UserBadge, GolfLog, Action, Satisfaction
+from ..models import User, Role, Permission, Comment, Post, Day, UserProfile, State, City, GolfCourse, Gender, TimeOfDay, RideOrWalk, Handicap, Smoking, Drinking, PlayingType, Img, Message, Support, Badge, UserBadge, GolfLog, Action, Satisfaction, calculate_points
 from ..decorators import permission_required, admin_required
 from .forms import PostForm, SupportForm, MatchForm, EditProfileForm, AdminLevelEditProfileForm, CommentForm, MessageForm, GolfLogForm
 from ..email import send_email
@@ -852,7 +852,12 @@ def golf_log_form():
         golf_log = GolfLog(action_id = golf_log_form.action.data, satisfaction_level_id = golf_log_form.satisfaction.data, user_id=current_user.id)
         db.session.add(golf_log)
         db.session.commit()
+
+        # Calculate points for golf log
+        points = calculate_points(golf_log)
         flash('Golf log submitted successfully!', 'success')
+        flash(f'You earned {points} points for this activity!', 'success')
+        
         return redirect(url_for('main.golf_log'))
     return render_template('golf_log.html', form=golf_log_form)
 

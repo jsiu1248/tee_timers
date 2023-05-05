@@ -750,6 +750,40 @@ class GolfLog(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     action = db.relationship('Action', backref='logs')
     satisfaction = db.relationship('Satisfaction', backref='logs', foreign_keys=[satisfaction_level_id])
+    
+def calculate_points(golf_log):
+    # Define dictionary of multipliers for satisfaction levels
+    satisfaction_multipliers = {
+        'Terrible': 0.35,
+        'Poor': 0.6,
+        'Okay': 0.7,
+        'Good': 0.8,
+        'Great': 0.95
+    }
+
+    # Define dictionary of points for actions
+    action_points = {
+        'Play 9 Holes': 15,
+        'Play 18 Holes': 20,
+        'Practice at Range': 10,
+        'Practice on Green': 10, 
+        'Practice at Home' : 5, 
+        'Golf Lesson' : 7, 
+        'Play Golf Tournament' : 25, 
+        'New Equipment/Fitting' : 3, 
+        'Meditate' : 3, 
+    }
+    
+    # Look up points for action
+    points = action_points.get(golf_log.action.action, 0)
+    
+    # Look up multiplier for satisfaction level
+    multiplier = satisfaction_multipliers.get(golf_log.satisfaction.satisfaction, 1.0)
+    
+    # Calculate total points
+    total_points = points * multiplier
+    
+    return total_points
 
 
 
