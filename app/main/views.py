@@ -850,14 +850,14 @@ def golf_log_form():
     if golf_log_form.validate_on_submit():
         # save post to database
         golf_log = GolfLog(action_id = golf_log_form.action.data, satisfaction_level_id = golf_log_form.satisfaction.data, user_id=current_user.id)
+        points = calculate_points(golf_log)
         db.session.add(golf_log)
         db.session.commit()
 
         # Calculate points for golf log
-        points = calculate_points(golf_log)
         flash('Golf log submitted successfully!', 'success')
         flash(f'You earned {points} points for this activity!', 'success')
-        
+
         return redirect(url_for('main.golf_log'))
     return render_template('golf_log.html', form=golf_log_form)
 

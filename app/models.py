@@ -753,6 +753,8 @@ class GolfLog(db.Model):
     satisfaction = db.relationship('Satisfaction', backref='logs', foreign_keys=[satisfaction_level_id])
     
 def calculate_points(golf_log):
+    if not golf_log or not golf_log.action or not golf_log.satisfaction:
+        return 0
     # Define dictionary of multipliers for satisfaction levels
     satisfaction_multipliers = {
         'Terrible': 0.35,
