@@ -749,12 +749,12 @@ class GolfLog(db.Model):
     satisfaction_level_id = db.Column(db.Integer, db.ForeignKey('satisfactions.id'), nullable=False)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     points = db.Column(db.Integer, nullable=False)
-    action = db.relationship('Action', backref='logs', foreign_keys=[action_id])
+    action = db.relationship('Action', backref='logs')
     satisfaction = db.relationship('Satisfaction', backref='logs', foreign_keys=[satisfaction_level_id])
     
 def calculate_points(golf_log):
-    if not golf_log or not golf_log.action or not golf_log.satisfaction:
-        return 0
+    # if not golf_log or not golf_log.action or not golf_log.satisfaction:
+    #     return 1
     # Define dictionary of multipliers for satisfaction levels
     satisfaction_multipliers = {
         'Terrible': 0.35,

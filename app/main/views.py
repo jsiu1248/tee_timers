@@ -850,8 +850,8 @@ def golf_log_form():
     if golf_log_form.validate_on_submit():
         # save post to database
         golf_log = GolfLog(action_id = golf_log_form.action.data, satisfaction_level_id = golf_log_form.satisfaction.data, user_id=current_user.id)
-        print(golf_log_form.action.data)
         points = calculate_points(golf_log)
+        golf_log.points = points
         db.session.add(golf_log)
         db.session.commit()
 
