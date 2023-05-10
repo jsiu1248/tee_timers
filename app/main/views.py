@@ -849,9 +849,16 @@ def golf_log_form():
     golf_log_form = GolfLogForm()
     if golf_log_form.validate_on_submit():
         # save post to database
+        action = Action.query.filter_by(action=golf_log_form.action.data).first()
+        satisfaction = Satisfaction.query.filter_by(satisfaction=golf_log_form.satisfaction.data).first()
         golf_log = GolfLog(action_id = golf_log_form.action.data, satisfaction_level_id = golf_log_form.satisfaction.data, user_id=current_user.id)
+        db.session.add(golf_log)
+        db.session.commit()
         points = calculate_points(golf_log)
+        print(golf_log_form.action.data)
+        print(golf_log_form.satisfaction.data)
         golf_log.points = points
+        print(golf_log.points)
         db.session.add(golf_log)
         db.session.commit()
 
