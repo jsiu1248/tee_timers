@@ -817,6 +817,21 @@ sender_id = current_user.id, recipient_id = user.id)
 def leaderboard():
     return render_template('leaderboard.html')
 
+def get_leaderboard(golf_logs, filter_func):
+    # Create a dictionary to store the total points for each user
+    user_points = {}
+    for log in filter_func(golf_logs):
+        if log.user_id not in user_points:
+            user_points[log.user_id] = calculate_points(log)
+        else:
+            user_points[log.user_id] += calculate_points(log)
+    
+    # Sort the user points in descending order
+    sorted_user_points = sorted(user_points.items(), key=lambda x: x[1], reverse=True)
+    
+    return sorted_user_points
+
+
 @main.route('/golf_log', methods=["GET","POST"])
 @login_required
 def golf_log():
@@ -861,7 +876,6 @@ def golf_log_form():
         print(golf_log.points)
         db.session.add(golf_log)
         db.session.commit()
-
         # Calculate points for golf log
         flash('Golf log submitted successfully!', 'success')
         flash(f'You earned {points} points for this activity!', 'success')
