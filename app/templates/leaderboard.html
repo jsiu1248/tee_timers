@@ -3,4 +3,25 @@
 
 {% block content %}
 {{super()}}
+<h1>18-Hole Leaderboard</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Username</th>
+      <th>Total Points</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for rank, user_points in sorted_user_points %}
+      {# {% if user %} #}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ users[loop.index-1].username }}</td>
+            <td>{{ user_points }}</td>
+        </tr>
+      {# {% endif %} #}
+    {% endfor %}
+  </tbody>
+</table>
 {%endblock content %}

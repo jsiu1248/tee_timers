@@ -839,9 +839,10 @@ def leaderboard_18holes():
     # Filter the logs to only include 18-hole games
     filter_func = lambda logs: [log for log in logs if log.action_id == 2]
     sorted_user_points = get_leaderboard(golf_logs, filter_func)
-
+    print(sorted_user_points)
+    users = [User.query.get(user_id) for user_id, _ in sorted_user_points]
     # Render the leaderboard template with the sorted user points
-    return render_template('leaderboard.html', title='18 Hole Leaderboard', sorted_user_points=sorted_user_points)
+    return render_template('leaderboard.html', title='18 Hole Leaderboard', sorted_user_points=sorted_user_points, users = users)
 
 @main.route('/golf_log', methods=["GET","POST"])
 @login_required
