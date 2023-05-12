@@ -23,6 +23,7 @@
     <div class="tab-content">
         <div class="tab-pane active" id="total">
             <h1 class="text-center">Total Leaderboard</h1>
+            {{ url_for('main.leaderboard_total')}}
             {{ macros.leaderboard_table(sorted_user_points, users) }}
         </div>
         <div class="tab-pane" id="courses">
