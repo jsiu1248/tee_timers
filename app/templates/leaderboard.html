@@ -10,29 +10,29 @@
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" href="#tab1">Total</a>
+            <a class="nav-link active" href="{{ url_for('main.leaderboard_total')}}">Total</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#tab2">Course</a>
+            <a class="nav-link" href="{{ url_for('main.leaderboard_courses')}}">Course</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#tab3">Practice</a>
+            <a class="nav-link" href="{{ url_for('main.leaderboard_practice')}}">Practice</a>
         </li>
     </ul>
 
     <div class="tab-content">
-        <div class="tab-pane active" id="tab1">
+        <div class="tab-pane active" id="total">
             <h1 class="text-center">Total Leaderboard</h1>
             {{ macros.leaderboard_table(sorted_user_points, users) }}
-            </div>
-            <div class="tab-pane" id="tab2">
-                <h1 class="text-center">Courses Leaderboard</h1>
-                {{ macros.leaderboard_table(sorted_user_points, users) }}
-            </div>
-            <div class="tab-pane" id="tab3">
-                <h1 class="text-center">Practice Leaderboard</h1>
-                {{ macros.leaderboard_table(sorted_user_points, users) }}
-            
+        </div>
+        <div class="tab-pane" id="courses">
+            <h1 class="text-center">Courses Leaderboard</h1>
+            {{ macros.leaderboard_table(sorted_user_points, users) }}
+        </div>
+        <div class="tab-pane" id="practice">
+            <h1 class="text-center">Practice Leaderboard</h1>
+            {{ macros.leaderboard_table(sorted_user_points, users) }}
+
         </div>
     </div>
     {%endblock content %}

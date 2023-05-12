@@ -812,10 +812,10 @@ sender_id = current_user.id, recipient_id = user.id)
 #     form.post.data = post.description
 #     return render_template('post.html', form=form)
 
-@main.route('/leaderboard')
-@login_required
-def leaderboard():
-    return render_template('leaderboard.html')
+# @main.route('/leaderboard')
+# @login_required
+# def leaderboard():
+#     return render_template('leaderboard.html')
 
 def get_leaderboard(golf_logs, filter_func):
     # Create a dictionary to store the total points for each user
