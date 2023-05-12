@@ -836,9 +836,9 @@ def leaderboard_courses():
     # Get all golf logs
     golf_logs = GolfLog.query.all()
 
-
+    course_actions = [1,2,7]
     # Filter the logs to only include 18-hole games
-    filter_func = lambda logs: [log for log in logs if log.action_id == 2]
+    filter_func = lambda logs: [log for log in logs if log.action_id in course_actions]
     sorted_user_points = get_leaderboard(golf_logs, filter_func)
     users = [User.query.get(user_id) for user_id, _ in sorted_user_points]
     # Render the leaderboard template with the sorted user points
