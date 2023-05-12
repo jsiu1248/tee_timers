@@ -837,12 +837,40 @@ def leaderboard_courses():
     golf_logs = GolfLog.query.all()
 
     course_actions = [1,2,7]
-    # Filter the logs to only include 18-hole games
+    # Filter the logs to only include courses
     filter_func = lambda logs: [log for log in logs if log.action_id in course_actions]
     sorted_user_points = get_leaderboard(golf_logs, filter_func)
     users = [User.query.get(user_id) for user_id, _ in sorted_user_points]
     # Render the leaderboard template with the sorted user points
-    return render_template('leaderboard.html', title='18 Hole Leaderboard', sorted_user_points=sorted_user_points, users = users)
+    return render_template('leaderboard.html', title='Courses', sorted_user_points=sorted_user_points, users = users)
+
+@main.route('/leaderboard/practice')
+def leaderboard_practice():
+    # Get all golf logs
+    golf_logs = GolfLog.query.all()
+
+    practice_actions = [3,4,5,6]
+    # Filter the logs to only include practice
+    filter_func = lambda logs: [log for log in logs if log.action_id in practice_actions]
+    sorted_user_points = get_leaderboard(golf_logs, filter_func)
+    users = [User.query.get(user_id) for user_id, _ in sorted_user_points]
+    # Render the leaderboard template with the sorted user points
+    return render_template('leaderboard.html', title='Practice', sorted_user_points=sorted_user_points, users = users)
+
+@main.route('/leaderboard/total')
+def leaderboard_total():
+    # Get all golf logs
+    golf_logs = GolfLog.query.all()
+
+    total_actions = list(range(1, 10))
+    # Filter the logs to only include total
+    filter_func = lambda logs: [log for log in logs if log.action_id in total_actions]
+    sorted_user_points = get_leaderboard(golf_logs, filter_func)
+    users = [User.query.get(user_id) for user_id, _ in sorted_user_points]
+    # Render the leaderboard template with the sorted user points
+    return render_template('leaderboard.html', title='Total', sorted_user_points=sorted_user_points, users = users)
+
+
 
 @main.route('/golf_log', methods=["GET","POST"])
 @login_required
