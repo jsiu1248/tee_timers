@@ -10,8 +10,6 @@
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            {# {% if statement title matches then put the active below and then %} 
-            array? or inline expressions, {{ title == 'Total' && 'active' }} {{ 'active' if title == 'Course' else '' }} #}
             <a class="nav-link {{ ' active' if title == 'Total' else ''}}" href="{{ url_for('main.leaderboard_total')}}">Total</a>
         </li>
         <li class="nav-item">
