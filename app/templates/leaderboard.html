@@ -10,27 +10,29 @@
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" href="{{ url_for('main.leaderboard_total')}}">Total</a>
+            {# {% if statement title matches then put the active below and then %} 
+            array? or inline expressions, {{ title == 'Total' && 'active' }} {{ 'active' if title == 'Course' else '' }} #}
+            <a class="nav-link {{ ' active' if title == 'Total' else ''}}" href="{{ url_for('main.leaderboard_total')}}">Total</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('main.leaderboard_courses')}}">Course</a>
+            <a class="nav-link {{ ' active' if title == 'Courses' else ''}}" href="{{ url_for('main.leaderboard_courses')}}">Course</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('main.leaderboard_practice')}}">Practice</a>
+            <a class="nav-link {{ ' active' if title == 'Practice' else ''}}" href="{{ url_for('main.leaderboard_practice')}}">Practice</a>
         </li>
     </ul>
 
     <div class="tab-content">
-        <div class="tab-pane active" id="total">
+        <div class="tab-pane {{ ' active' if title == 'Total' else ''}}" id="total">
             <h1 class="text-center">Total Leaderboard</h1>
             {{ url_for('main.leaderboard_total')}}
             {{ macros.leaderboard_table(sorted_user_points, users) }}
         </div>
-        <div class="tab-pane" id="courses">
+        <div class="tab-pane {{ ' active' if title == 'Courses' else ''}}" id="courses">
             <h1 class="text-center">Courses Leaderboard</h1>
             {{ macros.leaderboard_table(sorted_user_points, users) }}
         </div>
-        <div class="tab-pane" id="practice">
+        <div class="tab-pane {{ ' active' if title == 'Practice' else ''}}" id="practice">
             <h1 class="text-center">Practice Leaderboard</h1>
             {{ macros.leaderboard_table(sorted_user_points, users) }}
 
