@@ -723,6 +723,15 @@ class Badge(db.Model):
     criteria = db.Column(db.String(256), nullable=False)
 
      # Relationships and Backrefs
+    @staticmethod
+    def insert_badge():
+        "adding badge lookup to database"
+        # load data in json
+        data = []
+        for badge in data:
+                badge = Badge(badge = badge)
+                db.session.add(badge)
+        db.session.commit()
 
     
 
