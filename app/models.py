@@ -733,7 +733,31 @@ class Badge(db.Model):
                 db.session.add(badge)
         db.session.commit()
 
-    
+    def generate_badge_message(action, count):
+        achievements = {
+            'Play 9 Holes': {
+                'image': 'badge1.png',
+                'thresholds': [1, 5, 25, 100, 250, 1000],
+                'levels': ['Beginner', 'Amateur', 'Intermediate', 'Advanced', 'Expert', 'Master']
+            },}
+
+        if action in achievements:
+            achievement = achievements[action]
+            image_path = achievement['image']
+
+            # Find the highest threshold that is less than or equal to the current count
+            highest_threshold = max(filter(lambda t: t <= count, achievement['thresholds']))
+
+            message = f"{action} {count} times!"
+            if highest_threshold:
+                index = achievement['thresholds'].index(highest_threshold)
+                level = achievement['levels'][index]
+                message += f" You've reached the {highest_threshold} milestone and achieved the {level} level!"
+
+            return image_path, message
+
+        # Return None if the action is not associated with any achievement
+        return None, None
 
 # Create a user-badges/achievements table to store the badges/achievements earned by each user
 class UserBadge(db.Model):
