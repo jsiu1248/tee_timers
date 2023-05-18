@@ -740,6 +740,30 @@ class Badge(db.Model):
         achievements = {
             'Play 9 Holes': {
                 'image': 'badge1.png',
+            }, 
+            'Play 18 Holes': {
+                'image': 'badge2.png',
+            }, 
+            'Practice at Range': {
+                'image': 'badge3.png',
+            }, 
+            'Practice on Green': {
+                'image': 'badge4.png',
+            }, 
+            'Practice at Home': {
+                'image': 'badge5.png',
+            }, 
+            'Golf Lesson': {
+                'image': 'badge6.png',
+            }, 
+            'Play Golf Tournament': {
+                'image': 'badge7.png',
+            }, 
+            'New Equipment/Fitting': {
+                'image': 'badge8.png',
+            }, 
+            'Meditate': {
+                'image': 'badge9.png',
             }}
 
         if action in achievements:
