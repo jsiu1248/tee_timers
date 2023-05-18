@@ -734,12 +734,13 @@ class Badge(db.Model):
         db.session.commit()
 
     def generate_badge_message(action, count):
+        thresholds = [1, 5, 25, 100, 250, 1000]
+        levels = ['Beginner', 'Amateur', 'Intermediate', 'Advanced', 'Expert', 'Master']
+
         achievements = {
             'Play 9 Holes': {
                 'image': 'badge1.png',
-                'thresholds': [1, 5, 25, 100, 250, 1000],
-                'levels': ['Beginner', 'Amateur', 'Intermediate', 'Advanced', 'Expert', 'Master']
-            },}
+            }}
 
         if action in achievements:
             achievement = achievements[action]
