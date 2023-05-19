@@ -733,7 +733,10 @@ class Badge(db.Model):
                 db.session.add(badge)
         db.session.commit()
 
-    def generate_badge_message(action, count):
+    def generate_badge_data(action, count):
+        """
+        Create the badge data.
+        """
         thresholds = [1, 5, 25, 100, 250, 1000]
         levels = ['Beginner', 'Amateur', 'Intermediate', 'Advanced', 'Expert', 'Master']
 
@@ -765,7 +768,8 @@ class Badge(db.Model):
             'Meditate': {
                 'image': 'badge9.png',
             }}
-
+        
+        # checking if action is in achievements.
         if action in achievements:
             achievement = achievements[action]
             image_path = achievement['image']
