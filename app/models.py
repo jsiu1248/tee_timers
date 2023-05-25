@@ -788,8 +788,10 @@ class Badge(db.Model):
         # Return None if the action is not associated with any achievement
         return None, None
 
-# Create a user-badges/achievements table to store the badges/achievements earned by each user
 class UserBadge(db.Model):
+    """
+    Create a user-badges/achievements table to store the badges/achievements earned by each user
+    """
     __tablename__ = 'user_badges'
     id = db.Column(db.Integer, primary_key=True, unique = True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
