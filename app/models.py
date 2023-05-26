@@ -714,8 +714,10 @@ class Support(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
 
-# Create a database table to store the badge/achievement information
 class Badge(db.Model):
+    """
+    Table to store the badge/achievement information
+    """
     id = db.Column(db.Integer, primary_key=True, unique = True)
     name = db.Column(db.String(64), nullable=False, unique = True)
     description = db.Column(db.String(256), nullable=False)
