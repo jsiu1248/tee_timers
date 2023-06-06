@@ -821,6 +821,9 @@ class GolfLog(db.Model):
 def calculate_points(golf_log):
     # if not golf_log or not golf_log.action or not golf_log.satisfaction:
     #     return 1
+    """
+    Calculating points with a dictionary of multipliers and a dictionary for actions.
+    """
     # Define dictionary of multipliers for satisfaction levels
     satisfaction_multipliers = {
         'Terrible': 0.35,
