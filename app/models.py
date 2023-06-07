@@ -731,9 +731,22 @@ class Badge(db.Model):
         # load data in json
         data = []
         for badge in data:
-                badge = Badge(badge = badge)
-                db.session.add(badge)
-        db.session.commit()
+            image_path, message = Badge.generate_badge_data(badge['action'], badge['count'])
+            print(f"Action: {badge['action']}, Count: {badge['count']}, Image Path: {image_path}, Message: {message}")
+
+        # Create a new Badge object and set the attributes
+        badge_obj = Badge(
+            name=badge['name'],
+            description=badge['description'],
+            image_path=image_path,
+            criteria=message
+        )
+
+        # Add the badge object to the session
+        db.session.add(badge_obj)
+
+    # Commit the changes to the database
+    db.session.commit()
 
     def generate_badge_data(action, count):
         """
@@ -771,6 +784,15 @@ class Badge(db.Model):
                 'image': 'badge9.png',
             }}
         
+        for action, achievement in achievements.items():
+                    image_path, message = generate_badge_data(action, count)
+                    
+                    if image_path and message:
+                        print(f"Action: {action}")
+                        print(f"Image Path: {image_path}")
+                        print(f"Message: {message}")
+                        print("------------------------")
+
         # checking if action is in achievements.
         if action in achievements:
             achievement = achievements[action]
