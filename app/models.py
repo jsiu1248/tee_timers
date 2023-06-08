@@ -784,14 +784,6 @@ class Badge(db.Model):
                 'image': 'badge9.png',
             }}
         
-        for action, achievement in achievements.items():
-                    image_path, message = generate_badge_data(action, count)
-                    
-                    if image_path and message:
-                        print(f"Action: {action}")
-                        print(f"Image Path: {image_path}")
-                        print(f"Message: {message}")
-                        print("------------------------")
 
         # checking if action is in achievements.
         if action in achievements:
