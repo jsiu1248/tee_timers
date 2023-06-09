@@ -728,25 +728,26 @@ class Badge(db.Model):
     @staticmethod
     def insert_badge():
         "adding badge lookup to database"
-        # load data in json
+        # load data in json        
         data = []
         for badge in data:
             image_path, message = Badge.generate_badge_data(badge['action'], badge['count'])
             print(f"Action: {badge['action']}, Count: {badge['count']}, Image Path: {image_path}, Message: {message}")
 
         # Create a new Badge object and set the attributes
-        badge_obj = Badge(
-            name=badge['name'],
-            description=badge['description'],
-            image_path=image_path,
-            criteria=message
-        )
+        # badge_obj = Badge(
+        #     name=badge['name'],
+        #     description=badge['description'],
+        #     image_path=image_path,
+        #     criteria=message
+        # )
 
         # Add the badge object to the session
-        db.session.add(badge_obj)
+        # db.session.add(badge_obj)
 
-    # Commit the changes to the database
-    db.session.commit()
+        # Commit the changes to the database
+        # db.session.commit()
+
 
     def generate_badge_data(action, count):
         """
